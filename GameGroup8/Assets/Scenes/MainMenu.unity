@@ -903,7 +903,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cdf4da0bb979c14e8450ea5142587e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OptionsScreen: {fileID: 0}
   StartGame: {fileID: 737062036}
   ExitGame: {fileID: 1458152936}
   OpenOptions: {fileID: 874345835}
