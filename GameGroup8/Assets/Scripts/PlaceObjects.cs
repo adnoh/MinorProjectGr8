@@ -4,6 +4,7 @@ public class PlaceObjects : MonoBehaviour {
 
     private GameObject lastHitObject;
     private Material originalMat;
+    private bool pause;
 
     public Material hoverMat;
     public GameObject placable;
@@ -15,12 +16,41 @@ public class PlaceObjects : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-       Ray Straal = Camera.main.ScreenPointToRay(Input.mousePosition);
-       RaycastHit hit;
-       if (Physics.Raycast(Straal,out hit, 1000)&&hit.collider.gameObject.CompareTag("emptyPlane")) 
+        
+        MenuControl();
+        if (pause)
         {
-            
-            if(lastHitObject)
+            BuildTurrets();
+        }
+        else
+        {
+            ReturnColour();
+        }
+    }
+
+    void ReturnColour()
+    {
+        if (lastHitObject)
+        {
+            lastHitObject.GetComponent<Renderer>().material = originalMat;
+            lastHitObject = null;
+        }
+    }
+
+    void MenuControl()
+    {
+        pause = Controls.getPause();
+    }
+
+    void BuildTurrets()
+    {
+        Ray Straal = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(Straal, out hit, 1000) && hit.collider.gameObject.CompareTag("emptyPlane"))
+        {
+
+            if (lastHitObject)
             {
                 lastHitObject.GetComponent<Renderer>().material = originalMat;
             }
@@ -28,18 +58,14 @@ public class PlaceObjects : MonoBehaviour {
             originalMat = lastHitObject.GetComponent<Renderer>().material;
             lastHitObject.GetComponent<Renderer>().material = hoverMat;
         }
-       else
+        else
         {
-            if(lastHitObject)
-            {
-                lastHitObject.GetComponent<Renderer>().material = originalMat;
-                lastHitObject = null;
-            }
+            ReturnColour();
         }
 
-        if (Input.GetMouseButtonDown(0)&&lastHitObject)
+        if (Input.GetMouseButtonDown(0) && lastHitObject)
         {
-            if(lastHitObject.tag == "emptyPlane")
+            if (lastHitObject.tag == "emptyPlane")
             {
                 Vector3 plaats = lastHitObject.transform.position;
                 plaats.y = 0.5f;
@@ -49,3 +75,4 @@ public class PlaceObjects : MonoBehaviour {
         }
     }
 }
+

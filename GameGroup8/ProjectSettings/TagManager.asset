@@ -6,6 +6,7 @@ TagManager:
   tags:
   - emptyPlane
   - occupiedPlane
+  - Gate
   layers:
   - Default
   - TransparentFX

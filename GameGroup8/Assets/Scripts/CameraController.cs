@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour {
 	public GameObject player;
 	
 	private Vector3 offset;
+    private bool BaseEnter;
 	
 	void Start ()
 	{
@@ -14,6 +15,14 @@ public class CameraController : MonoBehaviour {
 	
 	void LateUpdate ()
 	{
-		transform.position = player.transform.position + offset;
+        BaseEnter = Controls.getPause();
+
+        if (!BaseEnter)
+        {
+            transform.position = player.transform.position + offset;
+        } else if (BaseEnter)
+        {
+            transform.position = new Vector3(0, 20, -3);
+        }
 	}
 }

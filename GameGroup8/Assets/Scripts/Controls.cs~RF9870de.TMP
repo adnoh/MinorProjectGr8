@@ -6,18 +6,15 @@ public class Controls : MonoBehaviour {
 	public float speed;
 	public float RotateSpeed = 30f;
     public GameObject Gate;
-    public GameObject BuildMenu;
 	
 	private Rigidbody rb;
-    private static bool pause;
-    private Vector3 playerPos;
+    private bool pause;
 
 	
 	void Start ()
 	{
 		rb = GetComponent<Rigidbody>();
         pause = false;
-        BuildMenu.SetActive(false);
 	}
 	void Update()
 	{
@@ -28,19 +25,9 @@ public class Controls : MonoBehaviour {
 			transform.Rotate(Vector3.up * RotateSpeed * Time.deltaTime);
 		}
 
-        if (Input.GetButtonDown("Jump")&&Vector3.Distance(Gate.transform.position,transform.position)<2)
+        if (Input.GetButtonDown("Jump")&&Vector3.Distance(Gate.transform.position,this.transform.position)<2)
         {
             pause = !pause;
-            if (pause)
-            {
-                playerPos = transform.position;
-                transform.position = new Vector3(0, -0.501f, -5.2f);
-                BuildMenu.SetActive(true);
-            } else if (!pause)
-            {
-                transform.position = playerPos;
-                BuildMenu.SetActive(false);
-            }
         }
 
         if (pause)
@@ -65,7 +52,7 @@ public class Controls : MonoBehaviour {
 		transform.Translate(speed*moveHorizontal,0.0f,speed*moveVertical,Space.World);
 	}
 
-    static public bool getPause()
+    bool getPause()
     {
         return pause;
     }
