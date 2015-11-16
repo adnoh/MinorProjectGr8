@@ -8,6 +8,7 @@ public class Controls : MonoBehaviour {
 	public float RotateSpeed = 30f;
 	
 	private Rigidbody rb;
+
 	
 	void Start ()
 	{
