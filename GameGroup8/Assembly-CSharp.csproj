@@ -55,7 +55,13 @@
      <Compile Include="Assets\Scripts\pathfinding algorithm\Grid.cs" />
      <Compile Include="Assets\Scripts\pathfinding algorithm\Node.cs" />
      <Compile Include="Assets\Scripts\pathfinding algorithm\Pathfinding.cs" />
+<<<<<<< HEAD
      <Compile Include="Assets\Spawner.cs" />
+=======
+ <Reference Include="UnityEngine.Advertisements">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
+ </Reference>
+>>>>>>> f97217ed135574265b6b7b9a0779488f6d3e46f4
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

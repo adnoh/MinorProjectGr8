@@ -5,19 +5,16 @@ public class EnemyController : MonoBehaviour {
 
 	public float speed;
 
-	public bool isDead;
-
 	private Rigidbody rb;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
-		isDead = false;
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		transform.Translate (getDirection ());
+		//transform.Translate (getDirection ());
 	}
 
 	Vector3 getDirection() {
@@ -39,5 +36,6 @@ public class EnemyController : MonoBehaviour {
 		}
 		return direction;
 	}
+
 	
 }
