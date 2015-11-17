@@ -7,6 +7,7 @@ public class Controls : MonoBehaviour {
 	public float RotateSpeed = 30f;
     public GameObject Gate;
     public GameObject BuildMenu;
+    public GameObject BackButton;
 	
 	private Rigidbody rb;
     private static bool pause;
@@ -35,11 +36,11 @@ public class Controls : MonoBehaviour {
             {
                 playerPos = transform.position;
                 transform.position = new Vector3(0, -0.501f, -5.2f);
-                BuildMenu.SetActive(true);
             } else if (!pause)
             {
                 transform.position = playerPos;
                 BuildMenu.SetActive(false);
+                BackButton.SetActive(false);
             }
         }
 
