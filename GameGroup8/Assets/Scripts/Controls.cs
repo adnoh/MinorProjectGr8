@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Controls : MonoBehaviour {
@@ -7,12 +8,25 @@ public class Controls : MonoBehaviour {
 
 	public float RotateSpeed = 30f;
 	
-	private Rigidbody rb;
+	public Text winText;
 
+	public Text countText;
+
+	private int count;
+
+	private int needed;
 	
 	void Start ()
 	{
-		rb = GetComponent<Rigidbody>();
+	
+
+
+		needed = Spawner.amount;
+		Debug.Log(needed);
+		count = 0;
+		countText.text = "Count: " + count.ToString ();
+		winText.text = "";
+		//rb = GetComponent<Rigidbody>();
 	}
 	void Update()
 	{
@@ -35,5 +49,24 @@ public class Controls : MonoBehaviour {
 		//Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 		
 		transform.Translate(speed*moveHorizontal,0.0f,speed*moveVertical,Space.World);
+
+
 	}
+
+
+	void OnTriggerEnter(Collider other) 
+	{
+		if (other.gameObject.CompareTag ("Pick-Up"))
+		{
+			other.gameObject.SetActive (false);
+			count = count + 1;
+			countText.text = "Count: " + count.ToString ();
+			if (count >= needed)
+			{
+				winText.text = "You Win!";
+			}
+		}
+	}
+
+
 }
