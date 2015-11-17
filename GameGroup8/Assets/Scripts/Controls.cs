@@ -6,6 +6,10 @@ public class Controls : MonoBehaviour {
 	public float speed;
 
 	public float RotateSpeed = 30f;
+
+	public static float EnemyHealth = 100;
+	public static string EnemyDescription = "Normal Enemy";
+	public static float WeaponDamage = 25;
 	
 	private Rigidbody rb;
 
@@ -14,6 +18,7 @@ public class Controls : MonoBehaviour {
 	{
 		rb = GetComponent<Rigidbody>();
 	}
+
 	void Update()
 	{
 		if(Input.GetKey(KeyCode.Q)){
