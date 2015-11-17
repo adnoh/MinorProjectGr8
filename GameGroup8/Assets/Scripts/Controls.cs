@@ -13,6 +13,10 @@ public class Controls : MonoBehaviour {
     private static bool pause;
     private Vector3 playerPos;
 
+	public static float EnemyHealth = 100;
+	public static string EnemyDescription = "Normal Enemy";
+	public static float WeaponDamage = 25;
+
 	
 	void Start ()
 	{
