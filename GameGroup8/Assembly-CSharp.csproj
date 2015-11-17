@@ -45,10 +45,12 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\BackBtnBuild.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\Controls.cs" />
      <Compile Include="Assets\Scripts\EnemyController.cs" />
      <Compile Include="Assets\Scripts\MenuScript.cs" />
+     <Compile Include="Assets\Scripts\PlaceObjects.cs" />
      <Compile Include="Assets\Scripts\PlayerAttacker.cs" />
      <Compile Include="Assets\Scripts\pathfinding algorithm\Grid.cs" />
      <Compile Include="Assets\Scripts\pathfinding algorithm\Node.cs" />
