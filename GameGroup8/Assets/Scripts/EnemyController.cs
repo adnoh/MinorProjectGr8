@@ -22,9 +22,8 @@ public class EnemyController : MonoBehaviour {
 
 	Vector3 getDirection() {
 
-		int i = Random.Range (0, 5);;
+		int i = Random.Range (0, 5);
 		Vector3 direction = new Vector3 (0, 0, 0);
-		print (i);
 
 		if(i <= 1){
 			direction = new Vector3(speed, 0f, 0f);
