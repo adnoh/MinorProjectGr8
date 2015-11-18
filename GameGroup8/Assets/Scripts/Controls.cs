@@ -33,13 +33,14 @@ public class Controls : MonoBehaviour {
 			transform.Rotate(Vector3.up * RotateSpeed * Time.deltaTime);
 		}
 
-        if (Input.GetButtonDown("Jump")&&Vector3.Distance(Gate.transform.position,transform.position)<2)
+        if (Input.GetButtonDown("Jump")&&Vector3.Distance(Gate.transform.position,transform.position)<3)
         {
+            Debug.Log("Space");
             pause = !pause;
             if (pause)
             {
                 playerPos = transform.position;
-                transform.position = new Vector3(0, -0.501f, -5.2f);
+                transform.position = new Vector3(0, -0.501f, -11.3f);
             } else if (!pause)
             {
                 transform.position = playerPos;

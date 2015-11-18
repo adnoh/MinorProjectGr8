@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour {
             transform.position = player.transform.position + offset;
         } else if (BaseEnter)
         {
-            transform.position = new Vector3(0, 20, -3);
+            transform.position = new Vector3(0, 20, -9);
         }
 	}
 }
