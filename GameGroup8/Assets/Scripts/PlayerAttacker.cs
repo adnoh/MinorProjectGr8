@@ -30,9 +30,9 @@ public class PlayerAttacker : MonoBehaviour {
 		if(Input.GetKeyDown (KeyCode.T) && enemy != null){
 
 			enemyController.setHealth(enemyController.getHealth () - 25);
-			print(enemyController.getHealth());
 			enemyHealthBar.text = "Health = " + enemyController.getHealth ();
 			if(enemyController.getHealth () <= 0){
+				EnemySpawner.enemiesDefeaten++;
 				Destroy(enemy);
 				showEnemyDescription = false;
 			}

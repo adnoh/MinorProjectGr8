@@ -18,7 +18,7 @@ public class EnemyFactory {
 	}
 
 	public Enemy getNormalEnemy() {
-		return new Enemy (1, 100, 10, 0.5f);
+		return new Enemy (1, 100, 10, 5f);
 	}
 
 	public Enemy getBetterEnemy() {
