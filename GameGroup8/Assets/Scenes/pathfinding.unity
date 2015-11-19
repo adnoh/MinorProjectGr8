@@ -443,8 +443,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccec3e1e59c43c4597f55fb891c2855, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 394947251}
-  Seeker: {fileID: 2125058310}
   WallMask:
     serializedVersion: 2
     m_Bits: 256

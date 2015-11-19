@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyFactory {
 
-	private EnemyFactory() {
+	public EnemyFactory() {
 	}
 
 
@@ -18,11 +18,11 @@ public class EnemyFactory {
 	}
 
 	public Enemy getNormalEnemy() {
-		return new Enemy (1, 100, 10, 0.5);
+		return new Enemy (1, 100, 10, 0.5f);
 	}
 
 	public Enemy getBetterEnemy() {
-		return new Enemy (2, 200, 15, 0.25);
+		return new Enemy (2, 200, 15, 0.25f);
 	}
 
 }
