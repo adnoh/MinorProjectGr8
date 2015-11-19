@@ -4,13 +4,33 @@ using System.Collections;
 public class Node {
 
     public bool Walkable;
-    public Vector3 Position;
+    public Vector3 WorldPosition;
 
-    public Node(bool wlk, Vector3 pos)
+	// Grid Position
+    public int gridX;
+    public int gridZ;
+
+    public int gCost;  // movement cost
+    public int hCost;  // cost to target
+    public Node parent;
+
+    // constructor
+    public Node(bool wlk, Vector3 pos, int x, int z)
     {
         Walkable = wlk;
-        Position = pos;
+        WorldPosition = pos;
+        gridX = x;
+        gridZ = z;
     }
 
- }
+    // return fCost = total cost
+    public int fCost
+    {
+        get
+        {
+            return hCost + gCost;
+        }
+    }
+
+}
 
