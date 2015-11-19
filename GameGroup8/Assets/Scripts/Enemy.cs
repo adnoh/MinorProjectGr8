@@ -6,9 +6,9 @@ public class Enemy {
 	public int level;
 	public int maxHealth;
 	public int attackPower;
-	public double walkingSpeed;
+	public float walkingSpeed;
 
-	public Enemy(int level, int maxHealth, int attackPower, double walkingSpeed){
+	public Enemy(int level, int maxHealth, int attackPower, float walkingSpeed){
 		this.level = level;
 		this.maxHealth = maxHealth;
 		this.attackPower = attackPower;
@@ -27,7 +27,7 @@ public class Enemy {
 		return attackPower;
 	}
 
-	public double getWalkingSpeed() {
+	public float getWalkingSpeed() {
 		return walkingSpeed;
 	}
 

@@ -3,38 +3,27 @@ using System.Collections;
 
 public class EnemyController : MonoBehaviour {
 
-
-	private EnemyFactory enemyFactory = new EnemyFactory();
 	public Enemy enemy;
-
-	public int level;
-	public int maxHealth;
-	public int health;
-	public int attackPower;
-	public double speed;
+	private EnemyFactory enemyFactory;
+	private Vector3 position;
+	public float speed;
 
 	private Rigidbody rb;
 
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
-		enemy = enemyFactory.getNormalEnemy ();
-		level = enemy.getLevel ();
-		speed = enemy.getWalkingSpeed ();
-		maxHealth = enemy.getMaxHealth ();
-		health = enemy.getMaxHealth ();
-		attackPower = enemy.getAttackPower ();
-	}
+		//enemy = enemyFactory.getEnemy ("normal");
+		//speed = enemy.getWalkingSpeed ();
 
-	public int getHealth(){
-		return health;
+		Debug.Log (position);
 	}
+	void FixedUpdate ()
+		
+		
+	{
+		position = Controls.getposition ();
+		transform.position = Vector3.MoveTowards(transform.position, position,   speed*Time.deltaTime);
 
-	public void setHealth(int health){
-		this.health = health;
-	}
-
-	public int getLevel() {
-		return level;
 	}
 
 
