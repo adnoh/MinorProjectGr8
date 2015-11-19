@@ -168,7 +168,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 5347427}
   m_LocalRotation: {x: .642787695, y: 0, z: 0, w: .766044378}
-  m_LocalPosition: {x: 1.91999996, y: 10.0799999, z: .460000008}
+  m_LocalPosition: {x: 1.91999996, y: 100.080002, z: .460000008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -193,15 +193,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5347427}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4330c74dafd675844aec10416ea6b635, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b75fb686e59d7e4aa0fa252923c780c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cube: {fileID: 171110, guid: 246468e56e16b8c4d848c2b64d2d9900, type: 2}
-  amount2: 10
+  amount2: 30
   minL: 10
   minR: -10
   maxL: 50
-  maxR: -50
+  maxR: 50
 --- !u!1 &54849629
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,11 +494,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 273503259}
   m_RootOrder: 4
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: .5, y: .5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!1 &241132786
 GameObject:
   m_ObjectHideFlags: 0
@@ -2193,11 +2193,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 273503259}
   m_RootOrder: 3
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: .5, y: .5}
+  m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: .5, y: .5}
 --- !u!114 &1912413374
 MonoBehaviour:
   m_ObjectHideFlags: 0

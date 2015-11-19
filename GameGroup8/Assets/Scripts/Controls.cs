@@ -13,6 +13,7 @@ public class Controls : MonoBehaviour {
 	private int count;
 	private int needed;
 	public Text winText;
+	public GameObject player;
 	
 	private Rigidbody rb;
     private static bool pause;
@@ -34,6 +35,7 @@ public class Controls : MonoBehaviour {
 		countText.text = "Count: " + count.ToString ();
 		winText.text = "";
 	}
+
 	void Update()
 	{
 		if(Input.GetKey(KeyCode.Q)){
@@ -73,12 +75,17 @@ public class Controls : MonoBehaviour {
 
 
 	{
+
+
 		float moveHorizontal = Input.GetAxis("Horizontal")*Time.deltaTime;
 		float moveVertical = Input.GetAxis ("Vertical")*Time.deltaTime;
 		
 		//Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 		
 		transform.Translate(speed*moveHorizontal,0.0f,speed*moveVertical,Space.World);
+
+		var playerPos = player.transform.position;
+		Debug.Log (playerPos);
 	}
 	void OnTriggerEnter(Collider other) 
 		{
