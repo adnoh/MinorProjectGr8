@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Controls : MonoBehaviour {
 	
@@ -8,6 +9,10 @@ public class Controls : MonoBehaviour {
     public GameObject Gate;
     public GameObject BuildMenu;
     public GameObject BackButton;
+	public Text countText;
+	private int count;
+	private int needed;
+	public Text winText;
 	
 	private Rigidbody rb;
     private static bool pause;
@@ -23,6 +28,11 @@ public class Controls : MonoBehaviour {
 		rb = GetComponent<Rigidbody>();
         pause = false;
         BuildMenu.SetActive(false);
+		needed = PSpawner.amount;
+		Debug.Log(needed);
+		count = 0;
+		countText.text = "Count: " + count.ToString ();
+		winText.text = "";
 	}
 	void Update()
 	{
@@ -70,6 +80,19 @@ public class Controls : MonoBehaviour {
 		
 		transform.Translate(speed*moveHorizontal,0.0f,speed*moveVertical,Space.World);
 	}
+	void OnTriggerEnter(Collider other) 
+		{
+				if (other.gameObject.CompareTag ("Pick-Up"))
+				{
+						other.gameObject.SetActive (false);
+						count = count + 1;
+						countText.text = "Count: " + count.ToString ();
+						if (count >= needed)
+			{
+								winText.text = "You Win!";
+							}
+					}
+			}
 
     static public bool getPause()
     {
