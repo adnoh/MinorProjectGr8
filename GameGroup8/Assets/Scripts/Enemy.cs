@@ -12,6 +12,7 @@ public class Enemy {
 		this.level = level;
 		this.maxHealth = maxHealth;
 		this.attackPower = attackPower;
+		this.walkingSpeed = walkingSpeed;
 	}
 
 	public int getLevel(){

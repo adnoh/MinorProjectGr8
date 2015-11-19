@@ -11,8 +11,11 @@ public class PlayerAttacker : MonoBehaviour {
 	public Text enemyHealthBar;
 
 	private GameObject enemy;
+
+	private EnemyController enemyController;
 	
 	void Start () {
+		enemyController = null;
 		showEnemyDescription = false;
 		enemyDescription.SetActive (false);
 		enemy = null;
@@ -20,35 +23,31 @@ public class PlayerAttacker : MonoBehaviour {
 
 	void Update () {
 		enemyDescription.SetActive (showEnemyDescription);
-		enemyDescriptionText.text = "Enemy: " + Controls.EnemyDescription;
-		enemyHealthBar.text = "Enemy. Health = " + Controls.EnemyHealth;
-		if(Input.GetKeyDown (KeyCode.T) && showEnemyDescription){
-			Controls.EnemyHealth -= Controls.WeaponDamage;
-			if(Controls.EnemyHealth <= 0){
+		if (enemyController != null) {
+			enemyDescriptionText.text = "Enemy Level: " + enemyController.getLevel ();
+			enemyHealthBar.text = "Health = " + enemyController.getHealth ();
+		}
+		if(Input.GetKeyDown (KeyCode.T) && enemy != null){
+
+			enemyController.setHealth(enemyController.getHealth () - 25);
+			print(enemyController.getHealth());
+			enemyHealthBar.text = "Health = " + enemyController.getHealth ();
+			if(enemyController.getHealth () <= 0){
 				Destroy(enemy);
 				showEnemyDescription = false;
 			}
 		}
-
 	}
 
 
 	void OnTriggerEnter(Collider col) {
-		if (col.gameObject.CompareTag ("Enemy") && enemy == null) {
-			Controls.EnemyHealth = 100;
-			Controls.EnemyDescription = "Normal Enemy";
-			showEnemyDescription = true;
-			enemy = col.gameObject;
-		} else if (col.gameObject.CompareTag ("Enemy1") && enemy == null) {
-			Controls.EnemyHealth = 200;
-			Controls.EnemyDescription = "Better Enemy";
-			showEnemyDescription = true;
-			enemy = col.gameObject;
-		}
+		enemyController = col.GetComponent<EnemyController> ();
+		enemy = col.gameObject;
+		showEnemyDescription = true;
 	}
 
 	void OnTriggerExit(Collider col) {
-		if (col.gameObject.CompareTag ("Enemy") || col.gameObject.CompareTag ("Enemy1")) {
+		if (col.gameObject.CompareTag ("Enemy")) {
 			showEnemyDescription = false;
 			enemy = null;
 		}

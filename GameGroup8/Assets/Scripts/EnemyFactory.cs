@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyFactory {
 
-	private EnemyFactory() {
+	public EnemyFactory() {
 	}
 
 
