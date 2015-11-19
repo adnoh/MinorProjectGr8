@@ -14,6 +14,7 @@ public class Controls : MonoBehaviour {
 	private int needed;
 	public Text winText;
 	public GameObject player;
+	private static Vector3 Currentposition;
 	
 	private Rigidbody rb;
     private static bool pause;
@@ -84,8 +85,9 @@ public class Controls : MonoBehaviour {
 		
 		transform.Translate(speed*moveHorizontal,0.0f,speed*moveVertical,Space.World);
 
-		var playerPos = player.transform.position;
-		Debug.Log (playerPos);
+		Vector3 playerPos = player.transform.position;
+		//Debug.Log (playerPos);
+		setposition (playerPos);
 	}
 	void OnTriggerEnter(Collider other) 
 		{
@@ -106,4 +108,10 @@ public class Controls : MonoBehaviour {
         return pause;
     }
 
+	void setposition(Vector3 here){
+		Currentposition = here;
+	}
+	public static Vector3 getposition(){
+		return Currentposition;
+	}
 }

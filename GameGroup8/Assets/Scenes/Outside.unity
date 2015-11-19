@@ -201,7 +201,7 @@ MonoBehaviour:
   minL: 10
   minR: -10
   maxL: 50
-  maxR: 50
+  maxR: -50
 --- !u!1 &54849629
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,13 +1206,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56175c07d2727364e8e2d0b3af975e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 10
   RotateSpeed: 90
   Gate: {fileID: 1905394258}
   BuildMenu: {fileID: 1605827763}
   BackButton: {fileID: 1370383040}
   countText: {fileID: 239913995}
   winText: {fileID: 1912413374}
+  player: {fileID: 1109298641}
 --- !u!23 &1109298644
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1472,6 +1473,10 @@ Prefab:
     - target: {fileID: 115198, guid: bf4bfe81ddf674f4c88243d2fb7cf0c6, type: 2}
       propertyPath: m_TagString
       value: Enemy1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416808, guid: bf4bfe81ddf674f4c88243d2fb7cf0c6, type: 2}
+      propertyPath: speed
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf4bfe81ddf674f4c88243d2fb7cf0c6, type: 2}
@@ -1873,6 +1878,10 @@ Prefab:
       propertyPath: m_Name
       value: Enemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 11416808, guid: bf4bfe81ddf674f4c88243d2fb7cf0c6, type: 2}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf4bfe81ddf674f4c88243d2fb7cf0c6, type: 2}
   m_IsPrefabParent: 0
@@ -2079,6 +2088,10 @@ Prefab:
     - target: {fileID: 485584, guid: bf4bfe81ddf674f4c88243d2fb7cf0c6, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416808, guid: bf4bfe81ddf674f4c88243d2fb7cf0c6, type: 2}
+      propertyPath: speed
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf4bfe81ddf674f4c88243d2fb7cf0c6, type: 2}
