@@ -20,16 +20,26 @@ public class Pathfinding : MonoBehaviour {
 	
     void FindPath(Vector3 StartPosition, Vector3 TargetPosition)
     {
-        Node startNode = grid.WorldPositionToNode(StartPosition);
+
+        Node startNode = grid.WorldPositionToNode(StartPosition);       
         Node targetNode = grid.WorldPositionToNode(TargetPosition);
         
+        // Set TargetNode
+        // Set SeekerNode
+        grid.TargetNode = targetNode;
+        grid.SeekerNode = startNode;
+        // print(targetNode.toString());
+        // print(startNode.toString());
+
         List<Node> openSet = new List<Node>();
         HashSet<Node> closedSet = new HashSet<Node>();
         openSet.Add(startNode);
 
+
         while (openSet.Count > 0)
         {
             Node currentNode = openSet[0];
+            grid.CurrentNode = currentNode;
 
             // loop through the openSet to find lowest fCost
             // if fcost is equal, look at hCost(distance to target)
@@ -40,6 +50,8 @@ public class Pathfinding : MonoBehaviour {
                 if (openSet[i].fCost < currentNode.fCost || openSet[i].fCost == currentNode.fCost && openSet[i].hCost < currentNode.hCost)
                 {
                     currentNode = openSet[i];
+                    // grid.CurrentNode = currentNode;
+                    // print(currentNode.toString());
                     
                 } 
             }
@@ -50,6 +62,8 @@ public class Pathfinding : MonoBehaviour {
             // if currentnode reached the target, return this node
             if (currentNode == targetNode)
             {
+
+                print("Target found");
                 BacktracePath(startNode, targetNode);
                 return;
             }

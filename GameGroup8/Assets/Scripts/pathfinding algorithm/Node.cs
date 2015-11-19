@@ -32,5 +32,10 @@ public class Node {
         }
     }
 
+    public string toString()  
+    {
+        return ("GridCoordinates:" + this.gridX + ", " + this.gridZ);
+    }
+
 }
 

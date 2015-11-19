@@ -9,8 +9,12 @@ using System.Collections.Generic;
 
 public class Grid : MonoBehaviour {
 
-    public Transform Target;
-    public Transform Seeker;
+
+    public Node SeekerNode;
+    public Node TargetNode;
+    public Node CurrentNode;
+    //public Transform Target;
+    //public Transform Seeker;
     public LayerMask WallMask;
     public Vector3 gridWorldSize;
     public float nodeRadius;
@@ -71,6 +75,7 @@ public class Grid : MonoBehaviour {
                 if (checkX >= 0 && checkX < gridSizeX && checkZ >= 0 && checkZ < gridSizeZ)
                 {
                     neighbours.Add(grid[checkX, checkZ]);
+                    //print("neighbours added");
                 }
             }
         }
@@ -100,10 +105,6 @@ public class Grid : MonoBehaviour {
         if (grid != null) {
 
             // 2 nodes that define target and seeker
-            Node SeekerNode = WorldPositionToNode(Seeker.position);
-            Node TargetNode = WorldPositionToNode(Target.position);
-
-
             foreach (Node n in grid)
             {
                 Gizmos.color = (n.Walkable) ? Color.white : Color.red;
@@ -122,13 +123,18 @@ public class Grid : MonoBehaviour {
                     Gizmos.color = Color.yellow;
                 }
 
+                if (CurrentNode == n)
+                {
+                    Gizmos.color = Color.magenta;
+                }
+
                 
                 if (path != null)
                 {
 
                     if (path.Contains(n))
                     {
-                        Gizmos.color = Color.black;
+                        Gizmos.color = Color.green;
                     }
                 }
                 
