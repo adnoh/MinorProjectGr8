@@ -153,7 +153,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 394947247}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.93000031, y: 1.92999995, z: -.0700000003}
+  m_LocalPosition: {x: -5.55999994, y: 0, z: -10.0600004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -385,7 +385,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1253622916}
   m_LocalRotation: {x: .169223472, y: -.646962762, z: .0066333618, w: .743477404}
-  m_LocalPosition: {x: -24.8899994, y: 2.67436218, z: 1.86000001}
+  m_LocalPosition: {x: -15.1499996, y: 2.67436218, z: -5.86999989}
   m_LocalScale: {x: 2, y: 1, z: 6}
   m_Children: []
   m_Father: {fileID: 1560860825}
@@ -398,6 +398,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1390739576}
+  - 114: {fileID: 1390739577}
   - 114: {fileID: 1390739578}
   m_Layer: 0
   m_Name: A* Pathfinding algorithm
@@ -418,6 +419,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!114 &1390739577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1390739575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8e4f6db92811b644b355983da59f825, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seeker: {fileID: 2125058310}
+  target: {fileID: 394947251}
 --- !u!114 &1390739578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,7 +443,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccec3e1e59c43c4597f55fb891c2855, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Seeker: {fileID: 2125058306}
+  Target: {fileID: 394947251}
+  Seeker: {fileID: 2125058310}
   WallMask:
     serializedVersion: 2
     m_Bits: 256
@@ -814,7 +829,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2125058306}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.95000005, y: .0900000036, z: -7.63000011}
+  m_LocalPosition: {x: 1, y: 0, z: -9.89999962}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

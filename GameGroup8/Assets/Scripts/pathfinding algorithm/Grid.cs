@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /* Class that makes  wall detection possible
+
+    assumes the worldplane is in x, z plane.
 */
 
 public class Grid : MonoBehaviour {
 
-
-    public GameObject Seeker;
+    public Transform Target;
+    public Transform Seeker;
     public LayerMask WallMask;
     public Vector3 gridWorldSize;
     public float nodeRadius;
@@ -16,8 +19,8 @@ public class Grid : MonoBehaviour {
     float nodeDiameter;
     int gridSizeX;
     int gridSizeZ;
-    
 
+    public List<Node> path;
 
     void Start()
     {
@@ -41,41 +44,96 @@ public class Grid : MonoBehaviour {
             {
                 Vector3 worldPosition = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (z * nodeDiameter + nodeRadius);
                 bool walkable = !(Physics.CheckSphere(worldPosition, nodeRadius, WallMask ));
-                grid[x,z] = new Node(walkable, worldPosition);   
+                grid[x,z] = new Node(walkable, worldPosition, x,z);   
            }
         }
     }
 
+    public List<Node> GetNeighbours(Node nd) { 
+        List<Node> neighbours = new List<Node>();
+
+        // scan neighbours loop
+        for (int x = -1; x <=1; x++)
+        {
+            for (int z = -1; z <= 1; z++ )
+            {
+                // is current node -> skip
+                if (x == 0 && z == 0)
+                {
+                    continue;
+                }
+
+                int checkX = nd.gridX + x;
+                int checkZ = nd.gridX + z;
+
+                // check against end of map
+
+                if (checkX >= 0 && checkX < gridSizeX && checkZ >= 0 && checkZ < gridSizeZ)
+                {
+                    neighbours.Add(grid[checkX, checkZ]);
+                }
+            }
+        }
+        return neighbours;
+    }
+
     // Method that changes a real/world position into a node position
 
-    Node WorldPositionToNode(Vector3 worldPosition)
+    public Node WorldPositionToNode(Vector3 worldPosition)
     {
         float PercentX = Mathf.Clamp01((worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x);
         float PercentZ = Mathf.Clamp01((worldPosition.z + gridWorldSize.z / 2) / gridWorldSize.z);
 
         int x = Mathf.RoundToInt((gridSizeX - 1) * PercentX);
         int z = Mathf.RoundToInt((gridSizeZ - 1) * PercentZ);
-        return grid[x, z];
+        return grid[x,z];
     }
 
+    
 
 
+    // visual check for grid
     void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, .5f , gridWorldSize.z));
-        // visual check for grid
+    {        
+        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1 , gridWorldSize.z));
+        
         if (grid != null) {
-            Node SeekerNode = WorldPositionToNode(Seeker.transform.position);
+
+            // 2 nodes that define target and seeker
+            Node SeekerNode = WorldPositionToNode(Seeker.position);
+            Node TargetNode = WorldPositionToNode(Target.position);
+
+
             foreach (Node n in grid)
-               
             {
                 Gizmos.color = (n.Walkable) ? Color.white : Color.red;
-               if (SeekerNode == n)
+
+                // Seeker node turns blue
+                if (SeekerNode == n)
                 {
                     Gizmos.color = Color.blue;
                 }
                 
-                Gizmos.DrawCube(n.Position, Vector3.one * (nodeDiameter - .1f));
+                
+                                
+                // set target node yellow
+                if (TargetNode == n)
+                {
+                    Gizmos.color = Color.yellow;
+                }
+
+                
+                if (path != null)
+                {
+
+                    if (path.Contains(n))
+                    {
+                        Gizmos.color = Color.black;
+                    }
+                }
+                
+                // Drawcubes as visual aid          
+                Gizmos.DrawCube(n.WorldPosition, Vector3.one * (nodeDiameter - .1f));
 
                 
             }
