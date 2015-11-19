@@ -21,7 +21,7 @@ public class PlayerAttacker : MonoBehaviour {
 		enemy = null;
 	}
 
-	void Update () {
+	/*void Update () {
 		enemyDescription.SetActive (showEnemyDescription);
 		if (enemyController != null) {
 			enemyDescriptionText.text = "Enemy Level: " + enemyController.getLevel ();
@@ -37,7 +37,7 @@ public class PlayerAttacker : MonoBehaviour {
 				showEnemyDescription = false;
 			}
 		}
-	}
+	}*/
 
 
 	void OnTriggerEnter(Collider col) {
