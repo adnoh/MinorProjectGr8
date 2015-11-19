@@ -4,6 +4,7 @@ using System.Collections;
 public class EnemySpawner : MonoBehaviour {
 
 	public GameObject normalEnemy;
+	public GameObject harderEnemy;
 	public int wave;
 	private bool waveOver;
 
@@ -20,7 +21,13 @@ public class EnemySpawner : MonoBehaviour {
 			enemiesDefeaten = 0;
 			waveOver = false;
 			for(int i = 0; i < wave; i++){
-				Instantiate (normalEnemy, getRandomPosition(), Quaternion.identity);
+				int x = Random.Range (0, 2);
+				if(x == 0){
+					Instantiate (normalEnemy, getRandomPosition(), Quaternion.identity);
+				}
+				else{
+					Instantiate (harderEnemy, getRandomPosition(), Quaternion.identity);
+				}
 			}
 			wave++;
 		}

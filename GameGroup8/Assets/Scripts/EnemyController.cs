@@ -44,6 +44,10 @@ public class EnemyController : MonoBehaviour {
 		return level;
 	}
 
+	public int getAttackPower() {
+		return attackPower;
+	}
+
 
 	
 }

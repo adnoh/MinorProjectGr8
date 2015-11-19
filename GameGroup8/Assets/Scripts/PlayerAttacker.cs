@@ -9,27 +9,32 @@ public class PlayerAttacker : MonoBehaviour {
 
 	public Text enemyDescriptionText;
 	public Text enemyHealthBar;
+	public Text enemyWeaponDamageText;
 
 	private GameObject enemy;
 
 	private EnemyController enemyController;
+
+	private int attackStrength;
 	
 	void Start () {
 		enemyController = null;
 		showEnemyDescription = false;
 		enemyDescription.SetActive (false);
 		enemy = null;
+		attackStrength = 25;
 	}
 
-	/*void Update () {
+	void Update () {
 		enemyDescription.SetActive (showEnemyDescription);
 		if (enemyController != null) {
 			enemyDescriptionText.text = "Enemy Level: " + enemyController.getLevel ();
-			enemyHealthBar.text = "Health = " + enemyController.getHealth ();
+			enemyHealthBar.text = "Health: " + enemyController.getHealth ();
+			enemyWeaponDamageText.text = "Weapon Damage: " + enemyController.getAttackPower();
 		}
 		if(Input.GetKeyDown (KeyCode.T) && enemy != null){
 
-			enemyController.setHealth(enemyController.getHealth () - 25);
+			enemyController.setHealth(enemyController.getHealth () - attackStrength);
 			enemyHealthBar.text = "Health = " + enemyController.getHealth ();
 			if(enemyController.getHealth () <= 0){
 				EnemySpawner.enemiesDefeaten++;
@@ -37,13 +42,15 @@ public class PlayerAttacker : MonoBehaviour {
 				showEnemyDescription = false;
 			}
 		}
-	}*/
+	}
 
 
 	void OnTriggerEnter(Collider col) {
-		enemyController = col.GetComponent<EnemyController> ();
-		enemy = col.gameObject;
-		showEnemyDescription = true;
+		if (col.gameObject.CompareTag ("Enemy")) {
+			enemyController = col.GetComponent<EnemyController> ();
+			enemy = col.gameObject;
+			showEnemyDescription = true;
+		}
 	}
 
 	void OnTriggerExit(Collider col) {
