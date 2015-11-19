@@ -9,8 +9,9 @@ public class Controls : MonoBehaviour {
     public GameObject Gate;
     public GameObject BuildMenu;
     public GameObject BackButton;
-	public Text countText;
-	private int count;
+    public GameObject IndicationUnits;
+    public Text countText;
+	private static int count;
 	private int needed;
 	public Text winText;
 	public GameObject player;
@@ -43,7 +44,6 @@ public class Controls : MonoBehaviour {
 
         if (Input.GetButtonDown("Jump")&&Vector3.Distance(Gate.transform.position,transform.position)<3)
         {
-            Debug.Log("Space");
             pause = !pause;
             if (pause)
             {
@@ -54,6 +54,7 @@ public class Controls : MonoBehaviour {
                 transform.position = playerPos;
                 BuildMenu.SetActive(false);
                 BackButton.SetActive(false);
+                IndicationUnits.SetActive(false);
             }
         }
 
@@ -109,4 +110,14 @@ public class Controls : MonoBehaviour {
 	public static Vector3 getposition(){
 		return Currentposition;
 	}
+
+    public static int getCount()
+    {
+        return count;
+    }
+
+    public static void setCount(int change)
+    {
+        count = count - change;
+    }
 }

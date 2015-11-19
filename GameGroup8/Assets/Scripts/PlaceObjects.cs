@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlaceObjects : MonoBehaviour
 {
@@ -9,12 +11,16 @@ public class PlaceObjects : MonoBehaviour
     private bool pause;
     private int menu;
     private int BorD;
+    private int unitCount;
+    private float timeShow;
     private List<GameObject> turrets;
 
     public Material hoverMat;
     public GameObject placable;
     public GameObject buildMenu;
     public GameObject BackBtn;
+    public GameObject IndicationUnits;
+    public Text countText;
 
     // Use this for initialization
     void Start()
@@ -69,6 +75,8 @@ public class PlaceObjects : MonoBehaviour
 
     void BuildTurrets()
     {
+        unitCount = Controls.getCount();
+
         Ray Straal = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -92,11 +100,22 @@ public class PlaceObjects : MonoBehaviour
         {
             if (lastHitObject.tag == "emptyPlane")
             {
-                Vector3 plaats = lastHitObject.transform.position;
-                plaats.y = 0.5f;
-                GameObject nieuw = (GameObject)Instantiate(placable, plaats, Quaternion.identity);
-                lastHitObject.tag = "occupiedPlane";
-                turrets.Add(nieuw);
+                if (unitCount >= 2)
+                {
+                    Vector3 plaats = lastHitObject.transform.position;
+                    plaats.y = 0.5f;
+                    GameObject nieuw = (GameObject)Instantiate(placable, plaats, Quaternion.identity);
+                    lastHitObject.tag = "occupiedPlane";
+                    turrets.Add(nieuw);
+                    Controls.setCount(2);
+                    unitCount = unitCount - 2;
+                    countText.text = "Count: " + unitCount.ToString();
+                } 
+                else if (unitCount < 2)
+                {
+                    StartCoroutine("TooLittleUnits");
+                }
+                
             }
         }
     }
@@ -144,6 +163,9 @@ public class PlaceObjects : MonoBehaviour
                 }
                 turrets.RemoveAt(placeOfObject);
                 Destroy(other);
+                Controls.setCount(-1);
+                unitCount = unitCount + 1;
+                countText.text = "Count: " + unitCount.ToString();
             }
         }
     }
@@ -156,14 +178,44 @@ public class PlaceObjects : MonoBehaviour
 
     public void BuildButton()
     {
-        menu = 1;
-        BorD = 1;
+        unitCount = Controls.getCount();
+        if (unitCount >= 2)
+        {
+            menu = 1;
+            BorD = 1;
+        }
+        else
+        {
+            StartCoroutine("TooLittleUnits");
+        }
     }
 
     public void DestroyButton()
     {
         menu = 1;
         BorD = 2;
+    }
+
+    IEnumerator TooLittleUnits()
+    {
+        timeShow = 0;
+        IndicationUnits.SetActive(true);
+        /*while (timeShow < 3)
+        {
+            if (timeShow > 2)
+            {
+                IndicationUnits.SetActive(false);
+                timeShow = 0;
+                break;
+            }
+            else if (timeShow < 2)
+            {
+                timeShow += Time.unscaledDeltaTime;
+            }
+        }*/
+        //yield return new WaitForSeconds(2);
+        //IndicationUnits.SetActive(false);
+        yield return null;
     }
 }
 
