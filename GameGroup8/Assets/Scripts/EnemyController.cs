@@ -3,39 +3,21 @@ using System.Collections;
 
 public class EnemyController : MonoBehaviour {
 
-	public float speed;
+	public Enemy enemy;
+	private EnemyFactory enemyFactory;
+
+	public double speed;
 
 	private Rigidbody rb;
 
-	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-		//transform.Translate (getDirection ());
+		enemy = enemyFactory.getEnemy ("normal");
+		speed = enemy.getWalkingSpeed ();
 	}
 
-	Vector3 getDirection() {
 
-		int i = Random.Range (0, 5);
-		Vector3 direction = new Vector3 (0, 0, 0);
 
-		if(i <= 1){
-			direction = new Vector3(speed, 0f, 0f);
-		}
-		if(i > 1 && i <= 2){
-			direction = new Vector3((-1.0f * speed), 0f, 0f);
-		}
-		if(i > 2 && i <= 3){
-			direction = new Vector3(0f, 0f, speed);
-		}
-		if(i > 3 && i <= 4){
-			direction = new Vector3(0f, 0f, (-1.0f * speed));
-		}
-		return direction;
-	}
 
 	
 }
