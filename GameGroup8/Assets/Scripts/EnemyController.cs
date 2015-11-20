@@ -14,11 +14,14 @@ public class EnemyController : MonoBehaviour {
 	public int attackPower;
 	public float walkingSpeed;
 
-
 	private Rigidbody rb;
 
 	void Start () {
-		enemy = enemyFactory.getEnemy ("normal");
+		if (Random.Range (0, 2) == 0) {
+			enemy = enemyFactory.getEnemy ("normal");
+		} else {
+			enemy = enemyFactory.getEnemy ("harder");
+		}
 		level = enemy.getLevel ();
 		maxHealth = enemy.getMaxHealth();
 		health = enemy.getMaxHealth();
@@ -46,6 +49,10 @@ public class EnemyController : MonoBehaviour {
 
 	public int getAttackPower() {
 		return attackPower;
+	}
+
+	public Enemy getEnemy() {
+		return enemy;
 	}
 
 
