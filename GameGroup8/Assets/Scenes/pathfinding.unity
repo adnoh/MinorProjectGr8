@@ -430,10 +430,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8a30fe476738043931cbf2dcb83875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unwalkableMask:
+  WallMask:
     serializedVersion: 2
     m_Bits: 256
-  gridWorldSize: {x: 30, y: 30}
+  gridWorldSize: {x: 30, y: 0, z: 30}
   nodeRadius: .5
 --- !u!114 &1390739578
 MonoBehaviour:

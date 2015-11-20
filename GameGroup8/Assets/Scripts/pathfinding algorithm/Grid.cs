@@ -2,6 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/* Class that makes  wall detection possible
+
+    assumes the worldplane is in x, z plane.
+*/
+
+
+
+
 public class Grid : MonoBehaviour
 {
 
