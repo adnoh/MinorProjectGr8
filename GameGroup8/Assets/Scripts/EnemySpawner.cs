@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour {
 			waveOver = false;
 			for(int i = 0; i < wave; i++){
 
-				if(Random.Range(0, 1) == 0){
+				if(Random.Range(0, 2) == 0){
 					Instantiate (normalEnemy, getRandomPosition(), Quaternion.identity);
 				}
 				else{

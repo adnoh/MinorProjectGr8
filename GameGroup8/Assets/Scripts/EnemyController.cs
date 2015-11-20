@@ -17,11 +17,16 @@ public class EnemyController : MonoBehaviour {
 	private Rigidbody rb;
 
 	void Start () {
-		if (Random.Range (0, 2) == 0) {
+		Debug.Log (this.gameObject.transform.name);
+		if (this.gameObject.transform.name.Equals ("NormalEnemy(Clone)")) {
 			enemy = enemyFactory.getEnemy ("normal");
+		} else if (this.gameObject.transform.name.Equals ("HarderEnemy(Clone)")) {
+			enemy = enemyFactory.getEnemy ("harder");
 		} else {
 			enemy = enemyFactory.getEnemy ("harder");
+			Debug.Log ("harder");
 		}
+				
 		level = enemy.getLevel ();
 		maxHealth = enemy.getMaxHealth();
 		health = enemy.getMaxHealth();
