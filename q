@@ -1,0 +1,40 @@
+
+
+
+
+
+# Conflicts:
+#	GameGroup8/GameGroup8.sln
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 7 different commits each, respectively.
+#   (use "git pull" to merge the remote branch into yours)
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   GameGroup8/Assembly-CSharp.csproj
+#	modified:   GameGroup8/Assets/Prefabs/Pick-up.prefab
+#	modified:   GameGroup8/Assets/Scenes/Outside.unity
+#	modified:   GameGroup8/Assets/Scripts/Controls.cs
+#	modified:   GameGroup8/Assets/Scripts/Enemy.cs
+#	modified:   GameGroup8/Assets/Scripts/EnemyController.cs
+#	modified:   GameGroup8/Assets/Scripts/EnemyFactory.cs
+#	deleted:    GameGroup8/Assets/Spawner.cs
+#	deleted:    GameGroup8/Assets/Spawner.cs.meta
+#	modified:   GameGroup8/GameGroup8.sln
+#	modified:   GameGroup8/ProjectSettings/TagManager.asset
+#
+# Changes not staged for commit:
+#	modified:   GameGroup8/Assembly-CSharp.csproj
+#	modified:   GameGroup8/GameGroup8.sln
+#
