@@ -33,7 +33,7 @@ public class PlayerAttacker : MonoBehaviour {
 			enemyWeaponDamageText.text = "Weapon Damage: " + enemyController.getAttackPower();
 		}
 		if(Input.GetKeyDown (KeyCode.T) && enemy != null){
-
+             
 			enemyController.setHealth(enemyController.getHealth () - attackStrength);
 			enemyHealthBar.text = "Health = " + enemyController.getHealth ();
 			if(enemyController.getHealth () <= 0){
