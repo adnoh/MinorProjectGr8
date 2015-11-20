@@ -16,13 +16,13 @@ public class EnemySpawner : MonoBehaviour {
 		enemiesDefeaten = 0;
 	}
 
-	void Update(){
+	void Update () {
 		if(Input.GetKeyDown (KeyCode.P) && waveOver){
 			enemiesDefeaten = 0;
 			waveOver = false;
 			for(int i = 0; i < wave; i++){
-				int x = Random.Range (0, 2);
-				if(x == 0){
+
+				if(Random.Range(0, 1) == 0){
 					Instantiate (normalEnemy, getRandomPosition(), Quaternion.identity);
 				}
 				else{

@@ -32,14 +32,20 @@ public class PlayerAttacker : MonoBehaviour {
 			enemyHealthBar.text = "Health: " + enemyController.getHealth ();
 			enemyWeaponDamageText.text = "Weapon Damage: " + enemyController.getAttackPower();
 		}
-		if(Input.GetKeyDown (KeyCode.T) && enemy != null){
-
+		if(Input.GetKeyDown (KeyCode.T)){
+             
+			RaycastHit hit;
+			Ray bulletray = new Ray(transform.position, Vector3.forward);
+			if(Physics.Raycast(bulletray, out hit)){
+				if(hit.collider.tag == "Enemy"){
 			enemyController.setHealth(enemyController.getHealth () - attackStrength);
 			enemyHealthBar.text = "Health = " + enemyController.getHealth ();
 			if(enemyController.getHealth () <= 0){
 				EnemySpawner.enemiesDefeaten++;
 				Destroy(enemy);
 				showEnemyDescription = false;
+			}
+				}
 			}
 		}
 	}
