@@ -17,12 +17,12 @@ public class EnemyFactory {
 		}
 	}
 
-	public Enemy getNormalEnemy() {
+	private Enemy getNormalEnemy() {
 		return new Enemy (1, 100, 10, 5f);
 	}
 
-	public Enemy getBetterEnemy() {
-		return new Enemy (2, 200, 15, 0.25f);
+	private Enemy getBetterEnemy() {
+		return new Enemy (2, 200, 15, 2f);
 	}
 
 }

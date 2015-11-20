@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour {
 		if (this.gameObject.transform.name.Equals ("NormalEnemy(Clone)")) {
 			enemy = enemyFactory.getEnemy ("normal");
 		} else if (this.gameObject.transform.name.Equals ("HarderEnemy(Clone)")) {
-			enemy = enemyFactory.getEnemy ("harder");
+			enemy = enemyFactory.getEnemy ("better");
 		}
 				
 		level = enemy.getLevel ();
