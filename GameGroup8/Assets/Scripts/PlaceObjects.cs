@@ -174,6 +174,7 @@ public class PlaceObjects : MonoBehaviour
     {
         menu = 0;
         BorD = 0;
+        IndicationUnits.SetActive(false);
     }
 
     public void BuildButton()
@@ -194,27 +195,13 @@ public class PlaceObjects : MonoBehaviour
     {
         menu = 1;
         BorD = 2;
+        IndicationUnits.SetActive(false);
     }
 
     IEnumerator TooLittleUnits()
     {
         timeShow = 0;
         IndicationUnits.SetActive(true);
-        /*while (timeShow < 3)
-        {
-            if (timeShow > 2)
-            {
-                IndicationUnits.SetActive(false);
-                timeShow = 0;
-                break;
-            }
-            else if (timeShow < 2)
-            {
-                timeShow += Time.unscaledDeltaTime;
-            }
-        }*/
-        //yield return new WaitForSeconds(2);
-        //IndicationUnits.SetActive(false);
         yield return null;
     }
 }
