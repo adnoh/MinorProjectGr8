@@ -27,7 +27,6 @@ public class PlayerAttacker : MonoBehaviour {
 			Ray bulletray = new Ray(transform.position, Vector3.forward);
 			if(Physics.Raycast(bulletray, out hit)){
 				if(hit.collider.tag == "Enemy"){
-					Debug.Log ("Enemy");
 					EnemyController enemyController = hit.collider.gameObject.GetComponent<EnemyController>();
 					enemyController.setHealth(enemyController.getHealth () - attackStrength);
 					enemyDescriptionText.text = "Level = " + enemyController.getLevel ();
