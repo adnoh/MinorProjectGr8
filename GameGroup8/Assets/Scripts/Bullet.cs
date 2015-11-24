@@ -8,11 +8,15 @@ public class Bullet : MonoBehaviour {
 		if(col.gameObject.CompareTag ("Enemy")){
 			EnemyController enemyController = col.gameObject.GetComponent<EnemyController>();
 			enemyController.setHealth(enemyController.getHealth () - Random.Range (20, 30));
+			PlayerAttacker.lastAttackedEnemy = enemyController;
 			if(enemyController.getHealth () <= 0){
 				EnemySpawner.enemiesDefeaten++;
 				Destroy(col.gameObject);
+				PlayerAttacker.lastAttackedEnemy = null;
 			}
 		}
-		GameObject.Destroy (gameObject);
+		if(this.gameObject.name.Equals("Bullet(Clone)")){
+			GameObject.Destroy (gameObject);
+		}
 	}
 }

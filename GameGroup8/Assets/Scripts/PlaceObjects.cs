@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,7 +35,7 @@ public class PlaceObjects : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        pause = Controls.getPause();
+        pause = PlayerController.getPause();
         if (pause)
         {
             switch (menu)
@@ -75,7 +75,7 @@ public class PlaceObjects : MonoBehaviour
 
     void BuildTurrets()
     {
-        unitCount = Controls.getCount();
+        unitCount = PlayerController.getCount();
 
         Ray Straal = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -107,7 +107,7 @@ public class PlaceObjects : MonoBehaviour
                     nieuw.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
                     lastHitObject.tag = "occupiedPlane";
                     turrets.Add(nieuw);
-                    Controls.setCount(2);
+                    PlayerController.setCount(2);
                     unitCount = unitCount - 2;
                     countText.text = "Count: " + unitCount.ToString();
                 } 
@@ -163,7 +163,7 @@ public class PlaceObjects : MonoBehaviour
                 }
                 turrets.RemoveAt(placeOfObject);
                 Destroy(other);
-                Controls.setCount(-1);
+                PlayerController.setCount(-1);
                 unitCount = unitCount + 1;
                 countText.text = "Count: " + unitCount.ToString();
             }
@@ -179,7 +179,7 @@ public class PlaceObjects : MonoBehaviour
 
     public void BuildButton()
     {
-        unitCount = Controls.getCount();
+        unitCount = PlayerController.getCount();
         if (unitCount >= 2)
         {
             menu = 1;
