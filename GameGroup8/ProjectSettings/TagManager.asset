@@ -6,7 +6,6 @@ TagManager:
   tags:
   - emptyPlane
   - occupiedPlane
-  - emptiePlane
   - Enemy
   - Enemy1
   - Pick-Up
@@ -21,7 +20,7 @@ TagManager:
   - 
   - 
   - Wall
-  - 
+  - PlacePlates
   - 
   - 
   - 

@@ -79,10 +79,9 @@ public class PlaceObjects : MonoBehaviour
 
         Ray Straal = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
-        if (Physics.Raycast(Straal, out hit, 1000) && hit.collider.gameObject.CompareTag("emptyPlane"))
+        
+        if (Physics.Raycast(Straal, out hit, 1000,512) && hit.collider.gameObject.CompareTag("emptyPlane"))
         {
-
             if (lastHitObject)
             {
                 lastHitObject.GetComponent<Renderer>().material = originalMat;
@@ -128,7 +127,7 @@ public class PlaceObjects : MonoBehaviour
         Ray Straal = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(Straal, out hit, 1000) && hit.collider.gameObject.CompareTag("occupiedPlane"))
+        if (Physics.Raycast(Straal, out hit, 1000,512) && hit.collider.gameObject.CompareTag("occupiedPlane"))
         {
 
             if (lastHitObject)

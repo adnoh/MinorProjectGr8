@@ -6,6 +6,7 @@ public class CatapultFire : MonoBehaviour {
     private float angle;
     private bool top;
     private bool fire;
+    private GameObject Vijand;
 
 	void Start () {
         angle = 0;
@@ -14,13 +15,35 @@ public class CatapultFire : MonoBehaviour {
 	}
 	
 	void Update () {
-        if (Input.GetKeyDown("g"))
+        if (Vijand)
         {
             if (!fire)
             {
                 fire = true;
-                StartCoroutine("FireCatapult");
+                float tijd = Time.realtimeSinceStartup + 2;
+                Debug.Log(tijd);
+                if (Time.realtimeSinceStartup > tijd)
+                {
+                    StartCoroutine("FireCatapult");
+                    Debug.Log("Fire!!!");
+                }
             }
+        }
+    }
+
+    void OnTriggerEnter(Collider Other)
+    {
+        if(Other.tag == "Enemy")
+        {
+            Vijand = Other.gameObject;
+        }
+    }
+
+    void OnTriggerExit(Collider Other)
+    {
+        if (Other.tag == "Enemy")
+        {
+            Vijand = null;
         }
     }
 

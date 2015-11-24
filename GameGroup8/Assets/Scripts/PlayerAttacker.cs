@@ -23,32 +23,42 @@ public class PlayerAttacker : MonoBehaviour {
 
 	void Update () {
 		enemyDescription.SetActive (showEnemyDescription);
+        bool Base = Controls.getPause();
 
-		if(Input.GetMouseButtonDown(0)){
-			
-			GameObject shot = GameObject.Instantiate(bullet, transform.position + (transform.forward), transform.rotation) as GameObject;
-			shot.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
-		}
+        if (!Base)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
 
-
-		if(Input.GetMouseButtonDown(2) && false){
-             
-			RaycastHit hit;
-			Ray bulletray = new Ray(transform.position, Vector3.forward);
-			if(Physics.Raycast(bulletray, out hit)){
-				if(hit.collider.tag == "Enemy"){
-					EnemyController enemyController = hit.collider.gameObject.GetComponent<EnemyController>();
-					enemyController.setHealth(enemyController.getHealth ());
+                GameObject shot = GameObject.Instantiate(bullet, transform.position + (transform.forward), transform.rotation) as GameObject;
+                shot.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
+            }
 
 
-					if(enemyController.getHealth () <= 0){
-						EnemySpawner.enemiesDefeaten++;
-						Destroy(hit.collider.gameObject);
-						showEnemyDescription = false;
-					}
-				}
-			}
-		}
+            if (Input.GetMouseButtonDown(2) && false)
+            {
+
+                RaycastHit hit;
+                Ray bulletray = new Ray(transform.position, Vector3.forward);
+                if (Physics.Raycast(bulletray, out hit))
+                {
+                    if (hit.collider.tag == "Enemy")
+                    {
+                        EnemyController enemyController = hit.collider.gameObject.GetComponent<EnemyController>();
+                        enemyController.setHealth(enemyController.getHealth());
+
+
+                        if (enemyController.getHealth() <= 0)
+                        {
+                            EnemySpawner.enemiesDefeaten++;
+                            Destroy(hit.collider.gameObject);
+                            showEnemyDescription = false;
+                        }
+                    }
+                }
+            }
+        }
+		
 	}
 
 	public void setEnemyDescription(EnemyController enemyController){

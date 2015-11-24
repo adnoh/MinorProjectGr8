@@ -16,8 +16,10 @@ public class TurretController : MonoBehaviour {
         if (Vijand)
         {
             VijandPositie = Vijand.transform.position;
+            VijandPositie.y = 0;
             transform.LookAt(VijandPositie);
-            Debug.Log(VijandPositie);
+            transform.Rotate(new Vector3 (0,1,0), 90);
+            
         }
         
     }
