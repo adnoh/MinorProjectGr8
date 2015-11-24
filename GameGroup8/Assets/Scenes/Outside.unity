@@ -1662,13 +1662,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b942a040a8566241bcd732f347c2790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyDescription: {fileID: 0}
+  enemyDescription: {fileID: 2073943794}
   showEnemyDescription: 0
-  enemyDescriptionText: {fileID: 0}
-  enemyHealthBar: {fileID: 0}
-  enemyWeaponDamageText: {fileID: 0}
-  bullet: {fileID: 0}
+  enemyDescriptionText: {fileID: 1049140841}
+  enemyHealthBar: {fileID: 54849631}
+  enemyWeaponDamageText: {fileID: 1117368372}
+  bullet: {fileID: 120196, guid: 2ab3d8b21824d014fa88b7405c4a9489, type: 2}
   bulletSpeed: 100
+  attackRate: .5
 --- !u!114 &1109298649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2570,7 +2571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70481568769e1a14d9c4089e56bfe532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 1109298641}
 --- !u!4 &1806774743 stripped
 Transform:
   m_PrefabParentObject: {fileID: 473912, guid: 0f6c5ace820899649b0307ae430031d8, type: 2}
