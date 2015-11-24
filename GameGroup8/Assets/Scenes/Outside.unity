@@ -199,10 +199,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unit: {fileID: 171110, guid: 246468e56e16b8c4d848c2b64d2d9900, type: 2}
   amount: 30
-  minL: 10
-  minR: -10
-  maxL: 50
-  maxR: -50
+  minL: -10
+  minR: 10
+  maxL: -50
+  maxR: 50
 --- !u!114 &5347435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -818,7 +818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverMat: {fileID: 2100000, guid: 99ab625533ccb454e8dc88302ae08a8d, type: 2}
-  placable: {fileID: 150414, guid: 220617ef983a07342ad5250bc90623c5, type: 2}
+  placable: {fileID: 100258, guid: 6dbd98bcaacc7e44c9789fc20d658795, type: 2}
   buildMenu: {fileID: 1605827763}
   BackBtn: {fileID: 1370383040}
   IndicationUnits: {fileID: 1466013403}
@@ -1586,10 +1586,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0002ff017763ac242be141451ac00f90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: 100
   playerHealthText: {fileID: 980345238}
   walkingSpeed: 5
-  RotateSpeed: 90
+  RotateSpeed: 30
   Gate: {fileID: 1905394258}
   BuildMenu: {fileID: 1605827763}
   BackButton: {fileID: 1370383040}
@@ -1663,14 +1662,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b942a040a8566241bcd732f347c2790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyDescription: {fileID: 2073943794}
+  enemyDescription: {fileID: 0}
   showEnemyDescription: 0
-  enemyDescriptionText: {fileID: 1049140841}
-  enemyHealthBar: {fileID: 54849631}
-  enemyWeaponDamageText: {fileID: 1117368372}
-  bullet: {fileID: 120196, guid: 2ab3d8b21824d014fa88b7405c4a9489, type: 2}
+  enemyDescriptionText: {fileID: 0}
+  enemyHealthBar: {fileID: 0}
+  enemyWeaponDamageText: {fileID: 0}
+  bullet: {fileID: 0}
   bulletSpeed: 100
-  fireRate: .5
 --- !u!114 &1109298649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2572,7 +2570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70481568769e1a14d9c4089e56bfe532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1109298641}
+  player: {fileID: 0}
 --- !u!4 &1806774743 stripped
 Transform:
   m_PrefabParentObject: {fileID: 473912, guid: 0f6c5ace820899649b0307ae430031d8, type: 2}
