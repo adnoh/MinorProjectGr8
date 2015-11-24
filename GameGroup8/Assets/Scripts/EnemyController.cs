@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class EnemyController : MonoBehaviour {
@@ -14,8 +14,6 @@ public class EnemyController : MonoBehaviour {
 	public int attackPower;
 	public float walkingSpeed;
 
-	private Rigidbody rb;
-
 	void Start () {
 		if (this.gameObject.transform.name.Equals ("NormalEnemy(Clone)")) {
 			enemy = enemyFactory.getEnemy ("normal");
@@ -28,11 +26,10 @@ public class EnemyController : MonoBehaviour {
 		health = enemy.getMaxHealth();
 		attackPower = enemy.getAttackPower();
 		speed = enemy.getWalkingSpeed();
-		rb = GetComponent<Rigidbody> ();
 	}
 
 	void FixedUpdate ()	{
-		position = Controls.getposition ();
+		position = Controls.getPosition ();
 		transform.position = Vector3.MoveTowards(transform.position, position,   speed*Time.deltaTime);
 	}
 

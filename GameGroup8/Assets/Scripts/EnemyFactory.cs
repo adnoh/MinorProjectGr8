@@ -18,11 +18,11 @@ public class EnemyFactory {
 	}
 
 	private Enemy getNormalEnemy() {
-		return new Enemy (1, 100, 10, 5f);
+		return new Enemy (1, 100, 10, 2f);
 	}
 
 	private Enemy getBetterEnemy() {
-		return new Enemy (2, 200, 15, 2f);
+		return new Enemy (2, 200, 15, 1f);
 	}
 
 }

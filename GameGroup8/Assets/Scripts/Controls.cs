@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Controls : MonoBehaviour {
 	
-	public float speed;
+	public float walkingSpeed;
 	public float RotateSpeed = 30f;
     public GameObject Gate;
     public GameObject BuildMenu;
@@ -12,25 +12,17 @@ public class Controls : MonoBehaviour {
     public GameObject IndicationUnits;
     public Text countText;
 	private static int count;
-	private int needed;
-	public Text winText;
 	public GameObject player;
-	private static Vector3 Currentposition;
-	
-	private Rigidbody rb;
+	private static Vector3 currentPosition;
+
     private static bool pause;
     private Vector3 playerPos;
 
-	void Start ()
-	{
-		rb = GetComponent<Rigidbody>();
+	void Start () {
         pause = false;
         BuildMenu.SetActive(false);
-		needed = PSpawner.amount;
-		Debug.Log(needed);
 		count = 0;
-		countText.text = "Count: " + count.ToString ();
-		winText.text = "";
+		countText.text = "Amount of units " + count;
 	}
 
 	void Update()
@@ -71,56 +63,41 @@ public class Controls : MonoBehaviour {
 	}
 
 
-	void FixedUpdate ()
-
-
-	{
-
-
-		float moveHorizontal = Input.GetAxis("Horizontal")*Time.deltaTime;
-		float moveVertical = Input.GetAxis ("Vertical")*Time.deltaTime;
+	void FixedUpdate (){
+		float moveHorizontal = Input.GetAxis("Horizontal") * Time.deltaTime;
+		float moveVertical = Input.GetAxis ("Vertical") * Time.deltaTime;
 		
-		//Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
-		
-		transform.Translate(speed*moveHorizontal,0.0f,speed*moveVertical,Space.World);
+		transform.Translate(walkingSpeed * moveHorizontal, 0.0f, walkingSpeed * moveVertical, Space.World);
 
 		Vector3 playerPos = player.transform.position;
-		//Debug.Log (playerPos);
-		setposition (playerPos);
+		setPosition (playerPos);
 	}
-	void OnTriggerEnter(Collider other) 
-		{
-				if (other.gameObject.CompareTag ("Pick-Up"))
-				{
-						other.gameObject.SetActive (false);
-						count = count + 1;
-						countText.text = "Count: " + count.ToString ();
-						if (count >= needed)
-			{
-								winText.text = "You Win!";
-							}
-					}
-			}
 
-    static public bool getPause()
-    {
+	void OnTriggerEnter(Collider collider){
+		if (collider.gameObject.CompareTag ("Pick-Up")){
+			Destroy (collider);
+			count ++;
+			countText.text = "Count: " + count;
+		}
+	}
+
+    static public bool getPause(){
         return pause;
     }
 
-	void setposition(Vector3 here){
-		Currentposition = here;
-	}
-	public static Vector3 getposition(){
-		return Currentposition;
+	void setPosition(Vector3 here){
+		currentPosition = here;
 	}
 
-    public static int getCount()
-    {
+	public static Vector3 getPosition(){
+		return currentPosition;
+	}
+
+    public static int getCount(){
         return count;
     }
 
-    public static void setCount(int change)
-    {
+    public static void setCount(int change){
         count = count - change;
     }
 }

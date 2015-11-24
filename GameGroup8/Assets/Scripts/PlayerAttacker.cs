@@ -14,40 +14,30 @@ public class PlayerAttacker : MonoBehaviour {
 
 	public GameObject bullet;
 	public float bulletSpeed = 100f;
+
+	public static EnemyController lastAttackedEnemy;
+
+	public float fireRate = 0.5f;
+	private float nextFire = 0.0f;
 		
 	void Start () {
 		showEnemyDescription = false;
 		enemyDescription.SetActive (false);
-
 	}
 
 	void Update () {
 		enemyDescription.SetActive (showEnemyDescription);
 
-		if(Input.GetMouseButtonDown(0)){
-			
-			GameObject shot = GameObject.Instantiate(bullet, transform.position + (transform.forward), transform.rotation) as GameObject;
-			shot.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
+		if (lastAttackedEnemy != null) {
+			setEnemyDescription (lastAttackedEnemy);
+		} else {
+			showEnemyDescription = false;
 		}
 
-
-		if(Input.GetMouseButtonDown(2) && false){
-             
-			RaycastHit hit;
-			Ray bulletray = new Ray(transform.position, Vector3.forward);
-			if(Physics.Raycast(bulletray, out hit)){
-				if(hit.collider.tag == "Enemy"){
-					EnemyController enemyController = hit.collider.gameObject.GetComponent<EnemyController>();
-					enemyController.setHealth(enemyController.getHealth ());
-
-
-					if(enemyController.getHealth () <= 0){
-						EnemySpawner.enemiesDefeaten++;
-						Destroy(hit.collider.gameObject);
-						showEnemyDescription = false;
-					}
-				}
-			}
+		if(Input.GetMouseButtonDown(0) && Time.time > nextFire){
+			nextFire = Time.time + fireRate;
+			GameObject bulletClone = GameObject.Instantiate(bullet, transform.position + (transform.forward), transform.rotation) as GameObject;
+			bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
 		}
 	}
 
@@ -57,14 +47,4 @@ public class PlayerAttacker : MonoBehaviour {
 		enemyWeaponDamageText.text = "Weapon Damage = " + enemyController.getAttackPower ();
 		showEnemyDescription = true;
 	}
-
-	public void setEnemyDescriptionOff(){
-		showEnemyDescription = false;
-	}
-
-	public void setEnemyDescriptionOn(){
-		showEnemyDescription = true;
-	}
-
-
 }

@@ -8,20 +8,16 @@ public class CameraController : MonoBehaviour {
 	private Vector3 offset;
     private bool BaseEnter;
 	
-	void Start ()
-	{
+	void Start (){
 		offset = transform.position - player.transform.position;
 	}
 	
-	void LateUpdate ()
-	{
+	void LateUpdate (){
         BaseEnter = Controls.getPause();
 
-        if (!BaseEnter)
-        {
+        if (!BaseEnter){
             transform.position = player.transform.position + offset;
-        } else if (BaseEnter)
-        {
+        } else if (BaseEnter){
             transform.position = new Vector3(0, 20, -9);
         }
 	}
