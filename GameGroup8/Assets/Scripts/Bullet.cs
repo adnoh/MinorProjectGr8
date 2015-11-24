@@ -5,7 +5,7 @@ public class Bullet : MonoBehaviour {
 	
 
 	void OnTriggerEnter(Collider col){
-		if(col.gameObject.CompareTag ("Enemy")){
+		if(col.gameObject.CompareTag ("Enemy") && this.gameObject.name.Equals("Bullet(Clone)")){
 			EnemyController enemyController = col.gameObject.GetComponent<EnemyController>();
 			enemyController.setHealth(enemyController.getHealth () - Random.Range (20, 30));
 			PlayerAttacker.lastAttackedEnemy = enemyController;

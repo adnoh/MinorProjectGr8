@@ -14,6 +14,11 @@ public class EnemyController : MonoBehaviour {
 	public int attackPower;
 	public float walkingSpeed;
 
+	private bool isWithinRange;
+
+	public float attackRate = 2f;
+	private float nextAttack = 0.0f;
+
 	void Start () {
 		if (this.gameObject.transform.name.Equals ("NormalEnemy(Clone)")) {
 			enemy = enemyFactory.getEnemy ("normal");
@@ -26,11 +31,22 @@ public class EnemyController : MonoBehaviour {
 		health = enemy.getMaxHealth();
 		attackPower = enemy.getAttackPower();
 		speed = enemy.getWalkingSpeed();
+
+		isWithinRange = false;
+	}
+
+	void Update () {
+		if (isWithinRange && Time.time > nextAttack) {
+			nextAttack = Time.time + attackRate;
+			attack ();
+		}
 	}
 
 	void FixedUpdate ()	{
 		position = PlayerController.getPosition ();
-		transform.position = Vector3.MoveTowards(transform.position, position,   speed*Time.deltaTime);
+		if (!isWithinRange) {
+			transform.position = Vector3.MoveTowards (transform.position, position, speed * Time.deltaTime);
+		}
 	}
 
 	public int getHealth() {
@@ -51,6 +67,19 @@ public class EnemyController : MonoBehaviour {
 
 	public Enemy getEnemy() {
 		return enemy;
+	}
+
+	public void setWithinRange() {
+		isWithinRange = !isWithinRange;
+		if (isWithinRange) {
+			PlayerAttacker.lastAttackedEnemy = this; 
+		} else {
+			PlayerAttacker.lastAttackedEnemy = null;
+		}
+	}
+
+	public void attack() {
+		PlayerController.setHealth (attackPower);
 	}
 
 
