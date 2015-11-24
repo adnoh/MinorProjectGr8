@@ -400,6 +400,7 @@ GameObject:
   - 4: {fileID: 1390739576}
   - 114: {fileID: 1390739577}
   - 114: {fileID: 1390739578}
+  - 114: {fileID: 1390739579}
   m_Layer: 0
   m_Name: A* Pathfinding algorithm
   m_TagString: Untagged
@@ -430,10 +431,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8a30fe476738043931cbf2dcb83875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unwalkableMask:
+  displayGridCubes: 0
+  WallMask:
     serializedVersion: 2
     m_Bits: 256
-  gridWorldSize: {x: 30, y: 30}
+  gridWorldSize: {x: 30, y: 0, z: 30}
   nodeRadius: .5
 --- !u!114 &1390739578
 MonoBehaviour:
@@ -446,8 +448,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af54d6832710071469225fb58b64d8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seeker: {fileID: 2125058310}
-  target: {fileID: 394947251}
+--- !u!114 &1390739579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1390739575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14f94f2e0a1becc4abb0a4a4be95c3fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1444527678
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,6 +780,7 @@ GameObject:
   - 33: {fileID: 2125058309}
   - 136: {fileID: 2125058308}
   - 23: {fileID: 2125058307}
+  - 114: {fileID: 2125058311}
   m_Layer: 0
   m_Name: Seeker
   m_TagString: Untagged
@@ -827,8 +839,20 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2125058306}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.51000023, y: 1.83000004, z: 12.5100002}
+  m_LocalPosition: {x: 7.13999987, y: 1.83000004, z: -3.50999999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+--- !u!114 &2125058311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2125058306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 394947251}

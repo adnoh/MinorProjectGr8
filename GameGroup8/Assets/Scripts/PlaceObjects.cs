@@ -103,8 +103,9 @@ public class PlaceObjects : MonoBehaviour
                 if (unitCount >= 2)
                 {
                     Vector3 plaats = lastHitObject.transform.position;
-                    plaats.y = 0.5f;
+                    //plaats.y = 0.5f;
                     GameObject nieuw = (GameObject)Instantiate(placable, plaats, Quaternion.identity);
+                    nieuw.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
                     lastHitObject.tag = "occupiedPlane";
                     turrets.Add(nieuw);
                     Controls.setCount(2);
