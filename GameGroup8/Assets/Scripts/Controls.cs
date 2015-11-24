@@ -20,7 +20,7 @@ public class Controls : MonoBehaviour {
 	private Rigidbody rb;
     private static bool pause;
     private Vector3 playerPos;
-	
+
 	void Start ()
 	{
 		rb = GetComponent<Rigidbody>();
@@ -35,14 +35,17 @@ public class Controls : MonoBehaviour {
 
 	void Update()
 	{
-		if(Input.GetKey(KeyCode.Q)){
-			transform.Rotate(-Vector3.up * RotateSpeed * Time.deltaTime);
-		}
-		else if(Input.GetKey(KeyCode.E)){
-			transform.Rotate(Vector3.up * RotateSpeed * Time.deltaTime);
+
+		Plane playerPlane = new Plane (Vector3.up, transform.position);
+		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		float hitdist = 0.0f;
+		if (playerPlane.Raycast (ray, out hitdist)) {
+			Vector3 targetPoint = ray.GetPoint (hitdist);
+			Quaternion targetRotation = Quaternion.LookRotation (targetPoint - transform.position);
+			transform.rotation = Quaternion.Slerp (transform.rotation, targetRotation, RotateSpeed * Time.deltaTime);
 		}
 
-        if (Input.GetButtonDown("Jump")&&Vector3.Distance(Gate.transform.position,transform.position)<3)
+        if (Input.GetButtonDown("Jump") && Vector3.Distance(Gate.transform.position,transform.position) < 3)
         {
             pause = !pause;
             if (pause)

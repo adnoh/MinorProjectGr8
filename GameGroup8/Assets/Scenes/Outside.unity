@@ -1263,6 +1263,7 @@ GameObject:
   - 114: {fileID: 1109298643}
   - 54: {fileID: 1109298642}
   - 114: {fileID: 1109298648}
+  - 114: {fileID: 1109298649}
   m_Layer: 0
   m_Name: TemporaryPlayer
   m_TagString: Untagged
@@ -1377,6 +1378,19 @@ MonoBehaviour:
   enemyDescriptionText: {fileID: 1049140841}
   enemyHealthBar: {fileID: 54849631}
   enemyWeaponDamageText: {fileID: 1117368372}
+--- !u!114 &1109298649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1109298641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89f237bd082badd4bb66c121cde70490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 120196, guid: 2ab3d8b21824d014fa88b7405c4a9489, type: 2}
+  bulletSpeed: 100
 --- !u!1 &1117368370
 GameObject:
   m_ObjectHideFlags: 0
@@ -2193,6 +2207,7 @@ GameObject:
   - 4: {fileID: 1792932483}
   - 108: {fileID: 1792932484}
   - 114: {fileID: 1792932485}
+  - 114: {fileID: 1792932486}
   m_Layer: 0
   m_Name: Spotlight
   m_TagString: Untagged
@@ -2255,6 +2270,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 356d92c46e3d3f8409caebcc41445e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1792932486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1792932482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89f237bd082badd4bb66c121cde70490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 0}
+  bulletSpeed: 5
 --- !u!4 &1806774743 stripped
 Transform:
   m_PrefabParentObject: {fileID: 473912, guid: 0f6c5ace820899649b0307ae430031d8, type: 2}
