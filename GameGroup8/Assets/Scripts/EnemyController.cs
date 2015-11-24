@@ -29,7 +29,7 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void FixedUpdate ()	{
-		position = Controls.getPosition ();
+		position = PlayerController.getPosition ();
 		transform.position = Vector3.MoveTowards(transform.position, position,   speed*Time.deltaTime);
 	}
 
