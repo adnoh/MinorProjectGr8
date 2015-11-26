@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class EnemyController : MonoBehaviour {
@@ -14,7 +14,10 @@ public class EnemyController : MonoBehaviour {
 	public int attackPower;
 	public float walkingSpeed;
 
-	private Rigidbody rb;
+	private bool isWithinRange;
+
+	public float attackRate = 2f;
+	private float nextAttack = 0.0f;
 
 	void Start () {
 		if (this.gameObject.transform.name.Equals ("NormalEnemy(Clone)")) {
@@ -28,12 +31,22 @@ public class EnemyController : MonoBehaviour {
 		health = enemy.getMaxHealth();
 		attackPower = enemy.getAttackPower();
 		speed = enemy.getWalkingSpeed();
-		rb = GetComponent<Rigidbody> ();
+
+		isWithinRange = false;
+	}
+
+	void Update () {
+		if (isWithinRange && Time.time > nextAttack) {
+			nextAttack = Time.time + attackRate;
+			attack ();
+		}
 	}
 
 	void FixedUpdate ()	{
-		position = Controls.getposition ();
-		transform.position = Vector3.MoveTowards(transform.position, position,   speed*Time.deltaTime);
+		position = PlayerController.getPosition ();
+		if (!isWithinRange) {
+			transform.position = Vector3.MoveTowards (transform.position, position, speed * Time.deltaTime);
+		}
 	}
 
 	public int getHealth() {
@@ -54,6 +67,19 @@ public class EnemyController : MonoBehaviour {
 
 	public Enemy getEnemy() {
 		return enemy;
+	}
+
+	public void setWithinRange() {
+		isWithinRange = !isWithinRange;
+		if (isWithinRange) {
+			PlayerAttacker.lastAttackedEnemy = this; 
+		} else {
+			PlayerAttacker.lastAttackedEnemy = null;
+		}
+	}
+
+	public void attack() {
+		PlayerController.setHealth (attackPower);
 	}
 
 
