@@ -10,7 +10,7 @@ public class MenuScript : MonoBehaviour {
 
 	public Slider slider;
 
-	public InputField name;
+	public InputField Name;
 
 	void start() {
 
@@ -27,13 +27,13 @@ public class MenuScript : MonoBehaviour {
 
 		AudioListener.volume = PlayerPrefs.GetFloat ("Volume");
 
-		name = name.GetComponent<InputField> ();
+		Name = Name.GetComponent<InputField> ();
 
 		if (!PlayerPrefs.HasKey ("PlayerName")) {
 			PlayerPrefs.SetString ("PlayerName", "");
 		}
 
-		name.text = PlayerPrefs.GetString ("PlayerName");
+		Name.text = PlayerPrefs.GetString ("PlayerName");
 
 	}
 
@@ -51,7 +51,7 @@ public class MenuScript : MonoBehaviour {
 	}
 
 	public void changeName() {
-		PlayerPrefs.SetString ("PlayerName", name.text);
+		PlayerPrefs.SetString ("PlayerName", Name.text);
 	}
 
 

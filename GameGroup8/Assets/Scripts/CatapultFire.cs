@@ -20,13 +20,7 @@ public class CatapultFire : MonoBehaviour {
             if (!fire)
             {
                 fire = true;
-                float tijd = Time.realtimeSinceStartup + 2;
-                Debug.Log(tijd);
-                if (Time.realtimeSinceStartup > tijd)
-                {
-                    StartCoroutine("FireCatapult");
-                    Debug.Log("Fire!!!");
-                }
+                StartCoroutine("FireCatapult");
             }
         }
     }
@@ -66,6 +60,7 @@ public class CatapultFire : MonoBehaviour {
                 if (angle == 0)
                 {
                     top = false;
+                yield return new WaitForSeconds(1);
                     fire = false;
                     break;
                 }
