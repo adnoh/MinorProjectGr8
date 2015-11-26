@@ -17,7 +17,7 @@ public class PlayerAttacker : MonoBehaviour {
 	public Text playerWeaponText;
 
 	public GameObject bullet;
-	public float bulletSpeed = 100f;
+	public float bulletSpeed = 1000f;
 	public int meleeAttackPower = 30;
 
 	public float attackRate = 0.5f;

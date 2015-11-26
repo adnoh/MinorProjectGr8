@@ -50,7 +50,7 @@ public class EnemySpawner : MonoBehaviour {
 			totalEnemiesSpawned +=enemiesThisWave;
 			enemiesToDefeatText.text = "Enemies to defeat: " + enemiesToDefeat;
 			nextWave();
-			mu += 1f/3f;
+			mu += 0.25f;
 			calculateLevelToSpawn ();
 		}
 		enemiesToDefeatText.text = "Enemies to defeat: " + enemiesToDefeat;
@@ -130,7 +130,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	void setEnemiesThisWave(){
-		enemiesThisWave = (int)Mathf.Floor(2f + wave * 0.5f);
+		enemiesThisWave = (int)Mathf.Floor(2f + wave * (1f/3f));
 	}
 
 	void calculateLevelToSpawn(){
@@ -145,8 +145,6 @@ public class EnemySpawner : MonoBehaviour {
 			totalChange += changeToSpawnByLevel[i];
 		}
 		float random = Random.Range (0f, totalChange);
-		Debug.Log ("total change: " + totalChange);
-		Debug.Log ("random number: " + random);
 		if (random <= changeToSpawnByLevel [0]) {
 			return 1;
 		} else if (random <= changeToSpawnByLevel [0] + changeToSpawnByLevel [1]) {

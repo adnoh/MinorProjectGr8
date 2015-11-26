@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour {
     private static bool pause;
     private Vector3 playerPos;
 
+	public float regenerationTime = 20.0f;
+	private float timeToRegenerate = 0.0f;
+
 	void Start () {
         pause = false;
         BuildMenu.SetActive(false);
@@ -53,6 +56,11 @@ public class PlayerController : MonoBehaviour {
                 IndicationUnits.SetActive(false);
             }
         }
+
+		if (playerHealth < 100 && Time.time > timeToRegenerate) {
+			playerHealth++;
+			timeToRegenerate = Time.time + regenerationTime;
+		}
 
         if (pause)
         {

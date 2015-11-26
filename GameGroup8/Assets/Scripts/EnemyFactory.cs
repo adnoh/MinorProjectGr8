@@ -5,8 +5,7 @@ public class EnemyFactory {
 
 	public EnemyFactory() {
 	}
-
-
+	
 	public Enemy getEnemy(string type, int level){
 		if (type.Equals ("water")) {
 			return getWaterEnemy (level);

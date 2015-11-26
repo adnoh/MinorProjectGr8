@@ -15,6 +15,12 @@ public class Bullet : MonoBehaviour {
 		}
 	}
 
+	void Update(){
+		if (this.gameObject.name.Equals("Bullet(Clone)") && this.gameObject.GetComponent<Rigidbody> ().velocity == new Vector3(0f, 0f, 0f)) {
+			GameObject.Destroy (gameObject);
+		}
+	}
+
 	void OnTriggerEnter(Collider col){
 		if(col.gameObject.CompareTag ("Enemy") && this.gameObject.name.Equals("Bullet(Clone)")){
 			EnemyController enemyController = col.gameObject.GetComponent<EnemyController>();
@@ -28,6 +34,12 @@ public class Bullet : MonoBehaviour {
 			}
 		}
 		if(col.gameObject.CompareTag ("Enemy") && this.gameObject.name.Equals("Bullet(Clone)")){
+			GameObject.Destroy (gameObject);
+		}
+	}
+
+	void OnCollisionEnter(Collision col){
+		if (this.gameObject.name.Equals ("Bullet(Clone)")) {
 			GameObject.Destroy (gameObject);
 		}
 	}
