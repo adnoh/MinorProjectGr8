@@ -5,8 +5,9 @@ using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour {
 
-	public GameObject normalEnemy;
-	public GameObject harderEnemy;
+	public GameObject windEnemy;
+	public GameObject waterEnemy;
+	public GameObject earthEnemy;
 	public int wave;
 	private bool waveOver;
 
@@ -30,14 +31,17 @@ public class EnemySpawner : MonoBehaviour {
 			enemiesDefeaten = 0;
 			waveOver = false;
 			for(int i = 0; i < wave; i++){
-				if(Random.Range(0, 2) == 0){
-					Instantiate (normalEnemy, getRandomPosition(), Quaternion.identity);
+				int random = Random.Range (0, 3);
+				if(random == 0){
+					Instantiate (waterEnemy, getRandomPosition(), Quaternion.identity);
+				}
+				else if(random == 1){
+					Instantiate (windEnemy, getRandomPosition(), Quaternion.identity);
 				}
 				else{
-					Instantiate (harderEnemy, getRandomPosition(), Quaternion.identity);
+					Instantiate (earthEnemy, getRandomPosition(), Quaternion.identity);
 				}
 			}
-
 		}
 		if (enemiesDefeaten == wave - 1) {
 			waveOver = true;

@@ -8,11 +8,14 @@ public class Enemy {
 	public int attackPower;
 	public float walkingSpeed;
 
-	public Enemy(int level, int maxHealth, int attackPower, float walkingSpeed){
+	public Type type;
+
+	public Enemy(int level, int maxHealth, int attackPower, float walkingSpeed, Type type){
 		this.level = level;
 		this.maxHealth = maxHealth;
 		this.attackPower = attackPower;
 		this.walkingSpeed = walkingSpeed;
+		this.type = type;
 	}
 
 	public int getLevel(){
@@ -31,9 +34,7 @@ public class Enemy {
 		return walkingSpeed;
 	}
 
-
-
-
-	
-
+	public Type getType(){
+		return type;
+	}
 }

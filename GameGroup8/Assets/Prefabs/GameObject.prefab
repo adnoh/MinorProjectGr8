@@ -34,7 +34,27 @@ GameObject:
   - 54: {fileID: 5481134}
   - 114: {fileID: 11499434}
   m_Layer: 0
-  m_Name: HarderEnemy
+  m_Name: EarthEnemy
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &154718
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 443018}
+  - 33: {fileID: 3399526}
+  - 135: {fileID: 13510980}
+  - 23: {fileID: 2380868}
+  - 54: {fileID: 5405816}
+  - 114: {fileID: 11476168}
+  m_Layer: 0
+  m_Name: WaterEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +74,7 @@ GameObject:
   - 54: {fileID: 5440798}
   - 114: {fileID: 11434536}
   m_Layer: 0
-  m_Name: NormalEnemy
+  m_Name: WindEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,11 +87,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119960}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -952.07196, y: -621.534973, z: 8.94876099}
+  m_LocalPosition: {x: -201.693848, y: 137.490768, z: 8.94876099}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 424002}
   - {fileID: 434468}
+  - {fileID: 443018}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &424002
@@ -98,6 +119,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 422686}
   m_RootOrder: 1
+--- !u!4 &443018
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154718}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1246.67004, y: -610.849976, z: -1.16876125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 422686}
+  m_RootOrder: 2
 --- !u!23 &2301038
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -170,6 +203,30 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!23 &2380868
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154718}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 99ab625533ccb454e8dc88302ae08a8d, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &3304924
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -191,6 +248,28 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 143046}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3399526
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154718}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &5405816
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154718}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 0
 --- !u!54 &5440798
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -253,6 +332,7 @@ MonoBehaviour:
   maxHealth: 0
   attackPower: 0
   walkingSpeed: 0
+  attackRate: 2
 --- !u!114 &11434536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -270,6 +350,25 @@ MonoBehaviour:
   maxHealth: 0
   attackPower: 0
   walkingSpeed: 0
+  attackRate: 2
+--- !u!114 &11476168
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 505bf8902e68e6a4f85a365ed1da8059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: .0500000007
+  level: 0
+  health: 0
+  maxHealth: 0
+  attackPower: 0
+  walkingSpeed: 0
+  attackRate: 2
 --- !u!114 &11499434
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -287,6 +386,19 @@ MonoBehaviour:
   maxHealth: 0
   attackPower: 0
   walkingSpeed: 0
+  attackRate: 2
+--- !u!135 &13510980
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154718}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &13527110
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -336,7 +448,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Name
-      value: NormalEnemy
+      value: EarthEnemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

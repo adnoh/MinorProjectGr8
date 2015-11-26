@@ -12,6 +12,9 @@ public class PlayerAttacker : MonoBehaviour {
 	public Text enemyHealthBar;
 	public Text enemyWeaponDamageText;
 
+	public Type currentType;
+	public Text playerWeaponText;
+
 	public GameObject bullet;
 	public float bulletSpeed = 100f;
 
@@ -23,7 +26,8 @@ public class PlayerAttacker : MonoBehaviour {
 	void Start () {
 		showEnemyDescription = false;
 		enemyDescription.SetActive (false);
-
+		currentType = new Type (1);
+		playerWeaponText.text = "Weapon: " + currentType.toString () + "-type";
 	}
 
 	void Update () {
@@ -35,19 +39,22 @@ public class PlayerAttacker : MonoBehaviour {
 			showEnemyDescription = false;
 		}
 
-        if (!Base)
-        {
+        if (!Base){
 			if (Input.GetMouseButtonDown(0) && Time.time > nextAttack ){
 				nextAttack = Time.time + attackRate;
-				GameObject shot = GameObject.Instantiate(bullet, transform.position + (transform.forward), transform.rotation) as GameObject;
-                shot.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
+				GameObject bulletClone = GameObject.Instantiate(bullet, transform.position + (transform.forward), transform.rotation) as GameObject;
+				bulletClone.tag = currentType.toString ();
+                bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
             }
         }
-		
+		if(Input.GetMouseButtonDown (1)){
+			currentType.nextType();
+			playerWeaponText.text = "Weapon: " + currentType.toString () + "-type";
+		}
 	}
 
 	public void setEnemyDescription(EnemyController enemyController){
-		enemyDescriptionText.text = "Level = " + enemyController.getLevel ();
+		enemyDescriptionText.text = "Enemy Type = " + enemyController.getType().toString();
 		enemyHealthBar.text = "Health = " + enemyController.getHealth ();
 		enemyWeaponDamageText.text = "Weapon Damage = " + enemyController.getAttackPower ();
 		showEnemyDescription = true;

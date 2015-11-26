@@ -7,22 +7,49 @@ public class EnemyFactory {
 	}
 
 
-	public Enemy getEnemy(string name){
-		if (name.Equals ("normal")) {
-			return getNormalEnemy ();
-		} else if (name.Equals ("better")) {
-			return getBetterEnemy ();
+	public Enemy getEnemy(string type, string difficulty){
+		if (type.Equals ("water")) {
+			return getWaterEnemy (difficulty);
+		} else if (type.Equals ("wind")) {
+			return getWindEnemy (difficulty);
 		} else {
-			return getNormalEnemy ();
+			return getEarthEnemy (difficulty);
 		}
 	}
 
-	private Enemy getNormalEnemy() {
-		return new Enemy (1, 100, 10, 2f);
+	private Enemy getWaterEnemy(string difficulty) {
+		if(difficulty.Equals ("normal")){
+			return new Enemy (1, 100, 10, 2f, new Type(3));
+		}
+		else if(difficulty.Equals ("harder")){
+			return new Enemy (2, 200, 15, 1f, new Type(3));
+		}
+		else{
+			return new Enemy (1, 100, 10, 2f, new Type(3));
+		}
 	}
 
-	private Enemy getBetterEnemy() {
-		return new Enemy (2, 200, 15, 1f);
+	private Enemy getWindEnemy(string difficulty) {
+		if(difficulty.Equals ("normal")){
+			return new Enemy (1, 100, 10, 2f, new Type(1));
+		}
+		else if(difficulty.Equals ("harder")){
+			return new Enemy (2, 200, 15, 1f, new Type(1));
+		}
+		else{
+			return new Enemy (1, 100, 10, 2f, new Type(1));
+		}
 	}
 
+	private Enemy getEarthEnemy(string difficulty) {
+		if(difficulty.Equals ("normal")){
+			return new Enemy (1, 100, 10, 2f, new Type(2));
+		}
+		else if(difficulty.Equals ("harder")){
+			return new Enemy (2, 200, 15, 1f, new Type(2));
+		}
+		else{
+			return new Enemy (1, 100, 10, 2f, new Type(2));
+		}
+	}
 }
