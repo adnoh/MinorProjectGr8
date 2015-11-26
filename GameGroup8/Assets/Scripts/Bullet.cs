@@ -27,7 +27,7 @@ public class Bullet : MonoBehaviour {
 				PlayerAttacker.lastAttackedEnemy = null;
 			}
 		}
-		if(this.gameObject.name.Equals("Bullet(Clone)")){
+		if(col.gameObject.CompareTag ("Enemy") && this.gameObject.name.Equals("Bullet(Clone)")){
 			GameObject.Destroy (gameObject);
 		}
 	}
