@@ -17,9 +17,14 @@ public class PlayerAttacker : MonoBehaviour {
 
 	public GameObject bullet;
 	public float bulletSpeed = 100f;
+	public int meleeAttackPower = 30;
 
 	public float attackRate = 0.5f;
 	private float nextAttack = 0.0f;
+
+	public bool meleeAttack = true;
+	public bool rangedAttack = false;
+	public Text playerWeaponStyleText;
 
 	public static EnemyController lastAttackedEnemy;
 		
@@ -28,6 +33,11 @@ public class PlayerAttacker : MonoBehaviour {
 		enemyDescription.SetActive (false);
 		currentType = new Type (1);
 		playerWeaponText.text = "Weapon: " + currentType.toString () + "-type";
+		if (meleeAttack) {
+			playerWeaponStyleText.text = "Melee";
+		} else {
+			playerWeaponStyleText.text = "Ranged";
+		}
 	}
 
 	void Update () {
@@ -40,16 +50,35 @@ public class PlayerAttacker : MonoBehaviour {
 		}
 
         if (!Base){
-			if (Input.GetMouseButtonDown(0) && Time.time > nextAttack ){
+			if (Input.GetMouseButtonDown(0) && Time.time > nextAttack && rangedAttack){
 				nextAttack = Time.time + attackRate;
 				GameObject bulletClone = GameObject.Instantiate(bullet, transform.position + (transform.forward), transform.rotation) as GameObject;
 				bulletClone.tag = currentType.toString ();
                 bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
             }
+			if (Input.GetMouseButtonDown(0) && Time.time > nextAttack && meleeAttack && lastAttackedEnemy != null){
+				nextAttack = Time.time + attackRate;
+				int damage = (int)(Random.Range (meleeAttackPower, 40) * currentType.damageMultiplierToType(lastAttackedEnemy.getType()));
+				lastAttackedEnemy.setHealth(lastAttackedEnemy.getHealth () - damage);
+				if(lastAttackedEnemy.getHealth () <= 0){
+					EnemySpawner.enemiesDefeaten++;
+					Destroy(lastAttackedEnemy.gameObject);
+					PlayerAttacker.lastAttackedEnemy = null;
+				}
+			}
         }
 		if(Input.GetMouseButtonDown (1)){
 			currentType.nextType();
 			playerWeaponText.text = "Weapon: " + currentType.toString () + "-type";
+		}
+		if(Input.GetMouseButtonDown (2)){
+			meleeAttack = !meleeAttack;
+			rangedAttack = !rangedAttack;
+			if (meleeAttack) {
+				playerWeaponStyleText.text = "Melee";
+			} else {
+				playerWeaponStyleText.text = "Ranged";
+			}
 		}
 	}
 
@@ -66,6 +95,12 @@ public class PlayerAttacker : MonoBehaviour {
 
 	public void setEnemyDescriptionOn(){
 		showEnemyDescription = true;
+	}
+
+	public void OnTriggerEnter(Collider col){
+		if (meleeAttack && col.gameObject.CompareTag ("Enemy")) {
+			lastAttackedEnemy = col.gameObject.GetComponent<EnemyController>();
+		}
 	}
 
 
