@@ -21,12 +21,13 @@ public class EnemyController : MonoBehaviour {
 	private float nextAttack = 0.0f;
 
 	void Start () {
+		level = this.gameObject.GetComponent<EnemyController> ().getLevel ();
 		if (this.gameObject.transform.name.Equals ("WaterEnemy(Clone)")) {
-			enemy = enemyFactory.getEnemy ("water", "normal");
+			enemy = enemyFactory.getEnemy ("water", level);
 		} else if (this.gameObject.transform.name.Equals ("WindEnemy(Clone)")) {
-			enemy = enemyFactory.getEnemy ("wind", "normal");
+			enemy = enemyFactory.getEnemy ("wind", level);
 		} else if (this.gameObject.transform.name.Equals ("EarthEnemy(Clone)")) {
-			enemy = enemyFactory.getEnemy ("earth", "normal");
+			enemy = enemyFactory.getEnemy ("earth", level);
 		}
 				
 		level = enemy.getLevel ();
@@ -63,6 +64,10 @@ public class EnemyController : MonoBehaviour {
 
 	public int getLevel(){
 		return level;
+	}
+
+	public void setLevel(int level){
+		this.level = level;
 	}
 
 	public int getAttackPower() {

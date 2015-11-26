@@ -11,8 +11,9 @@ public class PlayerAttacker : MonoBehaviour {
 	public Text enemyDescriptionText;
 	public Text enemyHealthBar;
 	public Text enemyWeaponDamageText;
+	public Text enemyLevelText;
 
-	public Type currentType;
+	public static Type currentType;
 	public Text playerWeaponText;
 
 	public GameObject bullet;
@@ -83,9 +84,10 @@ public class PlayerAttacker : MonoBehaviour {
 	}
 
 	public void setEnemyDescription(EnemyController enemyController){
-		enemyDescriptionText.text = "Enemy Type = " + enemyController.getType().toString();
-		enemyHealthBar.text = "Health = " + enemyController.getHealth ();
-		enemyWeaponDamageText.text = "Weapon Damage = " + enemyController.getAttackPower ();
+		enemyDescriptionText.text = "Enemy Type: " + enemyController.getType().toString();
+		enemyHealthBar.text = "Health:" + enemyController.getHealth ();
+		enemyWeaponDamageText.text = "Weapon Damage:" + enemyController.getAttackPower ();
+		enemyLevelText.text = "Level: " + enemyController.getLevel ();
 		showEnemyDescription = true;
 	}
 

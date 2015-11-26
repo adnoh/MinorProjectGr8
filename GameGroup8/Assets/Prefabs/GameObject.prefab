@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: .0500000007
-  level: 0
+  level: 1
   health: 0
   maxHealth: 0
   attackPower: 0
@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: .0500000007
-  level: 0
+  level: 1
   health: 0
   maxHealth: 0
   attackPower: 0
@@ -381,7 +381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: .0500000007
-  level: 0
+  level: 1
   health: 0
   maxHealth: 0
   attackPower: 0
@@ -449,6 +449,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Name
       value: EarthEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsKinematic
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
