@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour {
 	public int maxHealth;
 	public int attackPower;
 	public float walkingSpeed;
+	public Type type;
 
 	private bool isWithinRange;
 
@@ -20,10 +21,13 @@ public class EnemyController : MonoBehaviour {
 	private float nextAttack = 0.0f;
 
 	void Start () {
-		if (this.gameObject.transform.name.Equals ("NormalEnemy(Clone)")) {
-			enemy = enemyFactory.getEnemy ("normal");
-		} else if (this.gameObject.transform.name.Equals ("HarderEnemy(Clone)")) {
-			enemy = enemyFactory.getEnemy ("better");
+		level = this.gameObject.GetComponent<EnemyController> ().getLevel ();
+		if (this.gameObject.transform.name.Equals ("WaterEnemy(Clone)")) {
+			enemy = enemyFactory.getEnemy ("water", level);
+		} else if (this.gameObject.transform.name.Equals ("WindEnemy(Clone)")) {
+			enemy = enemyFactory.getEnemy ("wind", level);
+		} else if (this.gameObject.transform.name.Equals ("EarthEnemy(Clone)")) {
+			enemy = enemyFactory.getEnemy ("earth", level);
 		}
 				
 		level = enemy.getLevel ();
@@ -31,6 +35,7 @@ public class EnemyController : MonoBehaviour {
 		health = enemy.getMaxHealth();
 		attackPower = enemy.getAttackPower();
 		speed = enemy.getWalkingSpeed();
+		type = enemy.getType ();
 
 		isWithinRange = false;
 	}
@@ -61,8 +66,16 @@ public class EnemyController : MonoBehaviour {
 		return level;
 	}
 
+	public void setLevel(int level){
+		this.level = level;
+	}
+
 	public int getAttackPower() {
 		return attackPower;
+	}
+
+	public Type getType() {
+		return type;
 	}
 
 	public Enemy getEnemy() {

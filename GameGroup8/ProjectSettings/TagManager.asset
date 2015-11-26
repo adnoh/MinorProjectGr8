@@ -10,6 +10,10 @@ TagManager:
   - Enemy1
   - Pick-Up
   - Pick-up
+  - emptiePlane
+  - Wind
+  - Water
+  - Earth
   layers:
   - Default
   - TransparentFX
