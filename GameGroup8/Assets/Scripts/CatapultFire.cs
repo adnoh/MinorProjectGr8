@@ -8,7 +8,8 @@ public class CatapultFire : MonoBehaviour {
     private bool fire;
     private GameObject Vijand;
 
-    //public GameObject Object;
+    public GameObject Object;
+    public GameObject TurretBase;
 
 	void Start () {
         angle = 0;
@@ -29,9 +30,12 @@ public class CatapultFire : MonoBehaviour {
 
     void OnTriggerEnter(Collider Other)
     {
-        if(Other.tag == "Enemy")
+        if (!Vijand)
         {
-            Vijand = Other.gameObject;
+            if (Other.tag == "Enemy")
+            {
+                Vijand = Other.gameObject;
+            }
         }
     }
 
@@ -45,7 +49,13 @@ public class CatapultFire : MonoBehaviour {
 
     void FireObject()
     {
-        //gameObject Cat = instantiate(Object);
+        Vector3 aimPoint = Vijand.transform.position;
+        Vector3 firePoint = transform.position;
+        firePoint.y = 4.3f;
+        Vector3 aim = aimPoint - firePoint;
+        GameObject Cat = (GameObject)Instantiate(Object,firePoint,Quaternion.identity);
+        Cat.GetComponent<Rigidbody>().AddForce(aim*100);
+        Cat.GetComponent<Rigidbody>().AddForce(0, -10, 0);
     }
 
     IEnumerator FireCatapult()
@@ -68,7 +78,7 @@ public class CatapultFire : MonoBehaviour {
                 if (angle == 0)
                 {
                     top = false;
-                yield return new WaitForSeconds(1);
+                    yield return new WaitForSeconds(1);
                     fire = false;
                     break;
                 }
