@@ -8,6 +8,8 @@ public class CatapultFire : MonoBehaviour {
     private bool fire;
     private GameObject Vijand;
 
+    //public GameObject Object;
+
 	void Start () {
         angle = 0;
         top = false;
@@ -41,6 +43,11 @@ public class CatapultFire : MonoBehaviour {
         }
     }
 
+    void FireObject()
+    {
+        //gameObject Cat = instantiate(Object);
+    }
+
     IEnumerator FireCatapult()
     {
             while (!top)
@@ -49,6 +56,7 @@ public class CatapultFire : MonoBehaviour {
                 if (angle == 10)
                 {
                     top = true;
+                    FireObject();
                     break;
                 }
                 transform.Rotate(new Vector3(0, 1, 0), 15);
