@@ -12,7 +12,6 @@ public class PlaceObjects : MonoBehaviour
     private int menu;
     private int BorD;
     private int unitCount;
-    private float timeShow;
     private List<GameObject> turrets;
 
     public Material hoverMat;
@@ -200,7 +199,6 @@ public class PlaceObjects : MonoBehaviour
 
     IEnumerator TooLittleUnits()
     {
-        timeShow = 0;
         IndicationUnits.SetActive(true);
         yield return null;
     }
