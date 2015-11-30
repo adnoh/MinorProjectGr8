@@ -31,6 +31,7 @@ public class Bullet : MonoBehaviour {
 				EnemySpawner.enemiesDefeaten++;
 				Destroy(col.gameObject);
 				PlayerAttacker.lastAttackedEnemy = null;
+				MiniMapScript.enemies.Remove(enemyController);
 			}
 		}
 		if(col.gameObject.CompareTag ("Enemy") && this.gameObject.name.Equals("Bullet(Clone)")){

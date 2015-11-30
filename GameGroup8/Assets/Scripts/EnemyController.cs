@@ -38,6 +38,7 @@ public class EnemyController : MonoBehaviour {
 		type = enemy.getType ();
 
 		isWithinRange = false;
+		MiniMapScript.enemies.Add (this);
 	}
 
 	void Update () {
@@ -95,6 +96,4 @@ public class EnemyController : MonoBehaviour {
 		PlayerController.setHealth (attackPower);
 	}
 
-
-	
 }

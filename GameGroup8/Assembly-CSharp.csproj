@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\Lightswitch.cs" />
      <Compile Include="Assets\Scripts\MenuScript.cs" />
+     <Compile Include="Assets\Scripts\MiniMapScript.cs" />
      <Compile Include="Assets\Scripts\PSpawner.cs" />
      <Compile Include="Assets\Scripts\PlaceObjects.cs" />
      <Compile Include="Assets\Scripts\PlayerAttacker.cs" />
