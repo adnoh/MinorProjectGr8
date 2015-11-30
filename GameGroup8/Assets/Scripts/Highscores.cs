@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
  
-public class HSController : MonoBehaviour
+public class Highscores : MonoBehaviour
 {
     private string secretKey = "5o&UeG97cm1A/!v"; // same value as server secretKey;
     public string addScoreURL = "http://80.60.131.231/groep8/Highscores/addscore.php?"; 
