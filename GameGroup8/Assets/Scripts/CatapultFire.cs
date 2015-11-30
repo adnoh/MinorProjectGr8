@@ -7,6 +7,7 @@ public class CatapultFire : MonoBehaviour {
     private bool top;
     private bool fire;
     private GameObject Vijand;
+    private GameObject TempVijand;
 
     public GameObject Object;
     public GameObject TurretBase;
@@ -25,6 +26,10 @@ public class CatapultFire : MonoBehaviour {
                 fire = true;
                 StartCoroutine("FireCatapult");
             }
+        }
+        if (!Vijand)
+        {
+            Vijand = null;
         }
     }
 
@@ -49,24 +54,29 @@ public class CatapultFire : MonoBehaviour {
 
     void FireObject()
     {
-        Vector3 aimPoint = Vijand.transform.position;
+        Vector3 aimPoint = TempVijand.transform.position;
         Vector3 firePoint = transform.position;
-        firePoint.y = 4.3f;
+        firePoint.y = 6; //4.3f;
         Vector3 aim = aimPoint - firePoint;
         GameObject Cat = (GameObject)Instantiate(Object,firePoint,Quaternion.identity);
         Cat.GetComponent<Rigidbody>().AddForce(aim*100);
         Cat.GetComponent<Rigidbody>().AddForce(0, -10, 0);
+        TempVijand = null;
     }
 
     IEnumerator FireCatapult()
     {
+        TempVijand = Vijand;
             while (!top)
             {
                 angle++;
                 if (angle == 10)
                 {
                     top = true;
-                    FireObject();
+                    if (TempVijand)
+                    {
+                        FireObject();
+                    }
                     break;
                 }
                 transform.Rotate(new Vector3(0, 1, 0), 15);
@@ -85,8 +95,8 @@ public class CatapultFire : MonoBehaviour {
                 transform.Rotate(new Vector3(0, 1, 0), -15);
                 yield return null;
             }
-        
 
+        TempVijand = null;
         yield return null;
     }
 }

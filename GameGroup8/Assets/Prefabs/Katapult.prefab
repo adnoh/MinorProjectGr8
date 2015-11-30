@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a43320940f53fda4286a12ac46de2fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Object: {fileID: 120196, guid: 2ab3d8b21824d014fa88b7405c4a9489, type: 2}
+  Object: {fileID: 150414, guid: 220617ef983a07342ad5250bc90623c5, type: 2}
   TurretBase: {fileID: 100258}
 --- !u!114 &11432934
 MonoBehaviour:
@@ -257,7 +257,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: Object
       value: 
-      objectReference: {fileID: 120196, guid: 2ab3d8b21824d014fa88b7405c4a9489, type: 2}
+      objectReference: {fileID: 150414, guid: 220617ef983a07342ad5250bc90623c5, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100258}
