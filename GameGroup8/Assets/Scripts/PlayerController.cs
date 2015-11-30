@@ -23,6 +23,12 @@ public class PlayerController : MonoBehaviour {
 	public float regenerationTime = 20.0f;
 	private float timeToRegenerate = 0.0f;
 
+	public float energyGainingTime = 2.0f;
+	private float timeToGainEnergy = 0.0f;
+
+	public int energy;
+	public Text energyText;
+
 	void Start () {
         pause = false;
         BuildMenu.SetActive(false);
@@ -30,6 +36,9 @@ public class PlayerController : MonoBehaviour {
 		countText.text = "Amount of units: " + count;
 		playerHealth = 100;
 		playerHealthText.text = "Health: " + playerHealth;
+		walkingSpeed = 5;
+		energy = 100;
+		energyText.text = "Energy: " + energy;
 	}
 
 	void Update(){
@@ -56,6 +65,30 @@ public class PlayerController : MonoBehaviour {
                 IndicationUnits.SetActive(false);
             }
         }
+
+		if (energy > 0 && Input.GetKeyDown (KeyCode.R)) {
+			walkingSpeed = 10;
+			energyText.color = Color.red;
+		} else if (energy <= 0) {
+			walkingSpeed = 5;
+			energyText.color = Color.white;
+		}
+
+		if (Input.GetKeyUp(KeyCode.R)) {
+			walkingSpeed = 5;
+			energyText.color = Color.white;
+		}
+
+		if (walkingSpeed == 10) {
+			energy --;
+			energyText.text = "Energy: " + energy;
+		}
+
+		if (energy < 100 && Time.time > timeToGainEnergy) {
+			energy++;
+			energyText.text = "Energy: " + energy;
+			timeToGainEnergy = Time.time + energyGainingTime;
+		}
 
 		if (playerHealth < 100 && Time.time > timeToRegenerate) {
 			playerHealth++;
