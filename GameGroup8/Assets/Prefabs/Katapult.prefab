@@ -29,6 +29,7 @@ GameObject:
   - 33: {fileID: 3386228}
   - 23: {fileID: 2353288}
   - 114: {fileID: 11406548}
+  - 135: {fileID: 13562678}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -181,6 +182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a43320940f53fda4286a12ac46de2fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Object: {fileID: 150414, guid: 220617ef983a07342ad5250bc90623c5, type: 2}
+  TurretBase: {fileID: 100258}
 --- !u!114 &11432934
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -192,6 +195,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c9e58b8307f4084f8185d2c092a9a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &13562678
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 130976}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: -1.45487559, y: .13182795, z: -.427415073}
 --- !u!135 &13591354
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -202,7 +217,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:
@@ -235,6 +250,14 @@ Prefab:
       propertyPath: m_Constraints
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: TurretBase
+      value: 
+      objectReference: {fileID: 100258}
+    - target: {fileID: 0}
+      propertyPath: Object
+      value: 
+      objectReference: {fileID: 150414, guid: 220617ef983a07342ad5250bc90623c5, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100258}

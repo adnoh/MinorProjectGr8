@@ -5,11 +5,6 @@ public class TurretController : MonoBehaviour {
 
     private GameObject Vijand;
     private Vector3 VijandPositie;
-
-    void Start()
-    {
-
-    }
     
     void Update()
     {
@@ -19,7 +14,6 @@ public class TurretController : MonoBehaviour {
             VijandPositie.y = 0;
             transform.LookAt(VijandPositie);
             transform.Rotate(new Vector3 (0,1,0), 90);
-            
         }
         
     }
