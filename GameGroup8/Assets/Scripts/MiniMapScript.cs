@@ -29,9 +29,6 @@ public class MiniMapScript : MonoBehaviour {
 			enemiesDotList.RemoveAt(enemiesDotList.Count - 1);
 		}
 
-		/*for (int i = 0; i < enemiesDotList.Count; i++) {
-			enemiesDotList[i].transform.SetParent(miniMap.transform, false);
-		}*/
 
 		if (enemies.Count > 0) {
 			for(int i = 0; i < enemies.Count; i++){
