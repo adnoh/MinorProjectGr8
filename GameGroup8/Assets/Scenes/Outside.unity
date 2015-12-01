@@ -199,11 +199,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 171110, guid: 246468e56e16b8c4d848c2b64d2d9900, type: 2}
-  amount: 30
+  amount: 0
   minL: -10
   minR: 10
-  maxL: -50
-  maxR: 50
+  maxL: -150
+  maxR: 150
 --- !u!114 &5347435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,8 +653,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c56d357d108261140b763e7335ec27ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LvlSize: 30
+  nrHouses: 200
+  nrVillages: 3
+  nrTrees: 500
   House: {fileID: 179942, guid: b4955279ef2bfe34289f1b66ebe9321e, type: 2}
   Tree: {fileID: 147258, guid: 5bd6e7db15c9819439c8ea211dff03ba, type: 2}
+  Wall: {fileID: 108342, guid: 0f6c5ace820899649b0307ae430031d8, type: 2}
 --- !u!1 &260847663
 GameObject:
   m_ObjectHideFlags: 0

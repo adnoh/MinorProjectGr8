@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
  
 public class Highscores : MonoBehaviour
@@ -6,7 +7,9 @@ public class Highscores : MonoBehaviour
     private string secretKey = "5o&UeG97cm1A/!v"; // same value as server secretKey;
     public string addScoreURL = "http://80.60.131.231/groep8/Highscores/addscore.php?"; 
     public string highscoreURL = "http://80.60.131.231/groep8/Highscores/display_scores.php";
- 
+    public Text higscoretext;
+    
+       
     void Start()
     {
         StartCoroutine(GetScores());
@@ -35,19 +38,17 @@ public class Highscores : MonoBehaviour
     // remember to use StartCoroutine when calling this function!
     IEnumerator GetScores()
     {
-        gameObject.GetComponent<GUIText>().text = "Loading Scores";
+        //higscoretext.text = "Loading Scores";
         WWW hs_get = new WWW(highscoreURL);
         yield return hs_get;
- 
+
         if (hs_get.error != null)
         {
             print("There was an error getting the high score: " + hs_get.error);
-        }
-        else
-        {
-            gameObject.GetComponent<GUIText>().text = hs_get.text; // this is a GUIText that will display the scores in game.
-        }
-    }
+            higscoretext.text = "There was an error getting the high score: " + hs_get.error;
+        }          
+        higscoretext.text = hs_get.text; // this will display the text
+     }
 	
 	public  string Md5Sum(string strToEncrypt)
 {
