@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour {
 
 	private static int playerHealth;
-	public Text playerHealthText;
+	public Slider playerHealthBar;
 	public float walkingSpeed;
 	public float RotateSpeed = 30f;
     public GameObject Gate;
@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour {
 	private float timeToGainEnergy = 0.0f;
 
 	public int energy;
-	public Text energyText;
+	public Slider energyBar;
 
 	void Start () {
         pause = false;
@@ -35,14 +35,14 @@ public class PlayerController : MonoBehaviour {
 		count = 0;
 		countText.text = "Amount of units: " + count;
 		playerHealth = 100;
-		playerHealthText.text = "Health: " + playerHealth;
+		playerHealthBar.value = playerHealth;
 		walkingSpeed = 5;
 		energy = 100;
-		energyText.text = "Energy: " + energy;
+		energyBar.value = energy;
 	}
 
 	void Update(){
-		playerHealthText.text = "Health: " + playerHealth;
+		updateBars ();
 		Plane playerPlane = new Plane (Vector3.up, transform.position);
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		float hitdist = 0.0f;
@@ -68,25 +68,20 @@ public class PlayerController : MonoBehaviour {
 
 		if (energy > 0 && Input.GetKeyDown (KeyCode.R)) {
 			walkingSpeed = 10;
-			energyText.color = Color.red;
 		} else if (energy <= 0) {
 			walkingSpeed = 5;
-			energyText.color = Color.white;
 		}
 
 		if (Input.GetKeyUp(KeyCode.R)) {
 			walkingSpeed = 5;
-			energyText.color = Color.white;
 		}
 
-		if (walkingSpeed == 10) {
+		if (walkingSpeed == 10 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis ("Vertical") != 0)) {
 			energy --;
-			energyText.text = "Energy: " + energy;
 		}
 
 		if (energy < 100 && Time.time > timeToGainEnergy) {
 			energy++;
-			energyText.text = "Energy: " + energy;
 			timeToGainEnergy = Time.time + energyGainingTime;
 		}
 
@@ -154,5 +149,10 @@ public class PlayerController : MonoBehaviour {
 
 	public static void setHealth(int damage){
 		playerHealth -= damage;
+	}
+
+	void updateBars(){
+		playerHealthBar.value = playerHealth;
+		energyBar.value = energy;
 	}
 }

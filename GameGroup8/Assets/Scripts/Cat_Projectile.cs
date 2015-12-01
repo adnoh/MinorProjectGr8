@@ -31,6 +31,7 @@ public class Cat_Projectile : MonoBehaviour {
                 EnemySpawner.enemiesDefeaten++;
                 Destroy(col.gameObject);
                 PlayerAttacker.lastAttackedEnemy = null;
+				MiniMapScript.enemies.Remove(enemyController);
             }
         }
         if (col.gameObject.CompareTag("Enemy") && gameObject.name.Equals("Cat!(Clone)"))
