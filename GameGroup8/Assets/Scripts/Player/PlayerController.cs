@@ -3,10 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
-
-	private static int playerHealth;
+	
 	public Slider playerHealthBar;
-	public float walkingSpeed;
 	public float RotateSpeed = 30f;
     public GameObject Gate;
     public GameObject BuildMenu;
@@ -17,7 +15,9 @@ public class PlayerController : MonoBehaviour {
 	public GameObject player;
 	private static Vector3 currentPosition;
 
-    private static bool pause;
+	public Text levelText;
+
+    public static bool pause;
     private Vector3 playerPos;
 
 	public float regenerationTime = 20.0f;
@@ -25,8 +25,7 @@ public class PlayerController : MonoBehaviour {
 
 	public float energyGainingTime = 2.0f;
 	private float timeToGainEnergy = 0.0f;
-
-	public int energy;
+	
 	public Slider energyBar;
 
 	void Start () {
@@ -34,15 +33,14 @@ public class PlayerController : MonoBehaviour {
         BuildMenu.SetActive(false);
 		count = 0;
 		countText.text = "Amount of units: " + count;
-		playerHealth = 100;
-		playerHealthBar.value = playerHealth;
-		walkingSpeed = 5;
-		energy = 100;
-		energyBar.value = energy;
+		playerHealthBar.value = PlayerAttributes.getHealth ();
+		energyBar.value = PlayerAttributes.getEnergy();
+		levelText.text = "Level: " + PlayerAttributes.getLevel();
 	}
 
 	void Update(){
 		updateBars ();
+		levelText.text = "Level: " + PlayerAttributes.getLevel();
 		Plane playerPlane = new Plane (Vector3.up, transform.position);
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		float hitdist = 0.0f;
@@ -66,27 +64,27 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-		if (energy > 0 && Input.GetKeyDown (KeyCode.R)) {
-			walkingSpeed = 10;
-		} else if (energy <= 0) {
-			walkingSpeed = 5;
+		if (PlayerAttributes.getEnergy() > 0 && Input.GetKeyDown (KeyCode.R)) {
+			PlayerAttributes.run();
+		} else if (PlayerAttributes.getEnergy() <= 0) {
+			PlayerAttributes.dontRun();
 		}
 
 		if (Input.GetKeyUp(KeyCode.R)) {
-			walkingSpeed = 5;
+			PlayerAttributes.dontRun();
 		}
 
-		if (walkingSpeed == 10 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis ("Vertical") != 0)) {
-			energy --;
+		if (PlayerAttributes.isRunning() && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis ("Vertical") != 0)) {
+			PlayerAttributes.setEnergyDown();
 		}
 
-		if (energy < 100 && Time.time > timeToGainEnergy) {
-			energy++;
+		if (PlayerAttributes.getEnergy() < PlayerAttributes.getMaxEnergy() && Time.time > timeToGainEnergy) {
+			PlayerAttributes.replenish();
 			timeToGainEnergy = Time.time + energyGainingTime;
 		}
 
-		if (playerHealth < 100 && Time.time > timeToRegenerate) {
-			playerHealth++;
+		if (PlayerAttributes.getHealth() < PlayerAttributes.getMaxHealth() && Time.time > timeToRegenerate) {
+			PlayerAttributes.regenerate ();
 			timeToRegenerate = Time.time + regenerationTime;
 		}
 
@@ -104,7 +102,7 @@ public class PlayerController : MonoBehaviour {
 		float moveHorizontal = Input.GetAxis("Horizontal") * Time.deltaTime;
 		float moveVertical = Input.GetAxis ("Vertical") * Time.deltaTime;
 		
-		transform.Translate(walkingSpeed * moveHorizontal, 0.0f, walkingSpeed * moveVertical, Space.World);
+		transform.Translate(PlayerAttributes.getWalkingSpeed() * moveHorizontal, 0.0f, PlayerAttributes.getWalkingSpeed() * moveVertical, Space.World);
 
 		Vector3 playerPos = player.transform.position;
 		setPosition (playerPos);
@@ -147,12 +145,10 @@ public class PlayerController : MonoBehaviour {
         count -= change;
     }
 
-	public static void setHealth(int damage){
-		playerHealth -= damage;
-	}
-
 	void updateBars(){
-		playerHealthBar.value = playerHealth;
-		energyBar.value = energy;
+		playerHealthBar.maxValue = PlayerAttributes.getMaxHealth ();
+		playerHealthBar.value = PlayerAttributes.getHealth();
+		energyBar.maxValue = PlayerAttributes.getMaxEnergy ();
+		energyBar.value = PlayerAttributes.getEnergy();
 	}
 }

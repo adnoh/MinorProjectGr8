@@ -93,7 +93,7 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	public void attack() {
-		PlayerController.setHealth (attackPower);
+		PlayerAttributes.takeDamage(attackPower);
 	}
 
 }

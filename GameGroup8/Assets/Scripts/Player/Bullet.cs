@@ -32,6 +32,7 @@ public class Bullet : MonoBehaviour {
 				Destroy(col.gameObject);
 				PlayerAttacker.lastAttackedEnemy = null;
 				MiniMapScript.enemies.Remove(enemyController);
+				PlayerAttributes.getExperience(enemyController.getLevel());
 			}
 		}
 		if(col.gameObject.CompareTag ("Enemy") && this.gameObject.name.Equals("Bullet(Clone)")){
@@ -40,7 +41,7 @@ public class Bullet : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision col){
-		if (this.gameObject.name.Equals ("Bullet(Clone)")) {
+		if ((col.gameObject.CompareTag ("Wall") || col.gameObject.name.Equals ("House(Clone)")) && this.gameObject.name.Equals ("Bullet(Clone)")) {
 			GameObject.Destroy (gameObject);
 		}
 	}

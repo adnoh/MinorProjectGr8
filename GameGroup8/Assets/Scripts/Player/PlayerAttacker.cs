@@ -9,7 +9,6 @@ public class PlayerAttacker : MonoBehaviour {
 	public bool showEnemyDescription;
 
 	public Text enemyDescriptionText;
-	//public Text enemyHealthBar;
 	public Slider enemyHealthBar;
 	public Text enemyWeaponDamageText;
 	public Text enemyLevelText;
@@ -61,12 +60,13 @@ public class PlayerAttacker : MonoBehaviour {
             }
 			if (Input.GetMouseButtonDown(0) && Time.time > nextAttack && meleeAttack && lastAttackedEnemy != null){
 				nextAttack = Time.time + attackRate;
-				int damage = (int)(Random.Range (meleeAttackPower, 40) * currentType.damageMultiplierToType(lastAttackedEnemy.getType()));
+				int damage = (int)(Random.Range (meleeAttackPower, 40) * currentType.damageMultiplierToType(lastAttackedEnemy.getType()) * PlayerAttributes.getAttackMultiplier());
 				lastAttackedEnemy.setHealth(lastAttackedEnemy.getHealth () - damage);
 				if(lastAttackedEnemy.getHealth () <= 0){
 					EnemySpawner.enemiesDefeaten++;
 					Destroy(lastAttackedEnemy.gameObject);
 					MiniMapScript.enemies.Remove(lastAttackedEnemy);
+					PlayerAttributes.getExperience(lastAttackedEnemy.getLevel());
 					PlayerAttacker.lastAttackedEnemy = null;
 				}
 			}
