@@ -54,7 +54,7 @@ public class EnemySpawner : MonoBehaviour {
 			calculateLevelToSpawn ();
 		}
 		enemiesToDefeatText.text = "Enemies to defeat: " + enemiesToDefeat;
-		timeTillNextWaveText.text = "Time till next wave: " + (timeTillNextWave - Time.time);
+		timeTillNextWaveText.text = "Time till next wave: " + (int)(timeTillNextWave - Time.time);
 		calculateChangeToSpawnEarth ();
 		calculateChangeToSpawnWater ();
 		calculateChangeToSpawnWind ();
@@ -63,7 +63,12 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	Vector3 getRandomPosition(){
-		return new Vector3 ((float)Random.Range (20, 40), 1f, (float)Random.Range (-10, 10));
+		int ran = Random.Range (0, 2);
+		if (ran == 1) {
+			return new Vector3 ((float)(Random.Range (5, 15) * Mathf.Pow (-1, Random.Range (0, 2))), 1f, (float)Random.Range (0, 10));
+		} else {
+			return new Vector3 ((float)(Random.Range (5, 15) * Mathf.Pow (-1, Random.Range (0, 2))), 1f, (float)Random.Range (-15, -25));
+		}
 	}
 
 	void nextWave(){

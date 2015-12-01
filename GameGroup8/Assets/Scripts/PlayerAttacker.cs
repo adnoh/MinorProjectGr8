@@ -9,7 +9,8 @@ public class PlayerAttacker : MonoBehaviour {
 	public bool showEnemyDescription;
 
 	public Text enemyDescriptionText;
-	public Text enemyHealthBar;
+	//public Text enemyHealthBar;
+	public Slider enemyHealthBar;
 	public Text enemyWeaponDamageText;
 	public Text enemyLevelText;
 
@@ -33,6 +34,7 @@ public class PlayerAttacker : MonoBehaviour {
 		showEnemyDescription = false;
 		enemyDescription.SetActive (false);
 		currentType = new Type (1);
+
 		playerWeaponText.text = "Weapon: " + currentType.toString () + "-type";
 		if (meleeAttack) {
 			playerWeaponStyleText.text = "Melee";
@@ -64,6 +66,7 @@ public class PlayerAttacker : MonoBehaviour {
 				if(lastAttackedEnemy.getHealth () <= 0){
 					EnemySpawner.enemiesDefeaten++;
 					Destroy(lastAttackedEnemy.gameObject);
+					MiniMapScript.enemies.Remove(lastAttackedEnemy);
 					PlayerAttacker.lastAttackedEnemy = null;
 				}
 			}
@@ -85,7 +88,7 @@ public class PlayerAttacker : MonoBehaviour {
 
 	public void setEnemyDescription(EnemyController enemyController){
 		enemyDescriptionText.text = "Enemy Type: " + enemyController.getType().toString();
-		enemyHealthBar.text = "Health:" + enemyController.getHealth ();
+		enemyHealthBar.value = (float)enemyController.getHealth () / 100f;
 		enemyWeaponDamageText.text = "Weapon Damage:" + enemyController.getAttackPower ();
 		enemyLevelText.text = "Level: " + enemyController.getLevel ();
 		showEnemyDescription = true;
