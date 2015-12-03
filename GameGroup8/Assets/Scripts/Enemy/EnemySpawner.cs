@@ -19,7 +19,8 @@ public class EnemySpawner : MonoBehaviour {
 	public Text enemiesToDefeatText;
 
 	public float timeTillNextWave = 10f;
-	private float timeBetweenWaves = 30f;
+	private float minTimeBetweenWaves = 30f;
+	private float maxTimeBetweenWaves = 45f;
 
 	public Text timeTillNextWaveText;
 
@@ -46,7 +47,7 @@ public class EnemySpawner : MonoBehaviour {
 	void Update () {
 		if(Time.time > timeTillNextWave){
 			setEnemiesThisWave();
-			timeTillNextWave = Time.time + timeBetweenWaves;
+			timeTillNextWave = Time.time + Random.Range (minTimeBetweenWaves, maxTimeBetweenWaves);
 			totalEnemiesSpawned +=enemiesThisWave;
 			enemiesToDefeatText.text = "Enemies to defeat: " + enemiesToDefeat;
 			nextWave();
