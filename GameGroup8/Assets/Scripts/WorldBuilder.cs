@@ -15,6 +15,7 @@ public class WorldBuilder : MonoBehaviour {
     private List<Vector3> HousePos = new List<Vector3>();
     private List<Vector3> BigPos = new List<Vector3>();
     private int maxChange;
+    private int villageSize;
 
     public GameObject House;
     public GameObject Tree;
@@ -23,7 +24,7 @@ public class WorldBuilder : MonoBehaviour {
 	//Initialize world
 	void Start () {
         transform.localScale = new Vector3(LvlSize, 1, LvlSize);
-        maxChange = LvlSize * 5;
+        maxChange = LvlSize * 5 - 10;
         PlaceHouses();
         PlaceTrees();
     }
@@ -37,11 +38,11 @@ public class WorldBuilder : MonoBehaviour {
         while (countVillages < nrVillages)
         {
             Vector3 marketPlace = getRandBigPos();
-            int villageSize = (int)Mathf.Round(Random.Range(minVillageSize, maxVillageSize));
+            villageSize = (int)Mathf.Round(Random.Range(minVillageSize, maxVillageSize));
             int countHouses = HousePos.Count + villageSize;
             while (HousePos.Count < countHouses)
             {
-                Vector3 place = getRandPos(5, (int)Mathf.Round((villageSize/1.5f))) + marketPlace;
+                Vector3 place = getRandPos(5, (int)Mathf.Round((villageSize/1.2f))) + marketPlace;
                 addHousePos(HousePos, place, 5);
             }
             countVillages++;
@@ -69,7 +70,19 @@ public class WorldBuilder : MonoBehaviour {
             Vector3 place = getRandPos(BaseSize, maxChange);
             if (!TreePos.Contains(place)&&(!HousePos.Contains(place)))
             {
-                TreePos.Add(place);
+                bool doPlace = true;
+                for (int i = 0; i < HousePos.Count; i++)
+                {
+                    if (Vector3.Distance(place, HousePos[i]) < 5)
+                    {
+                        doPlace = false;
+                    }
+                }
+                if (doPlace)
+                {
+                    TreePos.Add(place);
+                }
+                
             }
         }
 
@@ -106,7 +119,7 @@ public class WorldBuilder : MonoBehaviour {
                 z = z * -1;
             }
         }
-        Vector3 place = new Vector3(x, 0, z);
+        Vector3 place = new Vector3(x, 0.01f, z);
         return place;
     }
 
@@ -116,7 +129,7 @@ public class WorldBuilder : MonoBehaviour {
         Vector3 value = new Vector3(0, 0, 0);
         while (!add)
         {
-            value = getRandPos(30, maxChange / 2);
+            value = getRandPos(villageSize, (int)Mathf.Round(maxChange / 1.5f));
             if (BigPos.Count == 0)
             { 
                 BigPos.Add(value);

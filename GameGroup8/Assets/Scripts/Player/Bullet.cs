@@ -41,7 +41,7 @@ public class Bullet : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision col){
-		if ((col.gameObject.CompareTag ("Wall") || col.gameObject.name.Equals ("House(Clone)")) && this.gameObject.name.Equals ("Bullet(Clone)")) {
+		if ((col.gameObject.name.Equals ("Wall(Clone)") || col.gameObject.name.Equals ("House(Clone)")) && gameObject.name.Equals ("Bullet(Clone)")) {
 			GameObject.Destroy (gameObject);
 		}
 	}
