@@ -1,20 +1,49 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
- 
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
 public class Highscores : MonoBehaviour
 {
     private string secretKey = "5o&UeG97cm1A/!v"; // same value as server secretKey;
     public string addScoreURL = "http://80.60.131.231/groep8/Highscores/addscore.php?"; 
     public string highscoreURL = "http://80.60.131.231/groep8/Highscores/display_scores.php";
     public Text higscoretext;
+
+    // currently an input field for both playername and score. Score must be an integer.
+    public InputField playername;
+    public InputField score;
     
-       
-    void Start()
+    // needed for posting
+    string player_name;
+    int hi_score;
+
+        
+    public void Start()
+    {   
+
+        StartCoroutine(GetScores());
+    }
+
+    public void StartGetScores()
     {
         StartCoroutine(GetScores());
     }
- 
+
+
+    public void StartPostScores()
+    {
+        player_name = playername.text;
+        hi_score = int.Parse(score.text);
+        StartCoroutine(PostScores(player_name, hi_score));
+    }
+
+
+
+
+
     // remember to use StartCoroutine when calling this function!
     IEnumerator PostScores(string name, int score)
     {
@@ -23,6 +52,7 @@ public class Highscores : MonoBehaviour
         string hash = Md5Sum(name + score + secretKey);
  
         string post_url = addScoreURL + "name=" + WWW.EscapeURL(name) + "&score=" + score + "&hash=" + hash;
+        print(post_url);
  
         // Post the URL to the site and create a download object to get the result.
         WWW hs_post = new WWW(post_url);
@@ -36,7 +66,7 @@ public class Highscores : MonoBehaviour
  
     // Get the scores from the MySQL DB to display in a GUIText.
     // remember to use StartCoroutine when calling this function!
-    IEnumerator GetScores()
+   IEnumerator GetScores()
     {
         //higscoretext.text = "Loading Scores";
         WWW hs_get = new WWW(highscoreURL);

@@ -1,8 +1,8 @@
 <?php
     // Send variables for the MySQL database class.
-	// create connection: database location, loginname, loginpassword
+	// create connection: database location, loginname, loginpassword - deleted on github
 	// select the right database
-    $database = mysql_connect('localhost', '****', '********') or die('Could not connect: ' . mysql_error());
+    $database = mysql_connect('localhost', 'user', 'password') or die('Could not connect: ' . mysql_error());
     mysql_select_db('highscores') or die('Could not select database');
  
  
