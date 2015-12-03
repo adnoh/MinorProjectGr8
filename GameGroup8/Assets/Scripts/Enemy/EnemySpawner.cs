@@ -135,7 +135,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	void setEnemiesThisWave(){
-		enemiesThisWave = (int)Mathf.Floor(2f + wave * (1f/3f));
+		enemiesThisWave = (int)Mathf.Floor(2f + wave * 0.5f);
 	}
 
 	void calculateLevelToSpawn(){

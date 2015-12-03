@@ -109,6 +109,9 @@ public class PlayerController : MonoBehaviour {
 				upgradeText.color = Color.white;
 			}
 		}
+		if (PlayerAttributes.pointsToUpgrade == 0) {
+			upgradeText.color = Color.white;
+		}
 	}
 
 

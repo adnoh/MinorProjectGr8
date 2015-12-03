@@ -123,7 +123,8 @@ public class PlayerAttacker : MonoBehaviour {
 
 	public void setEnemyDescription(EnemyController enemyController){
 		enemyDescriptionText.text = "Enemy Type: " + enemyController.getType().toString();
-		enemyHealthBar.value = (float)enemyController.getHealth () / 100f;
+		enemyHealthBar.maxValue = (float)enemyController.getMaxHealth ();
+		enemyHealthBar.value = (float)enemyController.getHealth ();
 		enemyWeaponDamageText.text = "Weapon Damage:" + enemyController.getAttackPower ();
 		enemyLevelText.text = "Level: " + enemyController.getLevel ();
 		showEnemyDescription = true;
