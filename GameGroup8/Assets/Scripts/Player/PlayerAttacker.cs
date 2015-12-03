@@ -13,8 +13,8 @@ public class PlayerAttacker : MonoBehaviour {
 	public Text enemyWeaponDamageText;
 	public Text enemyLevelText;
 
+	private int type;
 	public static Type currentType;
-	public Text playerWeaponText;
 
 	public GameObject bullet;
 	public float bulletSpeed = 1000f;
@@ -25,26 +25,53 @@ public class PlayerAttacker : MonoBehaviour {
 
 	public bool meleeAttack = true;
 	public bool rangedAttack = false;
-	public Text playerWeaponStyleText;
 
 	public static EnemyController lastAttackedEnemy;
+
+	public GameObject weaponPanel;
+
+	public Text windText;
+	public Text earthText;
+	public Text waterText;
+	public Text meleeText;
+	public Text rangedText;
 		
 	void Start () {
+		currentType = new Type (0);
+		meleeAttack = true;
 		showEnemyDescription = false;
 		enemyDescription.SetActive (false);
-		currentType = new Type (1);
-
-		playerWeaponText.text = "Weapon: " + currentType.toString () + "-type";
-		if (meleeAttack) {
-			playerWeaponStyleText.text = "Melee";
-		} else {
-			playerWeaponStyleText.text = "Ranged";
-		}
+		setAttackTypeToWind ();
+		setAttackStyleToMelee ();
 	}
 
 	void Update () {
 		enemyDescription.SetActive (showEnemyDescription);
         bool Base = PlayerController.getPause();
+		currentType.setType (type);
+		if (meleeAttack) {
+			setActive (meleeText);
+			setUnActive (rangedText);
+		} else {
+			setUnActive (meleeText);
+			setActive (rangedText);
+		}
+		if (currentType.getType () == 0) {
+			setActive (windText);
+			setUnActive (earthText);
+			setUnActive (waterText);
+		}
+		if (currentType.getType () == 1) {
+			setUnActive (windText);
+			setActive (earthText);
+			setUnActive (waterText);
+		}
+		if (currentType.getType () == 2) {
+			setUnActive (windText);
+			setUnActive (earthText);
+			setActive (waterText);
+		}
+
 		if (lastAttackedEnemy != null) {
 			setEnemyDescription (lastAttackedEnemy);
 		} else {
@@ -70,20 +97,23 @@ public class PlayerAttacker : MonoBehaviour {
 					PlayerAttacker.lastAttackedEnemy = null;
 				}
 			}
-        }
-		if(Input.GetMouseButtonDown (1)){
-			currentType.nextType();
-			playerWeaponText.text = "Weapon: " + currentType.toString () + "-type";
-		}
-		if(Input.GetMouseButtonDown (2)){
-			meleeAttack = !meleeAttack;
-			rangedAttack = !rangedAttack;
-			if (meleeAttack) {
-				playerWeaponStyleText.text = "Melee";
-			} else {
-				playerWeaponStyleText.text = "Ranged";
+			if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1)){
+				setAttackTypeToWind();
 			}
-		}
+			if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2)){
+				setAttackTypeToEarth();
+			}
+			if (Input.GetKeyDown(KeyCode.Keypad3)  || Input.GetKeyDown(KeyCode.Alpha3)){
+				setAttackTypeToWater();
+			}
+			if (Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4)){
+				setAttackStyleToMelee();
+			}
+			if (Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5)){
+				setAttackStyleToRanged();
+			}
+        }
+
 	}
 
 	public void setEnemyDescription(EnemyController enemyController){
@@ -108,5 +138,33 @@ public class PlayerAttacker : MonoBehaviour {
 		}
 	}
 
+	public void setAttackStyleToMelee(){
+		meleeAttack = true;
+		rangedAttack = false;
+	}
 
+	public void setAttackStyleToRanged() {
+		meleeAttack = false;
+		rangedAttack = true;
+	}
+
+	public void setAttackTypeToWind() {
+		type = 0;
+	}
+
+	public void setAttackTypeToEarth() {
+		type = 1;
+	}
+
+	public void setAttackTypeToWater() {
+		type = 2;
+	}
+
+	private void setActive(Text text){
+		text.color = Color.red;
+	}
+
+	private void setUnActive(Text text){
+		text.color = Color.black;
+	}
 }

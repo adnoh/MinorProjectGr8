@@ -12,8 +12,6 @@ public class MiniMapScript : MonoBehaviour {
 	public static List<EnemyController> enemies = new List<EnemyController> ();
 	private List<Text> enemiesDotList = new List<Text> ();
 
-	public static EnemyController enemy;
-
 	void Update(){
 		float xPlayer = 0.5f * (PlayerController.getPosition ().x);
 		float yPlayer = 0.5f * (PlayerController.getPosition ().z);
