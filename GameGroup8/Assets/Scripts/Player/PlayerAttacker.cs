@@ -119,7 +119,14 @@ public class PlayerAttacker : MonoBehaviour {
 	}
 	
 	public void setEnemyDescription(EnemyController enemyController){
-		enemyDescriptionText.text = "Enemy Type: " + enemyController.getType().toString();
+		if (enemyController.getType ().getType () == 1) {
+			enemyDescriptionText.text = "Desert Eagle";
+		}
+		if (enemyController.getType ().getType () == 2) {
+			enemyDescriptionText.text = "Fire Fox";
+		} else {
+			enemyDescriptionText.text = "Hammerhead Shark";
+		}
 		enemyHealthBar.maxValue = (float)enemyController.getMaxHealth ();
 		enemyHealthBar.value = (float)enemyController.getHealth ();
 		enemyWeaponDamageText.text = "Weapon Damage:" + enemyController.getAttackPower ();

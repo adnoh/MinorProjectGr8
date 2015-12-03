@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour {
 
 	public Text levelText;
 
+	public Slider fatiqueBar;
+
     public static bool pause;
     private Vector3 playerPos;
 
@@ -55,6 +57,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
         if (Input.GetButtonDown("Jump") && Vector3.Distance(Gate.transform.position,transform.position) < 3){
+			PlayerAttributes.resetFatique();
             pause = !pause;
             if (pause){
                 playerPos = transform.position;
@@ -112,6 +115,7 @@ public class PlayerController : MonoBehaviour {
 		if (PlayerAttributes.pointsToUpgrade == 0) {
 				upgradeText.color = Color.white;
 		}
+		PlayerAttributes.getTired ();
 	}
 
 
@@ -167,5 +171,6 @@ public class PlayerController : MonoBehaviour {
 		playerHealthBar.value = PlayerAttributes.getHealth();
 		energyBar.maxValue = PlayerAttributes.getMaxEnergy ();
 		energyBar.value = PlayerAttributes.getEnergy();
+		fatiqueBar.value = PlayerAttributes.getFatique ();
 	}
 }
