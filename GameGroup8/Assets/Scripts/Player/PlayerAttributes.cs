@@ -8,7 +8,7 @@ public class PlayerAttributes : MonoBehaviour {
 	public static int experience = 0;
 	public static int pointsToUpgrade = 0;
 
-	private static int experienceNeededToLevelUp = 20;
+	private static int experienceNeededToLevelUp = 5;
 
 	public int attackPoints = 0;
 	public int speedPoints = 0;
@@ -17,10 +17,13 @@ public class PlayerAttributes : MonoBehaviour {
 
 	private static float attackMultiplier = 1f;
 	private static float walkingSpeed = 5f;
+	private static float runningSpeed = walkingSpeed * 2f;
 	private static int maxHealth = 100;
 	private static int health = 100;
 	private static int maxEnergy = 100;
 	private static int energy = 100;
+
+	private static float speed;
 
 	private static bool running = false;
 
@@ -38,6 +41,7 @@ public class PlayerAttributes : MonoBehaviour {
 		healthPointsText.text = "Max Health Points: " + maxHealthPoints;
 		energyPointsText.text = "Max Energy Points: " + maxEnergyPoints;
 		upgradePanel.SetActive (false);
+		speed = walkingSpeed;
 	}
 
 	public void openUpgradePanel(){
@@ -115,8 +119,8 @@ public class PlayerAttributes : MonoBehaviour {
 		return attackMultiplier;
 	}
 
-	public static float getWalkingSpeed(){
-		return walkingSpeed;
+	public static float getSpeed(){
+		return speed;
 	}
 
 	public static int getMaxHealth(){
@@ -152,12 +156,12 @@ public class PlayerAttributes : MonoBehaviour {
 	}
 
 	public static void run(){
-		walkingSpeed = walkingSpeed * 2;
+		speed = runningSpeed;
 		running = true;
 	}
 
 	public static void dontRun(){
-		walkingSpeed = walkingSpeed / 2;
+		speed = walkingSpeed;
 		running = false;
 	}
 

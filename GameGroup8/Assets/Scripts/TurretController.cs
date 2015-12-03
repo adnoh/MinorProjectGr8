@@ -3,26 +3,26 @@ using System.Collections;
 
 public class TurretController : MonoBehaviour {
 
-    private GameObject Vijand;
-    private Vector3 VijandPositie;
+    private GameObject enemy;
+    private Vector3 enemyPosition;
     
     void Update()
     {
-        if (Vijand)
+        if (enemy)
         {
-            VijandPositie = Vijand.transform.position;
-            VijandPositie.y = 0;
-            transform.LookAt(VijandPositie);
-            transform.Rotate(new Vector3 (0,1,0), 90);
+            enemyPosition = enemy.transform.position;
+            enemyPosition.y = 0;
+            transform.LookAt(enemyPosition);
+            transform.Rotate(new Vector3 (0, 1, 0), 90);
         }
         
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Enemy")
+        if (other.CompareTag ("Enemy"))
         {
-            Vijand = other.gameObject;
+            enemy = other.gameObject;
         }
     }
 
@@ -31,8 +31,8 @@ public class TurretController : MonoBehaviour {
         if (other.tag == "Enemy")
         {
             Vector3 LastPostition = other.transform.position;
-            VijandPositie = LastPostition;
-            Vijand = null;
+            enemyPosition = LastPostition;
+            enemy = null;
         }
          
     }

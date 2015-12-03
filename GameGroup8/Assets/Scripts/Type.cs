@@ -39,7 +39,7 @@ public class Type {
 	}
 
 	public void setType(int i){
-		if (i >= 0 && i <= 3) {
+		if (i > 0 && i <= 3) {
 			this.type = i;
 		} else {
 			this.type = 1;

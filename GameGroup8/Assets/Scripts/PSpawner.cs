@@ -12,6 +12,10 @@ public class PSpawner : MonoBehaviour {
 		PlaceCubes ();
 	}
 
+	public void placeUnit(Vector3 place){
+		Instantiate (unit, place, Quaternion.identity);
+	}
+
 	void PlaceCubes(){
 		
 		List<Vector3> occupied = new List<Vector3> ();

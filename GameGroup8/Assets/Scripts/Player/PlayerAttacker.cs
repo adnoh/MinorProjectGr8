@@ -13,7 +13,9 @@ public class PlayerAttacker : MonoBehaviour {
 	public Text enemyWeaponDamageText;
 	public Text enemyLevelText;
 
-	private int type;
+	public GameObject unit;
+
+	private int type = 1;
 	public static Type currentType;
 
 	public GameObject bullet;
@@ -37,7 +39,8 @@ public class PlayerAttacker : MonoBehaviour {
 	public Text rangedText;
 		
 	void Start () {
-		currentType = new Type (0);
+		type = 1;
+		currentType = new Type (1);
 		meleeAttack = true;
 		showEnemyDescription = false;
 		enemyDescription.SetActive (false);
@@ -56,17 +59,17 @@ public class PlayerAttacker : MonoBehaviour {
 			setUnActive (meleeText);
 			setActive (rangedText);
 		}
-		if (currentType.getType () == 0) {
+		if (currentType.getType () == 1) {
 			setActive (windText);
 			setUnActive (earthText);
 			setUnActive (waterText);
 		}
-		if (currentType.getType () == 1) {
+		if (currentType.getType () == 2) {
 			setUnActive (windText);
 			setActive (earthText);
 			setUnActive (waterText);
 		}
-		if (currentType.getType () == 2) {
+		if (currentType.getType () == 3) {
 			setUnActive (windText);
 			setUnActive (earthText);
 			setActive (waterText);
@@ -90,6 +93,8 @@ public class PlayerAttacker : MonoBehaviour {
 				int damage = (int)(Random.Range (meleeAttackPower, 40) * currentType.damageMultiplierToType(lastAttackedEnemy.getType()) * PlayerAttributes.getAttackMultiplier());
 				lastAttackedEnemy.setHealth(lastAttackedEnemy.getHealth () - damage);
 				if(lastAttackedEnemy.getHealth () <= 0){
+					PSpawner spawner = Camera.main.GetComponent<PSpawner>();
+					spawner.placeUnit(lastAttackedEnemy.gameObject.transform.position);
 					EnemySpawner.enemiesDefeaten++;
 					Destroy(lastAttackedEnemy.gameObject);
 					MiniMapScript.enemies.Remove(lastAttackedEnemy);
@@ -149,15 +154,15 @@ public class PlayerAttacker : MonoBehaviour {
 	}
 
 	public void setAttackTypeToWind() {
-		type = 0;
-	}
-
-	public void setAttackTypeToEarth() {
 		type = 1;
 	}
 
-	public void setAttackTypeToWater() {
+	public void setAttackTypeToEarth() {
 		type = 2;
+	}
+
+	public void setAttackTypeToWater() {
+		type = 3;
 	}
 
 	private void setActive(Text text){

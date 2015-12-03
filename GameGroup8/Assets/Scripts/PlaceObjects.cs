@@ -76,10 +76,10 @@ public class PlaceObjects : MonoBehaviour
     {
         unitCount = PlayerController.getCount();
 
-        Ray Straal = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         
-        if (Physics.Raycast(Straal, out hit, 1000,512) && hit.collider.gameObject.CompareTag("emptyPlane"))
+        if (Physics.Raycast(ray, out hit, 1000,512) && hit.collider.gameObject.CompareTag("emptyPlane"))
         {
             if (lastHitObject)
             {
@@ -100,15 +100,15 @@ public class PlaceObjects : MonoBehaviour
             {
                 if (unitCount >= 2)
                 {
-                    Vector3 plaats = lastHitObject.transform.position;
+                    Vector3 place = lastHitObject.transform.position;
                     //plaats.y = 0.5f;
-                    GameObject nieuw = (GameObject)Instantiate(placable, plaats, Quaternion.identity);
-                    nieuw.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
+                    GameObject newObject = (GameObject)Instantiate(placable, place, Quaternion.identity);
+                    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
                     lastHitObject.tag = "occupiedPlane";
-                    turrets.Add(nieuw);
+                    turrets.Add(newObject);
                     PlayerController.setCount(2);
                     unitCount = unitCount - 2;
-                    countText.text = "Count: " + unitCount.ToString();
+                    countText.text = "Amount of units: " + unitCount.ToString();
                 } 
                 else if (unitCount < 2)
                 {
@@ -123,10 +123,10 @@ public class PlaceObjects : MonoBehaviour
     {
         buildMenu.SetActive(false);
         BackBtn.SetActive(true);
-        Ray Straal = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(Straal, out hit, 1000,512) && hit.collider.gameObject.CompareTag("occupiedPlane"))
+        if (Physics.Raycast(ray, out hit, 1000,512) && hit.collider.gameObject.CompareTag("occupiedPlane"))
         {
 
             if (lastHitObject)
