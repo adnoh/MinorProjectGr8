@@ -59,6 +59,10 @@ public class EnemyController : MonoBehaviour {
 		return health;
 	}
 
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+
 	public void setHealth(int health) {
 		this.health = health;
 	}
