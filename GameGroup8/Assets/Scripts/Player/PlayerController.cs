@@ -17,16 +17,22 @@ public class PlayerController : MonoBehaviour {
 
 	public Text levelText;
 
+	public Slider fatiqueBar;
+
     public static bool pause;
     private Vector3 playerPos;
 
 	public float regenerationTime = 20.0f;
-	private float timeToRegenerate = 0.0f;
+	private float timeToRegenerate = 2.0f;
 
 	public float energyGainingTime = 2.0f;
-	private float timeToGainEnergy = 0.0f;
+	private float timeToGainEnergy = 2.0f;
 	
 	public Slider energyBar;
+
+	public float flashingInterval = 0.5f;
+	private float timeToFlash = 0.0f;
+	public Text upgradeText;
 
 	void Start () {
         pause = false;
@@ -51,6 +57,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
         if (Input.GetButtonDown("Jump") && Vector3.Distance(Gate.transform.position,transform.position) < 3){
+			PlayerAttributes.resetFatique();
             pause = !pause;
             if (pause){
                 playerPos = transform.position;
@@ -64,13 +71,13 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-		if (PlayerAttributes.getEnergy() > 0 && Input.GetKeyDown (KeyCode.R)) {
+		if (PlayerAttributes.getEnergy() > 0 && Input.GetKeyDown (KeyCode.LeftShift)) {
 			PlayerAttributes.run();
 		} else if (PlayerAttributes.getEnergy() <= 0) {
 			PlayerAttributes.dontRun();
 		}
 
-		if (Input.GetKeyUp(KeyCode.R)) {
+		if (Input.GetKeyUp(KeyCode.LeftShift)) {
 			PlayerAttributes.dontRun();
 		}
 
@@ -95,6 +102,20 @@ public class PlayerController : MonoBehaviour {
 		else {
             Time.timeScale = 1;
         }
+
+		if (PlayerAttributes.pointsToUpgrade > 0 && Time.time > timeToFlash) {
+			timeToFlash = Time.time + flashingInterval;
+			if(upgradeText.color == Color.white){
+					upgradeText.color = Color.red;
+			}
+			else{
+					upgradeText.color = Color.white;
+			}
+		}
+		if (PlayerAttributes.pointsToUpgrade == 0) {
+				upgradeText.color = Color.white;
+		}
+		PlayerAttributes.getTired ();
 	}
 
 
@@ -102,7 +123,7 @@ public class PlayerController : MonoBehaviour {
 		float moveHorizontal = Input.GetAxis("Horizontal") * Time.deltaTime;
 		float moveVertical = Input.GetAxis ("Vertical") * Time.deltaTime;
 		
-		transform.Translate(PlayerAttributes.getWalkingSpeed() * moveHorizontal, 0.0f, PlayerAttributes.getWalkingSpeed() * moveVertical, Space.World);
+		transform.Translate(PlayerAttributes.getSpeed() * moveHorizontal, 0.0f, PlayerAttributes.getSpeed() * moveVertical, Space.World);
 
 		Vector3 playerPos = player.transform.position;
 		setPosition (playerPos);
@@ -150,5 +171,6 @@ public class PlayerController : MonoBehaviour {
 		playerHealthBar.value = PlayerAttributes.getHealth();
 		energyBar.maxValue = PlayerAttributes.getMaxEnergy ();
 		energyBar.value = PlayerAttributes.getEnergy();
+		fatiqueBar.value = PlayerAttributes.getFatique ();
 	}
 }

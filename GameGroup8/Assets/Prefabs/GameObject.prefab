@@ -34,7 +34,7 @@ GameObject:
   - 54: {fileID: 5481134}
   - 114: {fileID: 11499434}
   m_Layer: 0
-  m_Name: EarthEnemy
+  m_Name: FireFox
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ GameObject:
   - 54: {fileID: 5405816}
   - 114: {fileID: 11476168}
   m_Layer: 0
-  m_Name: WaterEnemy
+  m_Name: Hammerhead
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ GameObject:
   - 54: {fileID: 5440798}
   - 114: {fileID: 11434536}
   m_Layer: 0
-  m_Name: WindEnemy
+  m_Name: DesertEagle
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: .0500000007
-  level: 1
+  level: 2
   health: 0
   maxHealth: 0
   attackPower: 0
@@ -549,7 +549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: .0500000007
-  level: 1
+  level: 4
   health: 0
   maxHealth: 0
   attackPower: 0
@@ -567,7 +567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: .0500000007
-  level: 2
+  level: 3
   health: 0
   maxHealth: 0
   attackPower: 0
@@ -670,7 +670,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Name
-      value: EarthEnemy
+      value: Hammerhead
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_IsKinematic

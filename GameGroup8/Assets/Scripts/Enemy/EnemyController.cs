@@ -22,11 +22,11 @@ public class EnemyController : MonoBehaviour {
 
 	void Start () {
 		level = this.gameObject.GetComponent<EnemyController> ().getLevel ();
-		if (this.gameObject.transform.name.Equals ("WaterEnemy(Clone)")) {
+		if (this.gameObject.transform.name.Equals ("Hammerhead(Clone)")) {
 			enemy = enemyFactory.getEnemy ("water", level);
-		} else if (this.gameObject.transform.name.Equals ("WindEnemy(Clone)")) {
+		} else if (this.gameObject.transform.name.Equals ("DesertEagle(Clone)")) {
 			enemy = enemyFactory.getEnemy ("wind", level);
-		} else if (this.gameObject.transform.name.Equals ("EarthEnemy(Clone)")) {
+		} else if (this.gameObject.transform.name.Equals ("FireFox(Clone)")) {
 			enemy = enemyFactory.getEnemy ("earth", level);
 		}
 				
@@ -57,6 +57,10 @@ public class EnemyController : MonoBehaviour {
 
 	public int getHealth() {
 		return health;
+	}
+
+	public int getMaxHealth() {
+		return maxHealth;
 	}
 
 	public void setHealth(int health) {
@@ -95,5 +99,7 @@ public class EnemyController : MonoBehaviour {
 	public void attack() {
 		PlayerAttributes.takeDamage(attackPower);
 	}
+
+
 
 }

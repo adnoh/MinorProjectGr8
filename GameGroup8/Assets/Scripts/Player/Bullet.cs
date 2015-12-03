@@ -28,16 +28,17 @@ public class Bullet : MonoBehaviour {
 			enemyController.setHealth(enemyController.getHealth () - damage);
 			PlayerAttacker.lastAttackedEnemy = enemyController;
 			if(enemyController.getHealth () <= 0){
+				PSpawner spawner = Camera.main.GetComponent<PSpawner>();
+				spawner.placeUnit(enemyController.gameObject.transform.position);
 				EnemySpawner.enemiesDefeaten++;
 				Destroy(col.gameObject);
 				PlayerAttacker.lastAttackedEnemy = null;
 				MiniMapScript.enemies.Remove(enemyController);
 				PlayerAttributes.getExperience(enemyController.getLevel());
 			}
-		}
-		if(col.gameObject.CompareTag ("Enemy") && this.gameObject.name.Equals("Bullet(Clone)")){
 			GameObject.Destroy (gameObject);
 		}
+
 	}
 
 	void OnCollisionEnter(Collision col){
