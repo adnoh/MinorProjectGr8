@@ -37,14 +37,8 @@ public class Pathfinding : MonoBehaviour
 
         Node startNode = grid.NodeFromWorldPoint(startPos);
         Node targetNode = grid.NodeFromWorldPoint(targetPos);
-
-
-        // Set TargetNode in grid for visual feedback
-        // Set SeekerNode in grid for visual feedback
-        grid.TargetNode = targetNode;
-        grid.SeekerNode = startNode;
-
-        // optimization: only try to find path when it's walkable
+        
+         // optimization: only try to find path when it's walkable
         if (startNode.walkable && targetNode.walkable)
         {
             List<Node> openSet = new List<Node>();

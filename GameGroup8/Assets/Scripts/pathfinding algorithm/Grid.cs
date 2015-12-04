@@ -13,10 +13,6 @@ using System.Collections.Generic;
 public class Grid : MonoBehaviour
 {
 
-    public Node SeekerNode;
-    public Node TargetNode;
-    public Node CurrentNode;
-
     public bool displayGridCubes;
     public LayerMask WallMask;
     public Vector3 gridWorldSize;
@@ -34,6 +30,7 @@ public class Grid : MonoBehaviour
         gridSizeZ = Mathf.RoundToInt(gridWorldSize.z / nodeDiameter);
         // TODO: Get dynamically from worldsize
 
+        // CreateGrid(); Does create the grid -> call this AFTER worldbuilder!
         CreateGrid();
     }
 
@@ -57,7 +54,6 @@ public class Grid : MonoBehaviour
     public List<Node> GetNeighbours(Node node)
     {
         List<Node> neighbours = new List<Node>();
-
 
         // scan neighbours loop
         for (int x = -1; x <= 1; x++)

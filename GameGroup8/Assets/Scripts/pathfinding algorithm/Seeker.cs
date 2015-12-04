@@ -16,6 +16,8 @@ public class Seeker : MonoBehaviour
 
     Vector3[] path;
     int targetIndex; // current index in the path array 
+
+    // get target
     void Awake()
     {
         target = GameObject.Find("TemporaryPlayer").GetComponent<Transform>();
