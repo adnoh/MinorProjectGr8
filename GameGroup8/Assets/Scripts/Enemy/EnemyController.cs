@@ -67,12 +67,12 @@ public class EnemyController : MonoBehaviour {
 
 	}
 
-	void FixedUpdate ()	{
-		position = PlayerController.getPosition ();
+	/* void FixedUpdate ()	{
+		 position = PlayerController.getPosition ();
 		if (!isWithinRange) {
 			transform.position = Vector3.MoveTowards (transform.position, position, speed * Time.deltaTime);
 		}
-	}
+	} */
 
 	public int getHealth() {
 		return health;

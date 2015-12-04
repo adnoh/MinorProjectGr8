@@ -45,8 +45,11 @@ public class PathRequestManager : MonoBehaviour {
     // Action -> stores the method
     public static void RequestPath(Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> succesful)
     {
-        PathRequest newRequest = new PathRequest(pathStart, pathEnd, succesful);
-        instance.pathRequestQueue.Enqueue(newRequest);
+        if (pathStart != pathEnd)
+        {
+            PathRequest newRequest = new PathRequest(pathStart, pathEnd, succesful);
+            instance.pathRequestQueue.Enqueue(newRequest);
+        }
         instance.TryProcessNext();
 
     }

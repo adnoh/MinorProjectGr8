@@ -33,6 +33,7 @@ GameObject:
   - 23: {fileID: 2301038}
   - 54: {fileID: 5481134}
   - 114: {fileID: 11499434}
+  - 114: {fileID: 11498438}
   m_Layer: 0
   m_Name: FireFox
   m_TagString: Enemy
@@ -53,6 +54,7 @@ GameObject:
   - 23: {fileID: 2380868}
   - 54: {fileID: 5405816}
   - 114: {fileID: 11476168}
+  - 114: {fileID: 11458540}
   m_Layer: 0
   m_Name: Hammerhead
   m_TagString: Enemy
@@ -73,6 +75,7 @@ GameObject:
   - 23: {fileID: 2343074}
   - 54: {fileID: 5440798}
   - 114: {fileID: 11434536}
+  - 114: {fileID: 11451542}
   m_Layer: 0
   m_Name: DesertEagle
   m_TagString: Enemy
@@ -531,12 +534,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: .0500000007
-  level: 2
+  level: 1
   health: 0
   maxHealth: 0
   attackPower: 0
   walkingSpeed: 0
   attackRate: 2
+--- !u!114 &11451542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 168888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  currentPos: {fileID: 424002}
+  speed: 4
+--- !u!114 &11458540
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  currentPos: {fileID: 443018}
+  speed: 4
 --- !u!114 &11476168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -549,12 +580,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: .0500000007
-  level: 4
+  level: 1
   health: 0
   maxHealth: 0
   attackPower: 0
   walkingSpeed: 0
   attackRate: 2
+--- !u!114 &11498438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 143046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  currentPos: {fileID: 434468}
+  speed: 4
 --- !u!114 &11499434
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -567,7 +612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: .0500000007
-  level: 3
+  level: 1
   health: 0
   maxHealth: 0
   attackPower: 0
@@ -675,6 +720,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: currentPos
+      value: 
+      objectReference: {fileID: 434468}
+    - target: {fileID: 0}
+      propertyPath: speed
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
