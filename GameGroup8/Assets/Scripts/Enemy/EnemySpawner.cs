@@ -19,7 +19,8 @@ public class EnemySpawner : MonoBehaviour {
 	public Text enemiesToDefeatText;
 
 	public float timeTillNextWave = 10f;
-	private float timeBetweenWaves = 30f;
+	private float minTimeBetweenWaves = 30f;
+	private float maxTimeBetweenWaves = 45f;
 
 	public Text timeTillNextWaveText;
 
@@ -46,7 +47,7 @@ public class EnemySpawner : MonoBehaviour {
 	void Update () {
 		if(Time.time > timeTillNextWave){
 			setEnemiesThisWave();
-			timeTillNextWave = Time.time + timeBetweenWaves;
+			timeTillNextWave = Time.time + Random.Range (minTimeBetweenWaves, maxTimeBetweenWaves);
 			totalEnemiesSpawned +=enemiesThisWave;
 			enemiesToDefeatText.text = "Enemies to defeat: " + enemiesToDefeat;
 			nextWave();
@@ -101,33 +102,33 @@ public class EnemySpawner : MonoBehaviour {
 			changeToSpawnWindEnemy = 1f/3f;
 		}
 		if(tempType == 2){
-			changeToSpawnWindEnemy = 1f/6f;
+			changeToSpawnWindEnemy = 1f/2f;
 		}
 		if(tempType == 3){
-			changeToSpawnWindEnemy = 1f/2f;
+			changeToSpawnWindEnemy = 1f/3f;
 		}
 	}
 
 	void calculateChangeToSpawnWater(){
 		int tempType = PlayerAttacker.currentType.getType ();
 		if(tempType == 1){
-			changeToSpawnWaterEnemy = 1f/2f;
+			changeToSpawnWaterEnemy = 1f/6f;
 		}
 		if(tempType == 2){
 			changeToSpawnWaterEnemy = 1f/3f;
 		}
 		if(tempType == 3){
-			changeToSpawnWaterEnemy = 1f/6f;
+			changeToSpawnWaterEnemy = 1f/2f;
 		}
 	}
 
 	void calculateChangeToSpawnEarth(){
 		int tempType = PlayerAttacker.currentType.getType ();
 		if(tempType == 1){
-			changeToSpawnEarthEnemy = 1f/6f;
+			changeToSpawnEarthEnemy = 1f/2f;
 		}
 		if(tempType == 2){
-			changeToSpawnEarthEnemy = 1f/2f;
+			changeToSpawnEarthEnemy = 1f/6f;
 		}
 		if(tempType == 3){
 			changeToSpawnEarthEnemy = 1f/3f;
@@ -135,7 +136,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	void setEnemiesThisWave(){
-		enemiesThisWave = (int)Mathf.Floor(2f + wave * (2f/3f));
+		enemiesThisWave = (int)Mathf.Floor(2f + wave * (1f/2f));
 	}
 
 	void calculateLevelToSpawn(){

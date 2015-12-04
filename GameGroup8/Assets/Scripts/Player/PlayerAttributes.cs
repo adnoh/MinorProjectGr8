@@ -17,6 +17,7 @@ public class PlayerAttributes : MonoBehaviour {
 
 	private static float attackMultiplier = 1f;
 	private static float walkingSpeed = 5f;
+	private static float maxWalkingSpeed = 5f;
 	private static float runningSpeed = walkingSpeed * 2f;
 	private static int maxHealth = 100;
 	private static int health = 100;
@@ -24,7 +25,9 @@ public class PlayerAttributes : MonoBehaviour {
 	private static int energy = 100;
 
 	private static bool running = false;
-	private static float speed;
+	private static float speed = 5f;
+
+	public static int fatique = 10000;
 
 	public GameObject upgradePanel;
 	public Text pointsToAssignText;
@@ -87,7 +90,7 @@ public class PlayerAttributes : MonoBehaviour {
 	public void upgradeSpeed(){
 		if (pointsToUpgrade > 0) {
 			speedPoints++;
-			walkingSpeed = 5f + (float)speedPoints * 0.5f;
+			maxWalkingSpeed = 5f + (float)speedPoints * 0.5f;
 			speedPointsText.text = "Speed Points: " + speedPoints;
 			pointsToUpgrade --;
 			pointsToAssignText.text = "Points to assign " + pointsToUpgrade;
@@ -119,7 +122,7 @@ public class PlayerAttributes : MonoBehaviour {
 	}
 
 	public static float getSpeed(){
-		return walkingSpeed;
+		return speed;
 	}
 
 	public static int getMaxHealth(){
@@ -166,5 +169,19 @@ public class PlayerAttributes : MonoBehaviour {
 
 	public static bool isRunning(){
 		return running;
+	}
+
+	public static int getFatique(){
+		return fatique;
+	}
+	
+	public static void getTired(){
+		fatique--;
+		walkingSpeed = maxWalkingSpeed * Mathf.Pow (0.8f, (10000f - (float)fatique) / 10000f);
+	}
+
+	public static void resetFatique(){
+		fatique = 10000;
+		walkingSpeed = maxWalkingSpeed;
 	}
 }
