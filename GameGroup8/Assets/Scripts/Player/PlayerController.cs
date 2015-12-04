@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
     private Vector3 playerPos;
 
 	public float regenerationTime = 20.0f;
-	private float timeToRegenerate = 2.0f;
+	private float timeToRegenerate = 20.0f;
 
 	public float energyGainingTime = 2.0f;
 	private float timeToGainEnergy = 2.0f;

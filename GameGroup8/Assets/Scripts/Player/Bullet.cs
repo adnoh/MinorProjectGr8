@@ -4,9 +4,15 @@ using System.Collections;
 public class Bullet : MonoBehaviour {
 
 	public Type type;
+	public int dmg;
+	public bool stun;
+	public bool poisonous;
+
 
 	void Start(){
-		if (this.gameObject.CompareTag ("Wind")) {
+		if (this.gameObject.CompareTag ("No type")) {
+			type = new Type (0);
+		} else if (this.gameObject.CompareTag ("Wind")) {
 			type = new Type (1);
 		} else if (this.gameObject.CompareTag ("Earth")) {
 			type = new Type (2);
@@ -24,8 +30,14 @@ public class Bullet : MonoBehaviour {
 	void OnTriggerEnter(Collider col){
 		if(col.gameObject.CompareTag ("Enemy") && this.gameObject.name.Equals("Bullet(Clone)")){
 			EnemyController enemyController = col.gameObject.GetComponent<EnemyController>();
-			int damage = (int)(Random.Range (20, 30) * type.damageMultiplierToType(enemyController.getType()));
+			int damage = (int)(Random.Range (dmg, dmg + 10) * type.damageMultiplierToType(enemyController.getType()) * PlayerAttributes.getAttackMultiplier());
 			enemyController.setHealth(enemyController.getHealth () - damage);
+			if(poisonous){
+				enemyController.setPoisoned();
+			}
+			if(stun){
+				enemyController.setStunned ();
+			}
 			PlayerAttacker.lastAttackedEnemy = enemyController;
 			if(enemyController.getHealth () <= 0){
 				PSpawner spawner = Camera.main.GetComponent<PSpawner>();

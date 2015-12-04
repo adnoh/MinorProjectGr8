@@ -13,64 +13,39 @@ public class PlayerAttacker : MonoBehaviour {
 	public Text enemyWeaponDamageText;
 	public Text enemyLevelText;
 	
-	private int type;
-	public static Type currentType;
-	
 	public GameObject bullet;
 	public float bulletSpeed = 1000f;
-	public int meleeAttackPower = 30;
-	
-	public float attackRate = 0.5f;
+	public static Weapon currentWeapon;
+
+	private WeaponFactory weaponFactory = new WeaponFactory();
+
 	private float nextAttack = 0.0f;
-	
-	public bool meleeAttack = true;
-	public bool rangedAttack = false;
 	
 	public static EnemyController lastAttackedEnemy;
 	
 	public GameObject weaponPanel;
 	
-	public Image windImage;
-	public Image earthImage;
-	public Image waterImage;
-	public Image meleeImage;
-	public Image rangedImage;
+	public Image pistolImage;
+	public Image shrimpImage;
+	public Image stingerImage;
+	public Text eelText;
+	public Text wunderwuffenText;
+	public Image batteringRamImage;
+	public Text swordfishText;
+	public Image baseBallBatImage;
+
+	public Text typeOfWunderWaffenText;
 	
 	void Start () {
-		currentType = new Type (1);
-		meleeAttack = true;
+		currentWeapon = weaponFactory.getPistol ();
+		setActive (pistolImage);
 		showEnemyDescription = false;
 		enemyDescription.SetActive (false);
-		setAttackTypeToWind ();
-		setAttackStyleToMelee ();
 	}
 	
 	void Update () {
 		enemyDescription.SetActive (showEnemyDescription);
 		bool Base = PlayerController.getPause();
-		currentType.setType (type);
-		if (meleeAttack) {
-			setActive (meleeImage);
-			setUnActive (rangedImage);
-		} else {
-			setUnActive (meleeImage);
-			setActive (rangedImage);
-		}
-		if (currentType.getType () == 1) {
-			setActive (windImage);
-			setUnActive (earthImage);
-			setUnActive (waterImage);
-		}
-		if (currentType.getType () == 2) {
-			setUnActive (windImage);
-			setActive (earthImage);
-			setUnActive (waterImage);
-		}
-		if (currentType.getType () == 3) {
-			setUnActive (windImage);
-			setUnActive (earthImage);
-			setActive (waterImage);
-		}
 		
 		if (lastAttackedEnemy != null) {
 			setEnemyDescription (lastAttackedEnemy);
@@ -79,16 +54,8 @@ public class PlayerAttacker : MonoBehaviour {
 		}
 		
 		if (!Base){
-			if (Input.GetMouseButtonDown(0) && Time.time > nextAttack && rangedAttack){
-				nextAttack = Time.time + attackRate;
-				GameObject bulletClone = GameObject.Instantiate(bullet, transform.position + (transform.forward), transform.rotation) as GameObject;
-				bulletClone.tag = currentType.toString ();
-				bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
-			}
-			if (Input.GetMouseButtonDown(0) && Time.time > nextAttack && meleeAttack && lastAttackedEnemy != null){
-				nextAttack = Time.time + attackRate;
-				int damage = (int)(Random.Range (meleeAttackPower, 40) * currentType.damageMultiplierToType(lastAttackedEnemy.getType()) * PlayerAttributes.getAttackMultiplier());
-				lastAttackedEnemy.setHealth(lastAttackedEnemy.getHealth () - damage);
+			if(currentWeapon.getIfElectric() && Input.GetMouseButton(0) && lastAttackedEnemy != null){
+				lastAttackedEnemy.health -= (int)(2 * currentWeapon.getType ().damageMultiplierToType(lastAttackedEnemy.getType()) * PlayerAttributes.getAttackMultiplier());
 				if(lastAttackedEnemy.getHealth () <= 0){
 					PSpawner spawner = Camera.main.GetComponent<PSpawner>();
 					spawner.placeUnit(lastAttackedEnemy.gameObject.transform.position);
@@ -99,21 +66,93 @@ public class PlayerAttacker : MonoBehaviour {
 					PlayerAttacker.lastAttackedEnemy = null;
 				}
 			}
+			if(!currentWeapon.getIfElectric() && currentWeapon.getIfAutomatic() && Input.GetMouseButton(0) && Time.time > nextAttack && !currentWeapon.getIfMelee()){
+				nextAttack = Time.time + currentWeapon.getAttackSpeed();
+				GameObject bulletClone = GameObject.Instantiate(bullet, transform.position + (transform.forward), transform.rotation) as GameObject;
+				bulletClone.tag = currentWeapon.getType().toString ();
+				bulletClone.GetComponent<Bullet>().dmg = currentWeapon.getWeaponDamage();
+				bulletClone.GetComponent<Bullet>().poisonous = currentWeapon.getIfPoisonous();
+				bulletClone.GetComponent<Bullet>().stun = currentWeapon.getIfStuns();
+				bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
+			}
+			if(!currentWeapon.getIfAutomatic() && Input.GetMouseButtonDown(0) && Time.time > nextAttack && !currentWeapon.getIfMelee()){
+				nextAttack = Time.time + currentWeapon.getAttackSpeed();
+				GameObject bulletClone = GameObject.Instantiate(bullet, transform.position + (transform.forward), transform.rotation) as GameObject;
+				bulletClone.tag = currentWeapon.getType().toString ();
+				bulletClone.GetComponent<Bullet>().dmg = currentWeapon.getWeaponDamage();
+				bulletClone.GetComponent<Bullet>().poisonous = currentWeapon.getIfPoisonous();
+				bulletClone.GetComponent<Bullet>().stun = currentWeapon.getIfStuns();
+				bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
+			}
+			if (Input.GetMouseButtonDown(0) && Time.time > nextAttack && currentWeapon.getIfMelee() && lastAttackedEnemy != null){
+				nextAttack = Time.time + currentWeapon.getAttackSpeed();
+				int damage = (int)(Random.Range (currentWeapon.getWeaponDamage(), currentWeapon.getWeaponDamage() + 10) * currentWeapon.getType ().damageMultiplierToType(lastAttackedEnemy.getType()) * PlayerAttributes.getAttackMultiplier());
+				lastAttackedEnemy.setHealth(lastAttackedEnemy.getHealth () - damage);
+				lastAttackedEnemy.gameObject.transform.Translate (new Vector3(lastAttackedEnemy.gameObject.transform.position.x - this.gameObject.transform.position.x, 0, lastAttackedEnemy.gameObject.transform.position.z - this.gameObject.transform.position.z) * currentWeapon.getKnockBack());
+				if(lastAttackedEnemy.getHealth () <= 0){
+					PSpawner spawner = Camera.main.GetComponent<PSpawner>();
+					spawner.placeUnit(lastAttackedEnemy.gameObject.transform.position);
+					EnemySpawner.enemiesDefeaten++;
+					Destroy(lastAttackedEnemy.gameObject);
+					MiniMapScript.enemies.Remove(lastAttackedEnemy);
+					PlayerAttributes.getExperience(lastAttackedEnemy.getLevel());
+					PlayerAttacker.lastAttackedEnemy = null;
+				}
+			}
+
 			if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1)){
-				setAttackTypeToWind();
+				currentWeapon = weaponFactory.getPistol();
+				setUnActive();
+				setActive (pistolImage);
 			}
 			if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2)){
-				setAttackTypeToEarth();
+				currentWeapon = weaponFactory.getShrimpPistol();
+				setUnActive();
+				setActive (shrimpImage);
 			}
 			if (Input.GetKeyDown(KeyCode.Keypad3)  || Input.GetKeyDown(KeyCode.Alpha3)){
-				setAttackTypeToWater();
+				currentWeapon = weaponFactory.getStingerGun();
+				setUnActive();
+				setActive (stingerImage);
 			}
 			if (Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4)){
-				setAttackStyleToMelee();
+				currentWeapon = weaponFactory.getWeaponizedEel();
+				setUnActive();
+				setActive (eelText);
 			}
 			if (Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5)){
-				setAttackStyleToRanged();
+				currentWeapon = weaponFactory.getWunderwuffen();
+				currentWeapon.setType(new Type(1));
+				typeOfWunderWaffenText.text = currentWeapon.getType().toString();
+				setUnActive();
+				setActive (wunderwuffenText);
 			}
+			if (Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6)){
+				currentWeapon = weaponFactory.getBatteringRam();
+				setUnActive();
+				setActive (batteringRamImage);
+			}
+			if (Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Alpha7)){
+				currentWeapon = weaponFactory.getSwordfish();
+				setUnActive();
+				setActive (swordfishText);
+			}
+			if (Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Alpha8)){
+				currentWeapon = weaponFactory.getBaseballBat();
+				setUnActive();
+				setActive (baseBallBatImage);
+			}
+			if(currentWeapon.getIfChangeable() && Input.GetMouseButtonDown(1)){
+				if(currentWeapon.getType().getType() < 3){
+					currentWeapon.setType(new Type(currentWeapon.getType().getType() + 1));
+					typeOfWunderWaffenText.text = currentWeapon.getType().toString();
+				}
+				else{
+					currentWeapon.setType(new Type(1));
+					typeOfWunderWaffenText.text = currentWeapon.getType().toString();
+				}
+			}
+
 		}
 		
 	}
@@ -143,38 +182,27 @@ public class PlayerAttacker : MonoBehaviour {
 	}
 	
 	public void OnTriggerEnter(Collider col){
-		if (meleeAttack && col.gameObject.CompareTag ("Enemy")) {
+		if (col.gameObject.CompareTag ("Enemy")) {
 			lastAttackedEnemy = col.gameObject.GetComponent<EnemyController>();
 		}
 	}
-	
-	public void setAttackStyleToMelee(){
-		meleeAttack = true;
-		rangedAttack = false;
-	}
-	
-	public void setAttackStyleToRanged() {
-		meleeAttack = false;
-		rangedAttack = true;
-	}
-	
-	public void setAttackTypeToWind() {
-		type = 1;
-	}
-	
-	public void setAttackTypeToEarth() {
-		type = 2;
-	}
-	
-	public void setAttackTypeToWater() {
-		type = 3;
-	}
-	
+
 	private void setActive(Image img){
 		img.color = Color.red;
 	}
 	
-	private void setUnActive(Image img){
-		img.color = Color.black;
+	private void setUnActive(){
+		pistolImage.color = Color.black;
+		shrimpImage.color = Color.black;
+		stingerImage.color = Color.black;
+		eelText.color = Color.black;
+		wunderwuffenText.color = Color.black;
+		batteringRamImage.color = Color.black;
+		swordfishText.color = Color.black;
+		baseBallBatImage.color = Color.black;
+	}
+
+	private void setActive(Text txt){
+		txt.color = Color.red;
 	}
 }

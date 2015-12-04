@@ -20,6 +20,16 @@ public class EnemyController : MonoBehaviour {
 	public float attackRate = 2f;
 	private float nextAttack = 0.0f;
 
+	public bool poisoned;
+
+	public float timeToGetPoisonDamage = 5.0f;
+	private float intervalToGetPoisonDamage = 5.0f;
+
+	public bool stunned;
+
+	public float timeToUnStun = 0.0f;
+	public float stunTimeInterval = 2.0f;
+
 	void Start () {
 		level = this.gameObject.GetComponent<EnemyController> ().getLevel ();
 		if (this.gameObject.transform.name.Equals ("Hammerhead(Clone)")) {
@@ -46,6 +56,15 @@ public class EnemyController : MonoBehaviour {
 			nextAttack = Time.time + attackRate;
 			attack ();
 		}
+		if (poisoned && Time.time > timeToGetPoisonDamage) {
+			timeToGetPoisonDamage = Time.time + intervalToGetPoisonDamage;
+			health -= (int)maxHealth / 20;
+		}
+		if (stunned && Time.time > timeToUnStun) {
+			timeToUnStun = Time.time + stunTimeInterval;
+			unStun ();
+		}
+
 	}
 
 	void FixedUpdate ()	{
@@ -89,6 +108,7 @@ public class EnemyController : MonoBehaviour {
 
 	public void setWithinRange() {
 		isWithinRange = !isWithinRange;
+		nextAttack = 1.0f;
 		if (isWithinRange) {
 			PlayerAttacker.lastAttackedEnemy = this; 
 		} else {
@@ -100,6 +120,26 @@ public class EnemyController : MonoBehaviour {
 		PlayerAttributes.takeDamage(attackPower);
 	}
 
+	public void setPoisoned(){
+		poisoned = true;
+	}
 
+	public void setStunned(){
+		StartCoroutine (stun ());
+	}
+
+	public void unStun(){
+		speed = enemy.getWalkingSpeed();
+		attackPower = enemy.getAttackPower();
+		stunned = false;
+	}
+
+	IEnumerator stun(){
+		speed = 0;
+		attackPower = 0;
+		yield return new WaitForSeconds (2);
+		speed = enemy.getWalkingSpeed ();
+		attackPower = enemy.getAttackPower ();
+	}
 
 }

@@ -97,7 +97,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 			  
 	void calculateChangeToSpawnWind(){
-		int tempType = PlayerAttacker.currentType.getType ();
+		int tempType = PlayerAttacker.currentWeapon.getType().getType ();
 		if(tempType == 1){
 			changeToSpawnWindEnemy = 1f/3f;
 		}
@@ -110,7 +110,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	void calculateChangeToSpawnWater(){
-		int tempType = PlayerAttacker.currentType.getType ();
+		int tempType = PlayerAttacker.currentWeapon.getType().getType ();
 		if(tempType == 1){
 			changeToSpawnWaterEnemy = 1f/6f;
 		}
@@ -123,7 +123,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	void calculateChangeToSpawnEarth(){
-		int tempType = PlayerAttacker.currentType.getType ();
+		int tempType = PlayerAttacker.currentWeapon.getType().getType ();
 		if(tempType == 1){
 			changeToSpawnEarthEnemy = 1f/2f;
 		}

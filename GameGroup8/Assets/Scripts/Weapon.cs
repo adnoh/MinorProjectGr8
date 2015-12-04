@@ -35,7 +35,7 @@ public class Weapon {
 		return attackSpeed;
 	}
 
-	public bool getIfAutomatric(){
+	public bool getIfAutomatic(){
 		return automatic;
 	}
 
@@ -71,6 +71,10 @@ public class Weapon {
 
 	public float getKnockBack(){
 		return knockBack;
+	}
+
+	public void setType(Type type){
+		this.type = type;
 	}
 
 }

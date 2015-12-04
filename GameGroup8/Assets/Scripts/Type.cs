@@ -9,7 +9,7 @@ public class Type {
 		if (i >= 0 && i <= 3) {
 			this.type = i;
 		} else {
-			this.type = 1;
+			this.type = 0;
 		}
 	}
 
