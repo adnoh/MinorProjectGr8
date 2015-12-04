@@ -522,6 +522,11 @@ MonoBehaviour:
   attackPower: 0
   walkingSpeed: 0
   attackRate: 2
+  poisoned: 0
+  timeToGetPoisonDamage: 5
+  stunned: 0
+  timeToUnStun: 0
+  stunTimeInterval: 2
 --- !u!114 &11434536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -540,6 +545,11 @@ MonoBehaviour:
   attackPower: 0
   walkingSpeed: 0
   attackRate: 2
+  poisoned: 0
+  timeToGetPoisonDamage: 5
+  stunned: 0
+  timeToUnStun: 0
+  stunTimeInterval: 2
 --- !u!114 &11451542
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -553,7 +563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   currentPos: {fileID: 424002}
-  speed: 4
+  speed: 2
 --- !u!114 &11458540
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -567,7 +577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   currentPos: {fileID: 443018}
-  speed: 4
+  speed: 2
 --- !u!114 &11476168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -586,6 +596,11 @@ MonoBehaviour:
   attackPower: 0
   walkingSpeed: 0
   attackRate: 2
+  poisoned: 0
+  timeToGetPoisonDamage: 5
+  stunned: 0
+  timeToUnStun: 0
+  stunTimeInterval: 2
 --- !u!114 &11498438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -599,7 +614,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   currentPos: {fileID: 434468}
-  speed: 4
+  speed: 2
 --- !u!114 &11499434
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -618,6 +633,11 @@ MonoBehaviour:
   attackPower: 0
   walkingSpeed: 0
   attackRate: 2
+  poisoned: 0
+  timeToGetPoisonDamage: 5
+  stunned: 0
+  timeToUnStun: 0
+  stunTimeInterval: 2
 --- !u!135 &13502562
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -727,7 +747,7 @@ Prefab:
       objectReference: {fileID: 434468}
     - target: {fileID: 0}
       propertyPath: speed
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
