@@ -135,18 +135,18 @@ public class Pathfinding : MonoBehaviour
     Vector3[] SimplifyPath(List<Node> path)
     {
         List<Vector3> waypoints = new List<Vector3>();
-        Vector2 directionOld = Vector2.zero; // to store the direction of the last 2 nodes
+        // Vector2 directionOld = Vector2.zero; // to store the direction of the last 2 nodes
 
         for (int i = 1; i < path.Count; i++)
         {
-            Vector2 directionNew = new Vector2(path[i - 1].gridX - path[i].gridX, path[i - 1].gridZ - path[i].gridZ);
+            //Vector2 directionNew = new Vector2(path[i - 1].gridX - path[i].gridX, path[i - 1].gridZ - path[i].gridZ);
 
             // if direction is changed, add the waypoint
-            if (directionNew != directionOld)
-            {
+            //if (directionNew != directionOld)
+            //{
                 waypoints.Add(path[i].worldPosition);
-            }
-            directionOld = directionNew;
+            //}
+            // directionOld = directionNew;
         }
         // convert to Array
         return waypoints.ToArray();

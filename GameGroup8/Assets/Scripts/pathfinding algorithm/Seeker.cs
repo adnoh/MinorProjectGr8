@@ -10,17 +10,39 @@ public class Seeker : MonoBehaviour
 
     // public / dynamic properties
     public Transform target;
-    public float speed = 20;
+    public Transform currentPos;
+    public float speed;
 
 
     Vector3[] path;
     int targetIndex; // current index in the path array 
+    void Awake()
+    {
+        target = GameObject.Find("TemporaryPlayer").GetComponent<Transform>();
 
+    }
 
     // Request path
+
     void Start()
     {
-        PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+        StartCoroutine(UpdatePath());
+    }
+
+    IEnumerator UpdatePath()
+    {
+        // wait for x seconds before 
+        float refreshRate = 0.25f;
+
+        while (target != null)
+        {
+            if (target != currentPos)
+            {
+                PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+            }
+            // request new path and follow this path till new path found.
+            yield return new WaitForSeconds(refreshRate);
+        }
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
@@ -30,35 +52,44 @@ public class Seeker : MonoBehaviour
             path = newPath;
             // Stop the Coroutine before starting.
             StopCoroutine("FollowPath");
-            StartCoroutine("FollowPath");
+            if (path.Length > 0)
+            {
+                StartCoroutine("FollowPath");
+            }
+            
         }
     }
 
     IEnumerator FollowPath()
     {
-        Vector3 currentWaypoint = path[0];
+        
+        
+            Vector3 currentWaypoint = path[0];
 
-        while (true)
-        {
-            if (transform.position == currentWaypoint)
+            while (true)
             {
-                targetIndex++;
-                if (targetIndex >= path.Length)
+                if (transform.position == currentWaypoint)
                 {
-                    // reset targetindex counter + path
-                    targetIndex = 0;
-                    path = new Vector3[0];
+                    targetIndex++;
+                    if (targetIndex >= path.Length)
+                    {
+                        // reset targetindex counter + path
+                        targetIndex = 0;
+                        path = new Vector3[0];
 
-                    yield break;
+                        yield break;
+                    }
+                    currentWaypoint = path[targetIndex];
                 }
-                currentWaypoint = path[targetIndex];
+
+                transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+                yield return null;
+
             }
-
-            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
-            yield return null;
-
-        }
+        
     }
+
+
 
     // Visual aid, draws the path in cubes
 

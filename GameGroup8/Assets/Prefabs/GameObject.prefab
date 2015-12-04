@@ -73,6 +73,7 @@ GameObject:
   - 23: {fileID: 2343074}
   - 54: {fileID: 5440798}
   - 114: {fileID: 11434536}
+  - 114: {fileID: 11451542}
   m_Layer: 0
   m_Name: WindEnemy
   m_TagString: Enemy
@@ -537,6 +538,20 @@ MonoBehaviour:
   attackPower: 0
   walkingSpeed: 0
   attackRate: 2
+--- !u!114 &11451542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 168888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  currentPos: {fileID: 424002}
+  speed: 5
 --- !u!114 &11476168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -675,6 +690,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: currentPos
+      value: 
+      objectReference: {fileID: 424002}
+    - target: {fileID: 0}
+      propertyPath: speed
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
