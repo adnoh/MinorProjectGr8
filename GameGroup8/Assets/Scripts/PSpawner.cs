@@ -13,7 +13,7 @@ public class PSpawner : MonoBehaviour {
 	}
 
 	public void placeUnit(Vector3 place){
-			Instantiate (unit, place, Quaternion.identity);
+			Instantiate (unit, new Vector3(place.x, 1, place.z), Quaternion.identity);
 	}
 
 	void PlaceCubes(){

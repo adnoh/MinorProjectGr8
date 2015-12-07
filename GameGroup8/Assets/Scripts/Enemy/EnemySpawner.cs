@@ -42,6 +42,9 @@ public class EnemySpawner : MonoBehaviour {
 		timeTillNextWaveText.text = "Time till next wave: " + timeTillNextWave;
 		setEnemiesThisWave ();
 		calculateLevelToSpawn ();
+		calculateChangeToSpawnEarth ();
+		calculateChangeToSpawnWater ();
+		calculateChangeToSpawnWind ();
 	}
 
 	void Update () {
@@ -80,11 +83,12 @@ public class EnemySpawner : MonoBehaviour {
 			if(random <= changeToSpawnWaterEnemy){
 				GameObject waterEnemyClone = waterEnemy;
 				waterEnemyClone.GetComponent<EnemyController>().setLevel(getLevelToSpawn());
-				Instantiate (waterEnemy, getRandomPosition(), Quaternion.identity);
+				Instantiate (waterEnemyClone, getRandomPosition(), Quaternion.identity);
 			}
 			else if(random <= changeToSpawnWaterEnemy + changeToSpawnWindEnemy){
 				GameObject windEnemyClone = windEnemy;
 				windEnemyClone.GetComponent<EnemyController>().setLevel (getLevelToSpawn());
+				windEnemyClone.transform.Translate(new Vector3(0f, 5f, 0f));
 				Instantiate (windEnemyClone, getRandomPosition(), Quaternion.identity);
 			}
 			else{
@@ -98,7 +102,7 @@ public class EnemySpawner : MonoBehaviour {
 			  
 	void calculateChangeToSpawnWind(){
 		int tempType = PlayerAttacker.currentWeapon.getType().getType ();
-		if(tempType == 1){
+		if(tempType == 1 || tempType == 0){
 			changeToSpawnWindEnemy = 1f/3f;
 		}
 		if(tempType == 2){
@@ -114,7 +118,7 @@ public class EnemySpawner : MonoBehaviour {
 		if(tempType == 1){
 			changeToSpawnWaterEnemy = 1f/6f;
 		}
-		if(tempType == 2){
+		if(tempType == 2 || tempType == 0){
 			changeToSpawnWaterEnemy = 1f/3f;
 		}
 		if(tempType == 3){
@@ -130,7 +134,7 @@ public class EnemySpawner : MonoBehaviour {
 		if(tempType == 2){
 			changeToSpawnEarthEnemy = 1f/6f;
 		}
-		if(tempType == 3){
+		if(tempType == 3 || tempType == 0){
 			changeToSpawnEarthEnemy = 1f/3f;
 		}
 	}
