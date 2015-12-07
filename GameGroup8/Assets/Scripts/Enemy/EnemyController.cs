@@ -136,9 +136,11 @@ public class EnemyController : MonoBehaviour {
 
 	IEnumerator stun(){
 		speed = 0;
+		this.gameObject.GetComponent<Seeker> ().speed = 0;
 		attackPower = 0;
 		yield return new WaitForSeconds (2);
 		speed = enemy.getWalkingSpeed ();
+		this.gameObject.GetComponent<Seeker> ().speed = enemy.getWalkingSpeed ();
 		attackPower = enemy.getAttackPower ();
 	}
 

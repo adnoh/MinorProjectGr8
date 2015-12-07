@@ -55,7 +55,6 @@
      <Compile Include="Assets\Scripts\Enemy\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\Highscores.cs" />
      <Compile Include="Assets\Scripts\Lightswitch.cs" />
-     <Compile Include="Assets\Scripts\MapGeneratorScript.cs" />
      <Compile Include="Assets\Scripts\MenuScript.cs" />
      <Compile Include="Assets\Scripts\MiniMapScript.cs" />
      <Compile Include="Assets\Scripts\PSpawner.cs" />
@@ -68,24 +67,22 @@
      <Compile Include="Assets\Scripts\Type.cs" />
      <Compile Include="Assets\Scripts\Weapon.cs" />
      <Compile Include="Assets\Scripts\WeaponFactory.cs" />
-     <Compile Include="Assets\Scripts\WorldBuilder.cs" />
+     <Compile Include="Assets\Scripts\WorldGen\MapGeneratorScript.cs" />
+     <Compile Include="Assets\Scripts\WorldGen\MapGeneratorScriptV1.cs" />
+     <Compile Include="Assets\Scripts\WorldGen\TDMap.cs" />
+     <Compile Include="Assets\Scripts\WorldGen\TDTiles.cs" />
+     <Compile Include="Assets\Scripts\WorldGen\WorldBuilder.cs" />
      <Compile Include="Assets\Scripts\pathfinding algorithm\Grid.cs" />
      <Compile Include="Assets\Scripts\pathfinding algorithm\Node.cs" />
      <Compile Include="Assets\Scripts\pathfinding algorithm\PathRequestManager.cs" />
      <Compile Include="Assets\Scripts\pathfinding algorithm\Pathfinding.cs" />
      <Compile Include="Assets\Scripts\pathfinding algorithm\Seeker.cs" />
      <Compile Include="Assets\Scripts\pathfinding algorithm\SimplePlayerController.cs" />
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Analytics">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
