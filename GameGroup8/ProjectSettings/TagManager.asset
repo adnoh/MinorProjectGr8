@@ -6,11 +6,14 @@ TagManager:
   tags:
   - emptyPlane
   - occupiedPlane
-  - emptiePlane
   - Enemy
-  - Enemy1
   - Pick-Up
-  - Pick-up
+  - emptiePlane
+  - Wind
+  - Water
+  - Earth
+  - Wall
+  - No type
   layers:
   - Default
   - TransparentFX
@@ -21,7 +24,7 @@ TagManager:
   - 
   - 
   - Wall
-  - 
+  - PlacePlates
   - 
   - 
   - 

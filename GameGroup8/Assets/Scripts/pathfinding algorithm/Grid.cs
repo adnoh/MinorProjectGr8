@@ -2,14 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/* Class that makes  wall detection possible
+
+    assumes the worldplane is in x, z plane.
+*/
+
+
+
+
 public class Grid : MonoBehaviour
 {
 
-    public Node SeekerNode;
-    public Node TargetNode;
-    public Node CurrentNode;
-
-
+    public bool displayGridCubes;
     public LayerMask WallMask;
     public Vector3 gridWorldSize;
     public float nodeRadius;
@@ -19,13 +23,14 @@ public class Grid : MonoBehaviour
     int gridSizeX;
     int gridSizeZ;
 
-    void Start()
+    void Awake()
     {
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeZ = Mathf.RoundToInt(gridWorldSize.z / nodeDiameter);
         // TODO: Get dynamically from worldsize
 
+        // CreateGrid(); Does create the grid -> call this AFTER worldbuilder!
         CreateGrid();
     }
 
@@ -49,7 +54,6 @@ public class Grid : MonoBehaviour
     public List<Node> GetNeighbours(Node node)
     {
         List<Node> neighbours = new List<Node>();
-
 
         // scan neighbours loop
         for (int x = -1; x <= 1; x++)
@@ -98,39 +102,13 @@ public class Grid : MonoBehaviour
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.z));
 
-        if (grid != null)
+        if (grid != null && displayGridCubes)
         {
             foreach (Node n in grid)
             {
 
+                // walkable = white !walkable red
                 Gizmos.color = (n.walkable) ? Color.white : Color.red;
-
-                if (CurrentNode == n)
-                {
-                    Gizmos.color = Color.magenta;
-                }
-
-
-                if (path != null)
-                    if (path.Contains(n))
-                    {
-
-
-                        Gizmos.color = Color.green;
-                    }
-
-                // Seeker node turns blue
-                if (SeekerNode == n)
-                {
-                    Gizmos.color = Color.blue;
-                }
-
-
-                // set target node yellow
-                if (TargetNode == n)
-                {
-                    Gizmos.color = Color.yellow;
-                }
                 // Drawcubes as visual aid 
                 Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
             }
