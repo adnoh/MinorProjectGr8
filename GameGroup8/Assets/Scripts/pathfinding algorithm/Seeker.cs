@@ -9,9 +9,9 @@ public class Seeker : MonoBehaviour
 {
 
     // public / dynamic properties
-    public Transform target;
-    public Transform currentPos;
-    public float speed;
+    private Transform target;
+    private Transform currentPos;
+    private float speed;
 
 
     Vector3[] path;
@@ -21,6 +21,7 @@ public class Seeker : MonoBehaviour
     void Awake()
     {
         target = GameObject.Find("player").GetComponent<Transform>();
+		currentPos = this.gameObject.GetComponent<Transform> ();
 
     }
 
@@ -29,6 +30,7 @@ public class Seeker : MonoBehaviour
     void Start()
     {
         StartCoroutine(UpdatePath());
+		speed = this.gameObject.GetComponent<EnemyController> ().walkingSpeed;
     }
 
     IEnumerator UpdatePath()

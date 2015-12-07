@@ -6,7 +6,6 @@ public class EnemyController : MonoBehaviour {
 	public Enemy enemy;
 	private EnemyFactory enemyFactory = new EnemyFactory();
 	private Vector3 position;
-	public float speed;
 
 	public int level;
 	public int health;
@@ -34,7 +33,7 @@ public class EnemyController : MonoBehaviour {
 		level = this.gameObject.GetComponent<EnemyController> ().getLevel ();
 		if (this.gameObject.transform.name.Equals ("HammerHeadPrefab(Clone)")) {
 			enemy = enemyFactory.getEnemy ("water", level);
-		} else if (this.gameObject.transform.name.Equals ("DesertEagle(Clone)")) {
+		} else if (this.gameObject.transform.name.Equals ("DesertEaglePrefab(Clone)")) {
 			enemy = enemyFactory.getEnemy ("wind", level);
 		} else if (this.gameObject.transform.name.Equals ("FireFoxPrefab(Clone)")) {
 			enemy = enemyFactory.getEnemy ("earth", level);
@@ -44,7 +43,7 @@ public class EnemyController : MonoBehaviour {
 		maxHealth = enemy.getMaxHealth();
 		health = enemy.getMaxHealth();
 		attackPower = enemy.getAttackPower();
-		speed = enemy.getWalkingSpeed();
+		walkingSpeed = enemy.getWalkingSpeed();
 		type = enemy.getType ();
 
 		isWithinRange = false;
@@ -130,18 +129,16 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	public void unStun(){
-		speed = enemy.getWalkingSpeed();
+		walkingSpeed = enemy.getWalkingSpeed();
 		attackPower = enemy.getAttackPower();
 		stunned = false;
 	}
 
 	IEnumerator stun(){
-		speed = 0;
-		this.gameObject.GetComponent<Seeker> ().speed = 0;
+		walkingSpeed = 0;
 		attackPower = 0;
 		yield return new WaitForSeconds (2);
-		speed = enemy.getWalkingSpeed ();
-		this.gameObject.GetComponent<Seeker> ().speed = enemy.getWalkingSpeed ();
+		walkingSpeed = enemy.getWalkingSpeed ();
 		attackPower = enemy.getAttackPower ();
 	}
 
