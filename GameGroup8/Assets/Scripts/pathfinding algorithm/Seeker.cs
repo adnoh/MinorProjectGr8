@@ -20,7 +20,7 @@ public class Seeker : MonoBehaviour
     // get target
     void Awake()
     {
-        target = GameObject.Find("TemporaryPlayer").GetComponent<Transform>();
+        target = GameObject.Find("player").GetComponent<Transform>();
 
     }
 

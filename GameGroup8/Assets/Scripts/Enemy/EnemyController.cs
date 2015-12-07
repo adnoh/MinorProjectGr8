@@ -32,11 +32,11 @@ public class EnemyController : MonoBehaviour {
 
 	void Start () {
 		level = this.gameObject.GetComponent<EnemyController> ().getLevel ();
-		if (this.gameObject.transform.name.Equals ("Hammerhead(Clone)")) {
+		if (this.gameObject.transform.name.Equals ("HammerHeadPrefab(Clone)")) {
 			enemy = enemyFactory.getEnemy ("water", level);
 		} else if (this.gameObject.transform.name.Equals ("DesertEagle(Clone)")) {
 			enemy = enemyFactory.getEnemy ("wind", level);
-		} else if (this.gameObject.transform.name.Equals ("FireFox(Clone)")) {
+		} else if (this.gameObject.transform.name.Equals ("FireFoxPrefab(Clone)")) {
 			enemy = enemyFactory.getEnemy ("earth", level);
 		}
 				
@@ -52,6 +52,7 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void Update () {
+		this.gameObject.transform.LookAt (GameObject.Find ("player").transform.position);;
 		if (isWithinRange && Time.time > nextAttack) {
 			nextAttack = Time.time + attackRate;
 			attack ();

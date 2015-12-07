@@ -80,15 +80,16 @@ public class EnemySpawner : MonoBehaviour {
 			if(random <= changeToSpawnWaterEnemy){
 				GameObject waterEnemyClone = waterEnemy;
 				waterEnemyClone.GetComponent<EnemyController>().setLevel(getLevelToSpawn());
-				Instantiate (waterEnemy, getRandomPosition(), Quaternion.identity);
+				Instantiate (waterEnemyClone, getRandomPosition(), Quaternion.identity);
 			}
 			else if(random <= changeToSpawnWaterEnemy + changeToSpawnWindEnemy){
-				GameObject windEnemyClone = windEnemy;
+				GameObject windEnemyClone = waterEnemy;
 				windEnemyClone.GetComponent<EnemyController>().setLevel (getLevelToSpawn());
 				Instantiate (windEnemyClone, getRandomPosition(), Quaternion.identity);
 			}
 			else{
-				GameObject earthEnemyClone = earthEnemy;
+				Debug.Log (mu);
+				GameObject earthEnemyClone = waterEnemy;
 				earthEnemyClone.GetComponent<EnemyController>().setLevel (getLevelToSpawn());
 				Instantiate (earthEnemyClone, getRandomPosition(), Quaternion.identity);
 			}
