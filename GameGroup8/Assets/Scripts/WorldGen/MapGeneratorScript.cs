@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[ExecuteInEditMode]
 [RequireComponent(typeof(MeshCollider))]
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
@@ -40,7 +39,7 @@ public class MapGeneratorScript : MonoBehaviour {
 
     void BuildTexture()
     {
-        TDMap map = new TDMap(map_x, map_z);
+        TDMapII map = new TDMapII(map_x, map_z);
 
         int texWidth = tileRes * map_x;
         int texHeight = tileRes * map_z;
