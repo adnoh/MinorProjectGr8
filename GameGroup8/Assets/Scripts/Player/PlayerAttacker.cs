@@ -45,7 +45,7 @@ public class PlayerAttacker : MonoBehaviour {
 	
 	void Update () {
 		enemyDescription.SetActive (showEnemyDescription);
-		bool Base = PlayerController.getPause();
+		bool Base = BaseController.pause;
 		
 		if (lastAttackedEnemy != null) {
 			setEnemyDescription (lastAttackedEnemy);
