@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(MeshCollider))]
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
 
-public class MapGeneratorScript : MonoBehaviour {
+public class MapGeneratorScriptV1 : MonoBehaviour {
 
     public int map_x;
     public int map_z;
@@ -21,52 +20,45 @@ public class MapGeneratorScript : MonoBehaviour {
         BuildMesh();
 	}
 	
-    Color[] LoadTexture(int kleurNr)
+    Color[][] LoadTexture()
     {
         int nrTiles_row = 6;
         int nrRows = 2;
 
-        Color[][] tiles = new Color[3][];
+        Color[][] tiles = new Color[nrTiles_row*nrRows][];
 
-        for (int i = 0; i < nrRows; i++)
+        for (int i = 0; i < nrRows; i++) 
         {
-            if (i == 0)
-            {
-                for (int j = 0; j < 3; j++)
+                for (int j = 0; j < nrTiles_row; j++) 
                 {
-                    tiles[i * nrRows + j] = World_texture.GetPixels(j * tileRes, i * tileRes, tileRes, tileRes);
+                    tiles[i * nrTiles_row + j] = World_texture.GetPixels(j * tileRes, i * tileRes, tileRes, tileRes);
                 }
-            }
-            if (i == 1)
-            {
-                for (int j = 0; j < nrTiles_row; j++)
-                {
-                    tiles[i * nrRows + j] = World_texture.GetPixels(j * tileRes, i * tileRes, tileRes, tileRes);
-                }
-            }
         }
-
-        return tiles[kleurNr];
+        
+        return tiles;
     }
 
     void BuildTexture()
     {
-        int texWidth = 10;
-        int texHeight = 10;
+        int texWidth = tileRes * map_x;
+        int texHeight = tileRes * map_z;
         Texture2D texture = new Texture2D(texWidth, texHeight);
 
-        for (int i = 0; i < texHeight; i++)
+        Color[][] textures = LoadTexture();
+
+        for (int i = 0; i < map_z; i++)
         {
-            for (int j = 0; j < texWidth; j++)
+            for (int j = 0; j < map_x; j++)
             {
-                Color c = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-                texture.SetPixel(i, j, c);
+                Color[] c = textures[Random.Range(0,textures.Length)];
+                texture.SetPixels(j * tileRes, i * tileRes, tileRes, tileRes, c); 
             }
         }
 
-        texture.Apply();
         texture.filterMode = FilterMode.Point;
-
+        texture.wrapMode = TextureWrapMode.Clamp;
+        texture.Apply();
+        
         MeshRenderer mesh_renderer = GetComponent<MeshRenderer>();
         mesh_renderer.sharedMaterials[0].mainTexture = texture;
     }
@@ -91,7 +83,7 @@ public class MapGeneratorScript : MonoBehaviour {
         {
             for (x = 0; x < nrVer_x; x++)
             {
-                vertices[z * nrVer_x + x] = new Vector3(x * tileSize, Random.Range(0f, 2f), z * tileSize);
+                vertices[z * nrVer_x + x] = new Vector3(x * tileSize, Random.Range(0f, 0f), z * tileSize);
                 normals[z * nrVer_x + x] = Vector3.up;
                 uv[z * nrVer_x + x] = new Vector2((float)x / map_x, (float)z / map_z);
             }

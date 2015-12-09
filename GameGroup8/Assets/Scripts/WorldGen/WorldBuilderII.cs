@@ -2,63 +2,94 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class WorldBuilder : MonoBehaviour {
+public class WorldBuilderII : MonoBehaviour {
 
-    public int LvlSize;
-    public int nrHouses;
-    public int nrVillages;
+    public int map_x;
+    public int map_z;
+
+    public Texture2D World_texture;
+    public int tileRes;
+
+    public GameObject Tree;
     public int nrTrees;
-    //public int nrWalls = 10;
-    private int BaseSize = 15;
+    public GameObject House;
+    public int nrHouses;
 
     private List<Vector3> TreePos = new List<Vector3>();
     private List<Vector3> HousePos = new List<Vector3>();
-    private List<Vector3> BigPos = new List<Vector3>();
-    private int maxChange;
 
-    public GameObject House;
-    public GameObject Tree;
-    public GameObject Wall;
-    
-	//Initialize world
-	void Start () {
-        transform.localScale = new Vector3(LvlSize, 1, LvlSize);
-        maxChange = LvlSize * 5;
-        PlaceHouses();
-        PlaceTrees();
+    // Initialization on play
+    void Start()
+    {
+        BuildTexture();
+    }
+
+    Color[][] LoadTexture()
+    {
+        int nrTiles_row = 6;
+        int nrRows = 2;
+
+        Color[][] tiles = new Color[nrTiles_row * nrRows][];
+
+        for (int i = 0; i < nrRows; i++)
+        {
+            for (int j = 0; j < nrTiles_row; j++)
+            {
+                tiles[i * nrTiles_row + j] = World_texture.GetPixels(j * tileRes, i * tileRes, tileRes, tileRes);
+            }
+        }
+
+        return tiles;
+    }
+
+    public void BuildTexture()
+    {
+        TDMapII map = new TDMapII(map_x, map_z);
+
+        int texWidth = tileRes * map_x;
+        int texHeight = tileRes * map_z;
+        Texture2D texture = new Texture2D(texWidth, texHeight);
+
+        Color[][] textures = LoadTexture();
+
+        for (int i = 0; i < map_z; i++)
+        {
+            for (int j = 0; j < map_x; j++)
+            {
+                Color[] c = textures[map.getTile(i, j)];
+                texture.SetPixels(j * tileRes, i * tileRes, tileRes, tileRes, c);
+            }
+        }
+
+        texture.filterMode = FilterMode.Point;
+        texture.wrapMode = TextureWrapMode.Clamp;
+        texture.Apply();
+
+        MeshRenderer mesh_renderer = GetComponent<MeshRenderer>();
+        mesh_renderer.sharedMaterials[0].mainTexture = texture;
+
+        ApplyAssets(map);
+    }
+
+    public void ApplyAssets(TDMapII map)
+    {
+
     }
 
     void PlaceHouses()
     {
-        int countVillages = 0;
-        int minVillageSize = (int)Mathf.Round(nrHouses / (nrVillages * 2));
-        int maxVillageSize = (int)Mathf.Round(nrHouses / (nrVillages + 1));
-
-        while (countVillages < nrVillages)
-        {
-            Vector3 marketPlace = getRandBigPos();
-            int villageSize = (int)Mathf.Round(Random.Range(minVillageSize, maxVillageSize));
-            int countHouses = HousePos.Count + villageSize;
-            while (HousePos.Count < countHouses)
-            {
-                Vector3 place = getRandPos(5, (int)Mathf.Round((villageSize/1.5f))) + marketPlace;
-                addHousePos(HousePos, place, 5);
-            }
-            countVillages++;
-        }
-
         while (HousePos.Count < nrHouses)
         {
-            Vector3 place = getRandPos(BaseSize, maxChange);
+            Vector3 place = getRandPos(2, 3);
             addHousePos(HousePos, place, 5);
-            
+
         }
 
         for (int i = 0; i < HousePos.Count; i++)
         {
             GameObject temp = (GameObject)Instantiate(House, HousePos[i], Quaternion.identity);
             temp.transform.Rotate(new Vector3(90, Random.Range(0, 360), 0));
-            placeWalls(HousePos[i],i);
+            //placeWalls(HousePos[i], i);
         }
     }
 
@@ -66,8 +97,8 @@ public class WorldBuilder : MonoBehaviour {
     {
         while (TreePos.Count < nrTrees)
         {
-            Vector3 place = getRandPos(BaseSize, maxChange);
-            if (!TreePos.Contains(place)&&(!HousePos.Contains(place)))
+            Vector3 place = getRandPos(0, 2);
+            if (!TreePos.Contains(place) && (!HousePos.Contains(place)))
             {
                 TreePos.Add(place);
             }
@@ -78,66 +109,14 @@ public class WorldBuilder : MonoBehaviour {
             Instantiate(Tree, TreePos[i], Quaternion.identity);
         }
     }
-    
+
     Vector3 getRandPos(int dist, int offset)
     {
         float x = Mathf.Round(Random.Range(0, offset));
-        float temp = Random.Range(0, 2);
-        if (temp < 1)
-        {
-            x = x * -1;
-        }
-        float z = 0;
-        if (Mathf.Abs(x) <= dist)
-        {
-            z = Mathf.Round(Random.Range(dist, offset));
-            float temp2 = Random.Range(0, 2);
-            if (temp2 < 1)
-            {
-                z = z * -1;
-            }
-        }
-        else if (Mathf.Abs(x) > dist)
-        {
-            z = Random.Range(0, offset);
-            float temp2 = Random.Range(0, 2);
-            if (temp2 < 1)
-            {
-                z = z * -1;
-            }
-        }
+        float z = Mathf.Round(Random.Range(dist, offset));
+            
         Vector3 place = new Vector3(x, 0, z);
         return place;
-    }
-
-    Vector3 getRandBigPos()
-    {
-        bool add = false;
-        Vector3 value = new Vector3(0, 0, 0);
-        while (!add)
-        {
-            value = getRandPos(30, maxChange / 2);
-            if (BigPos.Count == 0)
-            { 
-                BigPos.Add(value);
-                break;
-            }
-            else if (BigPos.Count >= 1)
-            {
-                for (int i = 0; i < BigPos.Count; i++)
-                {
-                    if (Vector3.Distance(value, BigPos[i]) > 50)
-                    {
-                        add = true;
-                    }
-                }
-                if (!add)
-                {
-                    BigPos.Add(value);
-                }
-            }
-        }
-        return value;
     }
 
     void addHousePos(List<Vector3> T, Vector3 place, int dist)
@@ -161,18 +140,18 @@ public class WorldBuilder : MonoBehaviour {
                 if (add)
                 {
                     T.Add(place);
-                    
+
                 }
             }
         }
     }
-
+    /*
     void placeWalls(Vector3 place, int j)
     {
         bool walls = true;
         for (int i = 0; i < HousePos.Count; i++)
         {
-            if ((i!=j)&&(Vector3.Distance(place, HousePos[i]) < 30))
+            if ((i != j) && (Vector3.Distance(place, HousePos[i]) < 30))
             {
                 walls = false;
             }
@@ -192,5 +171,5 @@ public class WorldBuilder : MonoBehaviour {
             WestWall.transform.Rotate(new Vector3(0, 0, 0));
 
         }
-    }
+    }*/
 }

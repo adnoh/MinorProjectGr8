@@ -12,7 +12,7 @@ public class Cat_Projectile : MonoBehaviour {
 
     void Update()
     {
-        if (gameObject.name.Equals("Cat!(Clone)") && gameObject.GetComponent<Rigidbody>().velocity == new Vector3(0f, 0f, 0f))
+        if (gameObject.name.Equals("CatPrefab(Clone)") && gameObject.GetComponent<Rigidbody>().velocity == new Vector3(0f, 0f, 0f))
         {
             GameObject.Destroy(gameObject);
         }
@@ -20,7 +20,7 @@ public class Cat_Projectile : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.CompareTag("Enemy") && gameObject.name.Equals("Cat!(Clone)"))
+        if (col.gameObject.CompareTag("Enemy") && gameObject.name.Equals("CatPrefab(Clone)"))
         {
             EnemyController enemyController = col.gameObject.GetComponent<EnemyController>();
             int damage = (int)(Random.Range(40, 60) * type.damageMultiplierToType(enemyController.getType()));
@@ -34,17 +34,17 @@ public class Cat_Projectile : MonoBehaviour {
 				MiniMapScript.enemies.Remove(enemyController);
             }
         }
-        if (col.gameObject.CompareTag("Enemy") && gameObject.name.Equals("Cat!(Clone)"))
+        if (col.gameObject.CompareTag("Enemy") && gameObject.name.Equals("CatPrefab(Clone)"))
         {
             GameObject.Destroy(gameObject);
         }
     }
 
-    void OnCollisionEnter(Collision col)
+    /*void OnCollisionEnter(Collision col)
     {
-        if (gameObject.name.Equals("Cat!(Clone)"))
+        if (gameObject.name.Equals("CatPrefab(Clone)"))
         {
             GameObject.Destroy(gameObject);
         }
-    }
+    }*/
 }

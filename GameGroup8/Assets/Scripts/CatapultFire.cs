@@ -6,8 +6,8 @@ public class CatapultFire : MonoBehaviour {
     private float angle;
     private bool top;
     private bool fire;
-    private GameObject Vijand;
-    private GameObject TempVijand;
+    private GameObject Enemy;
+    private GameObject TempEnemy;
 
     public GameObject Object;
     public GameObject TurretBase;
@@ -19,7 +19,7 @@ public class CatapultFire : MonoBehaviour {
 	}
 	
 	void Update () {
-        if (Vijand)
+        if (Enemy)
         {
             if (!fire)
             {
@@ -27,53 +27,53 @@ public class CatapultFire : MonoBehaviour {
                 StartCoroutine("FireCatapult");
             }
         }
-        if (!Vijand)
+        if (!Enemy)
         {
-            Vijand = null;
+            Enemy = null;
         }
     }
 
     void OnTriggerEnter(Collider Other)
     {
-        if (!Vijand)
+        if (!Enemy)
         {
             if (Other.tag == "Enemy")
             {
-                Vijand = Other.gameObject;
+                Enemy = Other.gameObject;
             }
         }
     }
 
     void OnTriggerExit(Collider Other)
     {
-        if (Other.tag == "Enemy")
+        if (Other.CompareTag("Enemy"))
         {
-            Vijand = null;
+            Enemy = null;
         }
     }
 
     void FireObject()
     {
-        Vector3 aimPoint = TempVijand.transform.position;
+        Vector3 aimPoint = TempEnemy.transform.position;
         Vector3 firePoint = transform.position;
         firePoint.y = 6; //4.3f;
         Vector3 aim = aimPoint - firePoint;
         GameObject Cat = (GameObject)Instantiate(Object,firePoint,Quaternion.identity);
         Cat.GetComponent<Rigidbody>().AddForce(aim*100);
         Cat.GetComponent<Rigidbody>().AddForce(0, -10, 0);
-        TempVijand = null;
+        TempEnemy = null;
     }
 
     IEnumerator FireCatapult()
     {
-        TempVijand = Vijand;
+        TempEnemy = Enemy;
             while (!top)
             {
                 angle++;
                 if (angle == 10)
                 {
                     top = true;
-                    if (TempVijand)
+                    if (Enemy)
                     {
                         FireObject();
                     }
@@ -96,7 +96,7 @@ public class CatapultFire : MonoBehaviour {
                 yield return null;
             }
 
-        TempVijand = null;
+        TempEnemy = null;
         yield return null;
     }
 }
