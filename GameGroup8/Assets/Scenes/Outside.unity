@@ -101,6 +101,7 @@ GameObject:
   - 114: {fileID: 5347434}
   - 114: {fileID: 5347435}
   - 114: {fileID: 5347436}
+  - 114: {fileID: 5347437}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -238,6 +239,17 @@ MonoBehaviour:
   playerDot: {fileID: 1342566904}
   enemyDot: {fileID: 11453228, guid: 90e366a89d6c4234b960d2414cceef4b, type: 2}
   miniMap: {fileID: 1544232773}
+--- !u!114 &5347437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 5347427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cad1f1e2111b864d990c457e8d7ffa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6130185
 GameObject:
   m_ObjectHideFlags: 0
