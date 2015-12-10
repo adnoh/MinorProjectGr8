@@ -68,12 +68,54 @@ public class WorldBuilderII : MonoBehaviour {
         MeshRenderer mesh_renderer = GetComponent<MeshRenderer>();
         mesh_renderer.sharedMaterials[0].mainTexture = texture;
 
-        ApplyAssets(map);
+        //ApplyAssets(map);
     }
 
     public void ApplyAssets(TDMapII map)
     {
+        int[][] Villages = map.getVillages();
+        int[][] Forrests = map.getForrests();
 
+        foreach(int[] village in Villages)
+        {
+            int x_pos = village[0];
+            int y_pos = village[1];
+            int min = village[2];
+            int max = village[3];
+
+            for (int i = 0; i < 30; i++)
+            {
+                int x = Random.Range(min, max) + x_pos;
+                int z = Random.Range(min, max) + y_pos;
+                
+                if (map.getTile(x, z) != 5)
+                {
+                    GameObject huisje = (GameObject)Instantiate(House, new Vector3(x-150, 0, z-150), Quaternion.identity);
+                    huisje.transform.Rotate(new Vector3(90, Random.Range(0,360), 0));
+                }
+
+                map.setTile(x, z, 5);
+            }
+        }
+
+        foreach(int[] forrest in Forrests)
+        {
+            int x_pos = forrest[0];
+            int y_pos = forrest[1];
+            int min = forrest[2];
+            int max = forrest[3];
+
+            for (int i = 0; i < 10; i++)
+            {
+                int x = Random.Range(min, max) + x_pos;
+                int z = Random.Range(min, max) + y_pos;
+
+                if (map.getTile(x, z) != 5)
+                    Instantiate(Tree, new Vector3(x-150, 0, z-150), Quaternion.identity);
+
+                map.setTile(x, z, 5);
+            }
+        }
     }
 
     void PlaceHouses()
@@ -93,21 +135,9 @@ public class WorldBuilderII : MonoBehaviour {
         }
     }
 
-    void PlaceTrees()
+    void PlaceTrees(TDMapII map)
     {
-        while (TreePos.Count < nrTrees)
-        {
-            Vector3 place = getRandPos(0, 2);
-            if (!TreePos.Contains(place) && (!HousePos.Contains(place)))
-            {
-                TreePos.Add(place);
-            }
-        }
-
-        for (int i = 0; i < TreePos.Count; i++)
-        {
-            Instantiate(Tree, TreePos[i], Quaternion.identity);
-        }
+        
     }
 
     Vector3 getRandPos(int dist, int offset)

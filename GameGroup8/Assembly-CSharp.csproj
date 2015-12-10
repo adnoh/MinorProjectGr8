@@ -45,6 +45,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Pausemenu.cs" />
+     <Compile Include="Assets\Scripts\BaseController.cs" />
+     <Compile Include="Assets\Scripts\Building.cs" />
+     <Compile Include="Assets\Scripts\BuildingController.cs" />
+     <Compile Include="Assets\Scripts\BuildingFactory.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\Cat_Projectile.cs" />
      <Compile Include="Assets\Scripts\CatapultFire.cs" />
@@ -59,20 +64,20 @@
      <Compile Include="Assets\Scripts\MenuScript.cs" />
      <Compile Include="Assets\Scripts\MiniMapScript.cs" />
      <Compile Include="Assets\Scripts\PSpawner.cs" />
-     <Compile Include="Assets\Scripts\PlaceObjects.cs" />
      <Compile Include="Assets\Scripts\Player\Bullet.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerAttacker.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerAttributes.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\TurretController.cs" />
      <Compile Include="Assets\Scripts\Type.cs" />
      <Compile Include="Assets\Scripts\Weapon.cs" />
      <Compile Include="Assets\Scripts\WeaponFactory.cs" />
      <Compile Include="Assets\Scripts\WorldGen\MapGeneratorScript.cs" />
      <Compile Include="Assets\Scripts\WorldGen\MapGeneratorScriptV1.cs" />
      <Compile Include="Assets\Scripts\WorldGen\TDMap.cs" />
+     <Compile Include="Assets\Scripts\WorldGen\TDMapII.cs" />
      <Compile Include="Assets\Scripts\WorldGen\TDTiles.cs" />
      <Compile Include="Assets\Scripts\WorldGen\WorldBuilder.cs" />
+     <Compile Include="Assets\Scripts\WorldGen\WorldBuilderII.cs" />
      <Compile Include="Assets\Scripts\pathfinding algorithm\Grid.cs" />
      <Compile Include="Assets\Scripts\pathfinding algorithm\Node.cs" />
      <Compile Include="Assets\Scripts\pathfinding algorithm\PathRequestManager.cs" />

@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour {
 	}
 	
 	void LateUpdate (){
-        BaseEnter = PlayerController.getPause();
+		BaseEnter = BaseController.pause;
 
         if (!BaseEnter){
             transform.position = player.transform.position + offset;
