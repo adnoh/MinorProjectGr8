@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.Analytics;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour {
 	
@@ -56,8 +58,17 @@ public class PlayerController : MonoBehaviour {
 			transform.rotation = Quaternion.Slerp (transform.rotation, targetRotation, RotateSpeed * Time.deltaTime);
 		}
 
+        // if on gate -> build menu
         if (Input.GetButtonDown("Jump") && Vector3.Distance(Gate.transform.position,transform.position) < 3){
 			PlayerAttributes.resetFatique();
+            // analytisc test
+            int enterbase = 0;
+            Analytics.CustomEvent("shoot", new Dictionary<string, object>
+                {
+                    { "Base enter", enterbase},
+                });
+
+
             pause = !pause;
             if (pause){
                 playerPos = transform.position;
