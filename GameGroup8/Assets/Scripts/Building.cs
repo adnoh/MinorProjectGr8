@@ -5,16 +5,18 @@ public class Building {
 	
 	private bool turret;
 	private bool bed;
-	private bool gearShed;
+	private bool gearShack;
 	private Type type;
 	private string name;
+	private int cost;
 
-	public Building(bool turret, bool bed, bool gearShed, Type type, string name){
+	public Building(bool turret, bool bed, bool gearShack, Type type, string name, int cost){
 		this.turret = turret;
 		this.bed = bed;
-		this.gearShed = gearShed;
+		this.gearShack = gearShack;
 		this.type = type;
 		this.name = name;
+		this.cost = cost;
 	}
 
 	public bool returnIfTurret(){
@@ -25,8 +27,8 @@ public class Building {
 		return bed;
 	}
 
-	public bool returnIfGearShed(){
-		return gearShed;
+	public bool returnIfGearShack(){
+		return gearShack;
 	}
 
 	public Type getType(){
@@ -35,6 +37,10 @@ public class Building {
 
 	public string getName(){
 		return name;
+	}
+
+	public int getCost(){
+		return cost;
 	}
 
 }

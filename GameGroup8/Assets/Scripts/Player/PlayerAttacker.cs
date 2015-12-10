@@ -34,18 +34,29 @@ public class PlayerAttacker : MonoBehaviour {
 	public Text swordfishText;
 	public Image baseBallBatImage;
 
+	public static bool[] unlocked = new bool[8];
+	private int currentWeaponInt;
+
 	public Text typeOfWunderWaffenText;
 	
 	void Start () {
 		currentWeapon = weaponFactory.getPistol ();
-		setActive (pistolImage);
+		currentWeaponInt = 1;
 		showEnemyDescription = false;
 		enemyDescription.SetActive (false);
+		unlocked [0] = true;
+		for (int i = 1; i < unlocked.Length; i++) {
+			unlocked [i] = false;
+		}
+		setUnActive ();
+		setActive ();
 	}
 	
 	void Update () {
 		enemyDescription.SetActive (showEnemyDescription);
 		bool Base = BaseController.pause;
+		setUnActive ();
+		setActive ();
 		
 		if (lastAttackedEnemy != null) {
 			setEnemyDescription (lastAttackedEnemy);
@@ -102,47 +113,38 @@ public class PlayerAttacker : MonoBehaviour {
 				}
 			}
 
-			if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1)){
+			if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1)) && unlocked[0]){
 				currentWeapon = weaponFactory.getPistol();
-				setUnActive();
-				setActive (pistolImage);
+				currentWeaponInt = 1;
 			}
-			if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2)){
+			if ((Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2)) && unlocked[1]){
 				currentWeapon = weaponFactory.getShrimpPistol();
-				setUnActive();
-				setActive (shrimpImage);
+				currentWeaponInt = 2;
 			}
-			if (Input.GetKeyDown(KeyCode.Keypad3)  || Input.GetKeyDown(KeyCode.Alpha3)){
+			if ((Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3)) && unlocked[2]){
 				currentWeapon = weaponFactory.getStingerGun();
-				setUnActive();
-				setActive (stingerImage);
+				currentWeaponInt = 3;
 			}
-			if (Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4)){
+			if ((Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4)) && unlocked[3]){
 				currentWeapon = weaponFactory.getWeaponizedEel();
-				setUnActive();
-				setActive (eelText);
+				currentWeaponInt = 4;
 			}
-			if (Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5)){
+			if ((Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5)) && unlocked[4]){
 				currentWeapon = weaponFactory.getWunderwuffen();
 				currentWeapon.setType(new Type(1));
-				typeOfWunderWaffenText.text = currentWeapon.getType().toString();
-				setUnActive();
-				setActive (wunderwuffenText);
+				currentWeaponInt = 5;
 			}
-			if (Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6)){
+			if ((Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6)) && unlocked[5]){
 				currentWeapon = weaponFactory.getBatteringRam();
-				setUnActive();
-				setActive (batteringRamImage);
+				currentWeaponInt = 6;
 			}
-			if (Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Alpha7)){
+			if ((Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Alpha7)) && unlocked[6]){
 				currentWeapon = weaponFactory.getSwordfish();
-				setUnActive();
-				setActive (swordfishText);
+				currentWeaponInt = 7;
 			}
-			if (Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Alpha8)){
+			if ((Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Alpha8)) && unlocked[7]){
 				currentWeapon = weaponFactory.getBaseballBat();
-				setUnActive();
-				setActive (baseBallBatImage);
+				currentWeaponInt = 8;
 			}
 			if(currentWeapon.getIfChangeable() && Input.GetMouseButtonDown(1)){
 				if(currentWeapon.getType().getType() < 3){
@@ -189,22 +191,81 @@ public class PlayerAttacker : MonoBehaviour {
 		}
 	}
 
-	private void setActive(Image img){
-		img.color = Color.red;
-	}
-	
-	private void setUnActive(){
-		pistolImage.color = Color.black;
-		shrimpImage.color = Color.black;
-		stingerImage.color = Color.black;
-		eelText.color = Color.black;
-		wunderwuffenText.color = Color.black;
-		batteringRamImage.color = Color.black;
-		swordfishText.color = Color.black;
-		baseBallBatImage.color = Color.black;
+	private void setActive(){
+		if (currentWeaponInt == 1) {
+			pistolImage.color = Color.red;
+		}
+		if (currentWeaponInt == 2) {
+			shrimpImage.color = Color.red;
+		}
+		if (currentWeaponInt == 3) {
+			stingerImage.color = Color.red;
+		}
+		if (currentWeaponInt == 4) {
+			eelText.color = Color.red;
+		}
+		if (currentWeaponInt == 5) {
+			wunderwuffenText.color = Color.red;
+			typeOfWunderWaffenText.color = Color.red;
+		}
+		if (currentWeaponInt == 6) {
+			batteringRamImage.color = Color.red;
+		}
+		if (currentWeaponInt == 7) {
+			swordfishText.color = Color.red;
+		}
+		if (currentWeaponInt == 8) {
+			baseBallBatImage.color = Color.red;
+		}
 	}
 
-	private void setActive(Text txt){
-		txt.color = Color.red;
+	private void setUnActive(){
+		if (!unlocked [0]) {
+			pistolImage.color = Color.gray;
+		} else {
+			pistolImage.color = Color.black;
+		}
+		if (!unlocked [1]) {
+			shrimpImage.color = Color.gray;
+		} else {
+			shrimpImage.color = Color.black;
+		}
+		if (!unlocked [2]) {
+			stingerImage.color = Color.gray;
+		} else {
+			stingerImage.color = Color.black;
+		}
+		if (!unlocked [3]) {
+			eelText.color = Color.gray;
+		} else {
+			eelText.color = Color.black;
+		}
+		if (!unlocked [4]) {
+			wunderwuffenText.color = Color.gray;
+			typeOfWunderWaffenText.color = Color.gray;
+		} else {
+			wunderwuffenText.color = Color.black;
+			typeOfWunderWaffenText.color = Color.black;
+		}
+		if (!unlocked [5]) {
+			batteringRamImage.color = Color.gray;
+		} else {
+			batteringRamImage.color = Color.black;
+		}
+		if (!unlocked [6]) {
+			swordfishText.color = Color.gray;
+		} else {
+			swordfishText.color = Color.black;
+		}
+		if (!unlocked [7]) {
+			baseBallBatImage.color = Color.gray;
+		} else {
+			baseBallBatImage.color = Color.black;
+		}
+
+	}
+
+	public static void unlock(int i){
+		unlocked [i - 1] = true;
 	}
 }

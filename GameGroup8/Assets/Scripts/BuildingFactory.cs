@@ -7,40 +7,40 @@ public class BuildingFactory {
 	}
 
 	public Building getBuilding(string name){
-		if (name.Equals ("BasicTurret(Clone)")) {
-			return new Building (true, false, false, new Type (0), "Basic turret");
+		if (name.Equals ("Rock-paper-scissor turret(Clone)")) {
+			return new Building (true, false, false, new Type (0), "Rock-paper-scissor turret", 5);
 		}
-		if (name.Equals ("Catapult(Clone)")) {
-			return new Building (true, false, false, new Type (1), "Catapult");
+		if (name.Equals ("Cat-a-pult(Clone)")) {
+			return new Building (true, false, false, new Type (2), "Cat-a-pult", 10);
 		}
 		if (name.Equals ("Snailgun(Clone)")) {
-			return new Building (true, false, false, new Type (2), "Snailgun");
+			return new Building (true, false, false, new Type (3), "Snailgun", 10);
 		}
 		if (name.Equals ("Harpgoon(Clone)")) {
-			return new Building (true, false, false, new Type (3), "Harpgoon");
+			return new Building (true, false, false, new Type (1), "Harpgoon", 10);
 		}
 		if (name.Equals ("Bed(Clone)")) {
-			return new Building (false, true, false, new Type (0), "Bed");
+			return new Building (false, true, false, new Type (0), "Bed", 10);
 		}
-		if (name.Equals ("FatiqueBed(Clone)")) {
-			return new Building (false, true, false, new Type (0), "FatiqueBed");
+		if (name.Equals ("EnergyBed(Clone)")) {
+			return new Building (false, true, false, new Type (0), "EnergyBed", 15);
 		}
 		if (name.Equals ("HealthBed(Clone)")) {
-			return new Building (false, true, false, new Type (0), "EnergyBed");
+			return new Building (false, true, false, new Type (0), "HealthBed", 15);
 		}
-		if (name.Equals ("GearShed(Clone)")) {
-			return new Building (false, false, true, new Type (0), "GearShed");
+		if (name.Equals ("GearShack(Clone)")) {
+			return new Building (false, false, true, new Type (0), "GearShack", 10);
 		}
 		if (name.Equals ("Generator(Clone)")) {
-			return new Building (false, false, true, new Type (0), "Generator");
+			return new Building (false, false, true, new Type (0), "Generator", 25);
 		}
 		if (name.Equals ("WeaponSmith(Clone)")) {
-			return new Building (false, false, true, new Type (0), "WeaponSmith");
+			return new Building (false, false, true, new Type (0), "GunSmith", 25);
 		}
-		if (name.Equals ("GadgetSmith(Clone)")) {
-			return new Building (false, false, true, new Type (0), "GadgetSmith");
+		if (name.Equals ("TechSmith(Clone)")) {
+			return new Building (false, false, true, new Type (0), "TechSmith", 25);
 		} else {
-			return new Building (false, false, true, new Type (0), "GadgetSmith");
+			return new Building (true, false, false, new Type (0), "Rock-Paper-Scissor turret", 5);
 		}
 	}
 }

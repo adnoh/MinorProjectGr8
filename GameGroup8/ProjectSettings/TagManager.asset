@@ -17,6 +17,7 @@ TagManager:
   - BasicTurretPlane
   - BedPlane
   - GearShackPlane
+  - Turret
   layers:
   - Default
   - TransparentFX

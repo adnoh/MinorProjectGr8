@@ -59,7 +59,7 @@ public class CatapultFire : MonoBehaviour {
         firePoint.y = 6; //4.3f;
         Vector3 aim = aimPoint - firePoint;
         GameObject Cat = (GameObject)Instantiate(Object,firePoint,Quaternion.identity);
-        Cat.GetComponent<Rigidbody>().AddForce(aim*100);
+        Cat.GetComponent<Rigidbody>().AddForce(aim * 100);
         Cat.GetComponent<Rigidbody>().AddForce(0, -10, 0);
         TempEnemy = null;
     }

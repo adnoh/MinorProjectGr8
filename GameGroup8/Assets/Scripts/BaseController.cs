@@ -80,7 +80,7 @@ public class BaseController : MonoBehaviour
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 		
-			if (Physics.Raycast (ray, out hit, 1000, 512) && !hit.collider.gameObject.CompareTag ("occupiedPlane")) {
+			if (Physics.Raycast (ray, out hit, 1000, 512) && !hit.collider.gameObject.CompareTag ("occupiedPlane") && pause) {
 				if (lastHitObject) {
 					lastHitObject.GetComponent<Renderer> ().material = originalMat;
 				}
@@ -128,14 +128,14 @@ public class BaseController : MonoBehaviour
 
 	void Build1st(){
 		string buildingToBuild = buildingText1.text;
-		if (buildingToBuild.Equals ("Basic turret")) {
+		if (buildingToBuild.Equals ("Rock-Paper-Scissor turret")) {
 			Vector3 place = lastHitObject.transform.position;
 			GameObject newObject = (GameObject)Instantiate(basicTurret, place, Quaternion.identity);
 			newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
 			turrets.Add(newObject);
 			lastHitObject.tag = "BasicTurretPlane";
 		}
-		if (buildingToBuild.Equals ("Catapult")) {
+		if (buildingToBuild.Equals ("Cat-a-pult")) {
 			Delete();
 			Vector3 place = lastHitObject.transform.position;
 			GameObject newObject = (GameObject)Instantiate(catapult, place, Quaternion.identity);
@@ -143,7 +143,7 @@ public class BaseController : MonoBehaviour
 			turrets.Add(newObject);
 			lastHitObject.tag = "occupiedPlane";
 		}
-		if (buildingToBuild.Equals ("Fatique Bed")) {
+		if (buildingToBuild.Equals ("Energy Boost Bed")) {
 			Delete();
 			Vector3 place = lastHitObject.transform.position;
 			GameObject newObject = (GameObject)Instantiate(fatiqueBed, place, Quaternion.identity);
@@ -178,7 +178,7 @@ public class BaseController : MonoBehaviour
 			turrets.Add(newObject);
 			lastHitObject.tag = "occupiedPlane";
 		}
-		if (buildingToBuild.Equals ("Health Bed")) {
+		if (buildingToBuild.Equals ("Health Boost Bed")) {
 			Delete();
 			Vector3 place = lastHitObject.transform.position;
 			GameObject newObject = (GameObject)Instantiate(healthBed, place, Quaternion.identity);
@@ -186,7 +186,7 @@ public class BaseController : MonoBehaviour
 			turrets.Add(newObject);
 			lastHitObject.tag = "occupiedPlane";
 		}
-		if (buildingToBuild.Equals ("WeaponSmith")) {
+		if (buildingToBuild.Equals ("Gun Smith")) {
 			Delete();
 			Vector3 place = lastHitObject.transform.position;
 			GameObject newObject = (GameObject)Instantiate(weaponSmith, place, Quaternion.identity);
@@ -213,7 +213,7 @@ public class BaseController : MonoBehaviour
 			turrets.Add(newObject);
 			lastHitObject.tag = "occupiedPlane";
 		}
-		if (buildingToBuild.Equals ("GadgetSmith")) {
+		if (buildingToBuild.Equals ("Tech Smith")) {
 			Delete();
 			Vector3 place = lastHitObject.transform.position;
 			GameObject newObject = (GameObject)Instantiate(gadgetSmith, place, Quaternion.identity);
@@ -226,7 +226,7 @@ public class BaseController : MonoBehaviour
 	void setBuildMenu(){
 		if (lastHitObject.CompareTag ("emptyPlane")) {
 			title.text = "Empty spot";
-			buildingText1.text = "Basic turret";
+			buildingText1.text = "Rock-Paper-Scissor turret";
 			buildingText2.text = "Gearshack";
 			buildingText3.text = "Bed";
 			upgradeBuild1.text = "Build";
@@ -235,10 +235,10 @@ public class BaseController : MonoBehaviour
 			buildMenu.SetActive (true);
 		}
 		if (lastHitObject.CompareTag ("BasicTurretPlane")) {
-			title.text = "Basic Turret";
-			buildingText1.text = "Catapult";
+			title.text = "Rock-Paper-Scissor turret";
+			buildingText1.text = "Cat-a-pult";
 			buildingText2.text = "Harpgoon";
-			buildingText3.text = "Snailgun";
+			buildingText3.text = "Snail Gun";
 			upgradeBuild1.text = "Upgrade";
 			upgradeBuild2.text = "Upgrade";
 			upgradeBuild3.text = "Upgrade";
@@ -246,8 +246,8 @@ public class BaseController : MonoBehaviour
 		}
 		if (lastHitObject.CompareTag ("BedPlane")) {
 			title.text = "Bed";
-			buildingText1.text = "Fatique Bed";
-			buildingText2.text = "Health Bed";
+			buildingText1.text = "Energy Boost Bed";
+			buildingText2.text = "Health Boost Bed";
 			buildingText3.text = "";
 			upgradeBuild1.text = "Upgrade";
 			upgradeBuild2.text = "Upgrade";
@@ -257,8 +257,8 @@ public class BaseController : MonoBehaviour
 		if (lastHitObject.CompareTag ("GearShackPlane")) {
 			title.text = "Gearshack";
 			buildingText1.text = "Generator";
-			buildingText2.text = "WeaponSmith";
-			buildingText3.text = "GadgetSmith";
+			buildingText2.text = "Gun Smith";
+			buildingText3.text = "Tech Smith";
 			upgradeBuild1.text = "Upgrade";
 			upgradeBuild2.text = "Upgrade";
 			upgradeBuild3.text = "Upgrade";
