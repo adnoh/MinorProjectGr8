@@ -34,7 +34,7 @@ public class BuildingFactory {
 		if (name.Equals ("Generator(Clone)")) {
 			return new Building (false, false, true, new Type (0), "Generator", 25);
 		}
-		if (name.Equals ("WeaponSmith(Clone)")) {
+		if (name.Equals ("GunSmith(Clone)")) {
 			return new Building (false, false, true, new Type (0), "GunSmith", 25);
 		}
 		if (name.Equals ("TechSmith(Clone)")) {

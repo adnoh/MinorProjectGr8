@@ -22,13 +22,14 @@ public class Bullet : MonoBehaviour {
 	}
 
 	void Update(){
-		if (this.gameObject.name.Equals("newBullet(Clone)") && this.gameObject.GetComponent<Rigidbody> ().velocity == new Vector3(0f, 0f, 0f)) {
+		if ((this.gameObject.name.Equals("newBullet(Clone)") || this.gameObject.name.Equals ("catPrefab(Clone)") || this.gameObject.name.Equals("snailPrefab(Clone)")) && this.gameObject.GetComponent<Rigidbody> ().velocity == new Vector3(0f, 0f, 0f)) {
 			GameObject.Destroy (gameObject);
 		}
 	}
 
 	void OnTriggerEnter(Collider col){
-		if(col.gameObject.CompareTag ("Enemy") && this.gameObject.name.Equals("newBullet(Clone)")){
+		if(col.gameObject.CompareTag ("Enemy") && (this.gameObject.name.Equals("newBullet(Clone)") || this.gameObject.name.Equals ("catPrefab(Clone)") || this.gameObject.name.Equals("snailPrefab(Clone)"))){
+			Debug.Log (1);
 			EnemyController enemyController = col.gameObject.GetComponent<EnemyController>();
 			int damage = (int)(Random.Range (dmg, dmg + 10) * type.damageMultiplierToType(enemyController.getType()) * PlayerAttributes.getAttackMultiplier());
 			enemyController.setHealth(enemyController.getHealth () - damage);

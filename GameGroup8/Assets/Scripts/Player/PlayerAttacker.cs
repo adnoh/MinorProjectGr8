@@ -268,4 +268,8 @@ public class PlayerAttacker : MonoBehaviour {
 	public static void unlock(int i){
 		unlocked [i - 1] = true;
 	}
+
+	public void unlockInt(int i){
+		unlocked [i - 1] = true;
+	}
 }

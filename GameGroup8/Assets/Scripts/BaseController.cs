@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BaseController : MonoBehaviour
-{
+public class BaseController : MonoBehaviour{
 
     private GameObject lastHitObject;
     private Material originalMat;
@@ -34,6 +33,9 @@ public class BaseController : MonoBehaviour
 	public Text buildingText1;
 	public Text buildingText2;
 	public Text buildingText3;
+	public Text unitCost1;
+	public Text unitCost2;
+	public Text unitCost3;
 	public Text upgradeBuild1;
 	public Text upgradeBuild2;
 	public Text upgradeBuild3;
@@ -59,6 +61,7 @@ public class BaseController : MonoBehaviour
 			else {
 				transform.position = playerPos;
 				buildMenu.SetActive(false);
+				ReturnColour();
 			}
 		}
 
@@ -229,6 +232,9 @@ public class BaseController : MonoBehaviour
 			buildingText1.text = "Rock-Paper-Scissor turret";
 			buildingText2.text = "Gearshack";
 			buildingText3.text = "Bed";
+			unitCost1.text = "Cost: 5";
+			unitCost2.text = "Cost: 5";
+			unitCost3.text = "Cost: 10";
 			upgradeBuild1.text = "Build";
 			upgradeBuild2.text = "Build";
 			upgradeBuild3.text = "Build";
@@ -239,6 +245,9 @@ public class BaseController : MonoBehaviour
 			buildingText1.text = "Cat-a-pult";
 			buildingText2.text = "Harpgoon";
 			buildingText3.text = "Snail Gun";
+			unitCost1.text = "Cost: 10";
+			unitCost2.text = "Cost: 10";
+			unitCost3.text = "Cost: 10";
 			upgradeBuild1.text = "Upgrade";
 			upgradeBuild2.text = "Upgrade";
 			upgradeBuild3.text = "Upgrade";
@@ -249,6 +258,9 @@ public class BaseController : MonoBehaviour
 			buildingText1.text = "Energy Boost Bed";
 			buildingText2.text = "Health Boost Bed";
 			buildingText3.text = "";
+			unitCost1.text = "Cost: 15";
+			unitCost2.text = "Cost: 15";
+			unitCost3.text = "";
 			upgradeBuild1.text = "Upgrade";
 			upgradeBuild2.text = "Upgrade";
 			upgradeBuild3.text = "";
@@ -259,6 +271,9 @@ public class BaseController : MonoBehaviour
 			buildingText1.text = "Generator";
 			buildingText2.text = "Gun Smith";
 			buildingText3.text = "Tech Smith";
+			unitCost1.text = "Cost: 25";
+			unitCost2.text = "Cost: 25";
+			unitCost3.text = "Cost: 25";
 			upgradeBuild1.text = "Upgrade";
 			upgradeBuild2.text = "Upgrade";
 			upgradeBuild3.text = "Upgrade";

@@ -26,7 +26,7 @@ public class BuildingController : MonoBehaviour {
 			PlayerAttributes.fatique += 5000;
 		}
 		if (building.getName ().Equals ("HealthBed")) {
-			PlayerController.amountOfBeds += 2;
+			PlayerController.amountOfBeds ++;
 			PlayerAttributes.setMaxHealth((int)(PlayerAttributes.getMaxHealth() * (3/2)));
 		}
 		if (building.getName ().Equals ("EnergyBed")) {
@@ -35,8 +35,6 @@ public class BuildingController : MonoBehaviour {
 		if (building.getName ().Equals ("GearShack")) {
 			PlayerAttacker.unlock(2);
 		}
-
-
 	}
     
     void Update(){
@@ -49,7 +47,9 @@ public class BuildingController : MonoBehaviour {
             enemyPosition = enemys[0].transform.position;
             enemyPosition.y = 0;
             transform.LookAt(enemyPosition);
-            //transform.Rotate(new Vector3 (0, 1, 0), 90);
+			/*if(building.getName().Equals ("Cat-a-pult") || building.getName ().Equals ("Snailgun")){
+            	transform.Rotate(new Vector3 (0, 1, 0), 90);
+			}*/
         }
 		if (enemys.Count > 0 && Time.time > attackTime && building.returnIfTurret()) {
 			attackTime = Time.time + timeToNextAttack;
@@ -59,8 +59,18 @@ public class BuildingController : MonoBehaviour {
 			}
 			GameObject bulletClone = GameObject.Instantiate(bullet, transform.position, transform.rotation) as GameObject;
 			bulletClone.tag = bulletType.toString ();
-			bulletClone.GetComponent<Bullet>().dmg = 20;
-			bulletClone.transform.Rotate(90, 0, 0);
+			if(this.gameObject.name.Equals ("Rock-paper-scissor turret(Clone)")){
+				bulletClone.GetComponent<Bullet>().dmg = 10;
+			}
+			else{
+				bulletClone.GetComponent<Bullet>().dmg = 15;
+			}
+			if(bulletClone.name.Equals ("newBullet(Clone)")){
+				bulletClone.transform.Rotate(90, 0, 0);
+			}
+			if(bulletClone.name.Equals ("SnailPrefab(Clone)")){
+				bulletClone.transform.Rotate (0, 90, 0);
+			}
 			bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f);
 		}
 		if (building.getName ().Equals ("Generator") && Time.time > time) {
@@ -72,7 +82,6 @@ public class BuildingController : MonoBehaviour {
     void OnTriggerEnter(Collider other){
 		if (other.CompareTag("Enemy") && building.returnIfTurret() && this.gameObject.CompareTag("Turret")){
             enemys.Add (other.gameObject);
-			Debug.Log (enemys.Count);
         }
     }
 
@@ -92,9 +101,19 @@ public class BuildingController : MonoBehaviour {
 		if (building.getName ().Equals ("HealthBed")) {
 			PlayerController.amountOfBeds -= 2;
 			PlayerAttributes.setMaxHealth((int)(-PlayerAttributes.getMaxHealth() * (3/2)));
+			PlayerAttributes.fatique -= 5000;
 		}
 		if (building.getName ().Equals ("EnergyBed")) {
 			PlayerAttributes.setMaxEnergy((int)(PlayerAttributes.getMaxEnergy() / 2));
+			PlayerAttributes.fatique -= 5000;
+		}
+	}
+
+	void OnMouseDown(){
+		Debug.Log (true);
+		if (building.getName ().Equals ("GunSmith")) {
+			Debug.Log (1);
+			GameObject.Find ("weaponUnlockScreen").SetActive(true);
 		}
 	}
 }
