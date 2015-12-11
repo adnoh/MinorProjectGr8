@@ -18,14 +18,23 @@ public class Monster {
 	[XmlAttribute("attackPower")]
 	public int attackPower;
 
-	[XmlAttribute("walkingSpeed")]
-	public float walkingSpeed;
+    [XmlAttribute("walkingSpeed")]
+    public float walkingSpeed;
 
-	[XmlAttribute("type")]
-	public string type;
+	[XmlAttribute("type")]	
+    public string type { get; private set; }
 
-	[XmlAttribute("location")]
+    [XmlAttribute("location")]
 	public Vector3 location;
+
+    [XmlAttribute("rotation")]
+    public Quaternion rotation;
+
+    [XmlAttribute("isPosioned?")]
+    public bool isPoisoned;
+
+    [XmlAttribute("isStunned?")]
+    public bool isStunned;
 
 	public Monster(){
 
@@ -39,5 +48,10 @@ public class Monster {
 		walkingSpeed = enemy.getWalkingSpeed ();
 		type = enemy.getType().toString();
 		location = enemy.getPosition ();
+        rotation = enemy.getRotation();
+        isPoisoned = enemy.getPoisoned();
+        isStunned = enemy.getStunned();
+
 	}
+
 }
