@@ -33,10 +33,10 @@ public class Bullet : MonoBehaviour {
 			int damage = (int)(Random.Range (dmg, dmg + 10) * type.damageMultiplierToType(enemyController.getType()) * PlayerAttributes.getAttackMultiplier());
 			enemyController.setHealth(enemyController.getHealth () - damage);
 			if(poisonous){
-				enemyController.setPoisoned();
+				enemyController.setPoisoned(true);
 			}
 			if(stun){
-				enemyController.stun ();
+				enemyController.stun (true);
 			}
 			PlayerAttacker.lastAttackedEnemy = enemyController;
 			if(enemyController.getHealth () <= 0){

@@ -109,6 +109,7 @@ public class PlayerAttacker : MonoBehaviour {
 				nextAttack = Time.time + currentWeapon.getAttackSpeed();
 				int damage = (int)(Random.Range (currentWeapon.getWeaponDamage(), currentWeapon.getWeaponDamage() + 10) * currentWeapon.getType ().damageMultiplierToType(lastAttackedEnemy.getType()) * PlayerAttributes.getAttackMultiplier());
 				lastAttackedEnemy.setHealth(lastAttackedEnemy.getHealth () - damage);
+				lastAttackedEnemy.gameObject.transform.Translate(new Vector3(this.gameObject.transform.position.x - lastAttackedEnemy.gameObject.transform.position.x, 0, this.gameObject.transform.position.z - lastAttackedEnemy.gameObject.transform.position.z)); 
 				if(lastAttackedEnemy.getHealth () <= 0){
 					PSpawner spawner = Camera.main.GetComponent<PSpawner>();
 					spawner.placeUnit(lastAttackedEnemy.gameObject.transform.position);

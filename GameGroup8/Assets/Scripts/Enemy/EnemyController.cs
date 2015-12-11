@@ -139,8 +139,8 @@ public class EnemyController : MonoBehaviour {
 		PlayerAttributes.takeDamage(attackPower);
 	}
 
-	public void setPoisoned(){
-		poisoned = true;
+	public void setPoisoned(bool poi){
+		poisoned = poi;
 	}
 
     public bool getPoisoned(){
@@ -153,11 +153,17 @@ public class EnemyController : MonoBehaviour {
 		stunned = false;
 	}
 
-    public void stun(){
-		timeToUnStun = Time.time + stunTimeInterval;
-		walkingSpeed = 0;
-		attackPower = 0;
-		stunned = true;
+    public void stun(bool st){
+		if (st) {
+			timeToUnStun = Time.time + stunTimeInterval;
+			walkingSpeed = 0;
+			attackPower = 0;
+			stunned = true;
+		}
+	}
+
+	public bool getStunned(){
+		return stunned;
 	}
 
 	void setPosition(Vector3 here){
