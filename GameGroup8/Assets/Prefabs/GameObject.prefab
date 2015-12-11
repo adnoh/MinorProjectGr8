@@ -1351,7 +1351,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 130350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.90633988, y: 308, z: -1.4982357}
+  m_LocalPosition: {x: 2.90633988, y: 383, z: -1.4982357}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children:
   - {fileID: 432910}
@@ -2209,12 +2209,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505bf8902e68e6a4f85a365ed1da8059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
-  level: 3
+  level: 2
   health: 0
   maxHealth: 0
   attackPower: 0
   walkingSpeed: 0
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
   attackRate: 2
   poisoned: 0
   timeToGetPoisonDamage: 5
@@ -2232,12 +2233,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505bf8902e68e6a4f85a365ed1da8059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
-  level: 1
+  level: 4
   health: 0
   maxHealth: 0
   attackPower: 0
   walkingSpeed: 0
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
   attackRate: 2
   poisoned: 0
   timeToGetPoisonDamage: 5
@@ -2255,6 +2257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyed: 0
 --- !u!114 &11426394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2266,12 +2269,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505bf8902e68e6a4f85a365ed1da8059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
   level: 0
   health: 0
   maxHealth: 0
   attackPower: 0
   walkingSpeed: 0
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
   attackRate: 2
   poisoned: 0
   timeToGetPoisonDamage: 5
@@ -2289,12 +2293,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505bf8902e68e6a4f85a365ed1da8059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
   level: 1
   health: 0
   maxHealth: 0
   attackPower: 0
   walkingSpeed: 0
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
   attackRate: 2
   poisoned: 0
   timeToGetPoisonDamage: 5
@@ -2312,12 +2317,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505bf8902e68e6a4f85a365ed1da8059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
   level: 1
   health: 0
   maxHealth: 0
   attackPower: 0
   walkingSpeed: 0
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
   attackRate: 2
   poisoned: 0
   timeToGetPoisonDamage: 5
@@ -2335,6 +2341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyed: 0
 --- !u!114 &11458540
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2346,6 +2353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyed: 0
 --- !u!114 &11463940
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2357,6 +2365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyed: 0
 --- !u!114 &11476168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2368,12 +2377,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505bf8902e68e6a4f85a365ed1da8059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
   level: 1
   health: 0
   maxHealth: 0
   attackPower: 0
   walkingSpeed: 0
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
   attackRate: 2
   poisoned: 0
   timeToGetPoisonDamage: 5
@@ -2391,6 +2401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyed: 0
 --- !u!114 &11498838
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2402,6 +2413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyed: 0
 --- !u!114 &11499434
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2413,12 +2425,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505bf8902e68e6a4f85a365ed1da8059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
   level: 1
   health: 0
   maxHealth: 0
   attackPower: 0
   walkingSpeed: 0
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
   attackRate: 2
   poisoned: 0
   timeToGetPoisonDamage: 5
