@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <MonsterCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <list>
-    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" type="Water" location="(19.6, 0.0, 1.8)" />
-    <list level="1" health="40" maxHealth="100" attackPower="10" walkingSpeed="2" type="Wind" location="(19.4, 0.0, 2.4)" />
-    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" type="Water" location="(18.1, 0.1, -12.5)" />
-    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" type="Water" location="(15.0, 0.1, -11.7)" />
-    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" type="Wind" location="(-1.2, 0.0, 1.2)" />
+    <list level="2" health="200" maxHealth="200" attackPower="15" walkingSpeed="1" location="-10.9876471" rotation="0.8677476" isPosioned_x003F_="false" isStunned_x003F_="false" type="Water">
+      <location_y>0.5281122</location_y>
+      <location_z>-15.8932686</location_z>
+      <rotation_x>0.008166441</rotation_x>
+      <rotation_y>0.496916056</rotation_y>
+      <rotation_z>-0.0046765157</rotation_z>
+    </list>
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="-7.976159" rotation="0.896322" isPosioned_x003F_="false" isStunned_x003F_="false" type="Earth">
+      <location_y>0.276142</location_y>
+      <location_z>-17.86882</location_z>
+      <rotation_x>0.00464294245</rotation_x>
+      <rotation_y>0.443373442</rotation_y>
+      <rotation_z>-0.00229667174</rotation_z>
+    </list>
   </list>
 </MonsterCollection>

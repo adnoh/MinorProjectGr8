@@ -45,7 +45,13 @@ public class MonsterCollection : MonoBehaviour
 			Save ("Assets/saves/monsters.xml");
 		}
 
-	}	
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            EnemySpawner enemySpawner = Camera.main.GetComponent<EnemySpawner>();
+            enemySpawner.savewave();
+        }
+
+    }	
 
     // Save & Load 
 	public void Save(string path)

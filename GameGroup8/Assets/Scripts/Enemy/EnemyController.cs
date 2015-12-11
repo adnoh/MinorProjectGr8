@@ -109,7 +109,22 @@ public class EnemyController : MonoBehaviour {
 		return walkingSpeed;
 	}
 
-	public void setLevel(int level){
+    public void setAttackPower(int AP)
+    {
+        this.attackPower = AP;
+    }
+
+    public void setWalkingSpeed(float wp)
+    {
+        this.walkingSpeed = wp;
+    }
+
+    public void setmaxhealth(int mh)
+    {
+        this.maxHealth = mh;
+    }
+
+    public void setLevel(int level){
 		this.level = level;
 	}
 
