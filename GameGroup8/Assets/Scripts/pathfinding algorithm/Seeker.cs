@@ -69,19 +69,14 @@ public class Seeker : MonoBehaviour
         }
     }
 
-    IEnumerator FollowPath()
-    {
-        
-        
+    IEnumerator FollowPath(){
+              
             Vector3 currentWaypoint = path[0];
 
-            while (true)
-            {
-                if (transform.position == currentWaypoint && this.gameObject != null)
-                {
+		while (true && this.gameObject != null){
+			if (transform.position == currentWaypoint && this.gameObject != null){
                     targetIndex++;
-                    if (targetIndex >= path.Length)
-                    {
+                    if (targetIndex >= path.Length){
                         // reset targetindex counter + path
                         targetIndex = 0;
                         path = new Vector3[0];
@@ -90,12 +85,9 @@ public class Seeker : MonoBehaviour
                     }
                     currentWaypoint = path[targetIndex];
                 }
-
                 transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
                 yield return null;
-
             }
-        
     }
 
 
