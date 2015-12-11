@@ -13,6 +13,8 @@ public class Seeker : MonoBehaviour
     private Transform currentPos;
     private float speed;
 
+	public bool destroyed = false;
+
 
     Vector3[] path;
     int targetIndex; // current index in the path array 
@@ -43,7 +45,7 @@ public class Seeker : MonoBehaviour
         // wait for x seconds before 
         float refreshRate = 0.25f;
 
-        while (target != null && this.gameObject != null)
+        while (target != null && !destroyed)
         {
             if (target != currentPos)
             {
@@ -56,16 +58,13 @@ public class Seeker : MonoBehaviour
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
     {
-        if (pathSuccessful && this.gameObject != null)
-        {
+        if (pathSuccessful && !destroyed){
             path = newPath;
             // Stop the Coroutine before starting.
             StopCoroutine("FollowPath");
-            if (path.Length > 0)
-            {
+            if (path.Length > 0){
                 StartCoroutine("FollowPath");
             }
-            
         }
     }
 
@@ -73,8 +72,8 @@ public class Seeker : MonoBehaviour
               
             Vector3 currentWaypoint = path[0];
 
-		while (true && this.gameObject != null){
-			if (transform.position == currentWaypoint && this.gameObject != null){
+		while (true && !destroyed){
+			if (transform.position == currentWaypoint && !destroyed){
                     targetIndex++;
                     if (targetIndex >= path.Length){
                         // reset targetindex counter + path

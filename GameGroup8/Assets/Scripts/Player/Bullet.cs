@@ -44,6 +44,7 @@ public class Bullet : MonoBehaviour {
 				spawner.placeUnit(enemyController.gameObject.transform.position);
 				EnemySpawner.enemiesDefeaten++;
 				col.gameObject.GetComponent<Seeker>().StopAllCoroutines();
+				col.gameObject.GetComponent<Seeker>().destroyed = true;
 				Destroy(col.gameObject);
 				PlayerAttacker.lastAttackedEnemy = null;
 				MiniMapScript.enemies.Remove(enemyController);
