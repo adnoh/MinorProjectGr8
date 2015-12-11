@@ -101,15 +101,71 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 
-	/*void savewave(){
-		var Temp = MonsterCollection.Load("Assets/saves/test.xml");
-		var temparray = MonsterList.getMonsterlist();
+    public void savewave()
+    {
+        var Temp = MonsterCollection.Load("Assets/saves/monsters.xml");
+        var MonsterList = Temp.getMonsterlist();
 
 
+        for (int i = 0; i < MonsterList.Length; i++)
+        {
+            Vector3 location = new Vector3(MonsterList[i].location_x, MonsterList[i].location_y, MonsterList[i].location_z);
+            Quaternion rotation = new Quaternion(MonsterList[i].rotation_w, MonsterList[i].rotation_x, MonsterList[i].rotation_y, MonsterList[i].rotation_z);
+       
+            switch (MonsterList[i].type)
+            {
+                case "Earth":
+                    {
+                        GameObject earthEnemyClone = earthEnemy;
+                        var monster = earthEnemyClone.GetComponent<EnemyController>();
+                        monster.setLevel(MonsterList[i].level);
+                        monster.setHealth(MonsterList[i].health);
+                        monster.setmaxhealth(MonsterList[i].maxHealth);
+                        monster.setAttackPower(MonsterList[i].attackPower);
+                        monster.setWalkingSpeed(MonsterList[i].walkingSpeed);
+                        monster.setPoisoned(MonsterList[i].isPoisoned);                 
 
-	}*/
-			  
-	void calculateChangeToSpawnWind(){
+                        Instantiate(earthEnemyClone, location, rotation);
+                        break;
+                    }
+
+                case "Wind":
+                    {
+                        GameObject windEnemyClone = windEnemy;
+                        var monster = windEnemyClone.GetComponent<EnemyController>();
+                        monster.setLevel(MonsterList[i].level);
+                        monster.setHealth(MonsterList[i].health);
+                        monster.setmaxhealth(MonsterList[i].maxHealth);
+                        monster.setAttackPower(MonsterList[i].attackPower);
+                        monster.setWalkingSpeed(MonsterList[i].walkingSpeed);
+                        monster.setPoisoned(MonsterList[i].isPoisoned);
+
+                        Instantiate(windEnemyClone, location, rotation);
+                        break;
+                    }
+                
+                case "Water":
+                    {
+                        GameObject waterEnemyClone = waterEnemy;
+                        var monster = waterEnemyClone.GetComponent<EnemyController>();
+                        monster.setLevel(MonsterList[i].level);
+                        monster.setHealth(MonsterList[i].health);
+                        monster.setmaxhealth(MonsterList[i].maxHealth);
+                        monster.setAttackPower(MonsterList[i].attackPower);
+                        monster.setWalkingSpeed(MonsterList[i].walkingSpeed);
+                        monster.setPoisoned(MonsterList[i].isPoisoned);
+
+                        Instantiate(waterEnemyClone, location, rotation);
+                        break;
+                    }
+
+
+            }
+
+        }
+    }
+
+    void calculateChangeToSpawnWind(){
 		int tempType = PlayerAttacker.currentWeapon.getType().getType ();
 		if(tempType == 1 || tempType == 0){
 			changeToSpawnWindEnemy = 1f/3f;
