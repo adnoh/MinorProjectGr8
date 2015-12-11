@@ -19,11 +19,13 @@ public class BuildingController : MonoBehaviour {
 
 	public GameObject bullet;
 
+	public bool weaponUnlocker = false;
+
 	void Start(){
 		building = buildingFactory.getBuilding (this.gameObject.name);
 		if (building.getName ().Equals ("Bed")) {
 			PlayerController.amountOfBeds ++;
-			PlayerAttributes.fatique += 5000;
+			PlayerAttributes.maxFatique += 5000;
 		}
 		if (building.getName ().Equals ("HealthBed")) {
 			PlayerController.amountOfBeds ++;
@@ -96,24 +98,27 @@ public class BuildingController : MonoBehaviour {
 	public void Delete(){
 		if (building.getName ().Equals ("Bed")) {
 			PlayerController.amountOfBeds --;
-			PlayerAttributes.fatique -= 5000;
+			PlayerAttributes.maxFatique -= 5000;
 		}
 		if (building.getName ().Equals ("HealthBed")) {
 			PlayerController.amountOfBeds -= 2;
 			PlayerAttributes.setMaxHealth((int)(-PlayerAttributes.getMaxHealth() * (3/2)));
-			PlayerAttributes.fatique -= 5000;
+			PlayerAttributes.maxFatique -= 5000;
 		}
 		if (building.getName ().Equals ("EnergyBed")) {
 			PlayerAttributes.setMaxEnergy((int)(PlayerAttributes.getMaxEnergy() / 2));
-			PlayerAttributes.fatique -= 5000;
+			PlayerAttributes.maxFatique -= 5000;
 		}
 	}
 
 	void OnMouseDown(){
-		Debug.Log (true);
-		if (building.getName ().Equals ("GunSmith")) {
-			Debug.Log (1);
-			GameObject.Find ("weaponUnlockScreen").SetActive(true);
+		if (building.getName ().Equals ("GunSmith") && !weaponUnlocker) {
+			GameObject.Find ("player").GetComponent<PlayerAttacker> ().weaponUnlockScreen.SetActive (true);
+			GameObject.Find ("player").GetComponent<PlayerAttacker> ().setTextOfLockUnlock();
+			weaponUnlocker = true;
+		} else {
+			GameObject.Find ("player").GetComponent<PlayerAttacker> ().weaponUnlockScreen.SetActive (false);
+			weaponUnlocker = false;
 		}
 	}
 }
