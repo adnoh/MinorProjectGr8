@@ -1,12 +1,18 @@
 using UnityEngine;
 using System.Collections;
 
+
+/* this class actually lives in the scene, Enemy.cs not 
+can also access all variables defined in Enemy.cs
+*/ 
+
 public class EnemyController : MonoBehaviour {
 
 	public Enemy enemy;
 	private EnemyFactory enemyFactory = new EnemyFactory();
-	public Vector3 position;
+    
 
+    // Properties of the actual instance of the enemy
 	public int level;
 	public int health;
 	public int maxHealth;
@@ -14,18 +20,19 @@ public class EnemyController : MonoBehaviour {
 	public float walkingSpeed;
 	public Type type;
 
-	private bool isWithinRange;
+    public Vector3 position;
+    public Quaternion rotation;
+
+    private bool isWithinRange;
 
 	public float attackRate = 2f;
 	private float nextAttack = 0.0f;
 
 	public bool poisoned;
-
 	public float timeToGetPoisonDamage = 5.0f;
 	private float intervalToGetPoisonDamage = 5.0f;
 
 	public bool stunned;
-
 	public float timeToUnStun = 0.0f;
 	public float stunTimeInterval = 2.0f;
 
@@ -65,17 +72,26 @@ public class EnemyController : MonoBehaviour {
 			unStun ();
 		}
 
-		Vector3 Enemyposition = this.gameObject.transform.position;
-		setPosition (Enemyposition);
+		Vector3 EnemyPosition = this.gameObject.transform.position;
+		setPosition (EnemyPosition);
+        Quaternion EnemyRotation = this.gameObject.transform.rotation;
+        setRotation(EnemyRotation);
 
-	}
 
+
+    }
+
+
+    // basic pathfinding code
 	/* void FixedUpdate ()	{
 		 position = PlayerController.getPosition ();
 		if (!isWithinRange) {
 			transform.position = Vector3.MoveTowards (transform.position, position, speed * Time.deltaTime);
 		}
 	} */
+
+
+    // Getters and setters
 
 	public int getHealth() {
 		return health;
@@ -131,7 +147,12 @@ public class EnemyController : MonoBehaviour {
 		poisoned = true;
 	}
 
-	public void setStunned(){
+    public bool getPoisoned()
+    {
+        return poisoned;
+    }
+
+    public void setStunned(){
 		StartCoroutine (stun ());
 	}
 
@@ -141,13 +162,19 @@ public class EnemyController : MonoBehaviour {
 		stunned = false;
 	}
 
-	IEnumerator stun(){
+    public bool getStunned()
+    {
+        return stunned;
+    }
+
+    IEnumerator stun(){
 		walkingSpeed = 0;
 		attackPower = 0;
 		yield return new WaitForSeconds (2);
 		walkingSpeed = enemy.getWalkingSpeed ();
 		attackPower = enemy.getAttackPower ();
 	}
+
 	void setPosition(Vector3 here){
 		position = here;
 	}
@@ -155,4 +182,15 @@ public class EnemyController : MonoBehaviour {
 	public Vector3 getPosition(){
 		return position;
 	}
+
+
+    public void setRotation(Quaternion _rotation)
+    {
+        rotation = _rotation;
+    }
+
+    public Quaternion getRotation()
+    {
+        return rotation;
+    }
 }
