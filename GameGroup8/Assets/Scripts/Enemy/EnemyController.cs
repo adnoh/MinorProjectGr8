@@ -5,7 +5,7 @@ public class EnemyController : MonoBehaviour {
 
 	public Enemy enemy;
 	private EnemyFactory enemyFactory = new EnemyFactory();
-	private Vector3 position;
+	public Vector3 position;
 
 	public int level;
 	public int health;
@@ -65,6 +65,9 @@ public class EnemyController : MonoBehaviour {
 			unStun ();
 		}
 
+		Vector3 Enemyposition = this.gameObject.transform.position;
+		setPosition (Enemyposition);
+
 	}
 
 	/* void FixedUpdate ()	{
@@ -88,6 +91,10 @@ public class EnemyController : MonoBehaviour {
 
 	public int getLevel(){
 		return level;
+	}
+
+	public float getWalkingSpeed(){
+		return walkingSpeed;
 	}
 
 	public void setLevel(int level){
@@ -141,5 +148,11 @@ public class EnemyController : MonoBehaviour {
 		walkingSpeed = enemy.getWalkingSpeed ();
 		attackPower = enemy.getAttackPower ();
 	}
-
+	void setPosition(Vector3 here){
+		position = here;
+	}
+	
+	public Vector3 getPosition(){
+		return position;
+	}
 }

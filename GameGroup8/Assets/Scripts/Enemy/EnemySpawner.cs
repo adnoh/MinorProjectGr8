@@ -99,6 +99,15 @@ public class EnemySpawner : MonoBehaviour {
 		}
 		wave++;
 	}
+
+
+	void savewave(){
+		var Temp = MonsterCollection.Load("Assets/saves/test.xml");
+		var temparray = MonsterList.getMonsterlist();
+
+
+
+	}
 			  
 	void calculateChangeToSpawnWind(){
 		int tempType = PlayerAttacker.currentWeapon.getType().getType ();
