@@ -68,7 +68,6 @@ public class EnemyController : MonoBehaviour {
 			health -= (int)maxHealth / 20;
 		}
 		if (stunned && Time.time > timeToUnStun) {
-			timeToUnStun = Time.time + stunTimeInterval;
 			unStun ();
 		}
 
@@ -76,9 +75,6 @@ public class EnemyController : MonoBehaviour {
 		setPosition (EnemyPosition);
         Quaternion EnemyRotation = this.gameObject.transform.rotation;
         setRotation(EnemyRotation);
-
-
-
     }
 
 
@@ -147,14 +143,9 @@ public class EnemyController : MonoBehaviour {
 		poisoned = true;
 	}
 
-    public bool getPoisoned()
-    {
+    public bool getPoisoned(){
         return poisoned;
     }
-
-    public void setStunned(){
-		StartCoroutine (stun ());
-	}
 
 	public void unStun(){
 		walkingSpeed = enemy.getWalkingSpeed();
@@ -162,17 +153,11 @@ public class EnemyController : MonoBehaviour {
 		stunned = false;
 	}
 
-    public bool getStunned()
-    {
-        return stunned;
-    }
-
-    IEnumerator stun(){
+    public void stun(){
+		timeToUnStun = Time.time + stunTimeInterval;
 		walkingSpeed = 0;
 		attackPower = 0;
-		yield return new WaitForSeconds (2);
-		walkingSpeed = enemy.getWalkingSpeed ();
-		attackPower = enemy.getAttackPower ();
+		stunned = true;
 	}
 
 	void setPosition(Vector3 here){
@@ -183,14 +168,11 @@ public class EnemyController : MonoBehaviour {
 		return position;
 	}
 
-
-    public void setRotation(Quaternion _rotation)
-    {
-        rotation = _rotation;
+    public void setRotation(Quaternion rot){
+        rotation = rot;
     }
 
-    public Quaternion getRotation()
-    {
+    public Quaternion getRotation(){
         return rotation;
     }
 }

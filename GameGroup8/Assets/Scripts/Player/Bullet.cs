@@ -29,7 +29,6 @@ public class Bullet : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col){
 		if(col.gameObject.CompareTag ("Enemy") && (this.gameObject.name.Equals("newBullet(Clone)") || this.gameObject.name.Equals ("catPrefab(Clone)") || this.gameObject.name.Equals("snailPrefab(Clone)"))){
-			Debug.Log (1);
 			EnemyController enemyController = col.gameObject.GetComponent<EnemyController>();
 			int damage = (int)(Random.Range (dmg, dmg + 10) * type.damageMultiplierToType(enemyController.getType()) * PlayerAttributes.getAttackMultiplier());
 			enemyController.setHealth(enemyController.getHealth () - damage);
@@ -37,7 +36,7 @@ public class Bullet : MonoBehaviour {
 				enemyController.setPoisoned();
 			}
 			if(stun){
-				enemyController.setStunned ();
+				enemyController.stun ();
 			}
 			PlayerAttacker.lastAttackedEnemy = enemyController;
 			if(enemyController.getHealth () <= 0){

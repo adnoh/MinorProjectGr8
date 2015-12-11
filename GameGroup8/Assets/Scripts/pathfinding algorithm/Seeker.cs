@@ -34,6 +34,10 @@ public class Seeker : MonoBehaviour
 		speed = this.gameObject.GetComponent<EnemyController> ().walkingSpeed;
     }
 
+	void Update(){
+		speed = this.gameObject.GetComponent<EnemyController> ().walkingSpeed;
+	}
+
     IEnumerator UpdatePath()
     {
         // wait for x seconds before 
