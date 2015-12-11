@@ -9,6 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 442006}
   - 95: {fileID: 9503100}
+  - 135: {fileID: 13530404}
+  - 114: {fileID: 11411358}
   m_Layer: 0
   m_Name: Snailgun
   m_TagString: Untagged
@@ -57,8 +59,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 108780}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.6535425, y: -.0137980543, z: 8.29459}
-  m_LocalScale: {x: .300000012, y: .300000012, z: .300000012}
+  m_LocalPosition: {x: -1.64007568, y: -.004139381, z: 14.3576584}
+  m_LocalScale: {x: .200000003, y: .200000003, z: .200000003}
   m_Children:
   - {fileID: 473862}
   - {fileID: 460690}
@@ -167,6 +169,32 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11411358
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 347be10981abc7449b50f479defcc16f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeInterval: 30
+  timeToNextAttack: 2
+  bullet: {fileID: 161898, guid: 78738fbd600424d4083da2c2d981b6f9, type: 2}
+--- !u!135 &13530404
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108780}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 72
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

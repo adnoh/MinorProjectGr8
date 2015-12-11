@@ -16,7 +16,7 @@ public class WorldBuilderII : MonoBehaviour {
     public int nrHouses;
 
     private List<Vector3> TreePos = new List<Vector3>();
-    private List<Vector3> HousePos = new List<Vector3>();
+    private List<Vector3[]> HousePos = new List<Vector3[]>();
 
     // Initialization on play
     void Start()
@@ -68,14 +68,59 @@ public class WorldBuilderII : MonoBehaviour {
         MeshRenderer mesh_renderer = GetComponent<MeshRenderer>();
         mesh_renderer.sharedMaterials[0].mainTexture = texture;
 
-        ApplyAssets(map);
+        //ApplyAssets(map);
     }
 
     public void ApplyAssets(TDMapII map)
     {
+        int[] Village = map.getVillages();
+        int[][] Forrests = map.getForrests();
 
+        
+        int x_pos = Village[0];
+        int y_pos = Village[1];
+        int min = Village[2];
+        int max = Village[3];
+
+        for (int i = 0; i < 30; i++)
+        {
+            int x = Random.Range(min, max) + y_pos;
+            int z = Random.Range(min, max) + x_pos;
+                
+            if (map.getTile(x, z) == 1 || map.getTile(x, z) == 2 || map.getTile(x, z) == 3)
+            {
+                Vector3 Pos = new Vector3(150 - x, 0.8f, 150 - z);
+                Vector3 Rot = new Vector3(90, Random.Range(0, 360), 0);
+                GameObject huisje = (GameObject)Instantiate(House, Pos, Quaternion.identity);
+                huisje.transform.Rotate(Rot);
+                HousePos.Add(new Vector3[2] { Pos, Rot });
+            }
+                
+        }
+        
+
+        foreach(int[] forrest in Forrests)
+        {
+            int x_posF = forrest[0];
+            int y_posF = forrest[1];
+            int minF = forrest[2];
+            int maxF = forrest[3];
+
+            for (int i = 0; i < 10; i++)
+            {
+                int x = Random.Range(minF, maxF) + y_posF;
+                int z = Random.Range(minF, maxF) + x_posF;
+
+                if (map.getTile(x, z) == 1 || map.getTile(x, z) == 2 || map.getTile(x, z) == 3)
+                {
+                    Vector3 Pos = new Vector3(150 - x, 0, 150 - z);
+                    Instantiate(Tree, Pos, Quaternion.identity);
+                    TreePos.Add(Pos);
+                }
+            }
+        }
     }
-
+    /*
     void PlaceHouses()
     {
         while (HousePos.Count < nrHouses)
@@ -93,21 +138,9 @@ public class WorldBuilderII : MonoBehaviour {
         }
     }
 
-    void PlaceTrees()
+    void PlaceTrees(TDMapII map)
     {
-        while (TreePos.Count < nrTrees)
-        {
-            Vector3 place = getRandPos(0, 2);
-            if (!TreePos.Contains(place) && (!HousePos.Contains(place)))
-            {
-                TreePos.Add(place);
-            }
-        }
-
-        for (int i = 0; i < TreePos.Count; i++)
-        {
-            Instantiate(Tree, TreePos[i], Quaternion.identity);
-        }
+        
     }
 
     Vector3 getRandPos(int dist, int offset)
@@ -145,7 +178,7 @@ public class WorldBuilderII : MonoBehaviour {
             }
         }
     }
-    /*
+    
     void placeWalls(Vector3 place, int j)
     {
         bool walls = true;

@@ -6,10 +6,7 @@ public class PlayerController : MonoBehaviour {
 	
 	public Slider playerHealthBar;
 	public float RotateSpeed = 30f;
-    public GameObject Gate;
-    public GameObject BuildMenu;
-    public GameObject BackButton;
-    public GameObject IndicationUnits;
+    
     public Text countText;
 	private static int count;
 	public GameObject player;
@@ -17,13 +14,13 @@ public class PlayerController : MonoBehaviour {
 
 	public Text levelText;
 
-	public Slider fatiqueBar;
-
-    public static bool pause;
-    private Vector3 playerPos;
+	public Slider fatiqueBar;    
 
 	public float regenerationTime = 20.0f;
+	public float regenerationTimeInBase = 20.0f;
 	private float timeToRegenerate = 20.0f;
+
+	public static int amountOfBeds = 0;
 
 	public float energyGainingTime = 2.0f;
 	private float timeToGainEnergy = 2.0f;
@@ -35,8 +32,6 @@ public class PlayerController : MonoBehaviour {
 	public Text upgradeText;
 
 	void Start () {
-        pause = false;
-        BuildMenu.SetActive(false);
 		count = 0;
 		countText.text = "Amount of units: " + count;
 		playerHealthBar.value = PlayerAttributes.getHealth ();
@@ -46,6 +41,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Update(){
 		updateBars ();
+		countText.text = "Amount of units: " + count;
 		levelText.text = "Level: " + PlayerAttributes.getLevel();
 		Plane playerPlane = new Plane (Vector3.up, transform.position);
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -55,21 +51,6 @@ public class PlayerController : MonoBehaviour {
 			Quaternion targetRotation = Quaternion.LookRotation (targetPoint - transform.position);
 			transform.rotation = Quaternion.Slerp (transform.rotation, targetRotation, RotateSpeed * Time.deltaTime);
 		}
-
-        if (Input.GetButtonDown("Jump") && Vector3.Distance(Gate.transform.position,transform.position) < 3){
-			PlayerAttributes.resetFatique();
-            pause = !pause;
-            if (pause){
-                playerPos = transform.position;
-                transform.position = new Vector3(0, -0.501f, -11.3f);
-            } 
-			else {
-                transform.position = playerPos;
-                BuildMenu.SetActive(false);
-                BackButton.SetActive(false);
-                IndicationUnits.SetActive(false);
-            }
-        }
 
 		if (PlayerAttributes.getEnergy() > 0 && Input.GetKeyDown (KeyCode.LeftShift)) {
 			PlayerAttributes.run();
@@ -90,18 +71,14 @@ public class PlayerController : MonoBehaviour {
 			timeToGainEnergy = Time.time + energyGainingTime;
 		}
 
-		if (PlayerAttributes.getHealth() < PlayerAttributes.getMaxHealth() && Time.time > timeToRegenerate) {
+		if (PlayerAttributes.getHealth() < PlayerAttributes.getMaxHealth() && Time.time > timeToRegenerate && !BaseController.pause) {
 			PlayerAttributes.regenerate ();
 			timeToRegenerate = Time.time + regenerationTime;
 		}
-
-        if (pause)
-        {
-            Time.timeScale = 0;
-        } 
-		else {
-            Time.timeScale = 1;
-        }
+		if (PlayerAttributes.getHealth() < PlayerAttributes.getMaxHealth() && Time.time > timeToRegenerate && BaseController.pause) {
+			PlayerAttributes.regenerate ();
+			timeToRegenerate = Time.time + regenerationTimeInBase / (1 + amountOfBeds);
+		}
 
 		if (PlayerAttributes.pointsToUpgrade > 0 && Time.time > timeToFlash) {
 			timeToFlash = Time.time + flashingInterval;
@@ -145,10 +122,6 @@ public class PlayerController : MonoBehaviour {
 			collider.gameObject.GetComponent<EnemyController> ().setWithinRange ();
 		}
 	}
-
-    static public bool getPause(){
-        return pause;
-    }
 
 	void setPosition(Vector3 here){
 		currentPosition = here;

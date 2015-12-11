@@ -22,14 +22,15 @@ public class Seeker : MonoBehaviour
     {
         target = GameObject.Find("player").GetComponent<Transform>();
 		currentPos = this.gameObject.GetComponent<Transform> ();
-
     }
 
     // Request path
 
     void Start()
     {
-        StartCoroutine(UpdatePath());
+		if (this.gameObject != null) {
+			StartCoroutine (UpdatePath ());
+		}
 		speed = this.gameObject.GetComponent<EnemyController> ().walkingSpeed;
     }
 
@@ -38,7 +39,7 @@ public class Seeker : MonoBehaviour
         // wait for x seconds before 
         float refreshRate = 0.25f;
 
-        while (target != null)
+        while (target != null && this.gameObject != null)
         {
             if (target != currentPos)
             {
@@ -51,7 +52,7 @@ public class Seeker : MonoBehaviour
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
     {
-        if (pathSuccessful)
+        if (pathSuccessful && this.gameObject != null)
         {
             path = newPath;
             // Stop the Coroutine before starting.
@@ -72,7 +73,7 @@ public class Seeker : MonoBehaviour
 
             while (true)
             {
-                if (transform.position == currentWaypoint)
+                if (transform.position == currentWaypoint && this.gameObject != null)
                 {
                     targetIndex++;
                     if (targetIndex >= path.Length)

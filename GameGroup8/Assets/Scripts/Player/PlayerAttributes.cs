@@ -129,6 +129,11 @@ public class PlayerAttributes : MonoBehaviour {
 		return maxHealth;
 	}
 
+	public static void setMaxHealth(int res){
+		maxHealth += res;
+		health += res;
+	}
+
 	public static int getHealth(){
 		return health;
 	}
@@ -143,6 +148,11 @@ public class PlayerAttributes : MonoBehaviour {
 
 	public static int getMaxEnergy(){
 		return maxEnergy;
+	}
+
+	public static void setMaxEnergy(int res){
+		maxEnergy += res;
+		energy += res;
 	}
 
 	public static int getEnergy(){

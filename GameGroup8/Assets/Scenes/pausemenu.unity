@@ -4863,7 +4863,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1894967463}
   m_Direction: 2
   m_Value: 1
-  m_Size: .503618896
+  m_Size: .3013556
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8517,7 +8517,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 6.10349962e-05, y: -372.285889}
+  m_AnchoredPosition: {x: 6.10349962e-05, y: -523.983276}
   m_SizeDelta: {x: 254, y: 1500}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1521899526
@@ -11877,7 +11877,7 @@ MonoBehaviour:
 
     rate of restoration so you can leave the base
 
-    faster. Also boosts your amount fo fatigue.
+    faster. Also boosts your amount of fatigue.
 
     Cost: 10
 
