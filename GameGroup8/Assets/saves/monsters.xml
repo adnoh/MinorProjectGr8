@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<MonsterCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <list>
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" type="Water" location="(19.6, 0.0, 1.8)" />
+    <list level="1" health="40" maxHealth="100" attackPower="10" walkingSpeed="2" type="Wind" location="(19.4, 0.0, 2.4)" />
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" type="Water" location="(18.1, 0.1, -12.5)" />
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" type="Water" location="(15.0, 0.1, -11.7)" />
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" type="Wind" location="(-1.2, 0.0, 1.2)" />
+  </list>
+</MonsterCollection>
