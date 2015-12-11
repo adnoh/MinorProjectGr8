@@ -12,14 +12,12 @@ public class PathRequestManager : MonoBehaviour {
     /* Mini-class that represents a PathRequest
     */
 
-    struct PathRequest
-    {
+    struct PathRequest{
         public Vector3 pathStart;
         public Vector3 pathEnd;
         public Action<Vector3[], bool> succesful;
 
-        public PathRequest(Vector3 startPos, Vector3 targetPos, Action<Vector3[], bool> callback)
-        {
+        public PathRequest(Vector3 startPos, Vector3 targetPos, Action<Vector3[], bool> callback){
             pathStart = startPos;
             pathEnd = targetPos;
             succesful = callback;
@@ -35,16 +33,14 @@ public class PathRequestManager : MonoBehaviour {
     Pathfinding pathfinding; // reference to pathfinding class
     bool isProcessingPath;
 
-    void Awake()
-    {
+    void Awake(){
         instance = this;
         pathfinding = GetComponent<Pathfinding>();
     }
 
 
     // Action -> stores the method
-    public static void RequestPath(Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> succesful)
-    {
+    public static void RequestPath(Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> succesful){
         // if ie al op positie is, ga niet nog een x daarheen. 
         if (pathStart != pathEnd)
         {
