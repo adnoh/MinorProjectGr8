@@ -85,11 +85,11 @@ public class EnemySpawner : MonoBehaviour {
 				waterEnemyClone.GetComponent<EnemyController>().setLevel(getLevelToSpawn());
 				Instantiate (waterEnemyClone, getRandomPosition(), Quaternion.identity);
 			}
+
 			else if(random <= changeToSpawnWaterEnemy + changeToSpawnWindEnemy){
 				GameObject windEnemyClone = windEnemy;
 				windEnemyClone.GetComponent<EnemyController>().setLevel (getLevelToSpawn());
-				windEnemyClone.transform.Translate(new Vector3(0f, 5f, 0f));
-				Instantiate (windEnemyClone, getRandomPosition(), Quaternion.identity);
+                Instantiate (windEnemyClone, getRandomPosition(), Quaternion.identity);
 			}
 			else{
 				GameObject earthEnemyClone = earthEnemy;
@@ -101,13 +101,65 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 
-	void savewave(){
-		var Temp = MonsterCollection.Load("Assets/saves/test.xml");
-		var temparray = MonsterList.getMonsterlist();
+    void savewave()
+    {
+        var Temp = MonsterCollection.Load("Assets/saves/monsters.xml");
+        var MonsterList = Temp.getMonsterlist();
+        
+
+        for (int i = 0; i < MonsterList.Length; i++)
+        {
+            switch (MonsterList[i].type)
+            {
+                case "Earth":
+                    {
+                        GameObject earthEnemyClone = earthEnemy;
+                        var monster = earthEnemyClone.GetComponent<EnemyController>();
+                        monster.setLevel(MonsterList[i].level);
+                        monster.setHealth(MonsterList[i].health);
+                        monster.setMaxHealth(MonsterList[i].maxHealth);
+                        monster.setAttackPower(MonsterList[i].attackPower);
+                        monster.setWalkingSpeed(MonsterList[i].walkingSpeed);
+                        monster.setPoisoned(MonsterList[i].isPoisoned);
+                        monster.setStunned(MonsterList[i].isStunned);
 
 
 
-	}
+                    
+                        
+
+                        Instantiate(earthEnemyClone, getRandomPosition(), Quaternion.identity);
+                        break;
+                    }
+
+                case "Wind":
+                    {
+                        GameObject windEnemyClone = windEnemy;
+                        windEnemyClone.GetComponent<EnemyController>().setLevel(getLevelToSpawn());
+                        windEnemyClone.transform.Translate(new Vector3(0f, 5f, 0f));
+                        Instantiate(windEnemyClone, getRandomPosition(), Quaternion.identity);
+                        break;
+                    }
+                case "Fire":
+                    {
+
+                        break;
+                    }
+                case "Water":
+                    {
+
+                        GameObject waterEnemyClone = waterEnemy;
+                        waterEnemyClone.GetComponent<EnemyController>().setLevel(getLevelToSpawn());
+                        Instantiate(waterEnemyClone, getRandomPosition(), Quaternion.identity);
+                        break;
+                    }
+
+
+            }
+
+        }
+    }
+
 			  
 	void calculateChangeToSpawnWind(){
 		int tempType = PlayerAttacker.currentWeapon.getType().getType ();

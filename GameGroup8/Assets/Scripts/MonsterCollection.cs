@@ -42,13 +42,12 @@ public class MonsterCollection : MonoBehaviour
 			for (int i = 0; i < Monsters.Count; i++) {
 				monsterlist.list[i]= new Monster (Monsters[i]);
 			}
-			Save ("Assets/saves/test.xml");
+			Save ("Assets/saves/monsters.xml");
 		}
 
-	}
+	}	
 
-
-	
+    // Save & Load 
 	public void Save(string path)
 	{
 		var serializer = new XmlSerializer(typeof(MonsterList));
@@ -58,19 +57,12 @@ public class MonsterCollection : MonoBehaviour
 		}
 	}
 	
-	public MonsterCollection Load(string path)
+	public static MonsterList Load(string path)
 	{
 		var serializer = new XmlSerializer(typeof(MonsterList));
 		using(var stream = new FileStream(path, FileMode.Open))
 		{
-			return serializer.Deserialize(stream) as MonsterCollection;
+			return serializer.Deserialize(stream) as MonsterList;
 		}
-	}
-	
-	//Loads the xml directly from the given string. Useful in combination with www.text.
-	public static MonsterCollection LoadFromText(string text) 
-	{
-		var serializer = new XmlSerializer(typeof(MonsterCollection));
-		return serializer.Deserialize(new StringReader(text)) as MonsterCollection;
 	}
 }

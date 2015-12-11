@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 
 /* this class actually lives in the scene, Enemy.cs not 
 can also access all variables defined in Enemy.cs
-*/ 
+*/
 
 public class EnemyController : MonoBehaviour {
 
@@ -28,12 +29,13 @@ public class EnemyController : MonoBehaviour {
 	public float attackRate = 2f;
 	private float nextAttack = 0.0f;
 
-	public bool poisoned;
-	public float timeToGetPoisonDamage = 5.0f;
+    public bool poisoned;
+    public float timeToGetPoisonDamage = 5.0f;
 	private float intervalToGetPoisonDamage = 5.0f;
 
-	public bool stunned;
-	public float timeToUnStun = 0.0f;
+    public bool stunned;
+
+    public float timeToUnStun = 0.0f;
 	public float stunTimeInterval = 2.0f;
 
 	void Start () {
@@ -101,9 +103,15 @@ public class EnemyController : MonoBehaviour {
 		return maxHealth;
 	}
 
-	public void setHealth(int health) {
+    public void setMaxHealth(int maxHealth)
+    {
+        this.maxHealth = maxHealth;
+    }
+
+    public void setHealth(int health) {
 		this.health = health;
 	}
+
 
 	public int getLevel(){
 		return level;
@@ -113,7 +121,12 @@ public class EnemyController : MonoBehaviour {
 		return walkingSpeed;
 	}
 
-	public void setLevel(int level){
+    public void setWalkingSpeed(float WP)
+    {
+        this.walkingSpeed = WP;
+    }
+
+    public void setLevel(int level){
 		this.level = level;
 	}
 
@@ -121,7 +134,14 @@ public class EnemyController : MonoBehaviour {
 		return attackPower;
 	}
 
-	public Type getType() {
+    public void setAttackPower(int AP)
+    {
+        this.attackPower = AP;
+    }
+
+
+
+    public Type getType() {
 		return type;
 	}
 
@@ -143,8 +163,10 @@ public class EnemyController : MonoBehaviour {
 		PlayerAttributes.takeDamage(attackPower);
 	}
 
-	public void setPoisoned(){
-		poisoned = true;
+
+    // Poisoned
+	public void setPoisoned(bool isPoisoned){
+		poisoned = isPoisoned;
 	}
 
     public bool getPoisoned()
@@ -152,6 +174,7 @@ public class EnemyController : MonoBehaviour {
         return poisoned;
     }
 
+    // Stun
     public void setStunned(){
 		StartCoroutine (stun ());
 	}
@@ -175,7 +198,8 @@ public class EnemyController : MonoBehaviour {
 		attackPower = enemy.getAttackPower ();
 	}
 
-	void setPosition(Vector3 here){
+    // transform.position
+    void setPosition(Vector3 here){
 		position = here;
 	}
 	
@@ -183,7 +207,7 @@ public class EnemyController : MonoBehaviour {
 		return position;
 	}
 
-
+    // transform.Rotation
     public void setRotation(Quaternion _rotation)
     {
         rotation = _rotation;
