@@ -27,6 +27,7 @@ public class PlayerAttributes : MonoBehaviour {
 	private static bool running = false;
 	private static float speed = 5f;
 
+	public static int maxFatique = 10000;
 	public static int fatique = 10000;
 
 	public GameObject upgradePanel;
@@ -191,7 +192,7 @@ public class PlayerAttributes : MonoBehaviour {
 	}
 
 	public static void resetFatique(){
-		fatique = 10000;
+		fatique = maxFatique;
 		walkingSpeed = maxWalkingSpeed;
 	}
 }

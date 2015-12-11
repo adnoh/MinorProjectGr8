@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour {
 	private float timeToFlash = 0.0f;
 	public Text upgradeText;
 
+
+
 	void Start () {
 		count = 0;
 		countText.text = "Amount of units: " + count;

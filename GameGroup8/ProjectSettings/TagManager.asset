@@ -19,6 +19,7 @@ TagManager:
   - GearShackPlane
   - Turret
   - Bullet
+  - weaponUnlockScreen
   layers:
   - Default
   - TransparentFX

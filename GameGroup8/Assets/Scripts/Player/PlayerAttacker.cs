@@ -35,9 +35,13 @@ public class PlayerAttacker : MonoBehaviour {
 	public Image baseBallBatImage;
 
 	public static bool[] unlocked = new bool[8];
+	public Text[] lockedUnlockedTexts = new Text[8];
+	public Text[] unitCostWeaponTexts = new Text[8];
 	private int currentWeaponInt;
 
 	public Text typeOfWunderWaffenText;
+
+	public GameObject weaponUnlockScreen;
 	
 	void Start () {
 		currentWeapon = weaponFactory.getPistol ();
@@ -50,6 +54,10 @@ public class PlayerAttacker : MonoBehaviour {
 		}
 		setUnActive ();
 		setActive ();
+		setTextOfLockUnlock ();
+		for (int i = 0; i < 8; i ++) {
+			unitCostWeaponTexts[i].text = "1 Unit";
+		}
 	}
 	
 	void Update () {
@@ -271,5 +279,16 @@ public class PlayerAttacker : MonoBehaviour {
 
 	public void unlockInt(int i){
 		unlocked [i - 1] = true;
+		setTextOfLockUnlock ();
+	}
+
+	public void setTextOfLockUnlock(){
+		for (int i = 0; i < 8; i ++) {
+			if (unlocked [i]) {
+				lockedUnlockedTexts [i].text = "Unlocked";
+			} else {
+				lockedUnlockedTexts [i].text = "Locked";
+			}
+		}
 	}
 }

@@ -41,12 +41,15 @@ public class BaseController : MonoBehaviour{
 	public Text upgradeBuild3;
 
 	private Vector3 playerPos;
+
+
 	
     void Start(){
         lastHitObject = null;
         pause = false;
         turrets = new List<GameObject>(4);
 		building = false;
+
     }
 	
     void Update(){
@@ -61,6 +64,7 @@ public class BaseController : MonoBehaviour{
 			else {
 				transform.position = playerPos;
 				buildMenu.SetActive(false);
+				GameObject.Find ("player").GetComponent<PlayerAttacker>().weaponUnlockScreen.SetActive(false);
 				ReturnColour();
 			}
 		}
