@@ -74,7 +74,7 @@ public class MonsterCollection : MonoBehaviour
 		}
 	}
 
-	public void playerSave(string path)
+	/* public void playerSave(string path)
 	{
 		var serializer = new XmlSerializer(typeof(Player));
 		using(var stream = new FileStream(path, FileMode.Create))
@@ -82,6 +82,7 @@ public class MonsterCollection : MonoBehaviour
 			serializer.Serialize(stream, Player);
 		}
 	}
+    */
 	
 	public static MonsterList MonsterLoad(string path)
 	{

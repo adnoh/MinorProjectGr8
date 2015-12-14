@@ -31,10 +31,10 @@ public class Grid : MonoBehaviour
         // TODO: Get dynamically from worldsize
 
         // CreateGrid(); Does create the grid -> call this AFTER worldbuilder!
-        CreateGrid();
+        // CreateGrid();
     }
 
-    void CreateGrid()
+    public void CreateGrid()
     {
         grid = new Node[gridSizeX, gridSizeZ];
         // get the position of bottomleft cornet: get center minus left edge  - upper edge

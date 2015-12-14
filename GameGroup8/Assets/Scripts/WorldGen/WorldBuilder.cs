@@ -20,7 +20,7 @@ public class WorldBuilder : MonoBehaviour {
     public GameObject Wall;
     
 	//Initialize world
-	void Start () {
+	public void StartWorldBuilder() {
         transform.localScale = new Vector3(LvlSize, 1, LvlSize);
         maxChange = LvlSize * 5;
         PlaceHouses();
