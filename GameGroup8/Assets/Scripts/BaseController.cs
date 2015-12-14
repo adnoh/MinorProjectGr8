@@ -9,7 +9,7 @@ public class BaseController : MonoBehaviour{
     private Material originalMat;
     public static bool pause;
 	public static bool building;
-    private List<GameObject> turrets;
+    public static List<GameObject> turrets;
 
     public Material hoverMat;
    

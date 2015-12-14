@@ -11,8 +11,17 @@ public class Pausemenu : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetKeyDown (KeyCode.Escape))
-			loadpause ();
+		if (Input.GetKeyDown(KeyCode.Escape))
+        {
+
+            MonsterCollection.MonsterSave("Assets/saves/monsters.xml");
+            MiniMapScript.clearEnemies();
+            loadpause();
+
+        }
+			
+            
+        
 	
 	}
 
@@ -22,6 +31,7 @@ public class Pausemenu : MonoBehaviour {
 
 	public void loadoutside(){
 		Application.LoadLevel(1);
+        MonsterCollection.MonsterLoad("Assets/saves/monsters.xml");
 	}
 
 }
