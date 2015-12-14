@@ -11,7 +11,6 @@ public class TDMapII {
     int size_y;
 
     int baseSize = 5;
-    int nrVillages = 1;
     int nrForr = 10;
 
     public TDMapII(int height, int width)
@@ -37,9 +36,9 @@ public class TDMapII {
 
         villages = PlaceVillage(BasePos);
 
-        //makePrimaryRoads(BasePos[0], BasePos[1], villages[0], villages[1]);
-        //ConnectRoadGrid(BasePos[0], BasePos[1]);
-        ConnectCityGrid(villages[0], villages[1]);
+        List<Vector2> connections = ConnectCityGrid(villages[0], villages[1]);
+        ConnectRoadGrid(villages[0], villages[1], connections[0], connections[1]);
+
         BroadenRoads(7);
     }
 
@@ -214,97 +213,143 @@ public class TDMapII {
        return new int[4] { x_pos, y_pos, min, max };
     }
 
-    List<Vector2> MakeRoadGrid(int xB, int yB)
+    List<Vector2>[] MakeRoadGrid(int xV, int yV, Vector2 con_1, Vector2 con_2)
     {
-        List<Vector2> junctions = new List<Vector2>();
-        Vector2 BasePos = new Vector2(xB, yB);
+        List<Vector2> path1 = new List<Vector2>();
+        List<Vector2> path2 = new List<Vector2>();
+        Vector2 BasePos = new Vector2(300 - xV, 300 - yV);
+        Vector2 BasePos_x = new Vector2(xV, 300 - yV);
+        Vector2 BasePos_y = new Vector2(300 - xV, yV);
 
-        int misses = 10;
-        while (junctions.Count != 4)
+        path1.Add(con_1);
+        path2.Add(con_2);
+
+        int offset = 50;
+
+        Vector2 point_offset = new Vector2(Random.Range(-offset, offset), Random.Range(-offset, offset));
+        Vector2 point = point_offset + BasePos_x;
+        path1.Add(point);
+        point_offset = new Vector2(Random.Range(-offset, offset), Random.Range(-offset, offset));
+        point = point_offset + BasePos;
+        path1.Add(point);
+        int misses1 = 10;
+        while (path1.Count != 4)
         {
-            Vector2 point_offset = new Vector2(Random.Range(-50, 50), Random.Range(-50, 50));
-            Vector2 point = point_offset + BasePos;
-            if (Vector2.Distance(BasePos, point) > 20 && checkDistance(point, junctions, 30))
+            if (misses1 <= 5)
+                break;
+
+            point_offset = new Vector2(Random.Range(-offset, offset), Random.Range(-offset, offset));
+            point = point_offset + BasePos_x;
+            if (checkDistance(point, path2, 30) && checkDistance(point, path1, 30))
             {
-                junctions.Add(point);
+                path1.Add(point);
             }
             else
             {
-                misses--;
+                misses1--;
             }
-            if (misses <= 0)
-                break;
         }
 
-        misses = 10;
-        while (junctions.Count != 9)
+        point_offset = new Vector2(Random.Range(-offset, offset), Random.Range(-offset, offset));
+        point = point_offset + BasePos_y;
+        path2.Add(point);
+
+        int misses2 = 10;
+        while (path2.Count != 3)
         {
-            Vector2 point_offset = new Vector2(Random.Range(-130, 130), Random.Range(-130, 130));
-            Vector2 point = point_offset + BasePos;
-            if (Vector2.Distance(BasePos, point) > 80 && checkDistance(point, junctions , 30)) 
+            if (misses2 <= 5)
+                break;
+
+            point_offset = new Vector2(Random.Range(-offset, offset), Random.Range(-offset, offset));
+            point = point_offset + BasePos;
+            if (checkDistance(point, path2, 30) && checkDistance(point, path1, 30))
             {
-                junctions.Add(point);
+                path2.Add(point);
             }
             else
             {
-                misses--;
+                misses2--;
             }
-            if (misses <= 0)
-                break;
         }
 
-        return junctions;
+        while (path2.Count != 4)
+        {
+            if (misses2 <= 0)
+                break;
+
+            point_offset = new Vector2(Random.Range(-offset, offset), Random.Range(-offset, offset));
+            point = point_offset + BasePos_y;
+            if (checkDistance(point, path2, 30) && checkOffset(point, path2[1], 30))
+            {
+                path2.Add(point);
+            }
+            else
+            {
+                misses2--;
+            }
+        }
+
+        List<Vector2>[] paths = new List<Vector2>[2] { path1, path2 };
+        return paths;
     }
 
     List<Vector2> MakeCityGrid(int xB, int yB)
     {
         List<Vector2> junctions = new List<Vector2>();
-        Vector2 BasePos = new Vector2(xB, yB);
 
-        int misses = 10;
-        while (junctions.Count != 4)
+        if (xB == 225)
+            junctions.Add(new Vector2(Random.Range(200, 250), 150));
+
+        if (xB == 75)
+            junctions.Add(new Vector2(Random.Range(50, 100), 150));
+
+        junctions.Add(new Vector2(Random.Range(-10, 10) + xB, Random.Range(-10, 10) + yB));
+
+        if (yB == 225)
+            junctions.Add(new Vector2(150, Random.Range(200, 250)));
+
+        if (yB == 75)
+            junctions.Add(new Vector2(150, Random.Range(50, 100)));
+        
+        int misses = 10; /*
+        Vector2 start = junctions[1];
+        while (junctions.Count <= 14)
         {
-            Vector2 point_offset = new Vector2(Random.Range(-20, 20), Random.Range(-20, 20));
-            Vector2 point = point_offset + BasePos;
-            if (Vector2.Distance(BasePos, point) > 10 && checkDistance(point, junctions, 20))
-            {
-                junctions.Add(point);
-            }
-            else
-            {
-                misses--;
-            }
             if (misses <= 0)
                 break;
-        }
 
-        misses = 10;
-        while (junctions.Count != 9)
-        {
             Vector2 point_offset = new Vector2(Random.Range(-50, 50), Random.Range(-50, 50));
             Vector2 point = point_offset + BasePos;
-            if (Vector2.Distance(BasePos, point) > 30 && checkDistance(point, junctions, 20))
+            if (Vector2.Distance(start, point) > 20 && checkOffset(point, junctions, 15) && Vector2.Distance(BasePos,point) < 80)
             {
-                junctions.Add(point);
+                start = point; 
+                int x_length = Random.Range(30,80);
+                x_length *= point_offset.x <= 0 ? 1 : -1;
+                int y_length = Random.Range(30, 80);
+                y_length *= point_offset.y <= 0 ? 1 : -1;
+                int x = (int)start.x + x_length;
+                int y = (int)start.y + y_length;
+
+                junctions.Add(new Vector2(start.x, y));
+                junctions.Add(start);
+                junctions.Add(new Vector2(x, start.y));
             }
             else
             {
                 misses--;
             }
-            if (misses <= 0)
-                break;
-        }
-
+        }*/
+        Debug.Log("Village" + junctions.Count + ", misses left: " + misses);
         return junctions;
     }
 
-    bool checkDistance(Vector2 point, List<Vector2> junctions, int dist)
+    bool checkOffset(Vector2 point, List<Vector2> junctions, int dist)
     {
         if (junctions.Count != 0)
         {
             foreach (Vector2 point2 in junctions)
             {
-                if (Vector2.Distance(point, point2) < dist)
+                if (Mathf.Abs(point2.x - point.x) < dist || Mathf.Abs(point2.y - point.y) < dist)
                 {
                     return false;
                 }
@@ -314,62 +359,86 @@ public class TDMapII {
         return true;
     }
 
+    bool checkOffset(Vector2 point, Vector2 point2, int dist)
+    {
+                if (Mathf.Abs(point2.x - point.x) < dist || Mathf.Abs(point2.y - point.y) < dist)
+                {
+                    return false;
+                }
+
+        return true;
+    }
+
+    bool checkDistance(Vector2 point, List<Vector2> junctions, int dist)
+    {
+        if (junctions.Count != 0)
+        {
+            foreach (Vector2 point2 in junctions)
+            {
+                if (Vector2.Distance(point2 , point)  < dist)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     void makePrimaryRoads(int x1, int y1, int x2, int y2)
     {
         int rand = 0;
-        while (x1 != x2)
+        while (x1 != x2 || y1 != y2)
         {
-            tiles[y1][x1] = 7;
-
-            switch (rand){
-                case 0:
-                case -1:
-                case 1:
-                    x1 += x1 < x2 ? 1 : -1;
-                    rand += Random.Range(-1, 2);
-                    break;
-                case 2:
-                    y1++;
-                    rand += Random.Range(-2, 1);
-                    break;
-                case -2:
-                    y1--;
-                    rand += Random.Range(0, 3);
-                    break;
-            }
-            
-        }
-
-        rand = 0;
-        while (y1 != y2)
-        {
-            tiles[y1][x1] = 7;
-
-            switch (rand)
+            int diff = Mathf.Abs(x1 - x2) - Mathf.Abs(y1 - y2);
+            while (x1 != x2 && diff > 0)
             {
-                case 0:
-                case -1:
-                case 1:
-                    y1 += y1 < y2 ? 1 : -1;
-                    rand += Random.Range(-1, 2);
-                    break;
-                case 2:
-                    x1++;
-                    rand += Random.Range(-2, 1);
-                    break;
-                case -2:
-                    x1--;
-                    rand += Random.Range(0, 3);
-                    break;
+                tiles[y1][x1] = 7;
+
+                switch (rand)
+                {
+                    case 0:
+                    case -1:
+                    case 1:
+                        x1 += x1 < x2 ? 1 : -1;
+                        rand += Random.Range(-1, 2);
+                        break;
+                    case 2:
+                        y1++;
+                        rand += Random.Range(-2, 1);
+                        break;
+                    case -2:
+                        y1--;
+                        rand += Random.Range(0, 3);
+                        break;
+                }
+
+            }
+
+            rand = 0;
+            while (y1 != y2 && diff < 0)
+            {
+                tiles[y1][x1] = 7;
+
+                switch (rand)
+                {
+                    case 0:
+                    case -1:
+                    case 1:
+                        y1 += y1 < y2 ? 1 : -1;
+                        rand += Random.Range(-1, 2);
+                        break;
+                    case 2:
+                        x1++;
+                        rand += Random.Range(-2, 1);
+                        break;
+                    case -2:
+                        x1--;
+                        rand += Random.Range(0, 3);
+                        break;
+                }
             }
         }
-
-        while (x1 != x2)
-        {
-            tiles[y1][x1] = 7;
-            x1 += x1 < x2 ? 1 : -1;
-        }
-
     }
 
     void makeVillageRoads(int x1, int y1, int x2, int y2)
@@ -377,65 +446,76 @@ public class TDMapII {
         while(x1 != x2 || y1 != y2)
         {
             int diff = Mathf.Abs(x1 - x2) - Mathf.Abs(y1 - y2);
-            if (x1 != x2 && diff >= 0)
+            if (x1 != x2 && diff > 0)
             {
                 tiles[y1][x1] = 7;
                 x1 += x1 < x2 ? 1 : -1;
             }
-
-            if (y1 != y2 && diff < 0)
+            else if (y1 != y2 && diff < 0)
             {
                 tiles[y1][x1] = 7;
+                y1 += y1 < y2 ? 1 : -1;
+            }
+            else if (diff == 0)
+            {
+                tiles[y1][x1] = 7;
+                x1 += x1 < x2 ? 1 : -1;
                 y1 += y1 < y2 ? 1 : -1;
             }
         }
     }
 
-    void ConnectRoadGrid(int xB, int yB)
+    void ConnectRoadGrid(int xB, int yB, Vector2 con_1, Vector2 con_2)
     {
-        List<Vector2> con_Points = MakeRoadGrid(xB, yB);
+        List<Vector2>[] con_Points = MakeRoadGrid(xB, yB, con_1, con_2);
+        List<Vector2> con_Points1 = con_Points[0];
+        List<Vector2> con_Points2 = con_Points[1];
 
-        for (int i = 0; i < con_Points.Count -1; i++)
+        for (int i = 0; i < con_Points1.Count -2; i++)
+        {
+            Vector2 point1 = con_Points1[i];
+            Vector2 point2 = con_Points1[i + 1];
+            makePrimaryRoads((int)point1.x,(int)point1.y,(int)point2.x,(int)point2.y);
+        }
+        Vector2 point3 = con_Points1[1];
+        Vector2 point4 = con_Points1[con_Points1.Count - 1];
+        makePrimaryRoads((int)point3.x, (int)point3.y, (int)point4.x, (int)point4.y);
+
+        for (int i = 0; i < con_Points2.Count - 2; i++)
+        {
+            Vector2 point1 = con_Points2[i];
+            Vector2 point2 = con_Points2[i + 1];
+            makePrimaryRoads((int)point1.x, (int)point1.y, (int)point2.x, (int)point2.y);
+        }
+        point3 = con_Points2[1];
+        point4 = con_Points2[con_Points2.Count - 1];
+        makePrimaryRoads((int)point3.x, (int)point3.y, (int)point4.x, (int)point4.y);
+    }
+
+    List<Vector2> ConnectCityGrid(int xB, int yB)
+    {
+        List<Vector2> con_Points = MakeCityGrid(xB, yB);
+
+        for (int i = 0; i < 2; i++)
         {
             Vector2 point1 = con_Points[i];
             Vector2 point2 = con_Points[i + 1];
-            makePrimaryRoads((int)point1.x,(int)point1.y,(int)point2.x,(int)point2.y);
-        }
-    }
-
-    void ConnectCityGrid(int xB, int yB)
-    {
-        List<Vector2> con_Points = MakeCityGrid(xB, yB);
-        List<Vector2> inner = new List<Vector2>();
-        List<Vector2> outer = new List<Vector2>();
-        Vector2 BasePos = new Vector2(xB, yB);
-
-        for (int i = 0; i < con_Points.Count - 1; i++)
-        {
-            Vector2 point = con_Points[i];
-            if (Vector2.Distance(BasePos, point) < 20)
-                inner.Add(point);
-            else if (Vector2.Distance(BasePos, point) > 20)
-                outer.Add(point);
-        }
-
-        for (int i = 0; i < inner.Count - 1; i++)
-        {
-            Vector2 point1 = inner[i];
-            Vector2 point2 = inner[i + 1];
             makeVillageRoads((int)point1.x, (int)point1.y, (int)point2.x, (int)point2.y);
-            Debug.Log(point1 + "inner");
         }
-        makeVillageRoads((int)inner[inner.Count - 1].x, (int)inner[inner.Count - 1].y, (int)inner[0].x, (int)inner[0].y);
 
-        for (int i = 0; i < outer.Count - 1; i++)
+        int times = (int)Mathf.Floor((con_Points.Count - 3)/3);
+
+        for (int j = 0; j < times; j++)
         {
-            Vector2 point1 = outer[i];
-            Vector2 point2 = outer[i + 1];
-            makeVillageRoads((int)point1.x, (int)point1.y, (int)point2.x, (int)point2.y);
-            Debug.Log(point1 + "outer");
+            for (int i = 3 * j; i < 3 * j + 2; i++)
+            {
+                Vector2 point1 = con_Points[i + 3];
+                Vector2 point2 = con_Points[i + 4];
+                makeVillageRoads((int)point1.x, (int)point1.y, (int)point2.x, (int)point2.y);
+            }
         }
-        makeVillageRoads((int)outer[outer.Count - 1].x, (int)outer[outer.Count - 1].y, (int)outer[0].x, (int)outer[0].y);
+
+        return new List<Vector2> { con_Points[0], con_Points[2] };
     }
 
     void BroadenRoads(int tileTex)

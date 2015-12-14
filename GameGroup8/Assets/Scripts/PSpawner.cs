@@ -13,7 +13,9 @@ public class PSpawner : MonoBehaviour {
 	}
 
 	public void placeUnit(Vector3 place){
-			Instantiate (unit, new Vector3(place.x, 1, place.z), Quaternion.identity);
+		GameObject unitClone = unit;
+		unitClone.transform.Rotate (new Vector3 (-90, 0, 0));
+		Instantiate (unitClone, new Vector3(place.x, 1, place.z), Quaternion.identity);
 	}
 
 	void PlaceCubes(){

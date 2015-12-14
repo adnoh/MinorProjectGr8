@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b75fb686e59d7e4aa0fa252923c780c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit: {fileID: 171110, guid: 246468e56e16b8c4d848c2b64d2d9900, type: 2}
+  unit: {fileID: 167336, guid: bc64a28e22a5af445ad536656a37bd55, type: 2}
   amount: 0
   minL: -10
   minR: 10
@@ -1551,17 +1551,17 @@ MonoBehaviour:
   hoverMat: {fileID: 2100000, guid: 99ab625533ccb454e8dc88302ae08a8d, type: 2}
   Gate: {fileID: 1905394258}
   countText: {fileID: 239913995}
-  basicTurret: {fileID: 172042, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
+  basicTurret: {fileID: 157556, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
   catapult: {fileID: 129716, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
-  harpgoon: {fileID: 181922, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
+  harpgoon: {fileID: 100430, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
   snailGun: {fileID: 104832, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
   gearShack: {fileID: 187564, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
-  generator: {fileID: 187774, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
-  weaponSmith: {fileID: 199132, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
+  generator: {fileID: 154130, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
+  weaponSmith: {fileID: 104392, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
   gadgetSmith: {fileID: 151230, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
-  bed: {fileID: 120264, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
-  fatiqueBed: {fileID: 139168, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
-  healthBed: {fileID: 113206, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
+  bed: {fileID: 117302, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
+  healthBed: {fileID: 139168, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
+  energyBed: {fileID: 187306, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
   buildMenu: {fileID: 131611761}
   title: {fileID: 1291092369}
   buildingText1: {fileID: 1623596467}
@@ -2201,11 +2201,11 @@ GameObject:
   - 114: {fileID: 519266497}
   m_Layer: 5
   m_Name: weaponUnlockScreen
-  m_TagString: weaponUnlockScreen
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &519266496
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7049,6 +7049,33 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1562149599}
+--- !u!1 &1563598482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1563598483}
+  m_Layer: 0
+  m_Name: GameStateController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1563598483
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1563598482}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 188.90004, y: 554, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
 --- !u!1 &1572530704
 GameObject:
   m_ObjectHideFlags: 0
@@ -9863,7 +9890,7 @@ GameObject:
   - 114: {fileID: 2103898048}
   - 114: {fileID: 2103898047}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Pathfinding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
