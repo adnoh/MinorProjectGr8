@@ -28,12 +28,34 @@ public class Player
 	[XmlArray("list"),XmlArrayItem("list")]
 	public Playersave[]  list = new Playersave[1];
 
+
 }
 
+public class TurretList{
+
+	[XmlArray("list"),XmlArrayItem("list")]
+	public Turret[]  list = new Turret[10];
+}
+
+public class Outsidesave{
+	
+	public int wave;
+	public float timeTillNextWave;
+	public int enemiesDefeaten;
+	public bool weaponUnlocker;
+	
+	public string[] tagsOfMats = new string[4];
+	public bool pause;
+	
+	public int unitCount;
+
+	
+}
 
 public class MonsterCollection : MonoBehaviour
 {
 	public static MonsterList monsterlist = new MonsterList();
+	public static TurretList turretList = new TurretList();
 
 	//[XmlArray("monstersList"),XmlArrayItem("monstersList")]
 	//public Monster[] monstersList = new Monster[2];
@@ -74,12 +96,25 @@ public class MonsterCollection : MonoBehaviour
 		}
 	}
 
-	public void playerSave(string path)
+	/*public void playerSave(string path)
 	{
 		var serializer = new XmlSerializer(typeof(Player));
 		using(var stream = new FileStream(path, FileMode.Create))
 		{
 			serializer.Serialize(stream, Player);
+		}
+	}*/
+
+	public void outsideSave(string path)
+	{
+		List<BuildingController> Buildings = BaseController.turrets;
+		for (int i = 0; i < Buildings.Count; i++){
+			turretList.list[i] = new Turret(Buildings[i].GetComponent<BuildingController>());
+		}
+
+		var serializer = new XmlSerializer(typeof(Turret));
+		using(var stream = new FileStream(path, FileMode.Create)){
+			serializer.Serialize(stream, turretList);
 		}
 	}
 	
@@ -89,6 +124,15 @@ public class MonsterCollection : MonoBehaviour
 		using(var stream = new FileStream(path, FileMode.Open))
 		{
 			return serializer.Deserialize(stream) as MonsterList;
+		}
+	}
+
+	public static TurretList TurretLoad(string path)
+	{
+		var serializer = new XmlSerializer(typeof(TurretList));
+		using(var stream = new FileStream(path, FileMode.Open))
+		{
+			return serializer.Deserialize(stream) as TurretList;
 		}
 	}
 }
