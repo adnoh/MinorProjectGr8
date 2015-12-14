@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider collider){
-		if (collider.gameObject.CompareTag ("Pick-Up")){
+		if (collider.gameObject.CompareTag ("Pick-Up") && this.gameObject.name.Equals ("player")){
 			Destroy (collider.gameObject);
 			count ++;
 			countText.text = "Amount of units: " + count;

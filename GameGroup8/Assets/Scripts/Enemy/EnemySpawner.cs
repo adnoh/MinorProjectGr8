@@ -42,9 +42,6 @@ public class EnemySpawner : MonoBehaviour {
 		timeTillNextWaveText.text = "Time till next wave: " + timeTillNextWave;
 		setEnemiesThisWave ();
 		calculateLevelToSpawn ();
-		calculateChangeToSpawnEarth ();
-		calculateChangeToSpawnWater ();
-		calculateChangeToSpawnWind ();
 	}
 
 	void Update () {

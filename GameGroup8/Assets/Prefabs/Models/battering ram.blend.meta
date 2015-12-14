@@ -1,47 +1,17 @@
 fileFormatVersion: 2
-guid: ce3fd714898ff704fa592a4c84af17b6
-timeCreated: 1449851071
+guid: bd3cee17deab48f459f41283fce8f72d
+timeCreated: 1450098344
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: Armature
-    100002: Bone
-    100004: Bone_001
-    100006: Bone_002
-    100008: Bone_003
-    100010: Bone_004
-    100012: Bone_005
-    100014: Bone_006
-    100016: Bone_007
-    100018: Bone_008
-    100020: Circle
-    100022: Cylinder
-    100024: //RootNode
-    100026: Plane
-    400000: Armature
-    400002: Bone
-    400004: Bone_001
-    400006: Bone_002
-    400008: Bone_003
-    400010: Bone_004
-    400012: Bone_005
-    400014: Bone_006
-    400016: Bone_007
-    400018: Bone_008
-    400020: Circle
-    400022: Cylinder
-    400024: //RootNode
-    400026: Plane
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: Plane
-    4300002: Cylinder
-    4300004: Circle
     7400000: Default Take
-    7400002: ArmatureAction
     9500000: //RootNode
-    13700000: Circle
-    13700002: Cylinder
-    13700004: Plane
   materials:
     importMaterials: 1
     materialName: 0
