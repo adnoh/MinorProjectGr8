@@ -24,10 +24,29 @@ public class MonsterList
 
 public class Player
 {
-	
-	[XmlArray("list"),XmlArrayItem("list")]
-	public Playersave[]  list = new Playersave[1];
+	public float posx;
+	public float posy;
+	public float posz;
 
+	public float rotx;
+	public float roty;
+	public float rotz;
+	public float rotw;
+
+	public Player(){
+	var position = PlayerController.getPosition();
+		var rotation = PlayerController.getRotation ();
+
+		posx = position.x;
+		posy = position.y;
+		posz = position.z;
+
+		rotx = rotation.x;
+		roty = rotation.y;
+		rotz = rotation.z;
+		rotw = rotation.w;
+
+	}
 }
 
 
@@ -46,11 +65,8 @@ public class MonsterCollection : MonoBehaviour
 	 void Update(){
 
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
-			List<EnemyController> Monsters = MiniMapScript.enemies;
-			for (int i = 0; i < Monsters.Count; i++) {
-				monsterlist.list[i]= new Monster (Monsters[i]);
-			}
-			Save ("Assets/saves/monsters.xml");
+
+			playerSave ("Assets/saves/Player.xml");
 		}
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -73,10 +89,12 @@ public class MonsterCollection : MonoBehaviour
 
 	public void playerSave(string path)
 	{
+		var player =  new Player();
+
 		var serializer = new XmlSerializer(typeof(Player));
 		using(var stream = new FileStream(path, FileMode.Create))
 		{
-			serializer.Serialize(stream, Player);
+			serializer.Serialize(stream, player);
 		}
 	}
 	
