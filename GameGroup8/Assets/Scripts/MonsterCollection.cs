@@ -25,7 +25,7 @@ public class MonsterList
 
 public class MonsterCollection : MonoBehaviour
 {
-	public MonsterList monsterlist = new MonsterList();
+	public static MonsterList monsterlist = new MonsterList();
 
 	//[XmlArray("monstersList"),XmlArrayItem("monstersList")]
 	//public Monster[] monstersList = new Monster[2];
@@ -38,12 +38,8 @@ public class MonsterCollection : MonoBehaviour
 	 void Update(){
 
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
-			List<EnemyController> Monsters = MiniMapScript.enemies;
-			for (int i = 0; i < Monsters.Count; i++) {
-				monsterlist.list[i]= new Monster (Monsters[i]);
-			}
-			Save ("Assets/saves/monsters.xml");
-		}
+            MonsterSave ("Assets/saves/monsters.xml");
+         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
@@ -54,16 +50,23 @@ public class MonsterCollection : MonoBehaviour
     }	
 
     // Save & Load 
-	public void Save(string path)
+	public static void MonsterSave(string path)
 	{
-		var serializer = new XmlSerializer(typeof(MonsterList));
+        
+        List<EnemyController> Monsters = MiniMapScript.enemies;
+        for (int i = 0; i < Monsters.Count; i++)
+        {
+            monsterlist.list[i] = new Monster(Monsters[i]);
+        }
+                
+        var serializer = new XmlSerializer(typeof(MonsterList));
 		using(var stream = new FileStream(path, FileMode.Create))
 		{
 			serializer.Serialize(stream, monsterlist);
 		}
 	}
 	
-	public static MonsterList Load(string path)
+	public static MonsterList MonsterLoad(string path)
 	{
 		var serializer = new XmlSerializer(typeof(MonsterList));
 		using(var stream = new FileStream(path, FileMode.Open))

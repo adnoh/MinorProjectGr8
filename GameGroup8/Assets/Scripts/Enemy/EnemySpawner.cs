@@ -103,7 +103,7 @@ public class EnemySpawner : MonoBehaviour {
 
     public void savewave()
     {
-        var Temp = MonsterCollection.Load("Assets/saves/monsters.xml");
+        var Temp = MonsterCollection.MonsterLoad("Assets/saves/monsters.xml");
         var MonsterList = Temp.getMonsterlist();
 
 

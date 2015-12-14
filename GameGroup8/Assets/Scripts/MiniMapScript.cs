@@ -43,4 +43,9 @@ public class MiniMapScript : MonoBehaviour {
 
 	}
 
+    public static void clearEnemies()
+    {
+        enemies.Clear();
+    }
+
 }

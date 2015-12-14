@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <MonsterCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <list>
-    <list level="2" health="200" maxHealth="200" attackPower="15" walkingSpeed="1" location="-10.9876471" rotation="0.8677476" isPosioned_x003F_="false" isStunned_x003F_="false" type="Water">
-      <location_y>0.5281122</location_y>
-      <location_z>-15.8932686</location_z>
-      <rotation_x>0.008166441</rotation_x>
-      <rotation_y>0.496916056</rotation_y>
-      <rotation_z>-0.0046765157</rotation_z>
+    <list level="4" health="300" maxHealth="300" attackPower="25" walkingSpeed="1.2" location="-2.59193754" rotation="0.91127336" isPosioned_x003F_="false" isStunned_x003F_="false" type="Water">
+      <location_y>0.0155659486</location_y>
+      <location_z>-16.29338</location_z>
+      <rotation_x>0.000193552958</rotation_x>
+      <rotation_y>0.411802024</rotation_y>
+      <rotation_z>-8.746607E-05</rotation_z>
     </list>
-    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="-7.976159" rotation="0.896322" isPosioned_x003F_="false" isStunned_x003F_="false" type="Earth">
-      <location_y>0.276142</location_y>
-      <location_z>-17.86882</location_z>
-      <rotation_x>0.00464294245</rotation_x>
-      <rotation_y>0.443373442</rotation_y>
-      <rotation_z>-0.00229667174</rotation_z>
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="8.86837" rotation="0.792937934" isPosioned_x003F_="false" isStunned_x003F_="false" type="Water">
+      <location_y>8.35263E-05</location_y>
+      <location_z>3.65725732</location_z>
+      <rotation_x>2.21735922E-06</rotation_x>
+      <rotation_y>0.6093024</rotation_y>
+      <rotation_z>-1.70384385E-06</rotation_z>
+    </list>
+    <list level="2" health="200" maxHealth="200" attackPower="15" walkingSpeed="1" location="21.4515514" rotation="0.943968654" isPosioned_x003F_="false" isStunned_x003F_="false" type="Wind">
+      <location_y>0.0109129641</location_y>
+      <location_z>3.57442355</location_z>
+      <rotation_x>0.0009243544</rotation_x>
+      <rotation_y>0.33003366</rotation_y>
+      <rotation_z>-0.0003231761</rotation_z>
     </list>
   </list>
 </MonsterCollection>
