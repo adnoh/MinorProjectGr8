@@ -25,8 +25,8 @@ public class BaseController : MonoBehaviour{
 	public GameObject weaponSmith;
 	public GameObject gadgetSmith;
 	public GameObject bed;
-	public GameObject fatiqueBed;
 	public GameObject healthBed;
+	public GameObject energyBed;
 
 	public GameObject buildMenu;
 	public Text title;
@@ -153,8 +153,9 @@ public class BaseController : MonoBehaviour{
 		if (buildingToBuild.Equals ("Energy Boost Bed")) {
 			Delete();
 			Vector3 place = lastHitObject.transform.position;
-			GameObject newObject = (GameObject)Instantiate(fatiqueBed, place, Quaternion.identity);
-			newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
+			GameObject newObject = (GameObject)Instantiate(energyBed, place, Quaternion.identity);
+			newObject.transform.Rotate(new Vector3(-90, 0, 0));
+			newObject.transform.Translate(new Vector3(0, 1.055501f, 0));
 			turrets.Add(newObject);
 			lastHitObject.tag = "occupiedPlane";
 		}
@@ -162,7 +163,7 @@ public class BaseController : MonoBehaviour{
 			Delete();
 			Vector3 place = lastHitObject.transform.position;
 			GameObject newObject = (GameObject)Instantiate(generator, place, Quaternion.identity);
-			newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
+			newObject.transform.Translate(new Vector3(0, 0.2050993f, 0));
 			turrets.Add(newObject);
 			lastHitObject.tag = "occupiedPlane";
 		}
@@ -197,7 +198,8 @@ public class BaseController : MonoBehaviour{
 			Delete();
 			Vector3 place = lastHitObject.transform.position;
 			GameObject newObject = (GameObject)Instantiate(weaponSmith, place, Quaternion.identity);
-			newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
+			newObject.transform.Rotate(new Vector3(-90, 0, 0));
+			newObject.transform.Translate(new Vector3(0, 0.1957196f, 0));
 			turrets.Add(newObject);
 			lastHitObject.tag = "occupiedPlane";
 		}
@@ -208,7 +210,8 @@ public class BaseController : MonoBehaviour{
 		if (buildingToBuild.Equals ("Bed")) {
 			Vector3 place = lastHitObject.transform.position;
 			GameObject newObject = (GameObject)Instantiate(bed, place, Quaternion.identity);
-			newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
+			newObject.transform.Rotate(new Vector3(-90, 0, 0));
+			newObject.transform.Translate(new Vector3(0, 0.06193482f, 0));
 			turrets.Add(newObject);
 			lastHitObject.tag = "BedPlane";
 		}

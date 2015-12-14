@@ -17,11 +17,15 @@ public class WorldBuilderII : MonoBehaviour {
 
     private List<Vector3> TreePos = new List<Vector3>();
     private List<Vector3[]> HousePos = new List<Vector3[]>();
+    private float offset = 0.5f;
 
     // Initialization on play
     void Start()
     {
-        BuildTexture();
+        TDMapII map = new TDMapII(map_x, map_z);
+
+        BuildTexture(map);
+        ApplyAssets(map);
     }
 
     Color[][] LoadTexture()
@@ -42,10 +46,8 @@ public class WorldBuilderII : MonoBehaviour {
         return tiles;
     }
 
-    public void BuildTexture()
+    public void BuildTexture(TDMapII map)
     {
-        TDMapII map = new TDMapII(map_x, map_z);
-
         int texWidth = tileRes * map_x;
         int texHeight = tileRes * map_z;
         Texture2D texture = new Texture2D(texWidth, texHeight);
@@ -67,8 +69,6 @@ public class WorldBuilderII : MonoBehaviour {
 
         MeshRenderer mesh_renderer = GetComponent<MeshRenderer>();
         mesh_renderer.sharedMaterials[0].mainTexture = texture;
-
-        //ApplyAssets(map);
     }
 
     public void ApplyAssets(TDMapII map)
@@ -79,27 +79,58 @@ public class WorldBuilderII : MonoBehaviour {
         
         int x_pos = Village[0];
         int y_pos = Village[1];
-        int min = Village[2];
-        int max = Village[3];
+        int min = -40;
+        int max = 40;
 
-        for (int i = 0; i < 30; i++)
+        float misses = 20;
+        while (HousePos.Count != 50)
         {
+            if (misses <= 0)
+                break;
+
             int x = Random.Range(min, max) + y_pos;
             int z = Random.Range(min, max) + x_pos;
                 
-            if (map.getTile(x, z) == 1 || map.getTile(x, z) == 2 || map.getTile(x, z) == 3)
+            if (HousePossible(x, z, map))
             {
-                Vector3 Pos = new Vector3(150 - x, 0.8f, 150 - z);
+                Vector3 Pos = new Vector3(150 - x + offset, 0.8f, 150 - z + offset);
                 Vector3 Rot = new Vector3(90, Random.Range(0, 360), 0);
                 GameObject huisje = (GameObject)Instantiate(House, Pos, Quaternion.identity);
                 huisje.transform.Rotate(Rot);
                 HousePos.Add(new Vector3[2] { Pos, Rot });
             }
+            else
+            {
+                misses--;
+            }
                 
         }
-        
 
-        foreach(int[] forrest in Forrests)
+        while (HousePos.Count != nrHouses)
+        {
+            if (misses <= 0)
+                break;
+
+            int x = Random.Range(min, max) + y_pos;
+            int z = Random.Range(min, max) + x_pos;
+
+            if (CheckIfPlacableTile(x, z, map))
+            {
+                Vector3 Pos = new Vector3(150 - x + offset, 0.8f, 150 - z + offset);
+                Vector3 Rot = new Vector3(90, Random.Range(0, 360), 0);
+                GameObject huisje = (GameObject)Instantiate(House, Pos, Quaternion.identity);
+                huisje.transform.Rotate(Rot);
+                HousePos.Add(new Vector3[2] { Pos, Rot });
+            }
+            else
+            {
+                misses--;
+            }
+
+        }
+
+
+        foreach (int[] forrest in Forrests)
         {
             int x_posF = forrest[0];
             int y_posF = forrest[1];
@@ -111,15 +142,40 @@ public class WorldBuilderII : MonoBehaviour {
                 int x = Random.Range(minF, maxF) + y_posF;
                 int z = Random.Range(minF, maxF) + x_posF;
 
-                if (map.getTile(x, z) == 1 || map.getTile(x, z) == 2 || map.getTile(x, z) == 3)
+                if (CheckIfPlacableTile(x,z,map))
                 {
-                    Vector3 Pos = new Vector3(150 - x, 0, 150 - z);
+                    Vector3 Pos = new Vector3(150 - x + offset, 0, 150 - z + offset);
                     Instantiate(Tree, Pos, Quaternion.identity);
                     TreePos.Add(Pos);
                 }
             }
         }
     }
+
+    bool CheckIfPlacableTile(int x, int z, TDMapII map)
+    {
+        if (map.getTile(x, z) == 1 || map.getTile(x, z) == 2 || map.getTile(x, z) == 3)
+            return true;
+        
+        return false;
+    }
+
+    bool HousePossible(int x, int z, TDMapII map)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (CheckIfPlacableTile(x + i, z + i, map))
+                return false;
+            if (CheckIfPlacableTile(x, z + i, map))
+                return false;
+            if (CheckIfPlacableTile(x + i, z, map))
+                return false;
+
+        }
+
+        return true;
+    }
+
     /*
     void PlaceHouses()
     {
