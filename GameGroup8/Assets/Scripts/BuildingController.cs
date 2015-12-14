@@ -112,6 +112,7 @@ public class BuildingController : MonoBehaviour {
 	}
 
 	void OnMouseDown(){
+		Debug.Log (true);
 		if (building.getName ().Equals ("GunSmith") && !weaponUnlocker) {
 			GameObject.Find ("player").GetComponent<PlayerAttacker> ().weaponUnlockScreen.SetActive (true);
 			GameObject.Find ("player").GetComponent<PlayerAttacker> ().setTextOfLockUnlock();
