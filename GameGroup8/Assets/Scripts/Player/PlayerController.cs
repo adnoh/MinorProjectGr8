@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
 	private static int count;
 	public GameObject player;
 	private static Vector3 currentPosition;
+	private static Quaternion currentrotation;
 
 	public Text levelText;
 
@@ -106,6 +107,10 @@ public class PlayerController : MonoBehaviour {
 
 		Vector3 playerPos = player.transform.position;
 		setPosition (playerPos);
+
+		var playerRot = player.transform.rotation;
+		setRotation (playerRot);
+
 	}
 
 	void OnTriggerEnter(Collider collider){
@@ -129,9 +134,19 @@ public class PlayerController : MonoBehaviour {
 		currentPosition = here;
 	}
 
+	void setRotation(Quaternion rot){
+		currentrotation = rot;
+	}
+
 	public static Vector3 getPosition(){
 		return currentPosition;
 	}
+
+	public static Quaternion getRotation(){
+		return currentrotation;
+	}
+
+
 
     public static int getCount(){
         return count;

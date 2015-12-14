@@ -61,8 +61,6 @@ public class Monster {
         rotation_x = enemy.getRotation().x;
         rotation_y = enemy.getRotation().y;
         rotation_z = enemy.getRotation().z;
-
-
                 
         isPoisoned = enemy.getPoisoned();
         isStunned = enemy.getStunned();

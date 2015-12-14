@@ -24,16 +24,35 @@ public class MonsterList
 
 public class Player
 {
-	
-	[XmlArray("list"),XmlArrayItem("list")]
-	public Playersave[]  list = new Playersave[1];
+	public float posx;
+	public float posy;
+	public float posz;
 
+	public float rotx;
+	public float roty;
+	public float rotz;
+	public float rotw;
+
+	public Player(){
+	var position = PlayerController.getPosition();
+		var rotation = PlayerController.getRotation ();
+
+		posx = position.x;
+		posy = position.y;
+		posz = position.z;
+
+		rotx = rotation.x;
+		roty = rotation.y;
+		rotz = rotation.z;
+		rotw = rotation.w;
+
+	}
 }
 
 
 public class MonsterCollection : MonoBehaviour
 {
-	public static MonsterList monsterlist = new MonsterList();
+	public MonsterList monsterlist = new MonsterList();
 
 	//[XmlArray("monstersList"),XmlArrayItem("monstersList")]
 	//public Monster[] monstersList = new Monster[2];
@@ -46,8 +65,9 @@ public class MonsterCollection : MonoBehaviour
 	 void Update(){
 
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
-            MonsterSave ("Assets/saves/monsters.xml");
-         }
+
+			playerSave ("Assets/saves/Player.xml");
+		}
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
@@ -58,16 +78,9 @@ public class MonsterCollection : MonoBehaviour
     }	
 
     // Save & Load 
-	public static void MonsterSave(string path)
+	public void Save(string path)
 	{
-        
-        List<EnemyController> Monsters = MiniMapScript.enemies;
-        for (int i = 0; i < Monsters.Count; i++)
-        {
-            monsterlist.list[i] = new Monster(Monsters[i]);
-        }
-                
-        var serializer = new XmlSerializer(typeof(MonsterList));
+		var serializer = new XmlSerializer(typeof(MonsterList));
 		using(var stream = new FileStream(path, FileMode.Create))
 		{
 			serializer.Serialize(stream, monsterlist);
@@ -76,15 +89,17 @@ public class MonsterCollection : MonoBehaviour
 
 	/* public void playerSave(string path)
 	{
+		var player =  new Player();
+
 		var serializer = new XmlSerializer(typeof(Player));
 		using(var stream = new FileStream(path, FileMode.Create))
 		{
-			serializer.Serialize(stream, Player);
+			serializer.Serialize(stream, player);
 		}
 	}
     */
 	
-	public static MonsterList MonsterLoad(string path)
+	public static MonsterList Load(string path)
 	{
 		var serializer = new XmlSerializer(typeof(MonsterList));
 		using(var stream = new FileStream(path, FileMode.Open))
