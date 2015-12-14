@@ -1,4 +1,4 @@
-﻿
+
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
@@ -19,6 +19,14 @@ public class MonsterList
 		
 		return this.list;
 	}
+
+}
+
+public class Player
+{
+	
+	[XmlArray("list"),XmlArrayItem("list")]
+	public Playersave[]  list = new Playersave[1];
 
 }
 
@@ -63,6 +71,15 @@ public class MonsterCollection : MonoBehaviour
 		using(var stream = new FileStream(path, FileMode.Create))
 		{
 			serializer.Serialize(stream, monsterlist);
+		}
+	}
+
+	public void playerSave(string path)
+	{
+		var serializer = new XmlSerializer(typeof(Player));
+		using(var stream = new FileStream(path, FileMode.Create))
+		{
+			serializer.Serialize(stream, Player);
 		}
 	}
 	
