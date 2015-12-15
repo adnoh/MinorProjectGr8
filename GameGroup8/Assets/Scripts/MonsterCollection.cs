@@ -36,6 +36,7 @@ public class Outsidesave{
 	public int wave;
 	public float timeTillNextWave;
 	public int enemiesDefeaten;
+	public int enemiesToDefeat;
 	
 	public string tagOfMat1;
 	public string tagOfMat2;
@@ -48,6 +49,7 @@ public class Outsidesave{
 		wave = Camera.main.GetComponent<EnemySpawner> ().wave;
 		timeTillNextWave = Camera.main.GetComponent<EnemySpawner> ().timeTillNextWave;
 		enemiesDefeaten = EnemySpawner.enemiesDefeaten;
+		enemiesToDefeat = Camera.main.GetComponent<EnemySpawner> ().enemiesToDefeat;
 		tagOfMat1 = GameObject.Find ("PlacementPlane").tag;
 		tagOfMat2 = GameObject.Find ("PlacementPlane (1)").tag;
 		tagOfMat3 = GameObject.Find ("PlacementPlane (2)").tag;
@@ -187,6 +189,8 @@ public class MonsterCollection : MonoBehaviour
 
 		Camera.main.GetComponent<EnemySpawner> ().wave = outside.wave;
 		Camera.main.GetComponent<EnemySpawner> ().timeTillNextWave = outside.timeTillNextWave + Time.time;
+		Camera.main.GetComponent<EnemySpawner> ().enemiesToDefeat = outside.enemiesToDefeat;
+		EnemySpawner.enemiesDefeaten = outside.enemiesDefeaten;
 		GameObject.Find ("PlacementPlane").tag = outside.tagOfMat1;
 		GameObject.Find ("PlacementPlane (1)").tag = outside.tagOfMat2;
 		GameObject.Find ("PlacementPlane (2)").tag = outside.tagOfMat3;
