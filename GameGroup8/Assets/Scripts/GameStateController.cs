@@ -35,7 +35,7 @@ public class GameStateController : MonoBehaviour
     {
         GenerateMap();
         initializePathfindingGrid();
-        LoadBase();
+        // LoadBase();
         LoadPlayer();
         LoadEnemies();
    }  
@@ -44,7 +44,18 @@ public class GameStateController : MonoBehaviour
 
     void GenerateMap()
     {
-        worldbuilder.StartWorldBuilder();
+
+        if (newgame)
+        {
+            worldbuilder.StartWorldBuilder();
+        }
+        else
+        {
+            worldbuilder.StartWorldBuilder();
+        }
+
+
+
     }
 
     void initializePathfindingGrid()
@@ -68,7 +79,7 @@ public class GameStateController : MonoBehaviour
         }
         else
         {
-           
+            MonsterCollection.playerLoad();
         }
 
     }
@@ -83,7 +94,7 @@ public class GameStateController : MonoBehaviour
         else
         {
             MonsterCollection.MonsterLoad("assets/saves/monsters.xml");
-            MonsterCollection.outsideLoad();            
+                      
         }
 
     }

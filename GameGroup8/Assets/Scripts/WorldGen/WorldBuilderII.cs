@@ -12,7 +12,7 @@ public class WorldBuilderII : MonoBehaviour {
     private int[][] TileMap;
 
     public GameObject Tree;
-    //public int nrTrees;
+    public int nrTrees;
     public GameObject House;
     public int nrHouses;
 
@@ -146,7 +146,7 @@ public class WorldBuilderII : MonoBehaviour {
             int minF = forrest[2];
             int maxF = forrest[3];
 
-            for (int i = 0; i < maxF; i++)
+            for (int i = 0; i < maxF*2; i++)
             {
                 int x = Random.Range(minF, maxF) + y_posF;
                 int z = Random.Range(minF, maxF) + x_posF;
@@ -158,6 +158,28 @@ public class WorldBuilderII : MonoBehaviour {
                     Instantiate(Tree, Pos, Quaternion.identity);
                     TreePos.Add(Pos);
                 }
+            }
+        }
+
+        misses = 15;
+        while (TreePos.Count <= nrTrees)
+        {
+            if (misses <= 0)
+                break;
+
+            int x = Random.Range(30, 270);
+            int z = Random.Range(30, 270);
+
+            Vector3 Pos = new Vector3(150 - x + offset, 0, 150 - z + offset);
+
+            if (CheckIfPlacableTile(z, x, map) && ObjPossible(TreePos, Pos, 2) && ObjPossible(HousePos, Pos, 6))
+            {
+                Instantiate(Tree, Pos, Quaternion.identity);
+                TreePos.Add(Pos);
+            }
+            else
+            {
+                misses--;
             }
         }
     }
@@ -183,8 +205,8 @@ public class WorldBuilderII : MonoBehaviour {
     {
         if (map.getTile(x, z) == 1 || map.getTile(x, z) == 2 || map.getTile(x, z) == 3)
             return true;
-
-        return false;
+        else
+            return false;
     }
 
     bool HousePossible(int x, int z, TDMapII map, int dist)

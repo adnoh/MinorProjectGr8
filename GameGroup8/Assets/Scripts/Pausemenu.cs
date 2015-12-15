@@ -8,6 +8,7 @@ public class Pausemenu : MonoBehaviour {
             MonsterCollection.MonsterSave("Assets/saves/monsters.xml");
             MonsterCollection.turretSave("Assets/saves/turrets.xml");
 			MonsterCollection.outsideSave("Assets/saves/outside.xml");
+            MonsterCollection.playerSave("Assets/saves/Player.xml");
             MiniMapScript.clearEnemies();
             loadpause();
         }
