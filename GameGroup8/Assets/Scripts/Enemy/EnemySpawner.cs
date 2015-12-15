@@ -11,7 +11,7 @@ public class EnemySpawner : MonoBehaviour {
 	public int wave;
 
 	private int enemiesThisWave;
-	private int totalEnemiesSpawned;
+	public static int totalEnemiesSpawned;
 	public static int enemiesDefeaten;
 	public int enemiesToDefeat;
 	
