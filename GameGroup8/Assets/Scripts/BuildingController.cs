@@ -45,7 +45,7 @@ public class BuildingController : MonoBehaviour {
 				enemys.Remove (enemys[i]);
 			}
 		}
-        if (enemys.Count > 0 && building.returnIfTurret()){
+        if (enemys.Count > 0 && building.returnIfTurret() && !enemys[0].GetComponent<EnemyController>().destroyed){
             enemyPosition = enemys[0].transform.position;
             enemyPosition.y = 0;
             transform.LookAt(enemyPosition);
@@ -121,5 +121,9 @@ public class BuildingController : MonoBehaviour {
 			GameObject.Find ("player").GetComponent<PlayerAttacker> ().weaponUnlockScreen.SetActive (false);
 			weaponUnlocker = false;
 		}
+	}
+
+	public Building getBuilding(){
+		return building;
 	}
 }

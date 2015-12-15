@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<TurretList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <list>
+    <list>
+      <name>Rock-paper-scissor turret</name>
+      <x>-2.5</x>
+      <y>0.001</y>
+      <z>-3.5</z>
+      <wRot>-0.95105654</wRot>
+      <xRot>0</xRot>
+      <yRot>0.309017062</yRot>
+      <zRot>0</zRot>
+      <timeTillNextAttack>2</timeTillNextAttack>
+      <timeTillNext>30</timeTillNext>
+    </list>
+    <list>
+      <name>Rock-paper-scissor turret</name>
+      <x>2.5</x>
+      <y>0.001</y>
+      <z>-3.5</z>
+      <wRot>0.10452842</wRot>
+      <xRot>0</xRot>
+      <yRot>0.9945219</yRot>
+      <zRot>0</zRot>
+      <timeTillNextAttack>2</timeTillNextAttack>
+      <timeTillNext>30</timeTillNext>
+    </list>
+    <list>
+      <name>Harpgoon</name>
+      <x>2.5</x>
+      <y>0.001</y>
+      <z>-8.5</z>
+      <wRot>0.7071068</wRot>
+      <xRot>0</xRot>
+      <yRot>0.7071068</yRot>
+      <zRot>0</zRot>
+      <timeTillNextAttack>2</timeTillNextAttack>
+      <timeTillNext>30</timeTillNext>
+    </list>
+    <list>
+      <name>Snailgun</name>
+      <x>-2.5</x>
+      <y>0.001</y>
+      <z>-8.5</z>
+      <wRot>-0.333806872</wRot>
+      <xRot>0</xRot>
+      <yRot>0.9426415</yRot>
+      <zRot>0</zRot>
+      <timeTillNextAttack>2</timeTillNextAttack>
+      <timeTillNext>30</timeTillNext>
+    </list>
+  </list>
+</TurretList>

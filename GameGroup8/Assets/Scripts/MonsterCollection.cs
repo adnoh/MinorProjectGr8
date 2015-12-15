@@ -16,7 +16,6 @@ public class MonsterList
 
 
 	public Monster[] getMonsterlist(){
-		
 		return this.list;
 	}
 
@@ -26,6 +25,10 @@ public class TurretList{
 	
 	[XmlArray("list"),XmlArrayItem("list")]
 	public Turret[]  list = new Turret[10];
+
+	public Turret[] getTurretList(){
+		return this.list;
+	}
 }
 
 public class Outsidesave{
@@ -46,9 +49,9 @@ public class Outsidesave{
 		timeTillNextWave = Camera.main.GetComponent<EnemySpawner> ().timeTillNextWave;
 		enemiesDefeaten = EnemySpawner.enemiesDefeaten;
 		tagOfMat1 = GameObject.Find ("PlacementPlane").tag;
-		tagOfMat2 = GameObject.Find ("PlacementPlane(1)").tag;
-		tagOfMat3 = GameObject.Find ("PlacementPlane(2)").tag;
-		tagOfMat4 = GameObject.Find ("PlacementPlane(3)").tag;
+		tagOfMat2 = GameObject.Find ("PlacementPlane (1)").tag;
+		tagOfMat3 = GameObject.Find ("PlacementPlane (2)").tag;
+		tagOfMat4 = GameObject.Find ("PlacementPlane (3)").tag;
 		unitCount = PlayerController.getCount();
 	}
 	
@@ -104,6 +107,11 @@ public class MonsterCollection : MonoBehaviour
             enemySpawner.savewave();
         }
 
+		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+			GameObject.Find ("Gate").GetComponent<BaseController>().buildFromSave();
+			outsideLoad();
+		}
+
     }	
 
     // Save & Load 
@@ -128,15 +136,25 @@ public class MonsterCollection : MonoBehaviour
 	}
     */
 
-	public static void outsideSave(string path){
+	public static void turretSave(string path){
 		List<GameObject> Buildings = BaseController.turrets;
 		for (int i = 0; i < Buildings.Count; i++){
 			turretList.list[i] = new Turret(Buildings[i].GetComponent<BuildingController>());
 		}
 		
-		var serializer = new XmlSerializer(typeof(Turret));
+		var serializer = new XmlSerializer(typeof(TurretList));
 		using(var stream = new FileStream(path, FileMode.Create)){
 			serializer.Serialize(stream, turretList);
+		}
+	}
+
+	public static void outsideSave(string path){
+
+		var outside = new Outsidesave ();
+
+		var serializer = new XmlSerializer(typeof(Outsidesave));
+		using(var stream = new FileStream(path, FileMode.Create)){
+			serializer.Serialize(stream, outside);
 		}
 	}
 	
@@ -146,5 +164,33 @@ public class MonsterCollection : MonoBehaviour
 		{
 			return serializer.Deserialize(stream) as MonsterList;
 		}
+	}
+
+	public static TurretList turretLoad(string path){
+		var serializer = new XmlSerializer(typeof(TurretList));
+		using(var stream = new FileStream(path, FileMode.Open))
+		{
+			return serializer.Deserialize(stream) as TurretList;
+		}
+	}
+
+	public static Outsidesave outsidepreLoad(string path){
+		var serializer = new XmlSerializer(typeof(Outsidesave));
+		using(var stream = new FileStream(path, FileMode.Open))
+		{
+			return serializer.Deserialize(stream) as Outsidesave;
+		}
+	}
+
+	public static void outsideLoad(){
+		var outside = outsidepreLoad ("Assets/saves/outside.xml");
+
+		Camera.main.GetComponent<EnemySpawner> ().wave = outside.wave;
+		Camera.main.GetComponent<EnemySpawner> ().timeTillNextWave = outside.timeTillNextWave + Time.time;
+		GameObject.Find ("PlacementPlane").tag = outside.tagOfMat1;
+		GameObject.Find ("PlacementPlane (1)").tag = outside.tagOfMat2;
+		GameObject.Find ("PlacementPlane (2)").tag = outside.tagOfMat3;
+		GameObject.Find ("PlacementPlane (3)").tag = outside.tagOfMat4;
+		PlayerController.setCount (-outside.unitCount);
 	}
 }

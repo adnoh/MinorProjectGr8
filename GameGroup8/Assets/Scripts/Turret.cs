@@ -18,7 +18,7 @@ public class Turret{
 	}
 
 	public Turret(BuildingController bc){
-		name = bc.name;
+		name = bc.getBuilding().getName();
 		x = bc.gameObject.transform.position.x;
 		y = bc.gameObject.transform.position.y;
 		z = bc.gameObject.transform.position.z;
