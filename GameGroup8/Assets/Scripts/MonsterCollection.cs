@@ -251,7 +251,7 @@ public class MonsterCollection : MonoBehaviour
 		GameObject tempplayer = GameObject.FindWithTag("Player");
 		Vector3 templocation;
 		templocation.x = player.getPosx();
-		templocation.y = player.getPosy();
+        templocation.y = 0.0f;
 		templocation.z = player.getPosz();
 		Quaternion temprotation;
 		temprotation.x = player.getRotx();
