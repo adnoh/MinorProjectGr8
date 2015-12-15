@@ -41,6 +41,11 @@ public class TDMapII {
 
         BroadenRoads(7);
     }
+    
+    public TDMapII(int[][] map)
+    {
+        tiles = map;
+    }
 
     public int getTile(int x, int y)
     {
@@ -303,7 +308,9 @@ public class TDMapII {
         if (xB == 75)
             junctions.Add(new Vector2(Random.Range(50, 100), 150));
 
-        junctions.Add(new Vector2(Random.Range(-10, 10) + xB, Random.Range(-10, 10) + yB));
+        int x_city = Random.Range(-10, 10) + xB;
+        int y_city = Random.Range(-10, 10) + yB;
+        junctions.Add(new Vector2(x_city, y_city));
 
         if (yB == 225)
             junctions.Add(new Vector2(150, Random.Range(200, 250)));
@@ -311,35 +318,18 @@ public class TDMapII {
         if (yB == 75)
             junctions.Add(new Vector2(150, Random.Range(50, 100)));
         
-        int misses = 10; /*
-        Vector2 start = junctions[1];
-        while (junctions.Count <= 14)
+        for (int x = 0; x <60; x++)
         {
-            if (misses <= 0)
-                break;
-
-            Vector2 point_offset = new Vector2(Random.Range(-50, 50), Random.Range(-50, 50));
-            Vector2 point = point_offset + BasePos;
-            if (Vector2.Distance(start, point) > 20 && checkOffset(point, junctions, 15) && Vector2.Distance(BasePos,point) < 80)
+            for (int y = 0; y < 60; y++)
             {
-                start = point; 
-                int x_length = Random.Range(30,80);
-                x_length *= point_offset.x <= 0 ? 1 : -1;
-                int y_length = Random.Range(30, 80);
-                y_length *= point_offset.y <= 0 ? 1 : -1;
-                int x = (int)start.x + x_length;
-                int y = (int)start.y + y_length;
+                if (x == 0 || x == 19 || x == 39 || x == 59)
+                    tiles[y + yB - 30][x + xB - 30] = 7;
 
-                junctions.Add(new Vector2(start.x, y));
-                junctions.Add(start);
-                junctions.Add(new Vector2(x, start.y));
+                if (y == 0 || y == 19 || y == 39 || y == 59)
+                    tiles[y + yB - 30][x + xB - 30] = 7;
             }
-            else
-            {
-                misses--;
-            }
-        }*/
-        Debug.Log("Village" + junctions.Count + ", misses left: " + misses);
+        }
+            
         return junctions;
     }
 

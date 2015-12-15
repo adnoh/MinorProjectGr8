@@ -22,17 +22,8 @@ public class MonsterList
 
 }
 
-public class Player
-{
-	
-	[XmlArray("list"),XmlArrayItem("list")]
-	public Playersave[]  list = new Playersave[1];
-
-
-}
-
 public class TurretList{
-
+	
 	[XmlArray("list"),XmlArrayItem("list")]
 	public Turret[]  list = new Turret[10];
 }
@@ -42,15 +33,55 @@ public class Outsidesave{
 	public int wave;
 	public float timeTillNextWave;
 	public int enemiesDefeaten;
-	public bool weaponUnlocker;
 	
-	public string[] tagsOfMats = new string[4];
-	public bool pause;
+	public string tagOfMat1;
+	public string tagOfMat2;
+	public string tagOfMat3;
+	public string tagOfMat4;
 	
 	public int unitCount;
 
+	public Outsidesave(){
+		wave = Camera.main.GetComponent<EnemySpawner> ().wave;
+		timeTillNextWave = Camera.main.GetComponent<EnemySpawner> ().timeTillNextWave;
+		enemiesDefeaten = EnemySpawner.enemiesDefeaten;
+		tagOfMat1 = GameObject.Find ("PlacementPlane").tag;
+		tagOfMat2 = GameObject.Find ("PlacementPlane(1)").tag;
+		tagOfMat3 = GameObject.Find ("PlacementPlane(2)").tag;
+		tagOfMat4 = GameObject.Find ("PlacementPlane(3)").tag;
+		unitCount = PlayerController.getCount();
+	}
+	
 	
 }
+
+public class Player
+{
+	public float posx;
+	public float posy;
+	public float posz;
+
+	public float rotx;
+	public float roty;
+	public float rotz;
+	public float rotw;
+
+	public Player(){
+	var position = PlayerController.getPosition();
+		var rotation = PlayerController.getRotation ();
+
+		posx = position.x;
+		posy = position.y;
+		posz = position.z;
+
+		rotx = rotation.x;
+		roty = rotation.y;
+		rotz = rotation.z;
+		rotw = rotation.w;
+
+	}
+}
+
 
 public class MonsterCollection : MonoBehaviour
 {
@@ -59,17 +90,13 @@ public class MonsterCollection : MonoBehaviour
 
 	//[XmlArray("monstersList"),XmlArrayItem("monstersList")]
 	//public Monster[] monstersList = new Monster[2];
-
-	void Start(){
-
-
-
-	}
+	
 	 void Update(){
 
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
-            MonsterSave ("Assets/saves/monsters.xml");
-         }
+
+			//playerSave ("Assets/saves/Player.xml");
+		}
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
@@ -82,57 +109,42 @@ public class MonsterCollection : MonoBehaviour
     // Save & Load 
 	public static void MonsterSave(string path)
 	{
-        
-        List<EnemyController> Monsters = MiniMapScript.enemies;
-        for (int i = 0; i < Monsters.Count; i++)
-        {
-            monsterlist.list[i] = new Monster(Monsters[i]);
-        }
-                
-        var serializer = new XmlSerializer(typeof(MonsterList));
+		var serializer = new XmlSerializer(typeof(MonsterList));
 		using(var stream = new FileStream(path, FileMode.Create))
 		{
 			serializer.Serialize(stream, monsterlist);
 		}
 	}
 
-	/*public void playerSave(string path)
+	/* public void playerSave(string path)
 	{
+		var player =  new Player();
+
 		var serializer = new XmlSerializer(typeof(Player));
 		using(var stream = new FileStream(path, FileMode.Create))
 		{
-			serializer.Serialize(stream, Player);
+			serializer.Serialize(stream, player);
 		}
-	}*/
+	}
+    */
 
-	public void outsideSave(string path)
-	{
-		List<BuildingController> Buildings = BaseController.turrets;
+	public static void outsideSave(string path){
+		List<GameObject> Buildings = BaseController.turrets;
 		for (int i = 0; i < Buildings.Count; i++){
 			turretList.list[i] = new Turret(Buildings[i].GetComponent<BuildingController>());
 		}
-
+		
 		var serializer = new XmlSerializer(typeof(Turret));
 		using(var stream = new FileStream(path, FileMode.Create)){
 			serializer.Serialize(stream, turretList);
 		}
 	}
 	
-	public static MonsterList MonsterLoad(string path)
-	{
+	public static MonsterList MonsterLoad(string path){
 		var serializer = new XmlSerializer(typeof(MonsterList));
 		using(var stream = new FileStream(path, FileMode.Open))
 		{
 			return serializer.Deserialize(stream) as MonsterList;
-		}
-	}
-
-	public static TurretList TurretLoad(string path)
-	{
-		var serializer = new XmlSerializer(typeof(TurretList));
-		using(var stream = new FileStream(path, FileMode.Open))
-		{
-			return serializer.Deserialize(stream) as TurretList;
 		}
 	}
 }

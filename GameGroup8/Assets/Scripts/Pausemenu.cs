@@ -2,27 +2,14 @@
 using System.Collections;
 
 public class Pausemenu : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
 	
-	}
-	
-	// Update is called once per frame
 	void Update () {
-
-		if (Input.GetKeyDown(KeyCode.Escape))
-        {
-
+		if (Input.GetKeyDown(KeyCode.Escape)){
             MonsterCollection.MonsterSave("Assets/saves/monsters.xml");
+			MonsterCollection.outsideSave("Assets/saves/outside.xml");
             MiniMapScript.clearEnemies();
             loadpause();
-
         }
-			
-            
-        
-	
 	}
 
 	void loadpause(){

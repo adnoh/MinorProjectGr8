@@ -16,16 +16,27 @@ public class WorldBuilderII : MonoBehaviour {
     public int nrHouses;
 
     private List<Vector3> TreePos = new List<Vector3>();
-    private List<Vector3[]> HousePos = new List<Vector3[]>();
+    private List<Vector3[]> HouseInfo = new List<Vector3[]>();
+    private List<Vector3> HousePos = new List<Vector3>();
     private float offset = 0.5f;
 
     // Initialization on play
     void Start()
     {
+        WorldBuilderII nieuw = new WorldBuilderII();
+    }
+
+    public WorldBuilderII()
+    {
         TDMapII map = new TDMapII(map_x, map_z);
 
         BuildTexture(map);
         ApplyAssets(map);
+    }
+
+    public WorldBuilderII(int[][] map)
+    {
+
     }
 
     Color[][] LoadTexture()
@@ -81,32 +92,35 @@ public class WorldBuilderII : MonoBehaviour {
         int y_pos = Village[1];
         int min = -40;
         int max = 40;
+        
+        for (int i = 0; i < 8; i++)
+        {
+            if (HousePos.Count == 60)
+                break;
 
+            for (int j = 0; j < 8; j++)
+            {
+                if (HousePos.Count == 60)
+                    break;
+
+                int x = y_pos - 35 + 10*i;
+                int z = x_pos - 35 + 10*j;
+
+                Vector3 Pos = new Vector3(150 - x + offset, 0.8f, 150 - z + offset);
+
+                if (HousePossible(x, z, map) && ObjPossible(HousePos, Pos, 5))
+                {
+                    Vector3 Rot = new Vector3(90, Random.Range(0, 2)*90, 0);
+                    GameObject huisje = (GameObject)Instantiate(House, Pos, Quaternion.identity);
+                    huisje.transform.Rotate(Rot);
+                    HousePos.Add(Pos);
+                    HouseInfo.Add(new Vector3[2] { Pos, Rot });
+                }
+            } 
+        }
+        /*
         float misses = 20;
-        while (HousePos.Count != 50)
-        {
-            if (misses <= 0)
-                break;
-
-            int x = Random.Range(min, max) + y_pos;
-            int z = Random.Range(min, max) + x_pos;
-                
-            if (HousePossible(x, z, map))
-            {
-                Vector3 Pos = new Vector3(150 - x + offset, 0.8f, 150 - z + offset);
-                Vector3 Rot = new Vector3(90, Random.Range(0, 360), 0);
-                GameObject huisje = (GameObject)Instantiate(House, Pos, Quaternion.identity);
-                huisje.transform.Rotate(Rot);
-                HousePos.Add(new Vector3[2] { Pos, Rot });
-            }
-            else
-            {
-                misses--;
-            }
-                
-        }
-
-        while (HousePos.Count != nrHouses)
+        while (HousePos.Count <= nrHouses)
         {
             if (misses <= 0)
                 break;
@@ -114,13 +128,15 @@ public class WorldBuilderII : MonoBehaviour {
             int x = Random.Range(min, max) + y_pos;
             int z = Random.Range(min, max) + x_pos;
 
-            if (CheckIfPlacableTile(x, z, map))
+            Vector3 Pos = new Vector3(150 - x + offset, 0.8f, 150 - z + offset);
+
+            if (CheckIfPlacableTile(x, z, map) && ObjPossible(HousePos,Pos, 30))
             {
-                Vector3 Pos = new Vector3(150 - x + offset, 0.8f, 150 - z + offset);
                 Vector3 Rot = new Vector3(90, Random.Range(0, 360), 0);
                 GameObject huisje = (GameObject)Instantiate(House, Pos, Quaternion.identity);
                 huisje.transform.Rotate(Rot);
-                HousePos.Add(new Vector3[2] { Pos, Rot });
+                HousePos.Add(Pos);
+                HouseInfo.Add(new Vector3[2] { Pos, Rot });
             }
             else
             {
@@ -128,7 +144,8 @@ public class WorldBuilderII : MonoBehaviour {
             }
 
         }
-
+        //Debug.Log("misses left(place): " + misses);
+        */
 
         foreach (int[] forrest in Forrests)
         {
@@ -162,18 +179,53 @@ public class WorldBuilderII : MonoBehaviour {
 
     bool HousePossible(int x, int z, TDMapII map)
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 3; i++)
         {
-            if (CheckIfPlacableTile(x + i, z + i, map))
+            if (!CheckIfPlacableTile(x + i, z + i, map))
                 return false;
-            if (CheckIfPlacableTile(x, z + i, map))
+            if (!CheckIfPlacableTile(x - i, z + i, map))
                 return false;
-            if (CheckIfPlacableTile(x + i, z, map))
+            if (!CheckIfPlacableTile(x + i, z - i, map))
+                return false;
+            if (!CheckIfPlacableTile(x - i, z - i, map))
+                return false;
+
+
+            if (!CheckIfPlacableTile(x, z + i, map))
+                return false;
+            if (!CheckIfPlacableTile(x, z - i, map))
+                return false;
+            if (!CheckIfPlacableTile(x + i, z, map))
+                return false;
+            if (!CheckIfPlacableTile(x - i, z, map))
                 return false;
 
         }
 
         return true;
+    }
+
+    bool ObjPossible(List<Vector3> T, Vector3 place, int dist)
+    {
+        if (!T.Contains(place))
+        {
+            if (T.Count == 0)
+            {
+                return true;
+            }
+            else if (T.Count >= 1)
+            {
+                for (int i = 0; i < T.Count; i++)
+                {
+                    if (Vector3.Distance(place, T[i]) < dist)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
     }
 
     /*
@@ -208,32 +260,7 @@ public class WorldBuilderII : MonoBehaviour {
         return place;
     }
 
-    void addHousePos(List<Vector3> T, Vector3 place, int dist)
-    {
-        if (!T.Contains(place))
-        {
-            if (T.Count == 0)
-            {
-                T.Add(place);
-            }
-            else if (T.Count >= 1)
-            {
-                bool add = true;
-                for (int i = 0; i < T.Count; i++)
-                {
-                    if (Vector3.Distance(place, T[i]) < dist)
-                    {
-                        add = false;
-                    }
-                }
-                if (add)
-                {
-                    T.Add(place);
-
-                }
-            }
-        }
-    }
+    
     
     void placeWalls(Vector3 place, int j)
     {
