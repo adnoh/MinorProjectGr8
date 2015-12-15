@@ -139,6 +139,10 @@ public class PlayerAttributes : MonoBehaviour {
 		return health;
 	}
 
+	public static void setHealth(int res){
+		health = res;
+	}
+
 	public static void takeDamage(int damage){
 		health -= damage;
 	}

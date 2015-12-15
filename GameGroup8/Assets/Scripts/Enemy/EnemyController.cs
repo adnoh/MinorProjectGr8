@@ -67,7 +67,7 @@ public class EnemyController : MonoBehaviour {
 		}
 		if (poisoned && Time.time > timeToGetPoisonDamage) {
 			timeToGetPoisonDamage = Time.time + intervalToGetPoisonDamage;
-			health -= (int)maxHealth / 20;
+			health -= (int)(maxHealth / 20);
 		}
 		if (stunned && Time.time > timeToUnStun) {
 			unStun ();
@@ -154,6 +154,7 @@ public class EnemyController : MonoBehaviour {
 
 	public void attack() {
 		PlayerAttributes.takeDamage(attackPower);
+		CameraShaker.shakeCamera ();
 	}
 
 	public void setPoisoned(bool poi){

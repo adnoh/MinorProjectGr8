@@ -8,7 +8,7 @@ public class EnemySpawner : MonoBehaviour {
 	public GameObject windEnemy;
 	public GameObject waterEnemy;
 	public GameObject earthEnemy;
-	public int wave;
+	public int wave  = 1;
 
 	private int enemiesThisWave;
 	public static int totalEnemiesSpawned;
@@ -45,10 +45,11 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	void Update () {
+		waveText.text = "Current wave: " + wave;
 		if(Time.time > timeTillNextWave){
 			setEnemiesThisWave();
 			timeTillNextWave = Time.time + Random.Range (minTimeBetweenWaves, maxTimeBetweenWaves);
-			totalEnemiesSpawned +=enemiesThisWave;
+			totalEnemiesSpawned += enemiesThisWave;
 			enemiesToDefeatText.text = "Enemies to defeat: " + enemiesToDefeat;
 			nextWave();
 			mu += 0.25f;
