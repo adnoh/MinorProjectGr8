@@ -36,6 +36,8 @@ public class EnemyController : MonoBehaviour {
 	public float timeToUnStun = 0.0f;
 	public float stunTimeInterval = 2.0f;
 
+	public bool destroyed = false;
+
 	void Start () {
 		level = this.gameObject.GetComponent<EnemyController> ().getLevel ();
 		if (this.gameObject.transform.name.Equals ("HammerHeadPrefab(Clone)")) {

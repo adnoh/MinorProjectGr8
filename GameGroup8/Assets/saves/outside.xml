@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Outsidesave xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wave>1</wave>
+  <timeTillNextWave>10</timeTillNextWave>
+  <enemiesDefeaten>0</enemiesDefeaten>
+  <tagOfMat1>BasicTurretPlane</tagOfMat1>
+  <tagOfMat2>occupiedPlane</tagOfMat2>
+  <tagOfMat3>BasicTurretPlane</tagOfMat3>
+  <tagOfMat4>occupiedPlane</tagOfMat4>
+  <unitCount>0</unitCount>
+</Outsidesave>
