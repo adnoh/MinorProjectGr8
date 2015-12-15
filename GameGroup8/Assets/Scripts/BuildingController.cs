@@ -82,6 +82,17 @@ public class BuildingController : MonoBehaviour {
 			PlayerController.setCount(-1);
 			time = Time.time + timeInterval;
 		}
+
+		if(Input.GetKeyDown(KeyCode.T)){
+			if (building.getName ().Equals ("GunSmith") && !weaponUnlocker) {
+				GameObject.Find ("player").GetComponent<PlayerAttacker> ().weaponUnlockScreen.SetActive (true);
+				GameObject.Find ("player").GetComponent<PlayerAttacker> ().setTextOfLockUnlock();
+				weaponUnlocker = true;
+			} else {
+				GameObject.Find ("player").GetComponent<PlayerAttacker> ().weaponUnlockScreen.SetActive (false);
+				weaponUnlocker = false;
+			}
+		}
     }
 
     void OnTriggerEnter(Collider other){
@@ -111,18 +122,6 @@ public class BuildingController : MonoBehaviour {
 		if (building.getName ().Equals ("EnergyBed")) {
 			PlayerAttributes.setMaxEnergy((int)(PlayerAttributes.getMaxEnergy() / 2));
 			PlayerAttributes.maxFatique -= 5000;
-		}
-	}
-
-	void OnMouseDown(){
-		Debug.Log (true);
-		if (building.getName ().Equals ("GunSmith") && !weaponUnlocker) {
-			GameObject.Find ("player").GetComponent<PlayerAttacker> ().weaponUnlockScreen.SetActive (true);
-			GameObject.Find ("player").GetComponent<PlayerAttacker> ().setTextOfLockUnlock();
-			weaponUnlocker = true;
-		} else {
-			GameObject.Find ("player").GetComponent<PlayerAttacker> ().weaponUnlockScreen.SetActive (false);
-			weaponUnlocker = false;
 		}
 	}
 

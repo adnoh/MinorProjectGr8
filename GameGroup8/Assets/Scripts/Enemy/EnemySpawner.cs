@@ -76,7 +76,7 @@ public class EnemySpawner : MonoBehaviour {
 		waveText.text = "Current wave: " + wave;
 		enemiesToDefeat = 0;
 		for(int i = 0; i < enemiesThisWave; i++){
-			float random = Random.Range (0.0f, 1.0f);
+			float random = Random.Range (0.0f, changeToSpawnWaterEnemy + changeToSpawnWindEnemy + changeToSpawnEarthEnemy);
 			if(random <= changeToSpawnWaterEnemy){
 				GameObject waterEnemyClone = waterEnemy;
 				waterEnemyClone.GetComponent<EnemyController>().setLevel(getLevelToSpawn());
