@@ -47,7 +47,7 @@ public class Outsidesave{
 	public int unitCount;
 
 	public Outsidesave(){
-		wave = Camera.main.GetComponent<EnemySpawner> ().wave;
+        wave = Camera.main.GetComponent<EnemySpawner>().wave;
 		timeTillNextWave = Camera.main.GetComponent<EnemySpawner> ().timeTillNextWave;
 		enemiesDefeaten = EnemySpawner.enemiesDefeaten;
 		totalEnemiesSpawned = EnemySpawner.totalEnemiesSpawned;
@@ -64,14 +64,14 @@ public class Outsidesave{
 
 public class Player
 {
-	public static float posx;
-	public static float posy;
-	public static float posz;
+	public float posx;
+	public float posy;
+	public float posz;
 	
-	public static float rotx;
-	public static float roty;
-	public static float rotz;
-	public static float rotw;
+	public float rotx;
+	public float roty;
+	public float rotz;
+	public float rotw;
 	
 	public Player(){
 		var position = PlayerController.getPosition();
@@ -88,25 +88,25 @@ public class Player
 		
 		
 	}
-	public static float getRotx(){
+	public  float getRotx(){
 		return rotx;
 	}
-	public static float getRoty(){
+	public float getRoty(){
 		return roty;
 	}
-	public static float getRotw(){
+	public float getRotw(){
 		return rotw;
 	}
-	public static float getRotz(){
+	public float getRotz(){
 		return rotz;
 	}
-	public static float getPosx(){
+	public  float getPosx(){
 		return posx;
 	}
-	public static float getPosy(){
+	public  float getPosy(){
 		return posy;
 	}
-	public static float getPosz(){
+	public float getPosz(){
 		return posz;
 	}
 }
@@ -116,22 +116,25 @@ public class MonsterCollection : MonoBehaviour
 {
 	public static MonsterList monsterlist = new MonsterList();
 	public static TurretList turretList = new TurretList();
+    public GameObject player;
 
 	//[XmlArray("monstersList"),XmlArrayItem("monstersList")]
 	//public Monster[] monstersList = new Monster[2];
-	
+
+
 	 void Update(){
 
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
 
 			playerSave ("Assets/saves/Player.xml");
+            MonsterSave("Assets/saves/Monster");
 		}
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
 			playerLoad();
-            EnemySpawner enemySpawner = Camera.main.GetComponent<EnemySpawner>();
-            enemySpawner.savewave();
+            // EnemySpawner enemySpawner = Camera.main.GetComponent<EnemySpawner>();
+            // enemySpawner.savewave();
         }
 
 		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
@@ -151,7 +154,7 @@ public class MonsterCollection : MonoBehaviour
 		}
 	}
 
-	 public void playerSave(string path)
+	 public static void playerSave(string path)
 	{
 		var player =  new Player();
 
@@ -237,18 +240,19 @@ public class MonsterCollection : MonoBehaviour
 		
 		GameObject tempplayer = GameObject.FindWithTag("Player");
 		Vector3 templocation;
-		templocation.x = Player.getPosx();
-		templocation.y = Player.getPosy();
-		templocation.z = Player.getPosz();
+		templocation.x = player.getPosx();
+		templocation.y = player.getPosy();
+		templocation.z = player.getPosz();
 		Quaternion temprotation;
-		temprotation.x = Player.getRotx();
-		temprotation.y = Player.getRoty();
-		temprotation.w = Player.getRotw();
-		temprotation.z = Player.getRotz();
-		
-		
-		GameObject Playerclone = GameObject.Instantiate(tempplayer, templocation, temprotation) as GameObject;
-		
+		temprotation.x = player.getRotx();
+		temprotation.y = player.getRoty();
+		temprotation.w = player.getRotw();
+		temprotation.z = player.getRotz();
+
+
+        tempplayer.transform.position = templocation;
+        tempplayer.transform.rotation = temprotation;
+        
 		
 	}
 }
