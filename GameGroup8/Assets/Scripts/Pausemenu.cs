@@ -6,6 +6,7 @@ public class Pausemenu : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Escape)){
             MonsterCollection.MonsterSave("Assets/saves/monsters.xml");
+			MonsterCollection.outsideSave("Assets/saves/outside.xml");
             MiniMapScript.clearEnemies();
             loadpause();
         }

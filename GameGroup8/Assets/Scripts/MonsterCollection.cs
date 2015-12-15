@@ -128,8 +128,8 @@ public class MonsterCollection : MonoBehaviour
 	}
     */
 
-	public void outsideSave(string path){
-		List<BuildingController> Buildings = BaseController.turrets;
+	public static void outsideSave(string path){
+		List<GameObject> Buildings = BaseController.turrets;
 		for (int i = 0; i < Buildings.Count; i++){
 			turretList.list[i] = new Turret(Buildings[i].GetComponent<BuildingController>());
 		}
