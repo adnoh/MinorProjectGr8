@@ -7,30 +7,44 @@ public class GameStateController : MonoBehaviour
 
     WorldBuilder worldbuilder;
     Grid grid;
+    EnemySpawner enemyspawner;
+
+
+    public GameObject player;
+    public bool newgame;
 
 
     void Awake()
     {
         grid = GetComponentInChildren<Grid>();
         worldbuilder = GetComponentInChildren<WorldBuilder>();
+        enemyspawner = GetComponent<EnemySpawner>();
+
     }
+
+
+    /*  1. Generate map
+    2. Load base
+    3. Generate pathfinding grid (only after map is finished)        
+    4. Load player
+    5. Load enemies
+    6. Load minimap
+ */
+
 
     void Start()
     {
         GenerateMap();
         initializePathfindingGrid();
+        LoadBase();
+        LoadPlayer();
+        //LoadEnemies();
+        LoadMiniMap();
     }
 
 
     //  
 
-    /*  1. Generate map
-        2. Load base
-        3. Generate pathfinding grid (only after map is finished)        
-        4. Load player
-        5. Load enemies
-        6. Load minimap
-     */
 
 
     void GenerateMap()
@@ -45,15 +59,39 @@ public class GameStateController : MonoBehaviour
 
     void LoadBase()
     {
-
+        if (newgame)
+        {
+            
+        }
     }
 
     void LoadPlayer()
     {
+        if (newgame)
+        {
+            
+        }
+        else
+        {
+
+        }
 
     }
 
-    void Enemies()
+    void LoadEnemies()
+    { 
+        if (newgame)
+        {
+            enemyspawner.FirstLoad();
+        }
+        else
+        {
+            MonsterCollection.MonsterLoad("assets/saves/monsters.xml");
+        }
+
+    }
+
+    void LoadMiniMap()
     {
 
     }
