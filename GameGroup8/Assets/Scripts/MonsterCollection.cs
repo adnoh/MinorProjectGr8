@@ -52,7 +52,7 @@ public class Player
 
 public class MonsterCollection : MonoBehaviour
 {
-	public MonsterList monsterlist = new MonsterList();
+	public static MonsterList monsterlist = new MonsterList();
 
 	//[XmlArray("monstersList"),XmlArrayItem("monstersList")]
 	//public Monster[] monstersList = new Monster[2];
@@ -66,7 +66,7 @@ public class MonsterCollection : MonoBehaviour
 
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
 
-			playerSave ("Assets/saves/Player.xml");
+			//playerSave ("Assets/saves/Player.xml");
 		}
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -78,7 +78,7 @@ public class MonsterCollection : MonoBehaviour
     }	
 
     // Save & Load 
-	public void Save(string path)
+	public static void MonsterSave(string path)
 	{
 		var serializer = new XmlSerializer(typeof(MonsterList));
 		using(var stream = new FileStream(path, FileMode.Create))
@@ -99,7 +99,7 @@ public class MonsterCollection : MonoBehaviour
 	}
     */
 	
-	public static MonsterList Load(string path)
+	public static MonsterList MonsterLoad(string path)
 	{
 		var serializer = new XmlSerializer(typeof(MonsterList));
 		using(var stream = new FileStream(path, FileMode.Open))
