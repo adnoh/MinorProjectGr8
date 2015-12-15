@@ -53,16 +53,17 @@ public class BaseController : MonoBehaviour{
     }
 	
     void Update(){
-
+        
 		if (Input.GetButtonDown("Jump") && Vector3.Distance(Gate.transform.position, GameObject.Find ("player").transform.position) < 3){
 			PlayerAttributes.resetFatique();
 			pause = !pause;
 			if (pause){
 				playerPos = GameObject.Find("player").transform.position;
-				transform.position = new Vector3(0, -0.501f, -11.3f);
+                Vector3 TempPlayerPos = GameObject.FindGameObjectWithTag("BASE").transform.position - new Vector3(0,1f,5.31f);
+				GameObject.Find("player").transform.position = TempPlayerPos;
 			} 
 			else {
-				transform.position = playerPos;
+                GameObject.Find("player").transform.position = playerPos;
 				buildMenu.SetActive(false);
 				GameObject.Find ("player").GetComponent<PlayerAttacker>().weaponUnlockScreen.SetActive(false);
 				ReturnColour();

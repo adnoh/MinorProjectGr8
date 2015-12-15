@@ -7,10 +7,11 @@ public class TDMapII {
     int[][] tiles;
     int[][] forrests;
     int[] villages;
+    int[] BasePos;
     int size_x;
     int size_y;
 
-    int baseSize = 5;
+    int baseSize = 12;
     int nrForr = 10;
 
     public TDMapII(int height, int width)
@@ -27,7 +28,7 @@ public class TDMapII {
         forrests = new int[nrForr][];
 
         MakeLand();
-        int[] BasePos = PlaceBase();
+        BasePos = PlaceBase();
         MakeWater();
         
         villages = PlaceVillage(BasePos);
@@ -63,6 +64,11 @@ public class TDMapII {
         return villages;
     }
 
+    public int[] getBasePosition()
+    {
+        return BasePos;
+    }
+
     void MakeLand()
     {
         for (int y = 0; y < size_y; y++)
@@ -95,7 +101,7 @@ public class TDMapII {
         {
             for (int x = 0; x < baseSize; x++)
             {
-                tiles[y + y_pos][x + x_pos] = 4;
+                tiles[y + y_pos - 6][x + x_pos - 6] = 6;
             }
         }
 

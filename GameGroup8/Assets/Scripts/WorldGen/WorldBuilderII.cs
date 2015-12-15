@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class WorldBuilderII : MonoBehaviour {
@@ -19,10 +18,11 @@ public class WorldBuilderII : MonoBehaviour {
     private List<Vector3> TreePos = new List<Vector3>();
     private List<Vector3[]> HouseInfo = new List<Vector3[]>();
     private List<Vector3> HousePos = new List<Vector3>(2);
+    private Vector3 BasePos;
     private float offset = 0.5f;
 
     // Initialization on play
-    void Start()
+    public void FirstLoad()
     {
         TDMapII map = new TDMapII(map_x, map_z);
 
@@ -31,6 +31,12 @@ public class WorldBuilderII : MonoBehaviour {
         Debug.Log("texture build");
         ApplyAssets(map);
         Debug.Log("assets placed");
+    }
+
+    public void SecondLoad()
+    {
+        BuildTexture();
+        ReplaceAssets();
     }
 
     Color[][] LoadTexture()
@@ -78,9 +84,12 @@ public class WorldBuilderII : MonoBehaviour {
 
     public void ApplyAssets(TDMapII map)
     {
+        int[] base_map = map.getBasePosition();
+        BasePos = new Vector3(150 - base_map[1], 0, 150 - base_map[0]);
+        PlaceBase();
+
         int[] Village = map.getVillages();
         int[][] Forrests = map.getForrests();
-
 
         int x_pos = Village[0];
         int y_pos = Village[1];
@@ -199,6 +208,12 @@ public class WorldBuilderII : MonoBehaviour {
         {
             Instantiate(Tree, Pos, Quaternion.identity);
         }
+    }
+
+    private void PlaceBase()
+    {
+        GameObject Base = GameObject.FindGameObjectWithTag("BASE");
+        Base.transform.position = BasePos;
     }
 
     bool CheckIfPlacableTile(int x, int z, TDMapII map)

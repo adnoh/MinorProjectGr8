@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour {
         if (!BaseEnter){
             transform.position = player.transform.position + offset;
         } else if (BaseEnter){
-            transform.position = new Vector3(0, 20, -9);
+            transform.position = GameObject.FindGameObjectWithTag("BASE").transform.position + new Vector3(0, 20, -7);
         }
 	}
 }

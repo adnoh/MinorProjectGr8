@@ -177,7 +177,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2103898050}
-  - {fileID: 1741906239}
   - {fileID: 1097894061}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -1198,9 +1197,10 @@ GameObject:
   - 33: {fileID: 241132789}
   - 64: {fileID: 241132788}
   - 23: {fileID: 241132787}
+  - 114: {fileID: 241132791}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1215,7 +1215,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: fff31fb45942c874783bc821d9f9076e, type: 2}
+  - {fileID: 2100000, guid: 216480271c978f947bf0c112cf4dabc9, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -1256,10 +1256,26 @@ Transform:
   m_GameObject: {fileID: 241132786}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 30, y: 1, z: 30}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!114 &241132791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 241132786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f063f01e76636eb43a5f84f713006d32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  World_texture: {fileID: 2800000, guid: 238667b276b405f4e8475d9fecceb7eb, type: 3}
+  Tree: {fileID: 147258, guid: 5bd6e7db15c9819439c8ea211dff03ba, type: 2}
+  nrTrees: 350
+  House: {fileID: 179942, guid: b4955279ef2bfe34289f1b66ebe9321e, type: 2}
+  nrHouses: 100
 --- !u!1 &246893744
 GameObject:
   m_ObjectHideFlags: 0
@@ -1608,7 +1624,7 @@ GameObject:
   - 4: {fileID: 323993197}
   m_Layer: 8
   m_Name: Base
-  m_TagString: Untagged
+  m_TagString: BASE
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4483,7 +4499,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5347432}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!1 &1109302212
 GameObject:
   m_ObjectHideFlags: 0
@@ -8260,52 +8276,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1724320744}
---- !u!1 &1741906238
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1741906239}
-  - 114: {fileID: 1741906240}
-  m_Layer: 0
-  m_Name: WorldBuilder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1741906239
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1741906238}
-  m_LocalRotation: {x: -.642787695, y: 0, z: 0, w: .766044378}
-  m_LocalPosition: {x: -1.91999996, y: -2.20338273, z: 9.84698486}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5347432}
-  m_RootOrder: 1
---- !u!114 &1741906240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1741906238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c56d357d108261140b763e7335ec27ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LvlSize: 30
-  nrHouses: 200
-  nrVillages: 3
-  nrTrees: 500
-  House: {fileID: 179942, guid: b4955279ef2bfe34289f1b66ebe9321e, type: 2}
-  Tree: {fileID: 147258, guid: 5bd6e7db15c9819439c8ea211dff03ba, type: 2}
-  Wall: {fileID: 108342, guid: 0f6c5ace820899649b0307ae430031d8, type: 2}
 --- !u!1 &1765057822
 GameObject:
   m_ObjectHideFlags: 0
@@ -9915,7 +9885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8a30fe476738043931cbf2dcb83875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayGridCubes: 1
+  displayGridCubes: 0
   WallMask:
     serializedVersion: 2
     m_Bits: 256

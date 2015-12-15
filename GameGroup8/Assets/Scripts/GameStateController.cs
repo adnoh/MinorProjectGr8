@@ -3,11 +3,9 @@ using System.Collections;
 
 public class GameStateController : MonoBehaviour
 {
-
-
-    WorldBuilder worldbuilder;
     Grid grid;
     EnemySpawner enemyspawner;
+    WorldBuilderII worldBuilder;
 
 
     public GameObject player;
@@ -17,7 +15,7 @@ public class GameStateController : MonoBehaviour
     void Awake()
     {
         grid = GetComponentInChildren<Grid>();
-        worldbuilder = GetComponentInChildren<WorldBuilder>();
+        worldBuilder = GameObject.FindGameObjectWithTag("Ground").GetComponent<WorldBuilderII>();
         enemyspawner = GetComponent<EnemySpawner>();
     }
 
@@ -33,6 +31,7 @@ public class GameStateController : MonoBehaviour
 
     void Start()
     {
+        Debug.Log(worldBuilder);
         GenerateMap();
         initializePathfindingGrid();
         // LoadBase();
@@ -47,11 +46,11 @@ public class GameStateController : MonoBehaviour
 
         if (newgame)
         {
-            worldbuilder.StartWorldBuilder();
+            worldBuilder.FirstLoad();
         }
         else
         {
-            worldbuilder.StartWorldBuilder();
+            worldBuilder.FirstLoad();
         }
 
 

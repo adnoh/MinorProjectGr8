@@ -19,6 +19,8 @@ TagManager:
   - GearShackPlane
   - Turret
   - Bullet
+  - Ground
+  - BASE
   layers:
   - Default
   - TransparentFX
