@@ -287,5 +287,105 @@ public class BaseController : MonoBehaviour{
 			buildMenu.SetActive (true);
 		}
 	}
+
+	public void buildFromSave(){
+
+		var Temp = MonsterCollection.turretLoad("Assets/saves/turrets.xml");
+		var TurretList = Temp.getTurretList();
+
+		for(int i = 0; i < TurretList.Length; i++){
+			switch(TurretList[i].name)
+			{
+				case "Rock-paper-scissor turret":
+				{
+					GameObject basicTurretClone = (GameObject)Instantiate(basicTurret, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					basicTurretClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
+					basicTurretClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
+					turrets.Add(basicTurretClone);
+					break;
+				}
+				case "Snailgun":
+				{
+					GameObject snailGunClone = (GameObject)Instantiate(snailGun, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					snailGunClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
+					snailGunClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
+					turrets.Add(snailGunClone);
+					break;
+				}
+				case "Harpgoon":
+				{
+					GameObject harpgoonClone = (GameObject)Instantiate(harpgoon, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					harpgoonClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
+					harpgoonClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
+					turrets.Add(harpgoonClone);
+					break;
+				}
+				case "Cat-a-pult":
+				{
+					GameObject catapultClone = (GameObject)Instantiate(catapult, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					catapultClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
+					catapultClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
+					turrets.Add(catapultClone);
+					break;
+				}
+				case "Bed":
+				{
+					GameObject bedClone = (GameObject)Instantiate(bed, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					bedClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
+					bedClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
+					turrets.Add(bedClone);
+					break;
+				}
+				case "EnergyBed":
+				{
+					GameObject energyBedClone = (GameObject)Instantiate(energyBed, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					energyBedClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
+					energyBedClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
+					turrets.Add(energyBedClone);
+					break;
+				}
+				case "HealthBed":
+				{
+					GameObject healthBedClone = (GameObject)Instantiate(healthBed, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					healthBedClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
+					healthBedClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
+					turrets.Add(healthBedClone);
+					break;
+				}
+				case "Gearshack":
+				{
+					GameObject gearshackClone = (GameObject)Instantiate(gearShack, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					gearshackClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
+					gearshackClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
+					turrets.Add(gearshackClone);
+					break;
+				}
+				case "Generator":
+				{
+					GameObject generatorClone = (GameObject)Instantiate(generator, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					generatorClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
+					generatorClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
+					turrets.Add(generatorClone);
+					break;
+				}
+				case "GunSmith":
+				{
+					GameObject gunSmithClone = (GameObject)Instantiate(weaponSmith, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					gunSmithClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
+					gunSmithClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
+					turrets.Add(gunSmithClone);
+					break;
+				}
+				case "TechSmith":
+				{
+					GameObject techSmithClone = (GameObject)Instantiate(gadgetSmith, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					techSmithClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
+					techSmithClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
+					turrets.Add(techSmithClone);
+					break;
+				}
+			}
+		}
+	}
 }
 
