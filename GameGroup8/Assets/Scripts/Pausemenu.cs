@@ -6,7 +6,7 @@ public class Pausemenu : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Escape)){
             MonsterCollection.MonsterSave("Assets/saves/monsters.xml");
-			MonsterCollection.turretSave("Assets/saves/turrets.xml");
+            MonsterCollection.turretSave("Assets/saves/turrets.xml");
 			MonsterCollection.outsideSave("Assets/saves/outside.xml");
             MiniMapScript.clearEnemies();
             loadpause();
@@ -20,6 +20,10 @@ public class Pausemenu : MonoBehaviour {
 	public void loadoutside(){
 		Application.LoadLevel(1);
         MonsterCollection.MonsterLoad("Assets/saves/monsters.xml");
-	}
+        MonsterCollection.turretLoad("Assets/saves/turrets.xml");
+        MonsterCollection.outsideLoad();
+
+
+    }
 
 }

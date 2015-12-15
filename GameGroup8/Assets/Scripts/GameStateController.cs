@@ -19,14 +19,13 @@ public class GameStateController : MonoBehaviour
         grid = GetComponentInChildren<Grid>();
         worldbuilder = GetComponentInChildren<WorldBuilder>();
         enemyspawner = GetComponent<EnemySpawner>();
-
     }
 
 
     /*  1. Generate map
     2. Load base
     3. Generate pathfinding grid (only after map is finished)        
-    4. Load player
+    4. Load playerposition
     5. Load enemies
     6. Load minimap
  */
@@ -38,12 +37,8 @@ public class GameStateController : MonoBehaviour
         initializePathfindingGrid();
         LoadBase();
         LoadPlayer();
-        //LoadEnemies();
-        LoadMiniMap();
-    }
-
-
-    //  
+        LoadEnemies();
+   }  
 
 
 
@@ -73,7 +68,7 @@ public class GameStateController : MonoBehaviour
         }
         else
         {
-
+           
         }
 
     }
@@ -84,9 +79,11 @@ public class GameStateController : MonoBehaviour
         {
             enemyspawner.FirstLoad();
         }
+
         else
         {
             MonsterCollection.MonsterLoad("assets/saves/monsters.xml");
+            MonsterCollection.outsideLoad();            
         }
 
     }
