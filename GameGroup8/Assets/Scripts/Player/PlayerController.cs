@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour {
 
 
 
-	void Start () {
+	public void FirstLoad() {
 		count = 0;
 		countText.text = "Amount of units: " + count;
 		playerHealthBar.value = PlayerAttributes.getHealth ();

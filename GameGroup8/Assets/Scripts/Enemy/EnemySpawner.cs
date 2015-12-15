@@ -33,7 +33,7 @@ public class EnemySpawner : MonoBehaviour {
 	private float sigma = 1f;
 
 
-	void Start () {
+	public void FirstLoad () {
 		wave = 1;
 		waveText.text = "Current wave: 1";
 		enemiesToDefeat = 0;
