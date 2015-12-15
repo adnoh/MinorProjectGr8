@@ -21,7 +21,7 @@ public class TDMapII {
         tiles = new int[size_y][];
         for (int i = 0; i < size_y; i++)
         {
-            tiles[i] = new int[width];
+            tiles[i] = new int[size_x];
         }
 
         forrests = new int[nrForr][];
@@ -29,22 +29,18 @@ public class TDMapII {
         MakeLand();
         int[] BasePos = PlaceBase();
         MakeWater();
-        for (int i = 0; i < nrForr; i++)
-        {
-            MakeForrests(i);
-        }
-
+        
         villages = PlaceVillage(BasePos);
 
         List<Vector2> connections = ConnectCityGrid(villages[0], villages[1]);
         ConnectRoadGrid(villages[0], villages[1], connections[0], connections[1]);
 
         BroadenRoads(7);
-    }
-    
-    public TDMapII(int[][] map)
-    {
-        tiles = map;
+
+        for (int i = 0; i < nrForr; i++)
+        {
+            MakeForrests(i, villages);
+        }
     }
 
     public int getTile(int x, int y)
@@ -181,13 +177,36 @@ public class TDMapII {
         }
     }
 
-    void MakeForrests(int i)
+    void MakeForrests(int i, int[] BasePos)
     {
-        int x_pos = Random.Range(25,275);
-        int y_pos = Random.Range(25,275);
-
+        int x_pos = 0;
+        int y_pos = 0;
         int max = Random.Range(12, 25);
         int min = -1 * max;
+        Vector2 VillagePos = new Vector2(BasePos[0], BasePos[1]);
+
+        int misses = 10;
+        bool correct = false;
+        while (!correct)
+        {
+            if (misses <= 0)
+                break;
+
+            x_pos = Random.Range(25, 275);
+            y_pos = Random.Range(25, 275);
+            Vector2 ForrestPos = new Vector2(x_pos, y_pos);
+            
+            if (Vector2.Distance(VillagePos,ForrestPos) > 60)
+            {
+                forrests[i] = new int[4] { x_pos, y_pos, min, max };
+                correct = true;
+            }
+            else
+            {
+                misses--;
+            }
+        }
+
         /*
         for (int y = min; y < max; y++)
         {
@@ -198,7 +217,6 @@ public class TDMapII {
             }
         }
         */
-        forrests[i] = new int[4] { x_pos,y_pos,min,max };
     }
 
     int[] PlaceVillage(int [] BasePos)
