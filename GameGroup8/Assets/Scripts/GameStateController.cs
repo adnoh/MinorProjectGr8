@@ -94,6 +94,7 @@ public class GameStateController : MonoBehaviour
         else
         {
             MonsterCollection.MonsterLoad("assets/saves/monsters.xml");
+            enemyspawner.savewave();
                       
         }
 

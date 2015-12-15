@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <Outsidesave xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <wave>2</wave>
-  <timeTillNextWave>46.1023254</timeTillNextWave>
+  <wave>1</wave>
+  <timeTillNextWave>10</timeTillNextWave>
   <enemiesDefeaten>0</enemiesDefeaten>
-  <enemiesToDefeat>2</enemiesToDefeat>
-  <totalEnemiesSpawned>2</totalEnemiesSpawned>
+  <enemiesToDefeat>0</enemiesToDefeat>
+  <totalEnemiesSpawned>0</totalEnemiesSpawned>
   <tagOfMat1>emptyPlane</tagOfMat1>
   <tagOfMat2>emptyPlane</tagOfMat2>
   <tagOfMat3>emptyPlane</tagOfMat3>
