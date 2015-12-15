@@ -45,10 +45,10 @@ public class BuildingController : MonoBehaviour {
 				enemys.Remove (enemys[i]);
 			}
 		}
-		if (enemys [0].GetComponent<EnemyController> ().destroyed) {
+		if (enemys.Count > 0 && (enemys[0] != null || enemys [0].GetComponent<EnemyController> ().destroyed)) {
 			enemys.Remove(enemys[0]);
 		}
-        if (enemys.Count > 0 && building.returnIfTurret() && !enemys[0].GetComponent<EnemyController>().destroyed){
+        if (enemys.Count > 0 && building.returnIfTurret() && enemys[0] != null && !enemys[0].GetComponent<EnemyController>().destroyed){
             enemyPosition = enemys[0].transform.position;
             enemyPosition.y = 0;
             transform.LookAt(enemyPosition);

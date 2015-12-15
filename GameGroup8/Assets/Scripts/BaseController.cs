@@ -42,14 +42,11 @@ public class BaseController : MonoBehaviour{
 
 	private Vector3 playerPos;
 
-
-	
     void Start(){
         lastHitObject = null;
         pause = false;
         turrets = new List<GameObject>(4);
 		building = false;
-
     }
 	
     void Update(){
@@ -135,6 +132,9 @@ public class BaseController : MonoBehaviour{
 
 	void Build1st(){
 		string buildingToBuild = buildingText1.text;
+		BuildingFactory buildingFactory = new BuildingFactory ();
+		Building building = buildingFactory.getBuilding (buildingToBuild);
+		//if(PlayerController.getCount() >= building.getCost()){
 		if (buildingToBuild.Equals ("Rock-Paper-Scissor turret")) {
 			Vector3 place = lastHitObject.transform.position;
 			GameObject newObject = (GameObject)Instantiate(basicTurret, place, Quaternion.identity);
@@ -167,10 +167,14 @@ public class BaseController : MonoBehaviour{
 			turrets.Add(newObject);
 			lastHitObject.tag = "occupiedPlane";
 		}
+		//}
 	}
 
 	void Build2nd(){
 		string buildingToBuild = buildingText2.text;
+		BuildingFactory buildingFactory = new BuildingFactory ();
+		Building building = buildingFactory.getBuilding (buildingToBuild);
+		//if(PlayerController.getCount() >= building.getCost()){
 		if (buildingToBuild.Equals ("Gearshack")) {
 			Vector3 place = lastHitObject.transform.position;
 			GameObject newObject = (GameObject)Instantiate(gearShack, place, Quaternion.identity);
@@ -203,10 +207,14 @@ public class BaseController : MonoBehaviour{
 			turrets.Add(newObject);
 			lastHitObject.tag = "occupiedPlane";
 		}
+		//}
 	}
 
 	void Build3rd(){
 		string buildingToBuild = buildingText3.text;
+		BuildingFactory buildingFactory = new BuildingFactory ();
+		Building building = buildingFactory.getBuilding (buildingToBuild);
+		//if(PlayerController.getCount() >= building.getCost()){
 		if (buildingToBuild.Equals ("Bed")) {
 			Vector3 place = lastHitObject.transform.position;
 			GameObject newObject = (GameObject)Instantiate(bed, place, Quaternion.identity);
@@ -231,6 +239,7 @@ public class BaseController : MonoBehaviour{
 			turrets.Add(newObject);
 			lastHitObject.tag = "occupiedPlane";
 		}
+		//}
 	}
 
 	void setBuildMenu(){
