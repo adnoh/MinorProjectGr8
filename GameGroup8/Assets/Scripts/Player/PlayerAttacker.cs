@@ -111,7 +111,7 @@ public class PlayerAttacker : MonoBehaviour {
 				nextAttack = Time.time + currentWeapon.getAttackSpeed();
 				int damage = (int)(Random.Range (currentWeapon.getWeaponDamage(), currentWeapon.getWeaponDamage() + 10) * currentWeapon.getType ().damageMultiplierToType(lastAttackedEnemy.getType()) * PlayerAttributes.getAttackMultiplier());
 				lastAttackedEnemy.setHealth(lastAttackedEnemy.getHealth () - damage);
-				lastAttackedEnemy.gameObject.transform.Translate(new Vector3((this.gameObject.transform.position.x - lastAttackedEnemy.gameObject.transform.position.x) * currentWeapon.getKnockBack(), 0, (this.gameObject.transform.position.z - lastAttackedEnemy.gameObject.transform.position.z) * currentWeapon.getKnockBack())); 
+				//lastAttackedEnemy.gameObject.transform.Translate(new Vector3((this.gameObject.transform.position.x - lastAttackedEnemy.gameObject.transform.position.x) * currentWeapon.getKnockBack(), 0, (this.gameObject.transform.position.z - lastAttackedEnemy.gameObject.transform.position.z) * currentWeapon.getKnockBack())); 
 				if(lastAttackedEnemy.getHealth () <= 0){
 					PSpawner spawner = Camera.main.GetComponent<PSpawner>();
 					spawner.placeUnit(lastAttackedEnemy.gameObject.transform.position);
@@ -283,8 +283,10 @@ public class PlayerAttacker : MonoBehaviour {
 	}
 
 	public void unlockInt(int i){
+		//if(PlayerController.getCount() >= 5){
 		unlocked [i - 1] = true;
 		setTextOfLockUnlock ();
+		//}
 	}
 
 	public void setTextOfLockUnlock(){

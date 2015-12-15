@@ -127,13 +127,13 @@ public class MonsterCollection : MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
 
 			playerSave ("Assets/saves/Player.xml");
-            MonsterSave("Assets/saves/Monster");
+            MonsterSave("Assets/saves/monsters.xml");
 		}
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-			playerLoad();
-            // EnemySpawner enemySpawner = Camera.main.GetComponent<EnemySpawner>();
+			//playerLoad();
+            //EnemySpawner enemySpawner = Camera.main.GetComponent<EnemySpawner>();
             // enemySpawner.savewave();
         }
 
@@ -147,14 +147,30 @@ public class MonsterCollection : MonoBehaviour
     // Save & Load 
 	public static void MonsterSave(string path)
 	{
-		var serializer = new XmlSerializer(typeof(MonsterList));
+
+        List<EnemyController> Monsters = MiniMapScript.enemies;
+        for (int i = 0; i < Monsters.Count; i++)
+        {
+            monsterlist.list[i] = new Monster(Monsters[i]);
+        }
+
+        var serializer = new XmlSerializer(typeof(MonsterList));
 		using(var stream = new FileStream(path, FileMode.Create))
 		{
 			serializer.Serialize(stream, monsterlist);
 		}
 	}
 
-	 public static void playerSave(string path)
+    public static MonsterList MonsterLoad(string path)
+    {
+        var serializer = new XmlSerializer(typeof(MonsterList));
+        using (var stream = new FileStream(path, FileMode.Open))
+        {
+            return serializer.Deserialize(stream) as MonsterList;
+        }
+    }
+
+    public static void playerSave(string path)
 	{
 		var player =  new Player();
 
@@ -163,8 +179,7 @@ public class MonsterCollection : MonoBehaviour
 		{
 			serializer.Serialize(stream, player);
 		}
-	}
-    
+	}    
 
 	public static void turretSave(string path){
 		List<GameObject> Buildings = BaseController.turrets;
@@ -188,13 +203,7 @@ public class MonsterCollection : MonoBehaviour
 		}
 	}
 	
-	public static MonsterList MonsterLoad(string path){
-		var serializer = new XmlSerializer(typeof(MonsterList));
-		using(var stream = new FileStream(path, FileMode.Open))
-		{
-			return serializer.Deserialize(stream) as MonsterList;
-		}
-	}
+
 
 	public static TurretList turretLoad(string path){
 		var serializer = new XmlSerializer(typeof(TurretList));
@@ -234,6 +243,7 @@ public class MonsterCollection : MonoBehaviour
 		}
 		
 	}
+
 	public static void playerLoad(){
 		
 		var player = playerpreLoad ("Assets/saves/Player.xml");
@@ -241,7 +251,7 @@ public class MonsterCollection : MonoBehaviour
 		GameObject tempplayer = GameObject.FindWithTag("Player");
 		Vector3 templocation;
 		templocation.x = player.getPosx();
-		templocation.y = player.getPosy();
+        templocation.y = 0.0f;
 		templocation.z = player.getPosz();
 		Quaternion temprotation;
 		temprotation.x = player.getRotx();
@@ -252,7 +262,5 @@ public class MonsterCollection : MonoBehaviour
 
         tempplayer.transform.position = templocation;
         tempplayer.transform.rotation = temprotation;
-        
-		
-	}
+    }
 }
