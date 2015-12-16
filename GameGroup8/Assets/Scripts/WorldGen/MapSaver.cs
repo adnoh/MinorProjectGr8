@@ -18,6 +18,8 @@ public class MapSaver {
     [XmlArray("Tilemaplist"), XmlArrayItem("Tilemap")]
     public int[][] Tilemap;
 
+    public int nr_cHouses;
+
     public MapSaver()
     {
         //Because of things
@@ -57,6 +59,7 @@ public class MapSaver {
             HousePosition[i] = new float[3] { pos_x, pos_y, pos_z };
             HouseRotation[i] = new float[3] { rot_x, rot_y, rot_z };
         }
+        nr_cHouses = WorldBuilder.get_nrHotels();
 
         Tilemap = WorldBuilder.getMap();
     }
@@ -86,5 +89,6 @@ public class MapSaver {
         WorldBuilder.setHouses(HouseInformation);
         WorldBuilder.setTrees(TreePositions);
         WorldBuilder.setMap(Tilemap);
+        WorldBuilder.set_nrHotels(nr_cHouses);
     }
 }

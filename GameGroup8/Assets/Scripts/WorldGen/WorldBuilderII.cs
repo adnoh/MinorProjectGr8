@@ -23,6 +23,8 @@ public class WorldBuilderII : MonoBehaviour {
     private Vector3 BasePos;
     private float offset = 0.5f;
 
+    private int nrHotels;
+
     // Initialization on play
     public void FirstLoad()
     {
@@ -122,7 +124,7 @@ public class WorldBuilderII : MonoBehaviour {
             }
         }
 
-        int nrHotels = HousePos.Count;
+        nrHotels = HousePos.Count;
 
         float misses = 30;
         while (HousePos.Count <= nrHouses)
@@ -218,10 +220,19 @@ public class WorldBuilderII : MonoBehaviour {
 
     public void ReplaceAssets()
     {
-        foreach (Vector3[] Info in HouseInfo)
+        for (int i = 0; i < nrHotels; i++)
         {
-            Vector3 Pos = Info[0];
-            Vector3 Rot = Info[1];
+            Vector3 Pos = HouseInfo[i][0];
+            Vector3 Rot = HouseInfo[i][1];
+
+            GameObject huisje = (GameObject)Instantiate(C_Building, Pos, Quaternion.identity);
+            huisje.transform.Rotate(Rot);
+        }
+
+        for (int i = nrHotels; i < HouseInfo.Count; i++)
+        {
+            Vector3 Pos = HouseInfo[i][0];
+            Vector3 Rot = HouseInfo[i][1];
 
             GameObject huisje = (GameObject)Instantiate(House, Pos, Quaternion.identity);
             huisje.transform.Rotate(Rot);
@@ -334,6 +345,16 @@ public class WorldBuilderII : MonoBehaviour {
     public void setHouses(List<Vector3[]> HouseInfo)
     {
         this.HouseInfo = HouseInfo;
+    }
+
+    public int get_nrHotels()
+    {
+        return nrHotels;
+    }
+
+    public void set_nrHotels(int nr)
+    {
+        nrHotels = nr;
     }
 
     public int[][] getMap()

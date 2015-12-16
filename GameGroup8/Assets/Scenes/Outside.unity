@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1464330714}
-  newgame: 1
+  newgame: 0
 --- !u!114 &5347436
 MonoBehaviour:
   m_ObjectHideFlags: 0
