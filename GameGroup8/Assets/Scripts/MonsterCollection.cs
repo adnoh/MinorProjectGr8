@@ -334,7 +334,6 @@ public class MonsterCollection : MonoBehaviour
 
 	public static void outsideLoad(string path){
 		var outside = outsidepreLoad (path);
-        Debug.Log(outside.enemiesToDefeat);
 
 		Camera.main.GetComponent<EnemySpawner>().wave = outside.wave;
 		Camera.main.GetComponent<EnemySpawner>().timeTillNextWave = outside.timeTillNextWave + Time.time;
@@ -348,4 +347,32 @@ public class MonsterCollection : MonoBehaviour
 		PlayerController.setCount (-outside.unitCount);
 	}
 	
+    public static void MapSave(string path)
+    {
+        WorldBuilderII world = GameObject.FindGameObjectWithTag("Ground").GetComponent<WorldBuilderII>();
+        MapSaver map_save = new MapSaver(world);
+
+        var serializer = new XmlSerializer(typeof(MapSaver));
+        using (var stream = new FileStream(path, FileMode.Create))
+        {
+            serializer.Serialize(stream, map_save);
+        }
+    }
+
+    public static MapSaver mapPre_load(string path)
+    {
+        var serializer = new XmlSerializer(typeof(MapSaver));
+        using (var stream = new FileStream(path, FileMode.Open))
+        {
+            return serializer.Deserialize(stream) as MapSaver;
+        }
+    }
+
+    public static void mapLoad(string path)
+    {
+        var map_load = mapPre_load(path);
+        WorldBuilderII world = GameObject.FindGameObjectWithTag("Ground").GetComponent<WorldBuilderII>();
+       
+        map_load.MapLoader(world);
+    }
 }

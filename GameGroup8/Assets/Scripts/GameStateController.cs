@@ -28,7 +28,8 @@ public class GameStateController : MonoBehaviour
             MonsterCollection.turretSave("Assets/saves/turrets.xml");
             MonsterCollection.BaseSave("Assets/saves/base.xml");
 
-
+            // Save World (if you want to save the world, go aghead, be a hero)
+            MonsterCollection.MapSave("Assets/saves/world.xml");
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -48,7 +49,9 @@ public class GameStateController : MonoBehaviour
             MonsterCollection.turretLoad("Assets/saves/turrets.xml");           
             
             // Map loading
-
+            MonsterCollection.mapLoad("Assets/saves/world.xml");
+            worldBuilder.ReplaceAssets();
+            worldBuilder.BuildTexture();
 
 
         }
@@ -98,7 +101,10 @@ public class GameStateController : MonoBehaviour
         }
         else
         {
-            worldBuilder.FirstLoad();
+            // Map loading
+            MonsterCollection.mapLoad("Assets/saves/world.xml");
+
+            worldBuilder.SecondLoad();
         }
 
 

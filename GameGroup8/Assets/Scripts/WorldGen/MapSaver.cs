@@ -6,17 +6,22 @@ using System.Xml.Serialization;
 
 public class MapSaver {
 
-    [XmlArray("list"), XmlArrayItem("list")]
+    [XmlArray("treelist"), XmlArrayItem("treeposition")]
     public float[][] TreeList;
 
-    [XmlArray("list"), XmlArrayItem("list")]
+    [XmlArray("HouseRotationlist"), XmlArrayItem("HouseRotation")]
     public float[][] HouseRotation;
 
-    [XmlArray("list"), XmlArrayItem("list")]
+    [XmlArray("HousePositionlist"), XmlArrayItem("HousePosition")]
     public float[][] HousePosition;
 
-    [XmlArray("list"), XmlArrayItem("list")]
+    [XmlArray("Tilemaplist"), XmlArrayItem("Tilemap")]
     public int[][] Tilemap;
+
+    public MapSaver()
+    {
+        //Because of things
+    }
 
     public MapSaver(WorldBuilderII WorldBuilder)
     {
