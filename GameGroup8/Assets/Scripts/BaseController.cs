@@ -42,7 +42,7 @@ public class BaseController : MonoBehaviour{
 
 	private Vector3 playerPos;
 
-    void Start(){
+    void Awake(){
         lastHitObject = null;
         pause = false;
         turrets = new List<GameObject>(4);

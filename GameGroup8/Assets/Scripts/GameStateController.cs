@@ -12,20 +12,68 @@ public class GameStateController : MonoBehaviour
     public bool newgame;
 
 
+    void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            // Save player position
+            MonsterCollection.playerSave("Assets/saves/Player.xml");
+
+            // Save enemies
+            MonsterCollection.MonsterSave("Assets/saves/monsters.xml");
+
+            // Save outside variables + base
+            MonsterCollection.outsideSave("Assets/saves/outside.xml");
+            MonsterCollection.turretSave("Assets/saves/turrets.xml");
+            MonsterCollection.BaseSave("Assets/saves/base.xml");
+
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            // Load player position
+            MonsterCollection.playerLoad();
+
+            // Load enemies including enemies health
+            EnemySpawner enemySpawner = Camera.main.GetComponent<EnemySpawner>();
+            enemySpawner.savewave();
+
+
+            // Base loading
+            MonsterCollection.BaseLoad("Assets/saves/base.xml");
+            GameObject.Find("Gate").GetComponent<BaseController>().buildFromSave();
+            MonsterCollection.outsideLoad("Assets/saves/outside.xml");
+            MonsterCollection.turretLoad("Assets/saves/turrets.xml");           
+            
+            // Map loading
+
+
+
+        }
+
+    }
+
+
+
     void Awake()
     {
         grid = GetComponentInChildren<Grid>();
         worldBuilder = GameObject.FindGameObjectWithTag("Ground").GetComponent<WorldBuilderII>();
-        enemyspawner = GetComponent<EnemySpawner>();
+        enemyspawner = Camera.main.GetComponent<EnemySpawner>();
     }
+
+
+
+
 
 
     /*  1. Generate map
     2. Load base
     3. Generate pathfinding grid (only after map is finished)        
     4. Load playerposition
-    5. Load enemies
-    6. Load minimap
+    5. Load enemies    
  */
 
 
@@ -34,7 +82,7 @@ public class GameStateController : MonoBehaviour
         Debug.Log(worldBuilder);
         GenerateMap();
         initializePathfindingGrid();
-        // LoadBase();
+        LoadBase();        
         LoadPlayer();
         LoadEnemies();
    }  
@@ -68,6 +116,14 @@ public class GameStateController : MonoBehaviour
         {
             
         }
+        else
+        {   // load base  + turrets
+            MonsterCollection.BaseLoad("Assets/saves/base.xml");
+            GameObject.Find("Gate").GetComponent<BaseController>().buildFromSave();
+            MonsterCollection.outsideLoad("Assets/saves/outside.xml");
+            MonsterCollection.turretLoad("Assets/saves/turrets.xml");
+            
+        }
     }
 
     void LoadPlayer()
@@ -78,6 +134,7 @@ public class GameStateController : MonoBehaviour
         }
         else
         {
+            // Load player position
             MonsterCollection.playerLoad();
         }
 
@@ -90,18 +147,14 @@ public class GameStateController : MonoBehaviour
             enemyspawner.FirstLoad();
         }
 
+
         else
         {
+            // Load enemies
             MonsterCollection.MonsterLoad("assets/saves/monsters.xml");
             enemyspawner.savewave();
-                      
+               
         }
 
     }
-
-    void LoadMiniMap()
-    {
-
-    }
-
 }

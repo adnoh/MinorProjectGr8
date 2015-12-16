@@ -31,6 +31,33 @@ public class TurretList{
 	}
 }
 
+public class BaseSave
+{
+    public float posx;
+    public float posy;
+    public float posz;
+    public float rotx;
+    public float roty;
+    public float rotz;
+    public float rotw;
+            
+    public BaseSave()
+    {
+        var position = GameObject.FindGameObjectWithTag("BASE").GetComponent<Transform>().position;
+        var rotation = GameObject.FindGameObjectWithTag("BASE").GetComponent<Transform>().rotation;
+
+        posx = position.x;
+        posy = 0.0f;
+        posz = position.z;
+
+        rotx = rotation.x;
+        roty = rotation.y;
+        rotz = rotation.z;
+        rotw = rotation.w;
+    }
+}
+
+
 public class Outsidesave{
 	
 	public int wave;
@@ -62,6 +89,7 @@ public class Outsidesave{
 	
 }
 
+
 public class Player
 {
 	public float posx;
@@ -78,7 +106,7 @@ public class Player
 		var rotation = PlayerController.getRotation ();
 		
 		posx = position.x;
-		posy = position.y;
+		posy = 0.0f;
 		posz = position.z;
 		
 		rotx = rotation.x;
@@ -121,7 +149,7 @@ public class MonsterCollection : MonoBehaviour
 	//[XmlArray("monstersList"),XmlArrayItem("monstersList")]
 	//public Monster[] monstersList = new Monster[2];
 
-
+     /*
 	 void Update(){
 
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
@@ -132,9 +160,15 @@ public class MonsterCollection : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-			//playerLoad();
-            //EnemySpawner enemySpawner = Camera.main.GetComponent<EnemySpawner>();
-            // enemySpawner.savewave();
+            // Load player position
+            playerLoad();
+
+            // Load enemies including enemies health
+            EnemySpawner enemySpawner = Camera.main.GetComponent<EnemySpawner>();
+            enemySpawner.savewave();
+
+            // 
+
         }
 
 		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
@@ -142,7 +176,9 @@ public class MonsterCollection : MonoBehaviour
 			outsideLoad();
 		}
 
-    }	
+    }
+    */
+    	
 
     // Save & Load 
 	public static void MonsterSave(string path)
@@ -170,6 +206,50 @@ public class MonsterCollection : MonoBehaviour
         }
     }
 
+    public static void BaseSave(string path)
+    {
+        var basesave = new BaseSave();
+
+        var serializer = new XmlSerializer(typeof(BaseSave));
+        using (var stream = new FileStream(path, FileMode.Create))
+        {
+            serializer.Serialize(stream, basesave);
+        }
+    }
+
+    public static BaseSave BasePreLoad(string path)
+    {
+        var serializer = new XmlSerializer(typeof(BaseSave));
+        using (var stream = new FileStream(path, FileMode.Open))
+        {
+            return serializer.Deserialize(stream) as BaseSave;
+        }
+    }
+
+    public static void BaseLoad(string path)
+    {
+
+        var base_ = BasePreLoad(path);
+
+        GameObject tempBase = GameObject.FindWithTag("BASE");
+        Vector3 templocation;
+        templocation.x = base_.posx;
+        templocation.y = 0.0f;
+        templocation.z = base_.posz;
+        Quaternion temprotation;
+        temprotation.x = base_.rotx;
+        temprotation.y = base_.roty;
+        temprotation.w = base_.rotw;
+        temprotation.z = base_.rotz;
+
+
+        tempBase.transform.position = templocation;
+        tempBase.transform.rotation = temprotation;
+    }
+
+
+
+
     public static void playerSave(string path)
 	{
 		var player =  new Player();
@@ -179,9 +259,40 @@ public class MonsterCollection : MonoBehaviour
 		{
 			serializer.Serialize(stream, player);
 		}
-	}    
+	}
 
-	public static void turretSave(string path){
+    public static Player playerpreLoad(string path)
+    {
+        var serializer = new XmlSerializer(typeof(Player));
+        using (var stream = new FileStream(path, FileMode.Open))
+        {
+            return serializer.Deserialize(stream) as Player;
+        }
+
+    }
+
+    public static void playerLoad()
+    {
+
+        var player = playerpreLoad("Assets/saves/Player.xml");
+
+        GameObject tempplayer = GameObject.FindWithTag("Player");
+        Vector3 templocation;
+        templocation.x = player.getPosx();
+        templocation.y = 0.0f;
+        templocation.z = player.getPosz();
+        Quaternion temprotation;
+        temprotation.x = player.getRotx();
+        temprotation.y = player.getRoty();
+        temprotation.w = player.getRotw();
+        temprotation.z = player.getRotz();
+
+
+        tempplayer.transform.position = templocation;
+        tempplayer.transform.rotation = temprotation;
+    }
+
+    public static void turretSave(string path){
 		List<GameObject> Buildings = BaseController.turrets;
 		for (int i = 0; i < Buildings.Count; i++){
 			turretList.list[i] = new Turret(Buildings[i].GetComponent<BuildingController>());
@@ -221,12 +332,13 @@ public class MonsterCollection : MonoBehaviour
 		}
 	}
 
-	public static void outsideLoad(){
-		var outside = outsidepreLoad ("Assets/saves/outside.xml");
+	public static void outsideLoad(string path){
+		var outside = outsidepreLoad (path);
+        Debug.Log(outside.enemiesToDefeat);
 
-		Camera.main.GetComponent<EnemySpawner> ().wave = outside.wave;
-		Camera.main.GetComponent<EnemySpawner> ().timeTillNextWave = outside.timeTillNextWave + Time.time;
-		Camera.main.GetComponent<EnemySpawner> ().enemiesToDefeat = outside.enemiesToDefeat;
+		Camera.main.GetComponent<EnemySpawner>().wave = outside.wave;
+		Camera.main.GetComponent<EnemySpawner>().timeTillNextWave = outside.timeTillNextWave + Time.time;
+		Camera.main.GetComponent<EnemySpawner>().enemiesToDefeat = outside.enemiesToDefeat;
 		EnemySpawner.enemiesDefeaten = outside.enemiesDefeaten;
 		EnemySpawner.totalEnemiesSpawned = outside.totalEnemiesSpawned;
 		GameObject.Find ("PlacementPlane").tag = outside.tagOfMat1;
@@ -235,32 +347,5 @@ public class MonsterCollection : MonoBehaviour
 		GameObject.Find ("PlacementPlane (3)").tag = outside.tagOfMat4;
 		PlayerController.setCount (-outside.unitCount);
 	}
-	public static Player playerpreLoad(string path){
-		var serializer = new XmlSerializer(typeof(Player));
-		using(var stream = new FileStream(path, FileMode.Open))
-		{
-			return serializer.Deserialize(stream) as Player;
-		}
-		
-	}
-
-	public static void playerLoad(){
-		
-		var player = playerpreLoad ("Assets/saves/Player.xml");
-		
-		GameObject tempplayer = GameObject.FindWithTag("Player");
-		Vector3 templocation;
-		templocation.x = player.getPosx();
-        templocation.y = 0.0f;
-		templocation.z = player.getPosz();
-		Quaternion temprotation;
-		temprotation.x = player.getRotx();
-		temprotation.y = player.getRoty();
-		temprotation.w = player.getRotw();
-		temprotation.z = player.getRotz();
-
-
-        tempplayer.transform.position = templocation;
-        tempplayer.transform.rotation = temprotation;
-    }
+	
 }
