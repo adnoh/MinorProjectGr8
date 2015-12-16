@@ -12,8 +12,10 @@ public class WorldBuilderII : MonoBehaviour {
 
     public GameObject Tree;
     public int nrTrees;
+    public GameObject C_Building;
     public GameObject House;
     public int nrHouses;
+    public GameObject Wall;
 
     private List<Vector3> TreePos = new List<Vector3>();
     private List<Vector3[]> HouseInfo = new List<Vector3[]>();
@@ -107,12 +109,12 @@ public class WorldBuilderII : MonoBehaviour {
                 int x = y_pos - 35 + 10 * i;
                 int z = x_pos - 35 + 10 * j;
 
-                Vector3 Pos = new Vector3(150 - x + offset, 0.8f, 150 - z + offset);
+                Vector3 Pos = new Vector3(150 - x + offset, 5f, 150 - z + offset);
 
                 if (HousePossible(z, x, map, 3) && ObjPossible(HousePos, Pos, 5))
                 {
-                    Vector3 Rot = new Vector3(90, Random.Range(0, 2) * 90, 0);
-                    GameObject huisje = (GameObject)Instantiate(House, Pos, Quaternion.identity);
+                    Vector3 Rot = new Vector3(-90, Random.Range(0, 2) * -90, 0);
+                    GameObject huisje = (GameObject)Instantiate(C_Building, Pos, Quaternion.identity);
                     huisje.transform.Rotate(Rot);
                     HousePos.Add(Pos);
                     HouseInfo.Add(new Vector3[2] { Pos, Rot });
@@ -120,7 +122,9 @@ public class WorldBuilderII : MonoBehaviour {
             }
         }
 
-        float misses = 15;
+        int nrHotels = HousePos.Count;
+
+        float misses = 30;
         while (HousePos.Count <= nrHouses)
         {
             if (misses <= 0)
@@ -131,7 +135,7 @@ public class WorldBuilderII : MonoBehaviour {
 
             Vector3 Pos = new Vector3(150 - x + offset, 0.8f, 150 - z + offset);
 
-            if (HousePossible(z, x, map, 6) && ObjPossible(HousePos, Pos, 30))
+            if (HousePossible(z, x, map, 7) && ObjPossible(HousePos, Pos, 30))
             {
                 Vector3 Rot = new Vector3(90, Random.Range(0, 360), 0);
                 GameObject huisje = (GameObject)Instantiate(House, Pos, Quaternion.identity);
@@ -145,8 +149,7 @@ public class WorldBuilderII : MonoBehaviour {
             }
 
         }
-        //Debug.Log("misses left(house): " + misses);
-
+        //Debug.Log("misses left(house): " + misses + "\n nr houses: " + HousePos.Count);
 
         foreach (int[] forrest in Forrests)
         {
@@ -155,8 +158,12 @@ public class WorldBuilderII : MonoBehaviour {
             int minF = forrest[2];
             int maxF = forrest[3];
 
+            misses = 10;
             for (int i = 0; i < maxF*2; i++)
             {
+                if (misses <= 0)
+                    break;
+
                 int x = Random.Range(minF, maxF) + y_posF;
                 int z = Random.Range(minF, maxF) + x_posF;
 
@@ -166,6 +173,10 @@ public class WorldBuilderII : MonoBehaviour {
                 {
                     Instantiate(Tree, Pos, Quaternion.identity);
                     TreePos.Add(Pos);
+                }
+                else
+                {
+                    misses--;
                 }
             }
         }
@@ -190,6 +201,18 @@ public class WorldBuilderII : MonoBehaviour {
             {
                 misses--;
             }
+        }
+
+
+        for (int i = nrHotels; i < HousePos.Count; i++)
+        {
+            Vector3 Pos = HousePos[i];
+
+            int x = (int)(150 - Pos.z - offset);
+            int z = (int)(150 - Pos.x - offset);
+
+            if (HousePossible(z, x, map, 15) && ObjPossible(TreePos, Pos, 10))
+                placeWalls(Pos);
         }
     }
 
@@ -322,32 +345,19 @@ public class WorldBuilderII : MonoBehaviour {
     {
         TileMap = map;
     }
-
-    /*
-    void placeWalls(Vector3 place, int j)
+    
+    void placeWalls(Vector3 place)
     {
-        bool walls = true;
-        for (int i = 0; i < HousePos.Count; i++)
-        {
-            if ((i != j) && (Vector3.Distance(place, HousePos[i]) < 30))
-            {
-                walls = false;
-            }
-        }
-        if (walls)
-        {
-            GameObject NorthWall = (GameObject)Instantiate(Wall, place + new Vector3(5, 0.5f, -1.5f), Quaternion.identity);
-            GameObject EastWall = (GameObject)Instantiate(Wall, place + new Vector3(-2.5f, 0.5f, 5), Quaternion.identity);
-            GameObject SouthWall = (GameObject)Instantiate(Wall, place + new Vector3(-10, 0.5f, -2.5f), Quaternion.identity);
-            GameObject WestWall = (GameObject)Instantiate(Wall, place + new Vector3(0, 0.5f, -10), Quaternion.identity);
-            NorthWall.transform.Rotate(new Vector3(0, 90, 0));
-            NorthWall.transform.localScale = new Vector3(13, 1, 0.5f);
-            EastWall.transform.Rotate(new Vector3(0, 0, 0));
-            EastWall.transform.localScale = new Vector3(15, 1, 0.5f);
-            SouthWall.transform.Rotate(new Vector3(0, 90, 0));
-            SouthWall.transform.localScale = new Vector3(15, 1, 0.5f);
-            WestWall.transform.Rotate(new Vector3(0, 0, 0));
-
-        }
-    }*/
+        GameObject NorthWall = (GameObject)Instantiate(Wall, place + new Vector3(5, 0.5f, -1.5f), Quaternion.identity);
+        GameObject EastWall = (GameObject)Instantiate(Wall, place + new Vector3(-2.5f, 0.5f, 5), Quaternion.identity);
+        GameObject SouthWall = (GameObject)Instantiate(Wall, place + new Vector3(-10, 0.5f, -2.5f), Quaternion.identity);
+        GameObject WestWall = (GameObject)Instantiate(Wall, place + new Vector3(0, 0.5f, -10), Quaternion.identity);
+        NorthWall.transform.Rotate(new Vector3(0, 90, 0));
+        NorthWall.transform.localScale = new Vector3(13, 1, 0.5f);
+        EastWall.transform.Rotate(new Vector3(0, 0, 0));
+        EastWall.transform.localScale = new Vector3(15, 1, 0.5f);
+        SouthWall.transform.Rotate(new Vector3(0, 90, 0));
+        SouthWall.transform.localScale = new Vector3(15, 1, 0.5f);
+        WestWall.transform.Rotate(new Vector3(0, 0, 0));
+    }
 }

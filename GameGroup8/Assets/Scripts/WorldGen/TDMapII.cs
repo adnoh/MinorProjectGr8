@@ -191,7 +191,7 @@ public class TDMapII {
         int min = -1 * max;
         Vector2 VillagePos = new Vector2(BasePos[0], BasePos[1]);
 
-        int misses = 10;
+        int misses = 20;
         bool correct = false;
         while (!correct)
         {

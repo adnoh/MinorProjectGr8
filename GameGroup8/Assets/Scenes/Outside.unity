@@ -174,11 +174,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 5347427}
   m_LocalRotation: {x: .642787695, y: 0, z: 0, w: .766044378}
-  m_LocalPosition: {x: 1.91999996, y: 10.0799999, z: .460000008}
+  m_LocalPosition: {x: 0, y: 13, z: 1.79999995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2103898050}
   - {fileID: 1097894061}
+  - {fileID: 2103898050}
   m_Father: {fileID: 0}
   m_RootOrder: 1
 --- !u!114 &5347433
@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1464330714}
-  newgame: 0
+  newgame: 1
 --- !u!114 &5347436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1365,9 +1365,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   World_texture: {fileID: 2800000, guid: 238667b276b405f4e8475d9fecceb7eb, type: 3}
   Tree: {fileID: 147258, guid: 5bd6e7db15c9819439c8ea211dff03ba, type: 2}
-  nrTrees: 350
+  nrTrees: 450
+  C_Building: {fileID: 157494, guid: 40cd2daa8b61d144c9b89a515d2e7c57, type: 2}
   House: {fileID: 179942, guid: b4955279ef2bfe34289f1b66ebe9321e, type: 2}
   nrHouses: 100
+  Wall: {fileID: 108342, guid: 0f6c5ace820899649b0307ae430031d8, type: 2}
 --- !u!1 &246893744
 GameObject:
   m_ObjectHideFlags: 0
@@ -4920,7 +4922,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5347432}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!1 &1109302212
 GameObject:
   m_ObjectHideFlags: 0
@@ -10658,11 +10660,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2103898046}
   m_LocalRotation: {x: -.642787695, y: 0, z: 0, w: .766044378}
-  m_LocalPosition: {x: -1.91999996, y: -2.20338297, z: 9.84698582}
+  m_LocalPosition: {x: 0, y: -4.03007698, z: 12.4899349}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5347432}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!1 &2125675043
 GameObject:
   m_ObjectHideFlags: 0
