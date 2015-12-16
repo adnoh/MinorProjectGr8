@@ -120,9 +120,9 @@ public class PlayerController : MonoBehaviour {
 	void FixedUpdate (){
 		float moveHorizontal = Input.GetAxis("Horizontal") * Time.deltaTime;
 		float moveVertical = Input.GetAxis ("Vertical") * Time.deltaTime;
-		
+        
 		transform.Translate(PlayerAttributes.getSpeed() * moveHorizontal, 0.0f, PlayerAttributes.getSpeed() * moveVertical, Space.World);
-
+        
 		Vector3 playerPos = player.transform.position;
 		setPosition (playerPos);
 
@@ -185,5 +185,7 @@ public class PlayerController : MonoBehaviour {
 	public void playAgain(){
 		death = false;
 		PlayerAttributes.setHealth (PlayerAttributes.getMaxHealth ());
+        deathScreen.SetActive(false);
+        transform.position = new Vector3(0, 0.1f, 5);
 	}
 }

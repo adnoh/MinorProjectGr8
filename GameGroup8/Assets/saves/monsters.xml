@@ -1,19 +1,89 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <MonsterCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <list>
-    <list level="2" health="200" maxHealth="200" attackPower="15" walkingSpeed="1" location="21.9005089" rotation="0.247492641" isPosioned_x003F_="false" isStunned_x003F_="false" type="Water">
-      <location_y>7.00821038E-05</location_y>
-      <location_z>-24.7297726</location_z>
-      <rotation_x>-0.0001191048</rotation_x>
-      <rotation_y>0.968889654</rotation_y>
-      <rotation_z>0.000466274068</rotation_z>
-    </list>
-    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="41.0210762" rotation="0.1097167" isPosioned_x003F_="false" isStunned_x003F_="false" type="Wind">
+    <list level="2" health="200" maxHealth="200" attackPower="15" walkingSpeed="1" location="22" rotation="0.992455959" isPosioned_x003F_="false" isStunned_x003F_="false" type="Earth">
       <location_y>-1.90734863E-06</location_y>
-      <location_z>-9.594202</location_z>
-      <rotation_x>-4.828684E-05</rotation_x>
-      <rotation_y>0.9939628</rotation_y>
-      <rotation_z>0.00043744783</rotation_z>
+      <location_z>-5.199997</location_z>
+      <rotation_x>-0.00167122914</rotation_x>
+      <rotation_y>0.122590169</rotation_y>
+      <rotation_z>0.000206433615</rotation_z>
+    </list>
+    <list level="2" health="200" maxHealth="200" attackPower="15" walkingSpeed="1" location="22" rotation="0.992455959" isPosioned_x003F_="false" isStunned_x003F_="false" type="Earth">
+      <location_y>-1.90734863E-06</location_y>
+      <location_z>-5.199997</location_z>
+      <rotation_x>-0.00167122914</rotation_x>
+      <rotation_y>0.122590169</rotation_y>
+      <rotation_z>0.000206433615</rotation_z>
+    </list>
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="22" rotation="0.992455959" isPosioned_x003F_="false" isStunned_x003F_="false" type="Wind">
+      <location_y>-1.90734863E-06</location_y>
+      <location_z>-5.199997</location_z>
+      <rotation_x>-0.00167122914</rotation_x>
+      <rotation_y>0.122590169</rotation_y>
+      <rotation_z>0.000206433615</rotation_z>
+    </list>
+    <list level="1" health="87" maxHealth="100" attackPower="10" walkingSpeed="2" location="22" rotation="0.992455959" isPosioned_x003F_="false" isStunned_x003F_="false" type="Water">
+      <location_y>-1.90734863E-06</location_y>
+      <location_z>-5.199997</location_z>
+      <rotation_x>-0.00167122914</rotation_x>
+      <rotation_y>0.122590169</rotation_y>
+      <rotation_z>0.000206433615</rotation_z>
+    </list>
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="22" rotation="0.992455959" isPosioned_x003F_="false" isStunned_x003F_="false" type="Water">
+      <location_y>-1.90734863E-06</location_y>
+      <location_z>-5.199997</location_z>
+      <rotation_x>-0.00167122914</rotation_x>
+      <rotation_y>0.122590169</rotation_y>
+      <rotation_z>0.000206433615</rotation_z>
+    </list>
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="22" rotation="0.992455959" isPosioned_x003F_="false" isStunned_x003F_="false" type="Wind">
+      <location_y>-1.90734863E-06</location_y>
+      <location_z>-5.199997</location_z>
+      <rotation_x>-0.00167122914</rotation_x>
+      <rotation_y>0.122590169</rotation_y>
+      <rotation_z>0.000206433615</rotation_z>
+    </list>
+    <list level="2" health="200" maxHealth="200" attackPower="15" walkingSpeed="1" location="22" rotation="0.992455959" isPosioned_x003F_="false" isStunned_x003F_="false" type="Earth">
+      <location_y>-1.90734863E-06</location_y>
+      <location_z>-5.199997</location_z>
+      <rotation_x>-0.00167122914</rotation_x>
+      <rotation_y>0.122590169</rotation_y>
+      <rotation_z>0.000206433615</rotation_z>
+    </list>
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="22" rotation="0.992455959" isPosioned_x003F_="false" isStunned_x003F_="false" type="Water">
+      <location_y>-1.90734863E-06</location_y>
+      <location_z>-5.199997</location_z>
+      <rotation_x>-0.00167122914</rotation_x>
+      <rotation_y>0.122590169</rotation_y>
+      <rotation_z>0.000206433615</rotation_z>
+    </list>
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="21.3622971" rotation="0.9882638" isPosioned_x003F_="false" isStunned_x003F_="false" type="Wind">
+      <location_y>0.00026272246</location_y>
+      <location_z>-5.42042971</location_z>
+      <rotation_x>-0.00158084044</rotation_x>
+      <rotation_y>0.152748525</rotation_y>
+      <rotation_z>0.000244338647</rotation_z>
+    </list>
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="12.5364771" rotation="0.9725146" isPosioned_x003F_="false" isStunned_x003F_="false" type="Water">
+      <location_y>-1.90734863E-06</location_y>
+      <location_z>-19.4635239</location_z>
+      <rotation_x>-0.000567375741</rotation_x>
+      <rotation_y>0.232841134</rotation_y>
+      <rotation_z>0.000135842085</rotation_z>
+    </list>
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="-10" rotation="0.6455299" isPosioned_x003F_="false" isStunned_x003F_="false" type="Wind">
+      <location_y>-1.90734863E-06</location_y>
+      <location_z>9.199997</location_z>
+      <rotation_x>-0.000279078464</rotation_x>
+      <rotation_y>0.763734937</rotation_y>
+      <rotation_z>0.0003301814</rotation_z>
+    </list>
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="-3.37612486" rotation="0.880408049" isPosioned_x003F_="false" isStunned_x003F_="false" type="Wind">
+      <location_y>-1.90734863E-06</location_y>
+      <location_z>-14.7200508</location_z>
+      <rotation_x>-0.000399849843</rotation_x>
+      <rotation_y>0.474216759</rotation_y>
+      <rotation_z>0.0002153723</rotation_z>
     </list>
   </list>
 </MonsterCollection>
