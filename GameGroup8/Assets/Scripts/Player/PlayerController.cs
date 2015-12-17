@@ -32,7 +32,10 @@ public class PlayerController : MonoBehaviour {
 	private float timeToFlash = 0.0f;
 	public Text upgradeText;
 
-
+	public int amountOfDeaths;
+	public bool death = false;
+	public GameObject deathScreen;
+	public Text textOnDeathScreen;
 
 	public void FirstLoad() {
 		count = 0;
@@ -96,15 +99,30 @@ public class PlayerController : MonoBehaviour {
 				upgradeText.color = Color.white;
 		}
 		PlayerAttributes.getTired ();
+
+		if (PlayerAttributes.getHealth() <= 0) {
+			death = true;
+			PlayerAttributes.setHealth(1);
+			deathScreen.SetActive(true);
+			amountOfDeaths ++;
+			textOnDeathScreen.text = "You've died " + amountOfDeaths + "time(s) so far /n Do you want to play again?";
+		}
+
+		if (death) {
+			Time.timeScale = 0;
+		}
+		if (!death) {
+			Time.timeScale = 1;
+		}
 	}
 
 
 	void FixedUpdate (){
 		float moveHorizontal = Input.GetAxis("Horizontal") * Time.deltaTime;
 		float moveVertical = Input.GetAxis ("Vertical") * Time.deltaTime;
-		
+        
 		transform.Translate(PlayerAttributes.getSpeed() * moveHorizontal, 0.0f, PlayerAttributes.getSpeed() * moveVertical, Space.World);
-
+        
 		Vector3 playerPos = player.transform.position;
 		setPosition (playerPos);
 
@@ -162,5 +180,12 @@ public class PlayerController : MonoBehaviour {
 		energyBar.maxValue = PlayerAttributes.getMaxEnergy ();
 		energyBar.value = PlayerAttributes.getEnergy();
 		fatiqueBar.value = PlayerAttributes.getFatique ();
+	}
+
+	public void playAgain(){
+		death = false;
+		PlayerAttributes.setHealth (PlayerAttributes.getMaxHealth ());
+        deathScreen.SetActive(false);
+        transform.position = new Vector3(0, 0.1f, 5);
 	}
 }

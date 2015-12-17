@@ -42,27 +42,25 @@ public class BaseController : MonoBehaviour{
 
 	private Vector3 playerPos;
 
-
-	
-    void Start(){
+    void Awake(){
         lastHitObject = null;
         pause = false;
         turrets = new List<GameObject>(4);
 		building = false;
-
     }
 	
     void Update(){
-
+        
 		if (Input.GetButtonDown("Jump") && Vector3.Distance(Gate.transform.position, GameObject.Find ("player").transform.position) < 3){
 			PlayerAttributes.resetFatique();
 			pause = !pause;
 			if (pause){
 				playerPos = GameObject.Find("player").transform.position;
-				transform.position = new Vector3(0, -0.501f, -11.3f);
+                Vector3 TempPlayerPos = GameObject.FindGameObjectWithTag("BASE").transform.position - new Vector3(0,1f,5.31f);
+				GameObject.Find("player").transform.position = TempPlayerPos;
 			} 
 			else {
-				transform.position = playerPos;
+                GameObject.Find("player").transform.position = playerPos;
 				buildMenu.SetActive(false);
 				GameObject.Find ("player").GetComponent<PlayerAttacker>().weaponUnlockScreen.SetActive(false);
 				ReturnColour();
@@ -135,6 +133,9 @@ public class BaseController : MonoBehaviour{
 
 	void Build1st(){
 		string buildingToBuild = buildingText1.text;
+		BuildingFactory buildingFactory = new BuildingFactory ();
+		Building building = buildingFactory.getBuilding (buildingToBuild);
+		//if(PlayerController.getCount() >= building.getCost()){
 		if (buildingToBuild.Equals ("Rock-Paper-Scissor turret")) {
 			Vector3 place = lastHitObject.transform.position;
 			GameObject newObject = (GameObject)Instantiate(basicTurret, place, Quaternion.identity);
@@ -167,10 +168,14 @@ public class BaseController : MonoBehaviour{
 			turrets.Add(newObject);
 			lastHitObject.tag = "occupiedPlane";
 		}
+		//}
 	}
 
 	void Build2nd(){
 		string buildingToBuild = buildingText2.text;
+		BuildingFactory buildingFactory = new BuildingFactory ();
+		Building building = buildingFactory.getBuilding (buildingToBuild);
+		//if(PlayerController.getCount() >= building.getCost()){
 		if (buildingToBuild.Equals ("Gearshack")) {
 			Vector3 place = lastHitObject.transform.position;
 			GameObject newObject = (GameObject)Instantiate(gearShack, place, Quaternion.identity);
@@ -203,10 +208,14 @@ public class BaseController : MonoBehaviour{
 			turrets.Add(newObject);
 			lastHitObject.tag = "occupiedPlane";
 		}
+		//}
 	}
 
 	void Build3rd(){
 		string buildingToBuild = buildingText3.text;
+		BuildingFactory buildingFactory = new BuildingFactory ();
+		Building building = buildingFactory.getBuilding (buildingToBuild);
+		//if(PlayerController.getCount() >= building.getCost()){
 		if (buildingToBuild.Equals ("Bed")) {
 			Vector3 place = lastHitObject.transform.position;
 			GameObject newObject = (GameObject)Instantiate(bed, place, Quaternion.identity);
@@ -231,6 +240,7 @@ public class BaseController : MonoBehaviour{
 			turrets.Add(newObject);
 			lastHitObject.tag = "occupiedPlane";
 		}
+		//}
 	}
 
 	void setBuildMenu(){
