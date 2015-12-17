@@ -9048,6 +9048,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44ad78710663866479ed784f8abea4a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  can1: {fileID: 1998412831}
+  can2: {fileID: 756687631}
+  can3: {fileID: 1823984040}
+  can4: {fileID: 1227919549}
+  can5: {fileID: 679424874}
+  wait: .449999988
 --- !u!1 &1689924085
 GameObject:
   m_ObjectHideFlags: 0
