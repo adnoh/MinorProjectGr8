@@ -9,7 +9,13 @@ public class GameStateController : MonoBehaviour
 
 
     public GameObject player;
-    public bool newgame;
+    public static bool newgame;
+
+
+    public static void setNewgame(bool _newgame)
+    {
+        newgame = _newgame;
+    }  
 
 
     void Update()
@@ -28,7 +34,7 @@ public class GameStateController : MonoBehaviour
             MonsterCollection.turretSave("Assets/saves/turrets.xml");
             MonsterCollection.BaseSave("Assets/saves/base.xml");
 
-            // Save World (if you want to save the world, go aghead, be a hero)
+            // Save World (if you want to save the world, go ahead, be a hero)
             MonsterCollection.MapSave("Assets/saves/world.xml");
         }
 

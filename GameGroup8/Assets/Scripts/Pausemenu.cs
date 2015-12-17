@@ -2,15 +2,25 @@
 using System.Collections;
 
 public class Pausemenu : MonoBehaviour {
-	
-	void Update () {
+
+    void Update () {
 		if (Input.GetKeyDown(KeyCode.Escape)){
+            // Save player position
+            MonsterCollection.playerSave("Assets/saves/Player.xml");
+
+            // Save enemies
             MonsterCollection.MonsterSave("Assets/saves/monsters.xml");
-            MonsterCollection.turretSave("Assets/saves/turrets.xml");
+
+            // Save outside variables + base
             MonsterCollection.outsideSave("Assets/saves/outside.xml");
-			MonsterCollection.playerSave("Assets/saves/Player.xml");
+            MonsterCollection.turretSave("Assets/saves/turrets.xml");
+            MonsterCollection.BaseSave("Assets/saves/base.xml");
+
+            // Save World (if you want to save the world, go ahead, be a hero)
+            MonsterCollection.MapSave("Assets/saves/world.xml");
+
             MiniMapScript.clearEnemies();
-            // GameStateController.newgame = false;
+            
             loadpause();
         }
 	}
