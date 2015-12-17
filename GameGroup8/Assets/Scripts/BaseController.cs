@@ -77,7 +77,7 @@ public class BaseController : MonoBehaviour{
 		{
 			Time.timeScale = 0;
 		} 
-		else {
+		if(!pause) {
 			Time.timeScale = 1;
 		}
 

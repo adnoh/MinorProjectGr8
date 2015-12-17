@@ -110,6 +110,7 @@ public class PlayerController : MonoBehaviour {
 		PlayerAttributes.getTired ();
 
 		if (PlayerAttributes.getHealth() <= 0) {
+			playerAnimator.SetBool("dieing", true);
 			death = true;
 			PlayerAttributes.setHealth(1);
 			deathScreen.SetActive(true);
@@ -197,9 +198,11 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void playAgain(){
+		playerAnimator.SetBool("dieing", false);
 		death = false;
 		PlayerAttributes.setHealth (PlayerAttributes.getMaxHealth ());
         deathScreen.SetActive(false);
         transform.position = new Vector3(0, 0.1f, 5);
+		PlayerAttacker.currentWeapon = new WeaponFactory ().getPistol ();
 	}
 }

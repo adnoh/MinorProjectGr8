@@ -271,9 +271,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d70e14b82d34404282e79ec8c7ce3ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windEnemy: {fileID: 130350, guid: b896aa2e2c85baf48a058307d9970c60, type: 2}
-  waterEnemy: {fileID: 137808, guid: b896aa2e2c85baf48a058307d9970c60, type: 2}
-  earthEnemy: {fileID: 131942, guid: b896aa2e2c85baf48a058307d9970c60, type: 2}
+  windEnemy: {fileID: 143330, guid: b896aa2e2c85baf48a058307d9970c60, type: 2}
+  waterEnemy: {fileID: 136582, guid: b896aa2e2c85baf48a058307d9970c60, type: 2}
+  earthEnemy: {fileID: 147852, guid: b896aa2e2c85baf48a058307d9970c60, type: 2}
   wave: 1
   enemiesToDefeat: 0
   waveText: {fileID: 430383703}
@@ -2312,6 +2312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e20cd55721839b4490ead0062170b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  intensity: 0
 --- !u!1 &502209694 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 108342, guid: 0f6c5ace820899649b0307ae430031d8, type: 2}
