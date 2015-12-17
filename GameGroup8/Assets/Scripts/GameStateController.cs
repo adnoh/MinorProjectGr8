@@ -88,7 +88,6 @@ public class GameStateController : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(worldBuilder);
         GenerateMap();
         initializePathfindingGrid();
         LoadBase();        
@@ -126,7 +125,7 @@ public class GameStateController : MonoBehaviour
     {
         if (newgame)
         {
-            
+            LoadBase_mMap();
         }
         else
         {   // load base  + turrets
@@ -134,8 +133,16 @@ public class GameStateController : MonoBehaviour
             GameObject.Find("Gate").GetComponent<BaseController>().buildFromSave();
             MonsterCollection.outsideLoad("Assets/saves/outside.xml");
             MonsterCollection.turretLoad("Assets/saves/turrets.xml");
-            
+
+            LoadBase_mMap();
         }
+    }
+
+    // Place base in the minimap
+    void LoadBase_mMap()
+    {
+        MiniMapScript mMap = Camera.main.GetComponent<MiniMapScript>();
+        mMap.ShowBase_Mmap();
     }
 
     void LoadPlayer()

@@ -7,6 +7,7 @@ public class MiniMapScript : MonoBehaviour {
 
 	public Text playerDot;
 	public Text enemyDot;
+    public Text baseDot;
 	public GameObject miniMap;
 
 	public static List<EnemyController> enemies = new List<EnemyController> ();
@@ -48,4 +49,14 @@ public class MiniMapScript : MonoBehaviour {
         enemies.Clear();
     }
 
+    public void ShowBase_Mmap()
+    {
+        Vector3 basePos = GameObject.FindGameObjectWithTag("BASE").transform.position;
+        float xBase = 0.5f * basePos.x;
+        float yBase = 0.5f * basePos.z;
+        Vector3 baseDot_pos = new Vector3(xBase, yBase, 0f);
+        
+        baseDot.GetComponent<RectTransform>().anchoredPosition = baseDot_pos;
+    }
+        
 }
