@@ -9,7 +9,13 @@ public class GameStateController : MonoBehaviour
 
 
     public GameObject player;
-    public bool newgame;
+    public static bool newgame;
+
+
+    public static void setNewgame(bool _newgame)
+    {
+        newgame = _newgame;
+    }  
 
 
     void Update()
@@ -28,7 +34,7 @@ public class GameStateController : MonoBehaviour
             MonsterCollection.turretSave("Assets/saves/turrets.xml");
             MonsterCollection.BaseSave("Assets/saves/base.xml");
 
-            // Save World (if you want to save the world, go aghead, be a hero)
+            // Save World (if you want to save the world, go ahead, be a hero)
             MonsterCollection.MapSave("Assets/saves/world.xml");
         }
 
@@ -82,7 +88,6 @@ public class GameStateController : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(worldBuilder);
         GenerateMap();
         initializePathfindingGrid();
         LoadBase();        
@@ -120,7 +125,7 @@ public class GameStateController : MonoBehaviour
     {
         if (newgame)
         {
-            
+            LoadBase_mMap();
         }
         else
         {   // load base  + turrets
@@ -128,8 +133,16 @@ public class GameStateController : MonoBehaviour
             GameObject.Find("Gate").GetComponent<BaseController>().buildFromSave();
             MonsterCollection.outsideLoad("Assets/saves/outside.xml");
             MonsterCollection.turretLoad("Assets/saves/turrets.xml");
-            
+
+            LoadBase_mMap();
         }
+    }
+
+    // Place base in the minimap
+    void LoadBase_mMap()
+    {
+        MiniMapScript mMap = Camera.main.GetComponent<MiniMapScript>();
+        mMap.ShowBase_Mmap();
     }
 
     void LoadPlayer()
