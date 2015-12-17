@@ -41,6 +41,12 @@ public class BaseController : MonoBehaviour{
 	public Text upgradeBuild3;
 
 	private Vector3 playerPos;
+    
+    private int First_Building = 5;
+    private int Second_Building = 10;
+    private int Third_Buidling = 15;
+    private int Fourth_Building = 20;
+
 
     void Awake(){
         lastHitObject = null;
@@ -85,7 +91,7 @@ public class BaseController : MonoBehaviour{
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 		
-			if (Physics.Raycast (ray, out hit, 1000, 512) && !hit.collider.gameObject.CompareTag ("occupiedPlane") && pause) {
+			if (Physics.Raycast (ray, out hit, 1000, 512) /*&& !hit.collider.gameObject.CompareTag ("occupiedPlane")*/ && pause) {
 				if (lastHitObject) {
 					lastHitObject.GetComponent<Renderer> ().material = originalMat;
 				}
@@ -106,6 +112,10 @@ public class BaseController : MonoBehaviour{
 		if (lastHitObject != null && Input.GetKeyDown (KeyCode.Alpha3)) {
 			Build3rd();
 		}
+        if (lastHitObject != null && Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            RemoveBuilding();
+        }
     }
 
     void ReturnColour(){
@@ -116,7 +126,7 @@ public class BaseController : MonoBehaviour{
     }
 
 	void Delete(){
-		float temp = 10;
+		float temp = 3;
 		int placeOfObject = 0;
 		GameObject other = null;
 		for (int i = 0; i < turrets.Count; i++) {
@@ -131,117 +141,153 @@ public class BaseController : MonoBehaviour{
 		Destroy (other);
 	}
 
-	void Build1st(){
+    void RemoveBuilding()
+    {
+        float temp = 3;
+        int placeOfObject = 0;
+        GameObject other = null;
+        for (int i = 0; i < turrets.Count; i++)
+        {
+            float distance = Vector3.Distance(lastHitObject.transform.position, turrets[i].transform.position);
+            if (distance < temp)
+            {
+                temp = distance;
+                other = turrets[i];
+                placeOfObject = i;
+            }
+        }
+        if (other != null)
+        {
+            Building building = other.GetComponent<BuildingController>().getBuilding();
+            PlayerController.setCount((int)Mathf.Floor(-building.getCost() * 0.5f));
+            countText.text = "Amount of units: " + PlayerController.getCount();
+
+            turrets.RemoveAt(placeOfObject);
+            Destroy(other);
+            lastHitObject.tag = "emptyPlane";
+        }
+    }
+
+    void Build1st(){
 		string buildingToBuild = buildingText1.text;
 		BuildingFactory buildingFactory = new BuildingFactory ();
 		Building building = buildingFactory.getBuilding (buildingToBuild);
-		//if(PlayerController.getCount() >= building.getCost()){
-		if (buildingToBuild.Equals ("Rock-Paper-Scissor turret")) {
-			Vector3 place = lastHitObject.transform.position;
-			GameObject newObject = (GameObject)Instantiate(basicTurret, place, Quaternion.identity);
-			newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
-			turrets.Add(newObject);
-			lastHitObject.tag = "BasicTurretPlane";
-		}
-		if (buildingToBuild.Equals ("Cat-a-pult")) {
-			Delete();
-			Vector3 place = lastHitObject.transform.position;
-			GameObject newObject = (GameObject)Instantiate(catapult, place, Quaternion.identity);
-			newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
-			turrets.Add(newObject);
-			lastHitObject.tag = "occupiedPlane";
-		}
-		if (buildingToBuild.Equals ("Energy Boost Bed")) {
-			Delete();
-			Vector3 place = lastHitObject.transform.position;
-			GameObject newObject = (GameObject)Instantiate(energyBed, place, Quaternion.identity);
-			newObject.transform.Rotate(new Vector3(-90, 0, 0));
-			newObject.transform.Translate(new Vector3(0, 1.055501f, 0));
-			turrets.Add(newObject);
-			lastHitObject.tag = "occupiedPlane";
-		}
-		if (buildingToBuild.Equals ("Generator")) {
-			Delete();
-			Vector3 place = lastHitObject.transform.position;
-			GameObject newObject = (GameObject)Instantiate(generator, place, Quaternion.identity);
-			newObject.transform.Translate(new Vector3(0, 0.2050993f, 0));
-			turrets.Add(newObject);
-			lastHitObject.tag = "occupiedPlane";
-		}
-		//}
+		if(PlayerController.getCount() >= building.getCost()){
+		    if (buildingToBuild.Equals ("Rock-Paper-Scissor turret")) {
+			    Vector3 place = lastHitObject.transform.position;
+			    GameObject newObject = (GameObject)Instantiate(basicTurret, place, Quaternion.identity);
+			    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
+			    turrets.Add(newObject);
+			    lastHitObject.tag = "BasicTurretPlane";
+		    }
+		    if (buildingToBuild.Equals ("Cat-a-pult")) {
+			    Delete();
+			    Vector3 place = lastHitObject.transform.position;
+			    GameObject newObject = (GameObject)Instantiate(catapult, place, Quaternion.identity);
+			    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
+			    turrets.Add(newObject);
+			    lastHitObject.tag = "occupiedPlane";
+		    }
+		    if (buildingToBuild.Equals ("Energy Boost Bed")) {
+			    Delete();
+			    Vector3 place = lastHitObject.transform.position;
+			    GameObject newObject = (GameObject)Instantiate(energyBed, place, Quaternion.identity);
+			    newObject.transform.Rotate(new Vector3(-90, 0, 0));
+			    newObject.transform.Translate(new Vector3(0, 1.055501f, 0));
+			    turrets.Add(newObject);
+			    lastHitObject.tag = "occupiedPlane";
+		    }
+		    if (buildingToBuild.Equals ("Generator")) {
+			    Delete();
+			    Vector3 place = lastHitObject.transform.position;
+			    GameObject newObject = (GameObject)Instantiate(generator, place, Quaternion.identity);
+			    newObject.transform.Translate(new Vector3(0, 0.2050993f, 0));
+			    turrets.Add(newObject);
+			    lastHitObject.tag = "occupiedPlane";
+		    }
+            UpdateUnits(building);
+        }
 	}
 
 	void Build2nd(){
 		string buildingToBuild = buildingText2.text;
 		BuildingFactory buildingFactory = new BuildingFactory ();
 		Building building = buildingFactory.getBuilding (buildingToBuild);
-		//if(PlayerController.getCount() >= building.getCost()){
-		if (buildingToBuild.Equals ("Gearshack")) {
-			Vector3 place = lastHitObject.transform.position;
-			GameObject newObject = (GameObject)Instantiate(gearShack, place, Quaternion.identity);
-			newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
-			turrets.Add(newObject);
-			lastHitObject.tag = "GearShackPlane";
-		}
-		if (buildingToBuild.Equals ("Harpgoon")) {
-			Delete();
-			Vector3 place = lastHitObject.transform.position;
-			GameObject newObject = (GameObject)Instantiate(harpgoon, place, Quaternion.identity);
-			newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
-			turrets.Add(newObject);
-			lastHitObject.tag = "occupiedPlane";
-		}
-		if (buildingToBuild.Equals ("Health Boost Bed")) {
-			Delete();
-			Vector3 place = lastHitObject.transform.position;
-			GameObject newObject = (GameObject)Instantiate(healthBed, place, Quaternion.identity);
-			newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
-			turrets.Add(newObject);
-			lastHitObject.tag = "occupiedPlane";
-		}
-		if (buildingToBuild.Equals ("Gun Smith")) {
-			Delete();
-			Vector3 place = lastHitObject.transform.position;
-			GameObject newObject = (GameObject)Instantiate(weaponSmith, place, Quaternion.identity);
-			newObject.transform.Rotate(new Vector3(-90, 0, 0));
-			newObject.transform.Translate(new Vector3(0, 0.1957196f, 0));
-			turrets.Add(newObject);
-			lastHitObject.tag = "occupiedPlane";
-		}
-		//}
+		if(PlayerController.getCount() >= building.getCost()){
+		    if (buildingToBuild.Equals ("Gearshack")) {
+			    Vector3 place = lastHitObject.transform.position;
+			    GameObject newObject = (GameObject)Instantiate(gearShack, place, Quaternion.identity);
+			    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
+			    turrets.Add(newObject);
+			    lastHitObject.tag = "GearShackPlane";
+		    }
+		    if (buildingToBuild.Equals ("Harpgoon")) {
+			    Delete();
+			    Vector3 place = lastHitObject.transform.position;
+			    GameObject newObject = (GameObject)Instantiate(harpgoon, place, Quaternion.identity);
+			    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
+			    turrets.Add(newObject);
+			    lastHitObject.tag = "occupiedPlane";
+		    }
+		    if (buildingToBuild.Equals ("Health Boost Bed")) {
+			    Delete();
+			    Vector3 place = lastHitObject.transform.position;
+			    GameObject newObject = (GameObject)Instantiate(healthBed, place, Quaternion.identity);
+			    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
+			    turrets.Add(newObject);
+			    lastHitObject.tag = "occupiedPlane";
+		    }
+		    if (buildingToBuild.Equals ("Gun Smith")) {
+			    Delete();
+			    Vector3 place = lastHitObject.transform.position;
+			    GameObject newObject = (GameObject)Instantiate(weaponSmith, place, Quaternion.identity);
+			    newObject.transform.Rotate(new Vector3(-90, 0, 0));
+			    newObject.transform.Translate(new Vector3(0, 0.1957196f, 0));
+			    turrets.Add(newObject);
+			    lastHitObject.tag = "occupiedPlane";
+		    }
+            UpdateUnits(building);
+        }
 	}
 
 	void Build3rd(){
 		string buildingToBuild = buildingText3.text;
 		BuildingFactory buildingFactory = new BuildingFactory ();
 		Building building = buildingFactory.getBuilding (buildingToBuild);
-		//if(PlayerController.getCount() >= building.getCost()){
-		if (buildingToBuild.Equals ("Bed")) {
-			Vector3 place = lastHitObject.transform.position;
-			GameObject newObject = (GameObject)Instantiate(bed, place, Quaternion.identity);
-			newObject.transform.Rotate(new Vector3(-90, 0, 0));
-			newObject.transform.Translate(new Vector3(0, 0.06193482f, 0));
-			turrets.Add(newObject);
-			lastHitObject.tag = "BedPlane";
-		}
-		if (buildingToBuild.Equals ("Snail Gun")) {
-			Delete();
-			Vector3 place = lastHitObject.transform.position;
-			GameObject newObject = (GameObject)Instantiate(snailGun, place, Quaternion.identity);
-			newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
-			turrets.Add(newObject);
-			lastHitObject.tag = "occupiedPlane";
-		}
-		if (buildingToBuild.Equals ("Tech Smith")) {
-			Delete();
-			Vector3 place = lastHitObject.transform.position;
-			GameObject newObject = (GameObject)Instantiate(gadgetSmith, place, Quaternion.identity);
-			newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
-			turrets.Add(newObject);
-			lastHitObject.tag = "occupiedPlane";
-		}
-		//}
+		if(PlayerController.getCount() >= building.getCost()){
+		    if (buildingToBuild.Equals ("Bed")) {
+			    Vector3 place = lastHitObject.transform.position;
+			    GameObject newObject = (GameObject)Instantiate(bed, place, Quaternion.identity);
+			    newObject.transform.Rotate(new Vector3(-90, 0, 0));
+			    newObject.transform.Translate(new Vector3(0, 0.06193482f, 0));
+			    turrets.Add(newObject);
+			    lastHitObject.tag = "BedPlane";
+		    }
+		    if (buildingToBuild.Equals ("Snail Gun")) {
+			    Delete();
+			    Vector3 place = lastHitObject.transform.position;
+			    GameObject newObject = (GameObject)Instantiate(snailGun, place, Quaternion.identity);
+			    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
+			    turrets.Add(newObject);
+			    lastHitObject.tag = "occupiedPlane";
+		    }
+		    if (buildingToBuild.Equals ("Tech Smith")) {
+			    Delete();
+			    Vector3 place = lastHitObject.transform.position;
+			    GameObject newObject = (GameObject)Instantiate(gadgetSmith, place, Quaternion.identity);
+			    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
+			    turrets.Add(newObject);
+			    lastHitObject.tag = "occupiedPlane";
+		    }
+            UpdateUnits(building);
+        }
 	}
+
+    void UpdateUnits(Building building)
+    {
+        PlayerController.setCount(building.getCost());
+        countText.text = "Amount of units: " + PlayerController.getCount();
+    }
 
 	void setBuildMenu(){
 		if (lastHitObject.CompareTag ("emptyPlane")) {
@@ -249,12 +295,12 @@ public class BaseController : MonoBehaviour{
 			buildingText1.text = "Rock-Paper-Scissor turret";
 			buildingText2.text = "Gearshack";
 			buildingText3.text = "Bed";
-			unitCost1.text = "Cost: 5";
-			unitCost2.text = "Cost: 5";
-			unitCost3.text = "Cost: 10";
-			upgradeBuild1.text = "Build";
-			upgradeBuild2.text = "Build";
-			upgradeBuild3.text = "Build";
+			unitCost1.text = "Cost: " + First_Building;
+			unitCost2.text = "Cost: " + First_Building;
+			unitCost3.text = "Cost: " + Second_Building;
+			upgradeBuild1.text = "Build(1)";
+			upgradeBuild2.text = "Build(2)";
+			upgradeBuild3.text = "Build(3)";
 			buildMenu.SetActive (true);
 		}
 		if (lastHitObject.CompareTag ("BasicTurretPlane")) {
@@ -262,12 +308,12 @@ public class BaseController : MonoBehaviour{
 			buildingText1.text = "Cat-a-pult";
 			buildingText2.text = "Harpgoon";
 			buildingText3.text = "Snail Gun";
-			unitCost1.text = "Cost: 10";
-			unitCost2.text = "Cost: 10";
-			unitCost3.text = "Cost: 10";
-			upgradeBuild1.text = "Upgrade";
-			upgradeBuild2.text = "Upgrade";
-			upgradeBuild3.text = "Upgrade";
+			unitCost1.text = "Cost: " + Second_Building; 
+			unitCost2.text = "Cost: " + Second_Building;
+            unitCost3.text = "Cost: " + Second_Building;
+            upgradeBuild1.text = "Upgrade(1)";
+			upgradeBuild2.text = "Upgrade(2)";
+			upgradeBuild3.text = "Upgrade(3)";
 			buildMenu.SetActive (true);
 		}
 		if (lastHitObject.CompareTag ("BedPlane")) {
@@ -275,11 +321,11 @@ public class BaseController : MonoBehaviour{
 			buildingText1.text = "Energy Boost Bed";
 			buildingText2.text = "Health Boost Bed";
 			buildingText3.text = "";
-			unitCost1.text = "Cost: 15";
-			unitCost2.text = "Cost: 15";
+			unitCost1.text = "Cost: " + Third_Buidling;
+			unitCost2.text = "Cost: " + Third_Buidling;
 			unitCost3.text = "";
-			upgradeBuild1.text = "Upgrade";
-			upgradeBuild2.text = "Upgrade";
+			upgradeBuild1.text = "Upgrade(1)";
+			upgradeBuild2.text = "Upgrade(2)";
 			upgradeBuild3.text = "";
 			buildMenu.SetActive (true);
 		}
@@ -288,15 +334,29 @@ public class BaseController : MonoBehaviour{
 			buildingText1.text = "Generator";
 			buildingText2.text = "Gun Smith";
 			buildingText3.text = "Tech Smith";
-			unitCost1.text = "Cost: 25";
-			unitCost2.text = "Cost: 25";
-			unitCost3.text = "Cost: 25";
-			upgradeBuild1.text = "Upgrade";
+			unitCost1.text = "Cost: " + Fourth_Building;
+			unitCost2.text = "Cost: " + Fourth_Building;
+            unitCost3.text = "Cost: " + Fourth_Building;
+            upgradeBuild1.text = "Upgrade";
 			upgradeBuild2.text = "Upgrade";
 			upgradeBuild3.text = "Upgrade";
 			buildMenu.SetActive (true);
 		}
-	}
+        if (lastHitObject.CompareTag("occupiedPlane"))
+        {
+            title.text = "Maxed out";
+            buildingText1.text = "";
+            buildingText2.text = "";
+            buildingText3.text = "";
+            unitCost1.text = "";
+            unitCost2.text = "";
+            unitCost3.text = "";
+            upgradeBuild1.text = "";
+            upgradeBuild2.text = "";
+            upgradeBuild3.text = "";
+            buildMenu.SetActive(true);
+        }
+    }
 
 	public void buildFromSave(){
 
@@ -397,5 +457,10 @@ public class BaseController : MonoBehaviour{
 			}
 		}
 	}
+
+    public static bool getPause()
+    {
+        return pause;
+    }
 }
 
