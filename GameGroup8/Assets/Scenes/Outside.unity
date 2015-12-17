@@ -217,7 +217,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1464330714}
-  newgame: 0
 --- !u!114 &5347436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1623,6 +1622,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 307229380}
   - 108: {fileID: 307229379}
+  - 114: {fileID: 307229381}
   m_Layer: 0
   m_Name: moon
   m_TagString: Untagged
@@ -1639,8 +1639,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 1
-  m_Color: {r: .292387396, g: .126513854, b: .95588237, a: 1}
-  m_Intensity: .800000012
+  m_Color: {r: .499999881, g: .375, b: 1, a: 1}
+  m_Intensity: .100000001
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -1674,6 +1674,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!114 &307229381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 307229378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e20cd55721839b4490ead0062170b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  intensity: .200000003
 --- !u!1 &323993196
 GameObject:
   m_ObjectHideFlags: 0
@@ -2237,7 +2249,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 1
-  m_Color: {r: 1, g: .956862748, b: .839215696, a: 1}
+  m_Color: {r: 1, g: 1, b: .631372571, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -2283,6 +2295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e20cd55721839b4490ead0062170b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  intensity: 1
 --- !u!1 &502209694 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 108342, guid: 0f6c5ace820899649b0307ae430031d8, type: 2}
@@ -5740,6 +5753,10 @@ Prefab:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11483110, guid: e92f2a81e51011c41887b70ec2ce6958, type: 2}
+      propertyPath: UnitCount
+      value: 
+      objectReference: {fileID: 239913995}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e92f2a81e51011c41887b70ec2ce6958, type: 2}
   m_IsPrefabParent: 0
@@ -10937,9 +10954,9 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: .750499129, b: .161764681, a: 1}
   m_Intensity: 1
-  m_Range: 10
+  m_Range: 30
   m_SpotAngle: 90
   m_CookieSize: 10
   m_Shadows:

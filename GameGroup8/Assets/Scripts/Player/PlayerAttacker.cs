@@ -42,6 +42,9 @@ public class PlayerAttacker : MonoBehaviour {
 	public Text typeOfWunderWaffenText;
 
 	public GameObject weaponUnlockScreen;
+
+    public Text UnitCount;
+    private int weaponcost = 5;
 	
 	void Start () {
 		currentWeapon = weaponFactory.getPistol ();
@@ -56,7 +59,7 @@ public class PlayerAttacker : MonoBehaviour {
 		setActive ();
 		setTextOfLockUnlock ();
 		for (int i = 0; i < 8; i ++) {
-			unitCostWeaponTexts[i].text = "1 Unit";
+			unitCostWeaponTexts[i].text = weaponcost + " Unit";
 		}
 	}
 	
@@ -283,10 +286,12 @@ public class PlayerAttacker : MonoBehaviour {
 	}
 
 	public void unlockInt(int i){
-		//if(PlayerController.getCount() >= 5){
-		unlocked [i - 1] = true;
-		setTextOfLockUnlock ();
-		//}
+		if(PlayerController.getCount() >= weaponcost){
+		    unlocked [i - 1] = true;
+		    setTextOfLockUnlock ();
+            PlayerController.setCount(weaponcost);
+            UnitCount.text = "Amount of units: " + PlayerController.getCount();
+		}
 	}
 
 	public void setTextOfLockUnlock(){

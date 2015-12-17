@@ -5,10 +5,8 @@ using System.Collections;
 public class Daynight : MonoBehaviour {
 
 	public static float Height;
-	// Use this for initialization
-	void Start () {
 
-	}
+    public float intensity;
 	
 	// Update is called once per frame
 	void Update () {
@@ -16,8 +14,7 @@ public class Daynight : MonoBehaviour {
 		transform.LookAt (Vector3.zero);
 		var myPosition = transform.position;
 		Height = myPosition.y;
-		GetComponent<Light>().intensity = (Height < 0f) ? 0f : 1f;
-
+        GetComponent<Light>().intensity = (Height < 0f) ? 0f * intensity : 1f * intensity *(0.2f+(Height/500));
 	}
 
 	
