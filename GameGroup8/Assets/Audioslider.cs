@@ -7,7 +7,7 @@ public class Audioslider : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		/*
+
 		var audio = Camera.main.GetComponent <AudioSource>();
 
 	
@@ -16,7 +16,7 @@ public class Audioslider : MonoBehaviour {
 		Debug.Log (slider.value);
 		float temp = slider.value;
 
-		audio.volume=temp;
-*/
+		audio.volume = temp;
+
 	}
 }
