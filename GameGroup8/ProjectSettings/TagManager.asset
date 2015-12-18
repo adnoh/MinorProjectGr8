@@ -21,6 +21,8 @@ TagManager:
   - Bullet
   - Ground
   - BASE
+  - Sun
+  - Moon
   layers:
   - Default
   - TransparentFX

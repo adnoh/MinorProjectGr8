@@ -189,7 +189,12 @@ public class PlayerController : MonoBehaviour {
         count -= change;
     }
 
-	void updateBars(){
+    public static void setCount_2(int change)
+    {
+        count = change;
+    }
+
+    void updateBars(){
 		playerHealthBar.maxValue = PlayerAttributes.getMaxHealth ();
 		playerHealthBar.value = PlayerAttributes.getHealth();
 		energyBar.maxValue = PlayerAttributes.getMaxEnergy ();
