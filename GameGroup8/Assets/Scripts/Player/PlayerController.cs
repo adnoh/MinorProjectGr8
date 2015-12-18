@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Update(){
         Analytics.set_timeOutside();
+        Analytics.setScore(Camera.main.GetComponent<Score>().getScore());
 
 		if (Input.GetKeyDown (KeyCode.Alpha0)) {
 			playerAnimator.SetInteger ("weapon", 2);
