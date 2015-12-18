@@ -52,6 +52,9 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update(){
+		if (Input.GetKeyDown (KeyCode.Alpha0)) {
+			playerAnimator.SetInteger ("weapon", 3);
+		}
 		updateBars ();
 		countText.text = "Amount of units: " + count;
 		levelText.text = "Level: " + PlayerAttributes.getLevel();
