@@ -109,7 +109,51 @@ public class SunSave
     }
 }
 
+public class AnalyticsSave
+{
+    public int score;
+    public int playerLevel;
+    public int timesDied;
+    
+    public float timeOutside;
+    public float timeCloseToBase;
+    public float timeBase;
 
+    [XmlArray("list"), XmlArrayItem("list")]
+    public int[] weapon;
+    [XmlArray("list"), XmlArrayItem("list")]
+    public int[] shots_hit;
+    [XmlArray("list"), XmlArrayItem("list")]
+    public int[] hit_enemyType;
+    [XmlArray("list"), XmlArrayItem("list")]
+    public int[] playerUpgrades;
+    [XmlArray("list"), XmlArrayItem("list")]
+    public int[] building;
+
+    [XmlArray("list"), XmlArrayItem("list")]
+    public float[][] placeRIP;
+    [XmlArray("list"), XmlArrayItem("list")]
+    public float[][] placeKill;
+
+    public AnalyticsSave()
+    {
+        score = Analytics.getScore();
+        playerLevel = Analytics.getPlayerLevel();
+        timesDied = Analytics.get_timesDied();
+        timeOutside = Analytics.get_timeOutside();
+        timeCloseToBase = Analytics.get_timeCTBase();
+        timeBase = Analytics.get_timeBase();
+
+        weapon = Analytics.getWeapons();
+        shots_hit = Analytics.getHitCount();
+        hit_enemyType = Analytics.getHitByEnemy();
+        playerUpgrades = Analytics.getPlayerUpgrades();
+        building = Analytics.getBuildings();
+
+        placeKill = Analytics.getPlaceKill();
+        placeRIP = Analytics.getPlaceDied();
+    }
+}
 
 
 public class Outsidesave{
@@ -516,5 +560,16 @@ public class MonsterCollection : MonoBehaviour
         WorldBuilderII world = GameObject.FindGameObjectWithTag("Ground").GetComponent<WorldBuilderII>();
        
         map_load.MapLoader(world);
+    }
+
+    public static void AnalyticsSave(string path)
+    {
+        var analyticsSave = new AnalyticsSave();
+
+        var serializer = new XmlSerializer(typeof(AnalyticsSave));
+        using (var stream = new FileStream(path, FileMode.Create))
+        {
+            serializer.Serialize(stream, analyticsSave);
+        }
     }
 }

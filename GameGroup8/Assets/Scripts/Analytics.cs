@@ -201,13 +201,23 @@ public class Analytics {
         return building;
     }
 
-    public static List<float[]> getPlaceDied()
+    public static float[][] getPlaceDied()
     {
-        return placeRIP;
+        float[][] Places = new float[placeRIP.Count][];
+        for (int i = 0; i < placeRIP.Count; i++)
+        {
+            Places[i] = placeRIP[i];
+        }
+        return Places;
     }
 
-    public static List<float[]> getPlaceKill()
+    public static float[][] getPlaceKill()
     {
-        return placeKill;
+        float[][] Places = new float[placeKill.Count][];
+        for (int i = 0; i < placeKill.Count; i++)
+        {
+            Places[i] = placeKill[i];
+        }
+        return Places;
     }
 }
