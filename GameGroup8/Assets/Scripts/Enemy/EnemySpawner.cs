@@ -59,7 +59,7 @@ public class EnemySpawner : MonoBehaviour {
 		}
         CountDownTimerValue = timeTillNextWave - Time.timeSinceLevelLoad; 
 
-        Debug.Log(timeTillNextWave.ToString());
+        //Debug.Log(timeTillNextWave.ToString());
         enemiesToDefeatText.text = "Enemies to defeat: " + enemiesToDefeat;
 		timeTillNextWaveText.text = "Time till next wave: " + (int)(CountDownTimerValue);
 		calculateChangeToSpawnEarth ();
