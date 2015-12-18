@@ -77,7 +77,7 @@ public class BaseController : MonoBehaviour{
 		{
 			Time.timeScale = 0;
 		} 
-		if(!pause) {
+		if(!pause && !GameObject.Find("player").GetComponent<PlayerController>().death) {
 			Time.timeScale = 1;
 		}
 
