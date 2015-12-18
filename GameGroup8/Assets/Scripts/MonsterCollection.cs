@@ -321,7 +321,7 @@ public class MonsterCollection : MonoBehaviour
         GameObject tempMoon = GameObject.FindWithTag("Moon");
         Vector3 templocation;
         templocation.x = moon_.posx;
-        templocation.y = 0.0f;
+        templocation.y = moon_.posy;
         templocation.z = moon_.posz;
         Quaternion temprotation;
         temprotation.x = moon_.rotx;

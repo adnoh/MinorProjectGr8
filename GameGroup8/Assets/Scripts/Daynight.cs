@@ -14,7 +14,7 @@ public class Daynight : MonoBehaviour {
 		transform.LookAt (Vector3.zero);
 		var myPosition = transform.position;
 		Height = myPosition.y;
-        GetComponent<Light>().intensity = (Height < 0f) ? 0f * intensity : 1f * intensity *(0.2f+(Height/500));
+        GetComponent<Light>().intensity = (Height < 0f) ? 0f * intensity : 1f * intensity *(0.5f+(Height/500));
 	}
 
 	
