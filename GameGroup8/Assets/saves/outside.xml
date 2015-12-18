@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <Outsidesave xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <wave>10</wave>
+  <wave>1</wave>
   <timeTillNextWave>0</timeTillNextWave>
   <CountDownTimerValue>0</CountDownTimerValue>
-  <enemiesDefeaten>7</enemiesDefeaten>
-  <enemiesToDefeat>26</enemiesToDefeat>
-  <totalEnemiesSpawned>38</totalEnemiesSpawned>
-  <CountDownTimer_Value>21.2390289</CountDownTimer_Value>
-  <tagOfMat1>BasicTurretPlane</tagOfMat1>
+  <enemiesDefeaten>0</enemiesDefeaten>
+  <enemiesToDefeat>0</enemiesToDefeat>
+  <totalEnemiesSpawned>0</totalEnemiesSpawned>
+  <CountDownTimer_Value>3.68950081</CountDownTimer_Value>
+  <tagOfMat1>emptyPlane</tagOfMat1>
   <tagOfMat2>emptyPlane</tagOfMat2>
-  <tagOfMat3>BasicTurretPlane</tagOfMat3>
-  <tagOfMat4>BasicTurretPlane</tagOfMat4>
-  <unitCount>9</unitCount>
+  <tagOfMat3>emptyPlane</tagOfMat3>
+  <tagOfMat4>emptyPlane</tagOfMat4>
+  <unitCount>0</unitCount>
 </Outsidesave>
