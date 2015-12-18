@@ -49,9 +49,13 @@ public class PlayerAttacker : MonoBehaviour {
     public Text unitCount;
 
 	public GameObject[] weapons = new GameObject[8];
+
+    Score _score;
 	
 	void Start () {
-		currentWeapon = weaponFactory.getPistol ();
+        _score = Camera.main.GetComponent<Score>();
+
+        currentWeapon = weaponFactory.getPistol ();
 		currentWeaponInt = 1;
 		showEnemyDescription = false;
 		enemyDescription.SetActive (false);
@@ -92,7 +96,8 @@ public class PlayerAttacker : MonoBehaviour {
 					EnemySpawner.enemiesDefeaten++;
 					lastAttackedEnemy.GetComponent<Seeker>().StopAllCoroutines();
 					lastAttackedEnemy.GetComponent<Seeker>().destroyed = true;
-					lastAttackedEnemy.die ();
+                    _score.addScoreEnemy(lastAttackedEnemy.getLevel());
+                    lastAttackedEnemy.die ();
 					MiniMapScript.enemies.Remove(lastAttackedEnemy);
 					PlayerAttributes.getExperience(lastAttackedEnemy.getLevel());
 					PlayerAttacker.lastAttackedEnemy = null;
@@ -133,7 +138,8 @@ public class PlayerAttacker : MonoBehaviour {
 						lastAttackedEnemy.GetComponent<Seeker> ().StopAllCoroutines ();
 						lastAttackedEnemy.GetComponent<Seeker> ().destroyed = true;
 						lastAttackedEnemy.destroyed = true;
-						lastAttackedEnemy.StartCoroutine(lastAttackedEnemy.die ());
+                        _score.addScoreEnemy(lastAttackedEnemy.getLevel());
+                        lastAttackedEnemy.StartCoroutine(lastAttackedEnemy.die ());
 						MiniMapScript.enemies.Remove (lastAttackedEnemy);
 						PlayerAttributes.getExperience (lastAttackedEnemy.getLevel ());
 						PlayerAttacker.lastAttackedEnemy = null;
