@@ -38,6 +38,8 @@ public class EnemyController : MonoBehaviour {
 
 	public bool destroyed = false;
 
+	private Animator anim;
+
 	void Start () {
 		level = this.gameObject.GetComponent<EnemyController> ().getLevel ();
 		if (this.gameObject.transform.name.Equals ("HammerHeadPrefab(Clone)")) {
@@ -57,6 +59,7 @@ public class EnemyController : MonoBehaviour {
 
 		isWithinRange = false;
 		MiniMapScript.enemies.Add (this);
+		anim = GetComponent<Animator> ();
 	}
 
 	void Update () {
@@ -199,4 +202,10 @@ public class EnemyController : MonoBehaviour {
     public Quaternion getRotation(){
         return rotation;
     }
+
+	public IEnumerator die(){
+		anim.SetBool ("dying", true);
+		yield return new WaitForSeconds(1);
+		Destroy (this.gameObject);
+	}
 }

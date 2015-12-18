@@ -90,7 +90,7 @@ public class PlayerAttacker : MonoBehaviour {
 					EnemySpawner.enemiesDefeaten++;
 					lastAttackedEnemy.GetComponent<Seeker>().StopAllCoroutines();
 					lastAttackedEnemy.GetComponent<Seeker>().destroyed = true;
-					Destroy(lastAttackedEnemy.gameObject);
+					lastAttackedEnemy.die ();
 					MiniMapScript.enemies.Remove(lastAttackedEnemy);
 					PlayerAttributes.getExperience(lastAttackedEnemy.getLevel());
 					PlayerAttacker.lastAttackedEnemy = null;
@@ -131,7 +131,7 @@ public class PlayerAttacker : MonoBehaviour {
 						lastAttackedEnemy.GetComponent<Seeker> ().StopAllCoroutines ();
 						lastAttackedEnemy.GetComponent<Seeker> ().destroyed = true;
 						lastAttackedEnemy.destroyed = true;
-						Destroy (lastAttackedEnemy.gameObject);
+						lastAttackedEnemy.die ();
 						MiniMapScript.enemies.Remove (lastAttackedEnemy);
 						PlayerAttributes.getExperience (lastAttackedEnemy.getLevel ());
 						PlayerAttacker.lastAttackedEnemy = null;
