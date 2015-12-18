@@ -10,6 +10,7 @@ public class GameStateController : MonoBehaviour
 
     public GameObject player;
     public static bool newgame;
+    public bool newgame2;
 
 
     public static void setNewgame(bool _newgame)
@@ -92,6 +93,8 @@ public class GameStateController : MonoBehaviour
 
     void Start()
     {
+
+        setNewgame(newgame2);
         GenerateMap();
         initializePathfindingGrid();
         LoadBase();        
