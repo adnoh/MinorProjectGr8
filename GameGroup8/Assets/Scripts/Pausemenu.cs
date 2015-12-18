@@ -16,6 +16,10 @@ public class Pausemenu : MonoBehaviour {
             MonsterCollection.turretSave("Assets/saves/turrets.xml");
             MonsterCollection.BaseSave("Assets/saves/base.xml");
 
+            // Moon and sun position
+            MonsterCollection.SunSave("Assets/saves/sun.xml");
+            MonsterCollection.MoonSave("Assets/saves/moon.xml");
+
             // Save World (if you want to save the world, go ahead, be a hero)
             MonsterCollection.MapSave("Assets/saves/world.xml");
 
@@ -26,16 +30,25 @@ public class Pausemenu : MonoBehaviour {
 	}
 
 	void loadpause(){
+        Time.timeScale = 0;
 		Application.LoadLevel(2);
 	}
 
 	public void loadoutside(){
 
+        setNGame(false);
+        Time.timeScale = 1;
+        Application.LoadLevel(1);
         
-		Application.LoadLevel(1);
+
 
         // kan alleen als gamestate controller newgame static is
         // GameStateController.newgame = false;
+    }
+
+    public void setNGame(bool newgame_)
+    {
+        GameStateController.setNewgame(newgame_);
     }
 
 }

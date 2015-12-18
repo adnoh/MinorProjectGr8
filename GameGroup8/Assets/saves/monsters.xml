@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <MonsterCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <list>
-    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="15.9082365" rotation="0.992792249" isPosioned_x003F_="false" isStunned_x003F_="false" type="Wind">
-      <location_y>1.87535115E-05</location_y>
-      <location_z>-6.120185</location_z>
-      <rotation_x>1.47782441E-06</rotation_x>
-      <rotation_y>-0.1198482</rotation_y>
-      <rotation_z>1.7840047E-07</rotation_z>
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="52.33457" rotation="0.942190349" isPosioned_x003F_="false" isStunned_x003F_="false" type="Wind">
+      <location_y>2.47477467E-17</location_y>
+      <location_z>37.9305458</location_z>
+      <rotation_x>1.12576037E-19</rotation_x>
+      <rotation_y>0.335078269</rotation_y>
+      <rotation_z>-4.003627E-20</rotation_z>
     </list>
-    <list level="1" health="14" maxHealth="100" attackPower="10" walkingSpeed="2" location="16.0329151" rotation="0.989138365" isPosioned_x003F_="false" isStunned_x003F_="false" type="Water">
-      <location_y>3.768746E-05</location_y>
-      <location_z>-3.67855048</location_z>
-      <rotation_x>2.46910827E-06</rotation_x>
-      <rotation_y>-0.146987662</rotation_y>
-      <rotation_z>3.669137E-07</rotation_z>
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="-11" rotation="0.915547252" isPosioned_x003F_="false" isStunned_x003F_="false" type="Wind">
+      <location_y>1</location_y>
+      <location_z>0</location_z>
+      <rotation_x>0.002619036</rotation_x>
+      <rotation_y>0.402200222</rotation_y>
+      <rotation_z>-0.0011505431</rotation_z>
+    </list>
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="62.6815453" rotation="0.9326549" isPosioned_x003F_="false" isStunned_x003F_="false" type="Water">
+      <location_y>3.25858075E-16</location_y>
+      <location_z>57.7343369</location_z>
+      <rotation_x>1.857788E-18</rotation_x>
+      <rotation_y>0.3607699</rotation_y>
+      <rotation_z>-7.186303E-19</rotation_z>
+    </list>
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="8.077418" rotation="0.9382612" isPosioned_x003F_="false" isStunned_x003F_="false" type="Water">
+      <location_y>0.00109959056</location_y>
+      <location_z>-10.2488241</location_z>
+      <rotation_x>3.05397452E-06</rotation_x>
+      <rotation_y>0.345927775</rotation_y>
+      <rotation_z>-1.1259707E-06</rotation_z>
     </list>
   </list>
 </MonsterCollection>

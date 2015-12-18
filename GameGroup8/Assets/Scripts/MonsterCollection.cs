@@ -57,16 +57,72 @@ public class BaseSave
     }
 }
 
+public class MoonSave
+{
+    public float posx;
+    public float posy;
+    public float posz;
+    public float rotx;
+    public float roty;
+    public float rotz;
+    public float rotw;
+
+    public MoonSave()
+    {
+        var position = GameObject.FindGameObjectWithTag("Moon").GetComponent<Transform>().position;
+        var rotation = GameObject.FindGameObjectWithTag("Moon").GetComponent<Transform>().rotation;
+
+        posx = position.x;
+        posy = position.y;
+        posz = position.z;
+
+        rotx = rotation.x;
+        roty = rotation.y;
+        rotz = rotation.z;
+        rotw = rotation.w;
+    }
+}
+
+public class SunSave
+{
+    public float posx;
+    public float posy;
+    public float posz;
+    public float rotx;
+    public float roty;
+    public float rotz;
+    public float rotw;
+
+    public SunSave()
+    {
+        var position = GameObject.FindGameObjectWithTag("Sun").GetComponent<Transform>().position;
+        var rotation = GameObject.FindGameObjectWithTag("Sun").GetComponent<Transform>().rotation;
+
+        posx = position.x;
+        posy = position.y;
+        posz = position.z;
+
+        rotx = rotation.x;
+        roty = rotation.y;
+        rotz = rotation.z;
+        rotw = rotation.w;
+    }
+}
+
+
+
 
 public class Outsidesave{
 	
 	public int wave;
 	public float timeTillNextWave;
-	public int enemiesDefeaten;
+    public float CountDownTimerValue;
+    public int enemiesDefeaten;
 	public int enemiesToDefeat;
 	public int totalEnemiesSpawned;
-	
-	public string tagOfMat1;
+    public float CountDownTimer_Value;
+
+    public string tagOfMat1;
 	public string tagOfMat2;
 	public string tagOfMat3;
 	public string tagOfMat4;
@@ -74,19 +130,19 @@ public class Outsidesave{
 	public int unitCount;
 
 	public Outsidesave(){
-        wave = Camera.main.GetComponent<EnemySpawner>().wave;
-		timeTillNextWave = Camera.main.GetComponent<EnemySpawner> ().timeTillNextWave;
-		enemiesDefeaten = EnemySpawner.enemiesDefeaten;
-		totalEnemiesSpawned = EnemySpawner.totalEnemiesSpawned;
+        this.wave = Camera.main.GetComponent<EnemySpawner>().wave;
+		// this.timeTillNextWave = Camera.main.GetComponent<EnemySpawner>().timeTillNextWave;
+        this.CountDownTimer_Value = Camera.main.GetComponent<EnemySpawner>().CountDownTimerValue;
+        Debug.Log(timeTillNextWave.ToString());
+		this.enemiesDefeaten = EnemySpawner.enemiesDefeaten;
+		this.totalEnemiesSpawned = EnemySpawner.totalEnemiesSpawned;
 		enemiesToDefeat = Camera.main.GetComponent<EnemySpawner> ().enemiesToDefeat;
 		tagOfMat1 = GameObject.Find ("PlacementPlane").tag;
 		tagOfMat2 = GameObject.Find ("PlacementPlane (1)").tag;
 		tagOfMat3 = GameObject.Find ("PlacementPlane (2)").tag;
 		tagOfMat4 = GameObject.Find ("PlacementPlane (3)").tag;
 		unitCount = PlayerController.getCount();
-	}
-	
-	
+	}	
 }
 
 
@@ -206,6 +262,91 @@ public class MonsterCollection : MonoBehaviour
         }
     }
 
+    public static SunSave SunPreLoad(string path)
+    {
+        var serializer = new XmlSerializer(typeof(SunSave));
+        using (var stream = new FileStream(path, FileMode.Open))
+        {
+            return serializer.Deserialize(stream) as SunSave;
+        }
+    }
+
+    public static void SunLoad(string path)
+    {
+
+        var sun_ = SunPreLoad(path);
+
+        GameObject tempSun = GameObject.FindWithTag("Sun");
+        Vector3 templocation;
+        templocation.x = sun_.posx;
+        templocation.y = sun_.posy;
+        templocation.z = sun_.posz;
+        Quaternion temprotation;
+        temprotation.x = sun_.rotx;
+        temprotation.y = sun_.roty;
+        temprotation.w = sun_.rotw;
+        temprotation.z = sun_.rotz;
+
+
+        tempSun.transform.position = templocation;
+        tempSun.transform.rotation = temprotation;
+    }
+
+    public static void SunSave(string path)
+    {
+        var sunsave = new SunSave();
+
+        var serializer = new XmlSerializer(typeof(SunSave));
+        using (var stream = new FileStream(path, FileMode.Create))
+        {
+            serializer.Serialize(stream, sunsave);
+        }
+    }
+
+
+    public static MoonSave MoonPreLoad(string path)
+    {
+        var serializer = new XmlSerializer(typeof(MoonSave));
+        using (var stream = new FileStream(path, FileMode.Open))
+        {
+            return serializer.Deserialize(stream) as MoonSave;
+        }
+    }
+
+    public static void MoonLoad(string path)
+    {
+
+        var moon_ = MoonPreLoad(path);
+
+        GameObject tempMoon = GameObject.FindWithTag("Moon");
+        Vector3 templocation;
+        templocation.x = moon_.posx;
+        templocation.y = 0.0f;
+        templocation.z = moon_.posz;
+        Quaternion temprotation;
+        temprotation.x = moon_.rotx;
+        temprotation.y = moon_.roty;
+        temprotation.w = moon_.rotw;
+        temprotation.z = moon_.rotz;
+
+
+        tempMoon.transform.position = templocation;
+        tempMoon.transform.rotation = temprotation;
+    }
+
+    public static void MoonSave(string path)
+    {
+        var moonsave = new MoonSave();
+
+        var serializer = new XmlSerializer(typeof(MoonSave));
+        using (var stream = new FileStream(path, FileMode.Create))
+        {
+            serializer.Serialize(stream, moonsave);
+        }
+    }
+
+
+
     public static void BaseSave(string path)
     {
         var basesave = new BaseSave();
@@ -306,7 +447,7 @@ public class MonsterCollection : MonoBehaviour
 
 	public static void outsideSave(string path){
 
-		var outside = new Outsidesave ();
+		var outside = new Outsidesave();
 
 		var serializer = new XmlSerializer(typeof(Outsidesave));
 		using(var stream = new FileStream(path, FileMode.Create)){
@@ -336,15 +477,16 @@ public class MonsterCollection : MonoBehaviour
 		var outside = outsidepreLoad (path);
 
 		Camera.main.GetComponent<EnemySpawner>().wave = outside.wave;
-		Camera.main.GetComponent<EnemySpawner>().timeTillNextWave = outside.timeTillNextWave + Time.time;
-		Camera.main.GetComponent<EnemySpawner>().enemiesToDefeat = outside.enemiesToDefeat;
+        Camera.main.GetComponent<EnemySpawner>().timeTillNextWave = outside.CountDownTimer_Value;
+        // Camera.main.GetComponent<EnemySpawner>().CountDownTimerValue = outside.CountDownTimer_Value;
+        Camera.main.GetComponent<EnemySpawner>().enemiesToDefeat = outside.enemiesToDefeat;
 		EnemySpawner.enemiesDefeaten = outside.enemiesDefeaten;
 		EnemySpawner.totalEnemiesSpawned = outside.totalEnemiesSpawned;
 		GameObject.Find ("PlacementPlane").tag = outside.tagOfMat1;
 		GameObject.Find ("PlacementPlane (1)").tag = outside.tagOfMat2;
 		GameObject.Find ("PlacementPlane (2)").tag = outside.tagOfMat3;
 		GameObject.Find ("PlacementPlane (3)").tag = outside.tagOfMat4;
-		PlayerController.setCount (-outside.unitCount);
+		PlayerController.setCount_2(outside.unitCount);
 	}
 	
     public static void MapSave(string path)

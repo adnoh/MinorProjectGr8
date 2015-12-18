@@ -217,7 +217,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1464330714}
-  newgame: 0
 --- !u!114 &5347436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1625,7 +1624,7 @@ GameObject:
   - 108: {fileID: 307229379}
   m_Layer: 0
   m_Name: moon
-  m_TagString: Untagged
+  m_TagString: Moon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2223,7 +2222,7 @@ GameObject:
   - 114: {fileID: 444054288}
   m_Layer: 0
   m_Name: SUn
-  m_TagString: Untagged
+  m_TagString: Sun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
