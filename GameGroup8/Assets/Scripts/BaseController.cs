@@ -56,6 +56,9 @@ public class BaseController : MonoBehaviour{
     }
 	
     void Update(){
+
+        if (Vector3.Distance(Gate.transform.position, GameObject.Find("player").transform.position) < 50)
+            Analytics.set_timeCTBase();
         
 		if (Input.GetButtonDown("Jump") && Vector3.Distance(Gate.transform.position, GameObject.Find ("player").transform.position) < 3){
 			PlayerAttributes.resetFatique();
@@ -64,6 +67,7 @@ public class BaseController : MonoBehaviour{
 				playerPos = GameObject.Find("player").transform.position;
                 Vector3 TempPlayerPos = GameObject.FindGameObjectWithTag("BASE").transform.position - new Vector3(0,1f,5.31f);
 				GameObject.Find("player").transform.position = TempPlayerPos;
+                Analytics.set_timeBase();
 			} 
 			else {
                 GameObject.Find("player").transform.position = playerPos;
@@ -179,7 +183,8 @@ public class BaseController : MonoBehaviour{
 			    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
 			    turrets.Add(newObject);
 			    lastHitObject.tag = "BasicTurretPlane";
-		    }
+                Analytics.setBuildings(1);
+            }
 		    if (buildingToBuild.Equals ("Cat-a-pult")) {
 			    Delete();
 			    Vector3 place = lastHitObject.transform.position;
@@ -187,7 +192,8 @@ public class BaseController : MonoBehaviour{
 			    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
 			    turrets.Add(newObject);
 			    lastHitObject.tag = "occupiedPlane";
-		    }
+                Analytics.setBuildings(2);
+            }
 		    if (buildingToBuild.Equals ("Energy Boost Bed")) {
 			    Delete();
 			    Vector3 place = lastHitObject.transform.position;
@@ -228,7 +234,8 @@ public class BaseController : MonoBehaviour{
 			    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
 			    turrets.Add(newObject);
 			    lastHitObject.tag = "occupiedPlane";
-		    }
+                Analytics.setBuildings(4);
+            }
 		    if (buildingToBuild.Equals ("Health Boost Bed")) {
 			    Delete();
 			    Vector3 place = lastHitObject.transform.position;
@@ -270,6 +277,7 @@ public class BaseController : MonoBehaviour{
 			    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
 			    turrets.Add(newObject);
 			    lastHitObject.tag = "occupiedPlane";
+                Analytics.setBuildings(3);
 		    }
 		    if (buildingToBuild.Equals ("Tech Smith")) {
 			    Delete();

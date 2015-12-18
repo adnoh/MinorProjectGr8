@@ -246,29 +246,37 @@ public class PlayerAttacker : MonoBehaviour {
 	private void setActive(){
 		if (currentWeaponInt == 1) {
 			pistolImage.color = Color.red;
+            Analytics.setWeapons(1);
 		}
 		if (currentWeaponInt == 2) {
 			shrimpImage.color = Color.red;
-		}
+            Analytics.setWeapons(2);
+        }
 		if (currentWeaponInt == 3) {
 			stingerImage.color = Color.red;
-		}
+            Analytics.setWeapons(3);
+        }
 		if (currentWeaponInt == 4) {
 			eelText.color = Color.red;
-		}
+            Analytics.setWeapons(4);
+        }
 		if (currentWeaponInt == 5) {
 			wunderwuffenText.color = Color.red;
 			typeOfWunderWaffenText.color = Color.red;
-		}
+            Analytics.setWeapons(5);
+        }
 		if (currentWeaponInt == 6) {
 			batteringRamImage.color = Color.red;
-		}
+            Analytics.setWeapons(6);
+        }
 		if (currentWeaponInt == 7) {
 			swordfishText.color = Color.red;
-		}
+            Analytics.setWeapons(7);
+        }
 		if (currentWeaponInt == 8) {
 			baseBallBatImage.color = Color.red;
-		}
+            Analytics.setWeapons(8);
+        }
 	}
 
 	private void setUnActive(){

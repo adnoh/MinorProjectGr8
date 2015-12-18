@@ -65,6 +65,7 @@ public class PlayerAttributes : MonoBehaviour {
 	private static void levelUp(){
 		level ++;
 		pointsToUpgrade += 3;
+        Analytics.setPlayerLevel();
 	}
 
 	public static int getLevel(){
@@ -85,6 +86,7 @@ public class PlayerAttributes : MonoBehaviour {
 			attackPointsText.text = "Attack Points: " + attackPoints;
 			pointsToUpgrade --;
 			pointsToAssignText.text = "Points to assign " + pointsToUpgrade;
+            Analytics.setPlayerUpgrades(1);
 		}
 	}
 
@@ -95,7 +97,8 @@ public class PlayerAttributes : MonoBehaviour {
 			speedPointsText.text = "Speed Points: " + speedPoints;
 			pointsToUpgrade --;
 			pointsToAssignText.text = "Points to assign " + pointsToUpgrade;
-		}
+            Analytics.setPlayerUpgrades(2);
+        }
 	}
 
 	public void upgradeMaxHealth(){
@@ -105,7 +108,8 @@ public class PlayerAttributes : MonoBehaviour {
 			healthPointsText.text = "Max Health Points: " + maxHealthPoints;
 			pointsToUpgrade --;
 			pointsToAssignText.text = "Points to assign " + pointsToUpgrade;
-		}
+            Analytics.setPlayerUpgrades(3);
+        }
 	}
 
 	public void upgradeMaxEnergy(){
@@ -115,7 +119,8 @@ public class PlayerAttributes : MonoBehaviour {
 			energyPointsText.text = "Max Energy Points: " + maxEnergyPoints;
 			pointsToUpgrade --;
 			pointsToAssignText.text = "Points to assign " + pointsToUpgrade;
-		}
+            Analytics.setPlayerUpgrades(4);
+        }
 	}
 
 	public static float getAttackMultiplier(){
