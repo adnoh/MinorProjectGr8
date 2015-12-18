@@ -16,11 +16,8 @@ public class CameraShaker : MonoBehaviour {
 	}
 
 	void Update(){
-		if (Input.GetKeyDown (KeyCode.U)) {
-			shakeCamera ();
-		}
 		originalPos = camTransform.localPosition;
-		if (shake > 0) {
+		if (shake > 0 && !GameObject.Find("player").GetComponent<PlayerController>().death) {
 			CameraController.shaking = true;
 			camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
 			shake -= Time.deltaTime * decreaseFactor;

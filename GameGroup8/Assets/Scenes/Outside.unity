@@ -105,6 +105,7 @@ GameObject:
   - 114: {fileID: 5347435}
   - 114: {fileID: 5347434}
   - 114: {fileID: 5347440}
+  - 82: {fileID: 5347441}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -296,6 +297,80 @@ MonoBehaviour:
   camTransform: {fileID: 5347432}
   shakeAmount: 0.7
   decreaseFactor: 1
+--- !u!82 &5347441
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 5347427}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: e4bd0e777158ab146a34371c5a113c4b, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &6130185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1751,6 +1826,12 @@ CanvasRenderer:
 GameObject:
   m_PrefabParentObject: {fileID: 149090, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
   m_PrefabInternal: {fileID: 686223503}
+--- !u!114 &266868246 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11454794, guid: 4d24c3f8081099b43ace89676dff13f0,
+    type: 2}
+  m_PrefabInternal: {fileID: 686223503}
+  m_Script: {fileID: 11500000, guid: 0002ff017763ac242be141451ac00f90, type: 3}
 --- !u!114 &266868249 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11446434, guid: 4d24c3f8081099b43ace89676dff13f0,
@@ -2583,7 +2664,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &519266496
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7264,7 +7345,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 266868246}
         m_MethodName: playAgain
         m_Mode: 1
         m_Arguments:
