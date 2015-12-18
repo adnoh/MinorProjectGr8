@@ -19,10 +19,12 @@ public class EnemySpawner : MonoBehaviour {
 	public Text enemiesToDefeatText;
 
 	public float timeTillNextWave = 10f;
+    public float CountDownTimerValue;
 	private float minTimeBetweenWaves = 30f;
 	private float maxTimeBetweenWaves = 45f;
 
 	public Text timeTillNextWaveText;
+
 
 	private float changeToSpawnWindEnemy = 1/3;
 	private float changeToSpawnWaterEnemy = 1/3;
@@ -46,21 +48,24 @@ public class EnemySpawner : MonoBehaviour {
 
 	void Update () {
 		waveText.text = "Current wave: " + wave;
-		if(Time.time > timeTillNextWave){
+		if(Time.timeSinceLevelLoad > timeTillNextWave){
 			setEnemiesThisWave();
-			timeTillNextWave = Time.time + Random.Range (minTimeBetweenWaves, maxTimeBetweenWaves);
+			timeTillNextWave = Time.timeSinceLevelLoad + Random.Range (minTimeBetweenWaves, maxTimeBetweenWaves);
 			totalEnemiesSpawned += enemiesThisWave;
 			enemiesToDefeatText.text = "Enemies to defeat: " + enemiesToDefeat;
 			nextWave();
 			mu += 0.25f;
 			calculateLevelToSpawn ();
 		}
-		enemiesToDefeatText.text = "Enemies to defeat: " + enemiesToDefeat;
-		timeTillNextWaveText.text = "Time till next wave: " + (int)(timeTillNextWave - Time.time);
+        CountDownTimerValue = timeTillNextWave - Time.timeSinceLevelLoad; 
+
+        //Debug.Log(timeTillNextWave.ToString());
+        enemiesToDefeatText.text = "Enemies to defeat: " + enemiesToDefeat;
+		timeTillNextWaveText.text = "Time till next wave: " + (int)(CountDownTimerValue);
 		calculateChangeToSpawnEarth ();
 		calculateChangeToSpawnWater ();
 		calculateChangeToSpawnWind ();
-		enemiesToDefeat = totalEnemiesSpawned - enemiesDefeaten;
+        enemiesToDefeat = MiniMapScript.enemies.Count;
 		enemiesToDefeatText.text = "Enemies to defeat: " + enemiesToDefeat;
 	}
 

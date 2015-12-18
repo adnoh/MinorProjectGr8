@@ -29,10 +29,12 @@ public class GameStateController : MonoBehaviour
             // Save enemies
             MonsterCollection.MonsterSave("Assets/saves/monsters.xml");
 
-            // Save outside variables + base
+            // Save outside variables + baseLocation + SunLocation
             MonsterCollection.outsideSave("Assets/saves/outside.xml");
             MonsterCollection.turretSave("Assets/saves/turrets.xml");
             MonsterCollection.BaseSave("Assets/saves/base.xml");
+            MonsterCollection.SunSave("Assets/saves/sun.xml");
+            MonsterCollection.MoonSave("Assets/saves/moon.xml");
 
             // Save World (if you want to save the world, go ahead, be a hero)
             MonsterCollection.MapSave("Assets/saves/world.xml");
@@ -52,8 +54,10 @@ public class GameStateController : MonoBehaviour
             MonsterCollection.BaseLoad("Assets/saves/base.xml");
             GameObject.Find("Gate").GetComponent<BaseController>().buildFromSave();
             MonsterCollection.outsideLoad("Assets/saves/outside.xml");
-            MonsterCollection.turretLoad("Assets/saves/turrets.xml");           
-            
+            MonsterCollection.turretLoad("Assets/saves/turrets.xml");
+            MonsterCollection.SunLoad("Assets/saves/sun.xml");
+            MonsterCollection.MoonLoad("Assets/saves/moon.xml");
+
             // Map loading
             MonsterCollection.mapLoad("Assets/saves/world.xml");
             worldBuilder.ReplaceAssets();
@@ -133,6 +137,8 @@ public class GameStateController : MonoBehaviour
             GameObject.Find("Gate").GetComponent<BaseController>().buildFromSave();
             MonsterCollection.outsideLoad("Assets/saves/outside.xml");
             MonsterCollection.turretLoad("Assets/saves/turrets.xml");
+            MonsterCollection.SunLoad("Assets/saves/sun.xml");
+            MonsterCollection.MoonLoad("Assets/saves/moon.xml");
 
             LoadBase_mMap();
         }

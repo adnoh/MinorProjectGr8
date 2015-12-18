@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <MonsterCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <list>
-    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="15.9082365" rotation="0.992792249" isPosioned_x003F_="false" isStunned_x003F_="false" type="Wind">
-      <location_y>1.87535115E-05</location_y>
-      <location_z>-6.120185</location_z>
-      <rotation_x>1.47782441E-06</rotation_x>
-      <rotation_y>-0.1198482</rotation_y>
-      <rotation_z>1.7840047E-07</rotation_z>
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="13.071764" rotation="0.999253035" isPosioned_x003F_="false" isStunned_x003F_="false" type="Wind">
+      <location_y>1.13774229E-06</location_y>
+      <location_z>-1.32633889</location_z>
+      <rotation_x>-1.47021879E-08</rotation_x>
+      <rotation_y>-0.0386450365</rotation_y>
+      <rotation_z>-5.685913E-10</rotation_z>
     </list>
-    <list level="1" health="14" maxHealth="100" attackPower="10" walkingSpeed="2" location="16.0329151" rotation="0.989138365" isPosioned_x003F_="false" isStunned_x003F_="false" type="Water">
-      <location_y>3.768746E-05</location_y>
-      <location_z>-3.67855048</location_z>
-      <rotation_x>2.46910827E-06</rotation_x>
-      <rotation_y>-0.146987662</rotation_y>
-      <rotation_z>3.669137E-07</rotation_z>
+    <list level="1" health="100" maxHealth="100" attackPower="10" walkingSpeed="2" location="13.0243225" rotation="0.9989286" isPosioned_x003F_="false" isStunned_x003F_="false" type="Water">
+      <location_y>1.939057E-06</location_y>
+      <location_z>0.828826666</location_z>
+      <rotation_x>3.25736131E-08</rotation_x>
+      <rotation_y>-0.0462783836</rotation_y>
+      <rotation_z>1.50907076E-09</rotation_z>
     </list>
   </list>
 </MonsterCollection>

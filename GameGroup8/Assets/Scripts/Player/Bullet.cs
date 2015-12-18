@@ -46,7 +46,7 @@ public class Bullet : MonoBehaviour {
 				col.gameObject.GetComponent<Seeker>().StopAllCoroutines();
 				col.gameObject.GetComponent<Seeker>().destroyed = true;
 				enemyController.destroyed = true;
-				Destroy(col.gameObject);
+				enemyController.StartCoroutine (enemyController.die ());
 				PlayerAttacker.lastAttackedEnemy = null;
 				MiniMapScript.enemies.Remove(enemyController);
 				PlayerAttributes.getExperience(enemyController.getLevel());

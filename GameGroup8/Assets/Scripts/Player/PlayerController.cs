@@ -37,6 +37,12 @@ public class PlayerController : MonoBehaviour {
 	public GameObject deathScreen;
 	public Text textOnDeathScreen;
 
+	private Animator playerAnimator;
+
+	public void Start(){
+		playerAnimator = GetComponent<Animator> ();
+	}
+
 	public void FirstLoad() {
 		count = 0;
 		countText.text = "Amount of units: " + count;
@@ -46,6 +52,9 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update(){
+		if (Input.GetKeyDown (KeyCode.Alpha0)) {
+			playerAnimator.SetInteger ("weapon", 2);
+		}
 		updateBars ();
 		countText.text = "Amount of units: " + count;
 		levelText.text = "Level: " + PlayerAttributes.getLevel();
@@ -59,12 +68,15 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		if (PlayerAttributes.getEnergy() > 0 && Input.GetKeyDown (KeyCode.LeftShift)) {
+			playerAnimator.SetBool ("running", true);
 			PlayerAttributes.run();
 		} else if (PlayerAttributes.getEnergy() <= 0) {
+			playerAnimator.SetBool ("running", false);
 			PlayerAttributes.dontRun();
 		}
 
 		if (Input.GetKeyUp(KeyCode.LeftShift)) {
+			playerAnimator.SetBool ("running", false);
 			PlayerAttributes.dontRun();
 		}
 
@@ -101,6 +113,7 @@ public class PlayerController : MonoBehaviour {
 		PlayerAttributes.getTired ();
 
 		if (PlayerAttributes.getHealth() <= 0) {
+			playerAnimator.SetBool("dieing", true);
 			death = true;
 			PlayerAttributes.setHealth(1);
 			deathScreen.SetActive(true);
@@ -120,8 +133,13 @@ public class PlayerController : MonoBehaviour {
 	void FixedUpdate (){
 		float moveHorizontal = Input.GetAxis("Horizontal") * Time.deltaTime;
 		float moveVertical = Input.GetAxis ("Vertical") * Time.deltaTime;
-        
-		transform.Translate(PlayerAttributes.getSpeed() * moveHorizontal, 0.0f, PlayerAttributes.getSpeed() * moveVertical, Space.World);
+		if (moveHorizontal != 0 || moveVertical != 0) {
+			playerAnimator.SetBool ("walking", true);
+			transform.Translate (PlayerAttributes.getSpeed () * moveHorizontal, 0.0f, PlayerAttributes.getSpeed () * moveVertical, Space.World);
+		} else {
+			playerAnimator.SetBool ("walking", false);
+		}
+			
         
 		Vector3 playerPos = player.transform.position;
 		setPosition (playerPos);
@@ -174,7 +192,12 @@ public class PlayerController : MonoBehaviour {
         count -= change;
     }
 
-	void updateBars(){
+    public static void setCount_2(int change)
+    {
+        count = change;
+    }
+
+    void updateBars(){
 		playerHealthBar.maxValue = PlayerAttributes.getMaxHealth ();
 		playerHealthBar.value = PlayerAttributes.getHealth();
 		energyBar.maxValue = PlayerAttributes.getMaxEnergy ();
@@ -183,9 +206,11 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void playAgain(){
+		playerAnimator.SetBool("dieing", false);
 		death = false;
 		PlayerAttributes.setHealth (PlayerAttributes.getMaxHealth ());
         deathScreen.SetActive(false);
         transform.position = new Vector3(0, 0.1f, 5);
+		PlayerAttacker.currentWeapon = new WeaponFactory ().getPistol ();
 	}
 }

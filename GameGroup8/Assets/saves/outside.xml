@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <Outsidesave xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <wave>2</wave>
-  <timeTillNextWave>195.587967</timeTillNextWave>
+  <timeTillNextWave>196.0097</timeTillNextWave>
   <enemiesDefeaten>0</enemiesDefeaten>
   <enemiesToDefeat>2</enemiesToDefeat>
   <totalEnemiesSpawned>2</totalEnemiesSpawned>
