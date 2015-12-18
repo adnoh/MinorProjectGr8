@@ -8,9 +8,14 @@ public class Bullet : MonoBehaviour {
 	public bool stun;
 	public bool poisonous;
 
+    Score score_;
 
-	void Start(){
-		if (this.gameObject.CompareTag ("No type")) {
+
+    void Start(){
+
+        score_ = Camera.main.GetComponent<Score>();
+
+        if (this.gameObject.CompareTag ("No type")) {
 			type = new Type (0);
 		} else if (this.gameObject.CompareTag ("Wind")) {
 			type = new Type (1);
@@ -47,9 +52,10 @@ public class Bullet : MonoBehaviour {
 				EnemySpawner.enemiesDefeaten++;
 				col.gameObject.GetComponent<Seeker>().StopAllCoroutines();
 				col.gameObject.GetComponent<Seeker>().destroyed = true;
-				enemyController.destroyed = true;
-				enemyController.StartCoroutine (enemyController.die ());
-				PlayerAttacker.lastAttackedEnemy = null;
+                score_.addScoreEnemy(enemyController.getLevel());
+                enemyController.destroyed = true;
+				enemyController.StartCoroutine (enemyController.die());                
+                PlayerAttacker.lastAttackedEnemy = null;
 				MiniMapScript.enemies.Remove(enemyController);
 				PlayerAttributes.getExperience(enemyController.getLevel());
                 Analytics.setPlaceKill(col.gameObject.transform.position);
