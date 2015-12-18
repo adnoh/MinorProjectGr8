@@ -48,6 +48,10 @@ public class PlayerAttacker : MonoBehaviour {
     private int weaponCost = 5;
     public Text unitCount;
 
+    // referemce for score class for keeping score
+    Score score_;
+    
+
 	public GameObject[] weapons = new GameObject[8];
 	
 	void Start () {
@@ -66,7 +70,9 @@ public class PlayerAttacker : MonoBehaviour {
 			unitCostWeaponTexts[i].text = weaponCost + " Units";
 		}
 		playerAnimator = gameObject.GetComponent<Animator> ();
-	}
+
+        score_ = Camera.main.GetComponent<Score>();
+    }
 	
 	void Update () {
 		if(Time.time > nextAttack){
@@ -92,7 +98,8 @@ public class PlayerAttacker : MonoBehaviour {
 					EnemySpawner.enemiesDefeaten++;
 					lastAttackedEnemy.GetComponent<Seeker>().StopAllCoroutines();
 					lastAttackedEnemy.GetComponent<Seeker>().destroyed = true;
-					lastAttackedEnemy.die ();
+                    score_.addScoreEnemy(lastAttackedEnemy.getLevel());
+                    lastAttackedEnemy.die ();
 					MiniMapScript.enemies.Remove(lastAttackedEnemy);
 					PlayerAttributes.getExperience(lastAttackedEnemy.getLevel());
 					PlayerAttacker.lastAttackedEnemy = null;
@@ -132,7 +139,8 @@ public class PlayerAttacker : MonoBehaviour {
 						EnemySpawner.enemiesDefeaten++;
 						lastAttackedEnemy.GetComponent<Seeker> ().StopAllCoroutines ();
 						lastAttackedEnemy.GetComponent<Seeker> ().destroyed = true;
-						lastAttackedEnemy.destroyed = true;
+                        score_.addScoreEnemy(lastAttackedEnemy.getLevel());
+                        lastAttackedEnemy.destroyed = true;
 						lastAttackedEnemy.die ();
 						MiniMapScript.enemies.Remove (lastAttackedEnemy);
 						PlayerAttributes.getExperience (lastAttackedEnemy.getLevel ());

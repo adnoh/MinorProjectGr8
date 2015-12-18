@@ -60,7 +60,7 @@ public class EnemyController : MonoBehaviour {
 		isWithinRange = false;
 		MiniMapScript.enemies.Add (this);
 		anim = GetComponent<Animator> ();
-	}
+    }
 
 	void Update () {
 		this.gameObject.transform.LookAt (GameObject.Find ("player").transform.position);;
@@ -205,7 +205,7 @@ public class EnemyController : MonoBehaviour {
 
 	public IEnumerator die(){
 		anim.SetBool ("dying", true);
-		yield return new WaitForSeconds(1);
-		Destroy (this.gameObject);
+        yield return new WaitForSeconds(1);        
+        Destroy (this.gameObject);
 	}
 }
