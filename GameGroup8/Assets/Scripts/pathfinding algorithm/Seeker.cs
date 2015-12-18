@@ -43,7 +43,7 @@ public class Seeker : MonoBehaviour
     IEnumerator UpdatePath()
     {
         // wait for x seconds before 
-        float refreshRate = 0.25f;
+        float refreshRate = 0.5f;
 
         while (target != null && !destroyed)
         {
