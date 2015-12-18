@@ -212,5 +212,7 @@ public class PlayerController : MonoBehaviour {
         deathScreen.SetActive(false);
         transform.position = new Vector3(0, 0.1f, 5);
 		PlayerAttacker.currentWeapon = new WeaponFactory ().getPistol ();
+		this.gameObject.GetComponent<PlayerAttacker> ().setAllWeaponsUnactive ();
+		this.gameObject.GetComponent<PlayerAttacker> ().weapons[0].SetActive(true);
 	}
 }
