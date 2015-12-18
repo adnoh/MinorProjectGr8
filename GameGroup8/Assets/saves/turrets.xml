@@ -1,4 +1,41 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <TurretList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <list />
+  <list>
+    <list>
+      <name>Rock-paper-scissor turret</name>
+      <x>80.5</x>
+      <y>0.001</y>
+      <z>-50.5</z>
+      <wRot>0.7716246</wRot>
+      <xRot>0</xRot>
+      <yRot>0.6360782</yRot>
+      <zRot>0</zRot>
+      <timeTillNextAttack>2</timeTillNextAttack>
+      <timeTillNext>30</timeTillNext>
+    </list>
+    <list>
+      <name>Rock-paper-scissor turret</name>
+      <x>85.5</x>
+      <y>0.001</y>
+      <z>-50.5</z>
+      <wRot>-0.6755902</wRot>
+      <xRot>0</xRot>
+      <yRot>0.7372773</yRot>
+      <zRot>0</zRot>
+      <timeTillNextAttack>2</timeTillNextAttack>
+      <timeTillNext>30</timeTillNext>
+    </list>
+    <list>
+      <name>Rock-paper-scissor turret</name>
+      <x>80.5</x>
+      <y>0.001</y>
+      <z>-55.5</z>
+      <wRot>0.777146</wRot>
+      <xRot>0</xRot>
+      <yRot>0.629320443</yRot>
+      <zRot>0</zRot>
+      <timeTillNextAttack>2</timeTillNextAttack>
+      <timeTillNext>30</timeTillNext>
+    </list>
+  </list>
 </TurretList>
