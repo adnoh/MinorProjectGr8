@@ -20,8 +20,8 @@ public class EnemySpawner : MonoBehaviour {
 
 	public float timeTillNextWave = 10f;
     public float CountDownTimerValue;
-	private float minTimeBetweenWaves = 30f;
-	private float maxTimeBetweenWaves = 45f;
+	private float minTimeBetweenWaves = 45f;
+	private float maxTimeBetweenWaves = 90f;
 
 	public Text timeTillNextWaveText;
 

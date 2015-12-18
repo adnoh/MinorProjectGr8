@@ -66,7 +66,7 @@ public class EnemyController : MonoBehaviour {
 		this.gameObject.transform.LookAt (GameObject.Find ("player").transform.position);;
 		if (isWithinRange && Time.time > nextAttack) {
 			nextAttack = Time.time + attackRate;
-			attack ();
+			StartCoroutine(attack ());
 		}
 		if (poisoned && Time.time > timeToGetPoisonDamage) {
 			timeToGetPoisonDamage = Time.time + intervalToGetPoisonDamage;
@@ -155,9 +155,15 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
 
-	public void attack() {
+	public IEnumerator attack() {
 		PlayerAttributes.takeDamage(attackPower);
 		CameraShaker.shakeCamera ();
+		if (enemy.getType ().getType () == 2) {
+			anim.SetBool ("attack", true);
+			yield return new WaitForSeconds (1);
+			anim.SetBool ("attack", false);
+		}
+
 	}
 
 	public void setPoisoned(bool poi){
