@@ -24,7 +24,7 @@ public class Score : MonoBehaviour {
 
     public void addScoreWave(int CurrentWave)
     {
-        score += (CurrentWave * 1000);
+        score += ((CurrentWave - 0) * 1000);
         scoreText.text = "Score: " + score;
     }
 

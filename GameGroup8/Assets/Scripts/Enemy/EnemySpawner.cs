@@ -35,7 +35,10 @@ public class EnemySpawner : MonoBehaviour {
 	private float sigma = 1f;
 
 
-	public void FirstLoad () {
+    Score score_;
+
+
+    public void FirstLoad () {
 		wave = 1;
 		waveText.text = "Current wave: 1";
 		enemiesToDefeat = 0;
@@ -46,6 +49,11 @@ public class EnemySpawner : MonoBehaviour {
 		calculateLevelToSpawn ();
 	}
 
+    public void Awake()
+    {
+        score_ = Camera.main.GetComponent<Score>();
+    }
+
 	void Update () {
 		waveText.text = "Current wave: " + wave;
 		if(Time.timeSinceLevelLoad > timeTillNextWave){
@@ -53,8 +61,10 @@ public class EnemySpawner : MonoBehaviour {
 			timeTillNextWave = Time.timeSinceLevelLoad + Random.Range (minTimeBetweenWaves, maxTimeBetweenWaves);
 			totalEnemiesSpawned += enemiesThisWave;
 			enemiesToDefeatText.text = "Enemies to defeat: " + enemiesToDefeat;
-			nextWave();
-			mu += 0.25f;
+            nextWave();
+            // Add scores the beginning of the wave
+            score_.addScoreWave(wave);
+            mu += 0.25f;
 			calculateLevelToSpawn ();
 		}
         CountDownTimerValue = timeTillNextWave - Time.timeSinceLevelLoad; 
@@ -100,7 +110,7 @@ public class EnemySpawner : MonoBehaviour {
 				Instantiate (earthEnemyClone, getRandomPosition(), Quaternion.identity);
 			}
 		}
-		wave++;
+        wave++;
 	}
 
 

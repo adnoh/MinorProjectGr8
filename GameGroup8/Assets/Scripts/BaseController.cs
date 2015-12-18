@@ -48,7 +48,11 @@ public class BaseController : MonoBehaviour{
     private int Fourth_Building = 20;
 
 
+    Score score_;
+
     void Awake(){
+
+        score_ = Camera.main.GetComponent<Score>();
         lastHitObject = null;
         pause = false;
         turrets = new List<GameObject>(4);
@@ -206,6 +210,7 @@ public class BaseController : MonoBehaviour{
 			    lastHitObject.tag = "occupiedPlane";
 		    }
             UpdateUnits(building);
+            score_.addScoreBuilding(building.getCost());
         }
 	}
 
@@ -247,6 +252,7 @@ public class BaseController : MonoBehaviour{
 			    lastHitObject.tag = "occupiedPlane";
 		    }
             UpdateUnits(building);
+            score_.addScoreBuilding(building.getCost());
         }
 	}
 
@@ -280,6 +286,7 @@ public class BaseController : MonoBehaviour{
 			    lastHitObject.tag = "occupiedPlane";
 		    }
             UpdateUnits(building);
+            score_.addScoreBuilding(building.getCost());
         }
 	}
 
