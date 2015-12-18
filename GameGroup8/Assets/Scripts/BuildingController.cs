@@ -40,12 +40,14 @@ public class BuildingController : MonoBehaviour {
 	}
     
     void Update(){
+        bool pause = BaseController.getPause();
+
 		for (int i = 0; i < enemys.Count; i++) {
 			if (enemys [i] == null) {
 				enemys.Remove (enemys[i]);
 			}
 		}
-		if (enemys.Count > 0 && (enemys[0] != null || enemys [0].GetComponent<EnemyController> ().destroyed)) {
+		if (enemys.Count > 0 && (enemys[0] == null || enemys [0].GetComponent<EnemyController> ().destroyed)) {
 			enemys.Remove(enemys[0]);
 		}
         if (enemys.Count > 0 && building.returnIfTurret() && enemys[0] != null && !enemys[0].GetComponent<EnemyController>().destroyed){
@@ -83,16 +85,21 @@ public class BuildingController : MonoBehaviour {
 			time = Time.time + timeInterval;
 		}
 
-		if(Input.GetKeyDown(KeyCode.T)){
+		if(Input.GetKeyDown(KeyCode.T) && pause){
 			if (building.getName ().Equals ("GunSmith") && !weaponUnlocker) {
 				GameObject.Find ("player").GetComponent<PlayerAttacker> ().weaponUnlockScreen.SetActive (true);
 				GameObject.Find ("player").GetComponent<PlayerAttacker> ().setTextOfLockUnlock();
 				weaponUnlocker = true;
-			} else {
+			} else if (building.getName ().Equals ("GunSmith") && weaponUnlocker) {
 				GameObject.Find ("player").GetComponent<PlayerAttacker> ().weaponUnlockScreen.SetActive (false);
 				weaponUnlocker = false;
-			}
+			} 
 		}
+        else if (!pause)
+        {
+            GameObject.Find("player").GetComponent<PlayerAttacker>().weaponUnlockScreen.SetActive(false);
+            weaponUnlocker = false;
+        }
     }
 
     void OnTriggerEnter(Collider other){
