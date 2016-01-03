@@ -47,9 +47,15 @@ public class PlayerAttacker : MonoBehaviour {
 
     private int weaponCost = 5;
     public Text unitCount;
+
+	public GameObject[] weapons = new GameObject[8];
+
+    Score _score;
 	
 	void Start () {
-		currentWeapon = weaponFactory.getPistol ();
+        _score = Camera.main.GetComponent<Score>();
+
+        currentWeapon = weaponFactory.getPistol ();
 		currentWeaponInt = 1;
 		showEnemyDescription = false;
 		enemyDescription.SetActive (false);
@@ -90,7 +96,8 @@ public class PlayerAttacker : MonoBehaviour {
 					EnemySpawner.enemiesDefeaten++;
 					lastAttackedEnemy.GetComponent<Seeker>().StopAllCoroutines();
 					lastAttackedEnemy.GetComponent<Seeker>().destroyed = true;
-					lastAttackedEnemy.die ();
+                    _score.addScoreEnemy(lastAttackedEnemy.getLevel());
+                    lastAttackedEnemy.die ();
 					MiniMapScript.enemies.Remove(lastAttackedEnemy);
 					PlayerAttributes.getExperience(lastAttackedEnemy.getLevel());
 					PlayerAttacker.lastAttackedEnemy = null;
@@ -123,7 +130,7 @@ public class PlayerAttacker : MonoBehaviour {
 				if(lastAttackedEnemy != null){
 					int damage = (int)(Random.Range (currentWeapon.getWeaponDamage(), currentWeapon.getWeaponDamage() + 10) * currentWeapon.getType ().damageMultiplierToType(lastAttackedEnemy.getType()) * PlayerAttributes.getAttackMultiplier());
 					lastAttackedEnemy.setHealth(lastAttackedEnemy.getHealth () - damage);
-					//lastAttackedEnemy.gameObject.transform.Translate(new Vector3((this.gameObject.transform.position.x - lastAttackedEnemy.gameObject.transform.position.x) * currentWeapon.getKnockBack(), 0, (this.gameObject.transform.position.z - lastAttackedEnemy.gameObject.transform.position.z) * currentWeapon.getKnockBack())); 
+					//lastAttackedEnemy.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3((this.gameObject.transform.position.x - lastAttackedEnemy.gameObject.transform.position.x) * currentWeapon.getKnockBack(), 0, (this.gameObject.transform.position.z - lastAttackedEnemy.gameObject.transform.position.z) * currentWeapon.getKnockBack())); 
 					if (lastAttackedEnemy.getHealth () <= 0) {
 						PSpawner spawner = Camera.main.GetComponent<PSpawner> ();
 						spawner.placeUnit (lastAttackedEnemy.gameObject.transform.position);
@@ -131,7 +138,8 @@ public class PlayerAttacker : MonoBehaviour {
 						lastAttackedEnemy.GetComponent<Seeker> ().StopAllCoroutines ();
 						lastAttackedEnemy.GetComponent<Seeker> ().destroyed = true;
 						lastAttackedEnemy.destroyed = true;
-						lastAttackedEnemy.die ();
+                        _score.addScoreEnemy(lastAttackedEnemy.getLevel());
+                        lastAttackedEnemy.StartCoroutine(lastAttackedEnemy.die ());
 						MiniMapScript.enemies.Remove (lastAttackedEnemy);
 						PlayerAttributes.getExperience (lastAttackedEnemy.getLevel ());
 						PlayerAttacker.lastAttackedEnemy = null;
@@ -143,42 +151,58 @@ public class PlayerAttacker : MonoBehaviour {
 				currentWeapon = weaponFactory.getPistol();
 				playerAnimator.SetInteger ("weapon", 1);
 				currentWeaponInt = 1;
+				setAllWeaponsUnactive ();
+				weapons [0].SetActive (true);
 			}
 			if ((Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2)) && unlocked[1]){
 				currentWeapon = weaponFactory.getShrimpPistol();
 				currentWeaponInt = 2;
 				playerAnimator.SetInteger ("weapon", 1);
+				setAllWeaponsUnactive ();
+				weapons [1].SetActive (true);
 			}
 			if ((Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3)) && unlocked[2]){
 				currentWeapon = weaponFactory.getStingerGun();
 				currentWeaponInt = 3;
 				playerAnimator.SetInteger ("weapon", 1);
+				setAllWeaponsUnactive ();
+				weapons [2].SetActive (true);
 			}
 			if ((Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4)) && unlocked[3]){
 				currentWeapon = weaponFactory.getWeaponizedEel();
 				currentWeaponInt = 4;
 				playerAnimator.SetInteger ("weapon", 3);
+				setAllWeaponsUnactive ();
+				weapons [3].SetActive (true);
 			}
 			if ((Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5)) && unlocked[4]){
 				currentWeapon = weaponFactory.getWunderwuffen();
 				currentWeapon.setType(new Type(1));
 				currentWeaponInt = 5;
 				playerAnimator.SetInteger ("weapon", 1);
+				setAllWeaponsUnactive ();
+				weapons [4].SetActive (true);
 			}
 			if ((Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6)) && unlocked[5]){
 				currentWeapon = weaponFactory.getBatteringRam();
 				currentWeaponInt = 6;
 				playerAnimator.SetInteger ("weapon", 3);
+				setAllWeaponsUnactive ();
+				weapons [5].SetActive (true);
 			}
 			if ((Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Alpha7)) && unlocked[6]){
 				currentWeapon = weaponFactory.getSwordfish();
 				currentWeaponInt = 7;
 				playerAnimator.SetInteger ("weapon", 2);
+				setAllWeaponsUnactive ();
+				weapons [6].SetActive (true);
 			}
 			if ((Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Alpha8)) && unlocked[7]){
 				currentWeapon = weaponFactory.getBaseballBat();
 				currentWeaponInt = 8;
 				playerAnimator.SetInteger ("weapon", 2);
+				setAllWeaponsUnactive ();
+				weapons [7].SetActive (true);
 			}
 			if(currentWeapon.getIfChangeable() && Input.GetMouseButtonDown(1)){
 				if(currentWeapon.getType().getType() < 3){
@@ -228,29 +252,37 @@ public class PlayerAttacker : MonoBehaviour {
 	private void setActive(){
 		if (currentWeaponInt == 1) {
 			pistolImage.color = Color.red;
+            Analytics.setWeapons(1);
 		}
 		if (currentWeaponInt == 2) {
 			shrimpImage.color = Color.red;
-		}
+            Analytics.setWeapons(2);
+        }
 		if (currentWeaponInt == 3) {
 			stingerImage.color = Color.red;
-		}
+            Analytics.setWeapons(3);
+        }
 		if (currentWeaponInt == 4) {
 			eelText.color = Color.red;
-		}
+            Analytics.setWeapons(4);
+        }
 		if (currentWeaponInt == 5) {
 			wunderwuffenText.color = Color.red;
 			typeOfWunderWaffenText.color = Color.red;
-		}
+            Analytics.setWeapons(5);
+        }
 		if (currentWeaponInt == 6) {
 			batteringRamImage.color = Color.red;
-		}
+            Analytics.setWeapons(6);
+        }
 		if (currentWeaponInt == 7) {
 			swordfishText.color = Color.red;
-		}
+            Analytics.setWeapons(7);
+        }
 		if (currentWeaponInt == 8) {
 			baseBallBatImage.color = Color.red;
-		}
+            Analytics.setWeapons(8);
+        }
 	}
 
 	private void setUnActive(){
@@ -320,6 +352,12 @@ public class PlayerAttacker : MonoBehaviour {
 			} else {
 				lockedUnlockedTexts [i].text = "Locked";
 			}
+		}
+	}
+
+	public void setAllWeaponsUnactive(){
+		for (int i = 0; i < 8; i++) {
+			weapons [i].SetActive (false);
 		}
 	}
 }

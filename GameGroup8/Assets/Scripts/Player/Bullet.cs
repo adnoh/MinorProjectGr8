@@ -8,9 +8,14 @@ public class Bullet : MonoBehaviour {
 	public bool stun;
 	public bool poisonous;
 
+    Score score_;
 
-	void Start(){
-		if (this.gameObject.CompareTag ("No type")) {
+
+    void Start(){
+
+        score_ = Camera.main.GetComponent<Score>();
+
+        if (this.gameObject.CompareTag ("No type")) {
 			type = new Type (0);
 		} else if (this.gameObject.CompareTag ("Wind")) {
 			type = new Type (1);
@@ -24,6 +29,8 @@ public class Bullet : MonoBehaviour {
 	void Update(){
 		if ((this.gameObject.name.Equals("newBullet(Clone)") || this.gameObject.name.Equals ("CatPrefab(Clone)") || this.gameObject.name.Equals("SnailPrefab(Clone)")) && this.gameObject.GetComponent<Rigidbody> ().velocity == new Vector3(0f, 0f, 0f)) {
 			GameObject.Destroy (gameObject);
+            if (this.gameObject.name.Equals("newBullet(Clone)"))
+                Analytics.setHitCount(false);
 		}
 	}
 
@@ -45,12 +52,24 @@ public class Bullet : MonoBehaviour {
 				EnemySpawner.enemiesDefeaten++;
 				col.gameObject.GetComponent<Seeker>().StopAllCoroutines();
 				col.gameObject.GetComponent<Seeker>().destroyed = true;
-				enemyController.destroyed = true;
-				enemyController.StartCoroutine (enemyController.die ());
-				PlayerAttacker.lastAttackedEnemy = null;
+                score_.addScoreEnemy(enemyController.getLevel());
+                enemyController.destroyed = true;
+				enemyController.StartCoroutine (enemyController.die());                
+                PlayerAttacker.lastAttackedEnemy = null;
 				MiniMapScript.enemies.Remove(enemyController);
 				PlayerAttributes.getExperience(enemyController.getLevel());
-			}
+                Analytics.setPlaceKill(col.gameObject.transform.position);
+                if (col.gameObject.name == "FireFoxPrefab(Clone)")
+                    Analytics.setHitByEnemy(0);
+                if (col.gameObject.name == "HammerHeadPrefab(Clone)")
+                    Analytics.setHitByEnemy(1);
+                if (col.gameObject.name == "DesertEaglePrefab(Clone)")
+                    Analytics.setHitByEnemy(2);
+            }
+
+            if (this.gameObject.name.Equals("newBullet(Clone)"))
+                Analytics.setHitCount(true);
+
 			GameObject.Destroy (gameObject);
 		}
 

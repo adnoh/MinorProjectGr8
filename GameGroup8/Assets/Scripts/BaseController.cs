@@ -48,7 +48,11 @@ public class BaseController : MonoBehaviour{
     private int Fourth_Building = 20;
 
 
+    Score score_;
+
     void Awake(){
+
+        score_ = Camera.main.GetComponent<Score>();
         lastHitObject = null;
         pause = false;
         turrets = new List<GameObject>(4);
@@ -56,6 +60,9 @@ public class BaseController : MonoBehaviour{
     }
 	
     void Update(){
+
+        if (Vector3.Distance(Gate.transform.position, GameObject.Find("player").transform.position) < 50)
+            Analytics.set_timeCTBase();
         
 		if (Input.GetButtonDown("Jump") && Vector3.Distance(Gate.transform.position, GameObject.Find ("player").transform.position) < 3){
 			PlayerAttributes.resetFatique();
@@ -64,6 +71,7 @@ public class BaseController : MonoBehaviour{
 				playerPos = GameObject.Find("player").transform.position;
                 Vector3 TempPlayerPos = GameObject.FindGameObjectWithTag("BASE").transform.position - new Vector3(0,1f,5.31f);
 				GameObject.Find("player").transform.position = TempPlayerPos;
+                Analytics.set_timeBase();
 			} 
 			else {
                 GameObject.Find("player").transform.position = playerPos;
@@ -77,7 +85,7 @@ public class BaseController : MonoBehaviour{
 		{
 			Time.timeScale = 0;
 		} 
-		if(!pause) {
+		if(!pause && !GameObject.Find("player").GetComponent<PlayerController>().death) {
 			Time.timeScale = 1;
 		}
 
@@ -179,7 +187,8 @@ public class BaseController : MonoBehaviour{
 			    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
 			    turrets.Add(newObject);
 			    lastHitObject.tag = "BasicTurretPlane";
-		    }
+                Analytics.setBuildings(1);
+            }
 		    if (buildingToBuild.Equals ("Cat-a-pult")) {
 			    Delete();
 			    Vector3 place = lastHitObject.transform.position;
@@ -187,7 +196,8 @@ public class BaseController : MonoBehaviour{
 			    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
 			    turrets.Add(newObject);
 			    lastHitObject.tag = "occupiedPlane";
-		    }
+                Analytics.setBuildings(2);
+            }
 		    if (buildingToBuild.Equals ("Energy Boost Bed")) {
 			    Delete();
 			    Vector3 place = lastHitObject.transform.position;
@@ -206,6 +216,7 @@ public class BaseController : MonoBehaviour{
 			    lastHitObject.tag = "occupiedPlane";
 		    }
             UpdateUnits(building);
+            score_.addScoreBuilding(building.getCost());
         }
 	}
 
@@ -228,7 +239,8 @@ public class BaseController : MonoBehaviour{
 			    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
 			    turrets.Add(newObject);
 			    lastHitObject.tag = "occupiedPlane";
-		    }
+                Analytics.setBuildings(4);
+            }
 		    if (buildingToBuild.Equals ("Health Boost Bed")) {
 			    Delete();
 			    Vector3 place = lastHitObject.transform.position;
@@ -247,6 +259,7 @@ public class BaseController : MonoBehaviour{
 			    lastHitObject.tag = "occupiedPlane";
 		    }
             UpdateUnits(building);
+            score_.addScoreBuilding(building.getCost());
         }
 	}
 
@@ -270,6 +283,7 @@ public class BaseController : MonoBehaviour{
 			    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
 			    turrets.Add(newObject);
 			    lastHitObject.tag = "occupiedPlane";
+                Analytics.setBuildings(3);
 		    }
 		    if (buildingToBuild.Equals ("Tech Smith")) {
 			    Delete();
@@ -280,6 +294,7 @@ public class BaseController : MonoBehaviour{
 			    lastHitObject.tag = "occupiedPlane";
 		    }
             UpdateUnits(building);
+            score_.addScoreBuilding(building.getCost());
         }
 	}
 

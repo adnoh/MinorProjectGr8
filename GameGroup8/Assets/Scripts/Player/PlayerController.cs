@@ -52,6 +52,12 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update(){
+        Analytics.set_timeOutside();
+        Analytics.setScore(Camera.main.GetComponent<Score>().getScore());
+
+		if (Input.GetKeyDown (KeyCode.Alpha0)) {
+			playerAnimator.SetInteger ("weapon", 2);
+		}
 		updateBars ();
 		countText.text = "Amount of units: " + count;
 		levelText.text = "Level: " + PlayerAttributes.getLevel();
@@ -209,5 +215,7 @@ public class PlayerController : MonoBehaviour {
         deathScreen.SetActive(false);
         transform.position = new Vector3(0, 0.1f, 5);
 		PlayerAttacker.currentWeapon = new WeaponFactory ().getPistol ();
+        Analytics.setPlaceDied(transform.position);
+        Analytics.set_timesDied();
 	}
 }

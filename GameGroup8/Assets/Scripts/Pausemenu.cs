@@ -29,9 +29,14 @@ public class Pausemenu : MonoBehaviour {
         }
 	}
 
-	void loadpause(){
+	public void loadpause(){
         Time.timeScale = 0;
 		Application.LoadLevel(2);
+	}
+
+	public void loadmenu(){
+		Time.timeScale = 0;
+		Application.LoadLevel (0);
 	}
 
 	public void loadoutside(){

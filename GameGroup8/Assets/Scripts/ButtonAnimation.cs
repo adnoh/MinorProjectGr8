@@ -57,7 +57,10 @@ public class ButtonAnimation : MonoBehaviour {
 
     public void PlayAnimation()
     {
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.Play();
         Animation anim = GetComponent<Animation>();
+
         GetComponent<Animator>().Play("bookert_");
         if (can1.gameObject.activeSelf == true)
         {
