@@ -35,7 +35,9 @@ public class PlayerController : MonoBehaviour {
 	public int amountOfDeaths;
 	public bool death = false;
 	public GameObject deathScreen;
+
 	public Text textOnDeathScreen;
+	public Text scoreOnDeathScreen;
 
 	private Animator playerAnimator;
 
@@ -122,6 +124,7 @@ public class PlayerController : MonoBehaviour {
 			deathScreen.SetActive(true);
 			amountOfDeaths ++;
 			textOnDeathScreen.text = "You've died " + amountOfDeaths + "time(s) so far /n Do you want to play again?";
+			scoreOnDeathScreen.text = "You scored: " + Score.score + "/n" + "Do you want to submit your score?";
 		}
 
 		if (death) {
