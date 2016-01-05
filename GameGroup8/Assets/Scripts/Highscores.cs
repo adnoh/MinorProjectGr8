@@ -13,20 +13,13 @@ public class Highscores : MonoBehaviour
     public Text higscoretext;
 
     // currently an input field for both playername and score. Score must be an integer.
-    public InputField playername;
-    public InputField score;
+    public InputField playername;    
     
     // needed for posting
     string player_name;
     int hi_score;
 
         
-    public void Start()
-    {   
-
-        StartCoroutine(GetScores());
-    }
-
     public void StartGetScores()
     {
         StartCoroutine(GetScores());
@@ -36,8 +29,11 @@ public class Highscores : MonoBehaviour
     public void StartPostScores()
     {
         player_name = playername.text;
-        hi_score = int.Parse(score.text);
-        StartCoroutine(PostScores(player_name, hi_score));
+		if (player_name != null) 
+		{
+			hi_score = Score.score;
+			StartCoroutine (PostScores (player_name, hi_score));
+		}
     }
 
 
@@ -63,6 +59,8 @@ public class Highscores : MonoBehaviour
             print("There was an error posting the high score: " + hs_post.error);
         }
     }
+
+		
  
     // Get the scores from the MySQL DB to display in a GUIText.
     // remember to use StartCoroutine when calling this function!
