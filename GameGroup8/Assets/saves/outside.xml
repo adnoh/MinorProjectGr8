@@ -3,10 +3,10 @@
   <wave>3</wave>
   <timeTillNextWave>0</timeTillNextWave>
   <CountDownTimerValue>0</CountDownTimerValue>
-  <enemiesDefeaten>0</enemiesDefeaten>
-  <enemiesToDefeat>11</enemiesToDefeat>
-  <totalEnemiesSpawned>20</totalEnemiesSpawned>
-  <CountDownTimer_Value>52.171093</CountDownTimer_Value>
+  <enemiesDefeaten>3</enemiesDefeaten>
+  <enemiesToDefeat>14</enemiesToDefeat>
+  <totalEnemiesSpawned>28</totalEnemiesSpawned>
+  <CountDownTimer_Value>25.4364967</CountDownTimer_Value>
   <tagOfMat1>emptyPlane</tagOfMat1>
   <tagOfMat2>emptyPlane</tagOfMat2>
   <tagOfMat3>emptyPlane</tagOfMat3>
