@@ -52,7 +52,14 @@ public class PlayerController : MonoBehaviour {
 		playerHealthBar.value = PlayerAttributes.getHealth ();
 		energyBar.value = PlayerAttributes.getEnergy();
 		levelText.text = "Level: " + PlayerAttributes.getLevel();
-	}
+        PlayerAttributes.reset();
+        PlayerAttacker.unlocked[1] = true;
+        for (int i = 2; i < 8; i++)
+        {
+            PlayerAttacker.unlocked[i] = false;
+        }
+        PlayerAttacker.currentWeapon = new WeaponFactory().getPistol();
+    }
 
 	void Update(){
         Analytics.set_timeOutside();
@@ -189,8 +196,6 @@ public class PlayerController : MonoBehaviour {
 		return currentrotation;
 	}
 
-
-
     public static int getCount(){
         return count;
     }
@@ -213,24 +218,7 @@ public class PlayerController : MonoBehaviour {
 		fatiqueBar.value = PlayerAttributes.getFatique ();
 	}
 
-	public void playAgain(){
-		playerAnimator.SetBool("dieing", false);
-		death = false;
-		PlayerAttributes.setHealth (PlayerAttributes.getMaxHealth ());
-        deathScreen.SetActive(false);
-        transform.position = new Vector3(0, 0.1f, 5);
-		PlayerAttacker.currentWeapon = new WeaponFactory ().getPistol ();
-        for(int i = 2; i < 8; i++)
-        {
-            PlayerAttacker.unlocked[i] = false;
-        }
-        count = 0;
-        PlayerAttributes.reset();
-        Analytics.setPlaceDied(transform.position);
-        Analytics.set_timesDied();
-	}
-
-	public void PlayAgain2(){
+	public void PlayAgain(){
 		MiniMapScript.clearEnemies ();		
 		GameStateController.setNewgame (true);
 		// Application.LoadLevel (1);

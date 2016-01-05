@@ -84,14 +84,6 @@ public class EnemySpawner : MonoBehaviour {
         Vector3 randomPos = new Vector3();
         randomPos.x = basePos.x - Mathf.Pow((Random.Range(10, 20)), Random.Range(0, 2));
         randomPos.z = basePos.z - Mathf.Pow((Random.Range(10, 20)), Random.Range(0, 2));
-        if(Mathf.Abs(randomPos.x) > 90)
-        {
-            randomPos.x = 90;
-        }
-        if (Mathf.Abs(randomPos.z) > 90)
-        {
-            randomPos.z = 90;
-        }
         return randomPos;
 	}
 
