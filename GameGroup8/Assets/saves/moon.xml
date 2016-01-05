@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <MoonSave xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <posx>0</posx>
-  <posy>434.4115</posy>
-  <posz>-247.5604</posz>
-  <rotx>0.5024335</rotx>
-  <roty>0</roty>
-  <rotz>0</rotz>
-  <rotw>0.8646159</rotw>
+  <posy>-498.351685</posy>
+  <posz>40.5549</posz>
+  <rotx>0</rotx>
+  <roty>0.7352245</roty>
+  <rotz>0.677823663</rotz>
+  <rotw>0</rotw>
 </MoonSave>
