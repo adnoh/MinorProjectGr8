@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 	
@@ -228,4 +229,17 @@ public class PlayerController : MonoBehaviour {
         Analytics.setPlaceDied(transform.position);
         Analytics.set_timesDied();
 	}
+
+	public void PlayAgain2(){
+		MiniMapScript.clearEnemies ();		
+		GameStateController.setNewgame (true);
+		// Application.LoadLevel (1);
+		SceneManager.LoadScene(1);
+	}
+
+	public void Quit(){
+		MiniMapScript.clearEnemies ();
+		SceneManager.LoadScene (0);
+	}
+		
 }

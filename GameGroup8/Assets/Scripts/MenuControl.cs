@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MenuControl : MonoBehaviour {
 
@@ -16,12 +17,13 @@ public class MenuControl : MonoBehaviour {
 
 	public void StartGame(){
 		GameStateController.newgame = true;
-		Application.LoadLevel (1);
+		// Application.LoadLevel (1);
+		SceneManager.LoadScene(1);
 	}
 
 	public void LoadGame(){
 		GameStateController.newgame = false;
-		Application.LoadLevel (1);
+		SceneManager.LoadScene(1);
 	}
 	
 

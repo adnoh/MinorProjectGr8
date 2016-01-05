@@ -30,7 +30,6 @@ public class MiniMapScript : MonoBehaviour {
 			enemiesDotList.RemoveAt(enemiesDotList.Count - 1);
 		}
 
-
 		if (enemies.Count > 0) {
 			for(int i = 0; i < enemies.Count; i++){
 				enemiesDotList[i].enabled = true;

@@ -159,8 +159,9 @@ public class GameStateController : MonoBehaviour
     {
         if (newgame)
         {
-            
+			GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().FirstLoad();
         }
+
         else
         {
             // Load player position
