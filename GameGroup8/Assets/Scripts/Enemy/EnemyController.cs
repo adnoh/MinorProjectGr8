@@ -40,7 +40,7 @@ public class EnemyController : MonoBehaviour {
 
 	private Animator anim;
 
-    public bool dead;
+    public bool dead = false;
 
 	void Start () {
 		level = this.gameObject.GetComponent<EnemyController> ().getLevel ();

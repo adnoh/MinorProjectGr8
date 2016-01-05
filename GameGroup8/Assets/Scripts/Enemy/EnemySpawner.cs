@@ -82,8 +82,8 @@ public class EnemySpawner : MonoBehaviour {
 	Vector3 getRandomPosition(){
         Vector3 basePos = GameObject.FindGameObjectWithTag("BASE").transform.position;
         Vector3 randomPos = new Vector3();
-        randomPos.x = basePos.x - Mathf.Pow((Random.Range(10, 20)), Random.Range(0, 2));
-        randomPos.z = basePos.z - Mathf.Pow((Random.Range(10, 20)), Random.Range(0, 2));
+        randomPos.x = basePos.x - Random.Range(10, 20) * Mathf.Pow(1, Random.Range(0, 2));
+        randomPos.z = basePos.z - Random.Range(10, 20) * Mathf.Pow(1, Random.Range(0, 2));
         return randomPos;
 	}
 
