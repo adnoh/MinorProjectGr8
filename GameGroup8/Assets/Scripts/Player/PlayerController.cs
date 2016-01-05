@@ -224,13 +224,14 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void PlayAgain2(){
-		
+		MiniMapScript.clearEnemies ();		
 		GameStateController.setNewgame (true);
 		// Application.LoadLevel (1);
 		SceneManager.LoadScene(1);
 	}
 
 	public void Quit(){
+		MiniMapScript.clearEnemies ();
 		SceneManager.LoadScene (0);
 	}
 		
