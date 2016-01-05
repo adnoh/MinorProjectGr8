@@ -91,16 +91,16 @@ public class PlayerAttacker : MonoBehaviour {
 			if(currentWeapon.getIfElectric() && Input.GetMouseButton(0) && lastAttackedEnemy != null){
 				lastAttackedEnemy.health -= (int)(2 * currentWeapon.getType ().damageMultiplierToType(lastAttackedEnemy.getType()) * PlayerAttributes.getAttackMultiplier());
 				if(lastAttackedEnemy.getHealth () <= 0){
-					PSpawner spawner = Camera.main.GetComponent<PSpawner>();
-					spawner.placeUnit(lastAttackedEnemy.gameObject.transform.position);
 					EnemySpawner.enemiesDefeaten++;
 					lastAttackedEnemy.GetComponent<Seeker>().StopAllCoroutines();
 					lastAttackedEnemy.GetComponent<Seeker>().destroyed = true;
                     _score.addScoreEnemy(lastAttackedEnemy.getLevel());
                     lastAttackedEnemy.die ();
 					MiniMapScript.enemies.Remove(lastAttackedEnemy);
-					PlayerAttributes.getExperience(lastAttackedEnemy.getLevel());
-					PlayerAttacker.lastAttackedEnemy = null;
+                    if (!lastAttackedEnemy.dead){
+                        PlayerAttributes.getExperience(lastAttackedEnemy.getLevel());
+                    }
+                    PlayerAttacker.lastAttackedEnemy = null;
 				}
 			}
 			if(!currentWeapon.getIfElectric() && currentWeapon.getIfAutomatic() && Input.GetMouseButton(0) && Time.time > nextAttack && !currentWeapon.getIfMelee()){
@@ -132,8 +132,6 @@ public class PlayerAttacker : MonoBehaviour {
 					lastAttackedEnemy.setHealth(lastAttackedEnemy.getHealth () - damage);
 					//lastAttackedEnemy.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3((this.gameObject.transform.position.x - lastAttackedEnemy.gameObject.transform.position.x) * currentWeapon.getKnockBack(), 0, (this.gameObject.transform.position.z - lastAttackedEnemy.gameObject.transform.position.z) * currentWeapon.getKnockBack())); 
 					if (lastAttackedEnemy.getHealth () <= 0) {
-						PSpawner spawner = Camera.main.GetComponent<PSpawner> ();
-						spawner.placeUnit (lastAttackedEnemy.gameObject.transform.position);
 						EnemySpawner.enemiesDefeaten++;
 						lastAttackedEnemy.GetComponent<Seeker> ().StopAllCoroutines ();
 						lastAttackedEnemy.GetComponent<Seeker> ().destroyed = true;
@@ -141,7 +139,9 @@ public class PlayerAttacker : MonoBehaviour {
                         _score.addScoreEnemy(lastAttackedEnemy.getLevel());
                         lastAttackedEnemy.StartCoroutine(lastAttackedEnemy.die ());
 						MiniMapScript.enemies.Remove (lastAttackedEnemy);
-						PlayerAttributes.getExperience (lastAttackedEnemy.getLevel ());
+                        if (!lastAttackedEnemy.dead){
+                            PlayerAttributes.getExperience(lastAttackedEnemy.getLevel());
+                        }
 						PlayerAttacker.lastAttackedEnemy = null;
 					}
 				}

@@ -37,6 +37,10 @@ public class BuildingController : MonoBehaviour {
 		if (building.getName ().Equals ("GearShack")) {
 			PlayerAttacker.unlock(2);
 		}
+        if (building.getName().Equals("Snailgun"))
+        {
+            this.gameObject.transform.Rotate(0, -90, 0);
+        }
 	}
     
     void Update(){
@@ -54,9 +58,9 @@ public class BuildingController : MonoBehaviour {
             enemyPosition = enemys[0].transform.position;
             enemyPosition.y = 0;
             transform.LookAt(enemyPosition);
-			/*if(building.getName().Equals ("Cat-a-pult") || building.getName ().Equals ("Snailgun")){
+			if(building.getName().Equals ("Cat-a-pult") || building.getName ().Equals ("Snailgun")){
             	transform.Rotate(new Vector3 (0, 1, 0), 90);
-			}*/
+			}
         }
 		if (enemys.Count > 0 && Time.time > attackTime && building.returnIfTurret()) {
 			attackTime = Time.time + timeToNextAttack;
@@ -78,7 +82,14 @@ public class BuildingController : MonoBehaviour {
 			if(bulletClone.name.Equals ("SnailPrefab(Clone)")){
 				bulletClone.transform.Rotate (0, 90, 0);
 			}
-			bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f);
+            if (building.getName().Equals("Snailgun") || building.getName().Equals("Cat-a-pult"))
+            {
+                bulletClone.GetComponent<Rigidbody>().AddForce(-transform.right * 1000f);
+            }
+            else
+            {
+                bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f);
+            }
 		}
 		if (building.getName ().Equals ("Generator") && Time.time > time) {
 			PlayerController.setCount(-1);

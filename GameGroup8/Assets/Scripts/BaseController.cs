@@ -47,8 +47,9 @@ public class BaseController : MonoBehaviour{
     private int Third_Buidling = 15;
     private int Fourth_Building = 20;
 
-
     Score score_;
+
+    public int baseHealth = 1000;
 
     void Awake(){
 
