@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 
@@ -42,30 +43,51 @@ public class EnemyController : MonoBehaviour {
 
     public bool dead = false;
 
-	void Start () {
-		level = this.gameObject.GetComponent<EnemyController> ().getLevel ();
-		if (this.gameObject.transform.name.Equals ("HammerHeadPrefab(Clone)")) {
-			enemy = enemyFactory.getEnemy ("water", level);
-		} else if (this.gameObject.transform.name.Equals ("DesertEaglePrefab(Clone)")) {
-			enemy = enemyFactory.getEnemy ("wind", level);
-		} else if (this.gameObject.transform.name.Equals ("FireFoxPrefab(Clone)")) {
-			enemy = enemyFactory.getEnemy ("earth", level);
-		}
-				
-		level = enemy.getLevel ();
-		maxHealth = enemy.getMaxHealth();
-		health = enemy.getMaxHealth();
-		attackPower = enemy.getAttackPower();
-		walkingSpeed = enemy.getWalkingSpeed();
-		type = enemy.getType ();
+    public Slider healthBar;
+    public Slider healthBarClone;
+    public Text description;
+    public Text descriptionClone;
+    public int offset = 2000;
 
-		isWithinRange = false;
-		MiniMapScript.enemies.Add (this);
-		anim = GetComponent<Animator> ();
+    void Start()
+    {
+        level = this.gameObject.GetComponent<EnemyController>().getLevel();
+        if (this.gameObject.transform.name.Equals("HammerHeadPrefab(Clone)"))
+        {
+            enemy = enemyFactory.getEnemy("water", level);
+        }
+        else if (this.gameObject.transform.name.Equals("DesertEaglePrefab(Clone)"))
+        {
+            enemy = enemyFactory.getEnemy("wind", level);
+        }
+        else if (this.gameObject.transform.name.Equals("FireFoxPrefab(Clone)"))
+        {
+            enemy = enemyFactory.getEnemy("earth", level);
+        }
+
+        level = enemy.getLevel();
+        maxHealth = enemy.getMaxHealth();
+        health = enemy.getMaxHealth();
+        attackPower = enemy.getAttackPower();
+        walkingSpeed = enemy.getWalkingSpeed();
+        type = enemy.getType();
+
+        isWithinRange = false;
+        MiniMapScript.enemies.Add(this);
+        anim = GetComponent<Animator>();
+        healthBarClone = Instantiate(healthBar);
+        healthBarClone.transform.SetParent(Camera.main.GetComponent<EnemySpawner>().EnemyHealthBars.transform, false);
+        healthBarClone.maxValue = health;
+        descriptionClone = Instantiate(description);
+        descriptionClone.text = "Lvl:" + enemy.getLevel() + " . " + enemy.getType().toString();
+        descriptionClone.transform.SetParent(Camera.main.GetComponent<EnemySpawner>().EnemyHealthBars.transform, false);
     }
 
 	void Update () {
-		this.gameObject.transform.LookAt (GameObject.Find ("player").transform.position);;
+        healthBarClone.transform.position = Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, 20, 0);
+        descriptionClone.transform.position = Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, 25, 0);
+        healthBarClone.value = health;
+		this.gameObject.transform.LookAt (GameObject.Find ("player").transform.position);
 		if (isWithinRange && Time.time > nextAttack) {
 			nextAttack = Time.time + attackRate;
 			StartCoroutine(attack ());
@@ -216,11 +238,14 @@ public class EnemyController : MonoBehaviour {
     }
 
 	public IEnumerator die(){
+        
         dead = true;
 		anim.SetBool ("dying", true);
         yield return new WaitForSeconds(1);
         PSpawner spawner = Camera.main.GetComponent<PSpawner>();
         spawner.placeUnit(this.gameObject.transform.position);
+        healthBarClone.transform.position = new Vector3(-1000, -1000, 0);
+        descriptionClone.transform.position = new Vector3(-1000, -1000, 0);
         Destroy (this.gameObject);
 	}
 }

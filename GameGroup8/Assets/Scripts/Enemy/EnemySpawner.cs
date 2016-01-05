@@ -36,6 +36,8 @@ public class EnemySpawner : MonoBehaviour {
 
 
     Score score_;
+    public Canvas canvas;
+    public GameObject EnemyHealthBars;
 
 
     public void FirstLoad () {
@@ -80,11 +82,12 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	Vector3 getRandomPosition(){
-        Vector3 basePos = GameObject.FindGameObjectWithTag("BASE").transform.position;
+        /*Vector3 basePos = GameObject.FindGameObjectWithTag("BASE").transform.position;
         Vector3 randomPos = new Vector3();
         randomPos.x = basePos.x - Random.Range(10, 20) * Mathf.Pow(1, Random.Range(0, 2));
-        randomPos.z = basePos.z - Random.Range(10, 20) * Mathf.Pow(1, Random.Range(0, 2));
-        return randomPos;
+        randomPos.z = basePos.z - Random.Range(10, 20) * Mathf.Pow(1, Random.Range(0, 2));*/
+
+        return new Vector3(Random.Range(-100, 100), 1, Random.Range(-100, 100)) ;
 	}
 
 	void nextWave(){
