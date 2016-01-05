@@ -12,7 +12,6 @@ public class Seeker : MonoBehaviour
     private Transform target;
     private Transform currentPos;
     private float speed;
-
 	public bool destroyed = false;
 
 
@@ -22,39 +21,21 @@ public class Seeker : MonoBehaviour
     // get target
     void Awake()
     {
-        target = GameObject.Find("player").GetComponent<Transform>();
-		currentPos = this.gameObject.GetComponent<Transform> ();
+		target = GameObject.FindGameObjectWithTag ("Wall").GetComponent<Transform> ();
     }
 
     // Request path
 
     void Start()
     {
-		if (this.gameObject != null) {
-			StartCoroutine (UpdatePath ());
-		}
+		
+	  	PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
 		speed = this.gameObject.GetComponent<EnemyController> ().walkingSpeed;
     }
 
 	void Update(){
 		speed = this.gameObject.GetComponent<EnemyController> ().walkingSpeed;
 	}
-
-    IEnumerator UpdatePath()
-    {
-        // wait for x seconds before 
-        float refreshRate = 0.5f;
-
-        while (target != null && !destroyed)
-        {
-            if (target != currentPos)
-            {
-                PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
-            }
-            // request new path and follow this path till new path found.
-            yield return new WaitForSeconds(refreshRate);
-        }
-    }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
     {
@@ -79,7 +60,6 @@ public class Seeker : MonoBehaviour
                         // reset targetindex counter + path
                         targetIndex = 0;
                         path = new Vector3[0];
-
                         yield break;
                     }
                     currentWaypoint = path[targetIndex];
