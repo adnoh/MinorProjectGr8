@@ -1,4 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <TurretList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <list />
+  <list>
+    <list>
+      <name>Cat-a-pult</name>
+      <x>90.5</x>
+      <y>0.001</y>
+      <z>-96.5</z>
+      <wRot>0.8812709</wRot>
+      <xRot>3.94681556E-05</xRot>
+      <yRot>-0.4726115</yRot>
+      <zRot>2.116614E-05</zRot>
+      <timeTillNextAttack>2</timeTillNextAttack>
+      <timeTillNext>30</timeTillNext>
+    </list>
+    <list>
+      <name>Snailgun</name>
+      <x>90.5</x>
+      <y>0.001</y>
+      <z>-101.5</z>
+      <wRot>0.940399945</wRot>
+      <xRot>3.23383574E-05</xRot>
+      <yRot>-0.3400706</yRot>
+      <zRot>1.16943047E-05</zRot>
+      <timeTillNextAttack>2</timeTillNextAttack>
+      <timeTillNext>30</timeTillNext>
+    </list>
+  </list>
 </TurretList>

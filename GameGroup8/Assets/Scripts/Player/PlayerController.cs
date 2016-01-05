@@ -208,6 +208,7 @@ public class PlayerController : MonoBehaviour {
 		playerHealthBar.value = PlayerAttributes.getHealth();
 		energyBar.maxValue = PlayerAttributes.getMaxEnergy ();
 		energyBar.value = PlayerAttributes.getEnergy();
+        fatiqueBar.maxValue = PlayerAttributes.getMaxFatique();
 		fatiqueBar.value = PlayerAttributes.getFatique ();
 	}
 
@@ -218,6 +219,12 @@ public class PlayerController : MonoBehaviour {
         deathScreen.SetActive(false);
         transform.position = new Vector3(0, 0.1f, 5);
 		PlayerAttacker.currentWeapon = new WeaponFactory ().getPistol ();
+        for(int i = 2; i < 8; i++)
+        {
+            PlayerAttacker.unlocked[i] = false;
+        }
+        count = 0;
+        PlayerAttributes.reset();
         Analytics.setPlaceDied(transform.position);
         Analytics.set_timesDied();
 	}

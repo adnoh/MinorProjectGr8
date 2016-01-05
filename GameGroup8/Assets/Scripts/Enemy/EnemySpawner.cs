@@ -80,12 +80,19 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	Vector3 getRandomPosition(){
-		int ran = Random.Range (0, 2);
-		if (ran == 1) {
-			return new Vector3 ((float)(Random.Range (5, 15) * Mathf.Pow (-1, Random.Range (0, 2))), 1f, (float)Random.Range (0, 10));
-		} else {
-			return new Vector3 ((float)(Random.Range (5, 15) * Mathf.Pow (-1, Random.Range (0, 2))), 1f, (float)Random.Range (-15, -25));
-		}
+        Vector3 basePos = GameObject.FindGameObjectWithTag("BASE").transform.position;
+        Vector3 randomPos = new Vector3();
+        randomPos.x = basePos.x - Mathf.Pow((Random.Range(10, 20)), Random.Range(0, 2));
+        randomPos.z = basePos.z - Mathf.Pow((Random.Range(10, 20)), Random.Range(0, 2));
+        if(Mathf.Abs(randomPos.x) > 90)
+        {
+            randomPos.x = 90;
+        }
+        if (Mathf.Abs(randomPos.z) > 90)
+        {
+            randomPos.z = 90;
+        }
+        return randomPos;
 	}
 
 	void nextWave(){
