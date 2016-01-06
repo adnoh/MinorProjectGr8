@@ -50,6 +50,7 @@ public class BaseController : MonoBehaviour{
     Score score_;
 
     public int baseHealth = 1000;
+    public Slider healthSlider;
 
     void Awake(){
 
@@ -61,6 +62,8 @@ public class BaseController : MonoBehaviour{
     }
 	
     void Update(){
+
+        healthSlider.value = baseHealth;
 
         if (Vector3.Distance(Gate.transform.position, GameObject.Find("player").transform.position) < 50)
             Analytics.set_timeCTBase();
@@ -229,7 +232,7 @@ public class BaseController : MonoBehaviour{
 		    if (buildingToBuild.Equals ("Gearshack")) {
 			    Vector3 place = lastHitObject.transform.position;
 			    GameObject newObject = (GameObject)Instantiate(gearShack, place, Quaternion.identity);
-			    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
+			    newObject.transform.Rotate(new Vector3(-90, (Random.Range(0, 360)), 0));
 			    turrets.Add(newObject);
 			    lastHitObject.tag = "GearShackPlane";
 		    }
