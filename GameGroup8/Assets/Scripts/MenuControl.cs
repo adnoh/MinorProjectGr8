@@ -15,16 +15,35 @@ public class MenuControl : MonoBehaviour {
 
 	}
 
-	public void StartGame(){
-		GameStateController.newgame = true;
+    IEnumerator MyMethod1()
+    {
+        yield return new WaitForSeconds(2);
+        GameStateController.newgame = true;
+        // Application.LoadLevel (1);
+        SceneManager.LoadScene(1);
+    }
+
+    IEnumerator MyMethod2()
+    {
+        yield return new WaitForSeconds(2);
+        GameStateController.newgame = false;
+        SceneManager.LoadScene(1);
+    }
+
+
+    public void StartGame(){
+
+        StartCoroutine(MyMethod1());
+        //GameStateController.newgame = true;
 		// Application.LoadLevel (1);
-		SceneManager.LoadScene(1);
+		//SceneManager.LoadScene(1);
 	}
 
 	public void LoadGame(){
-		GameStateController.newgame = false;
-		SceneManager.LoadScene(1);
-	}
+        StartCoroutine(MyMethod2());
+        //GameStateController.newgame = false;
+        //SceneManager.LoadScene(1);
+    }
 	
 
 }

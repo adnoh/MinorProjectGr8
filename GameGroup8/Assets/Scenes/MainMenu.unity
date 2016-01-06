@@ -1197,7 +1197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cdf4da0bb979c14e8450ea5142587e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backdrop: {fileID: 0}
   buttons: {fileID: 0}
 --- !u!114 &523929065
 MonoBehaviour:
@@ -2155,7 +2154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cdf4da0bb979c14e8450ea5142587e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backdrop: {fileID: 1077378556}
   buttons: {fileID: 1059731763}
 --- !u!1 &1077378553
 GameObject:
@@ -2167,6 +2165,7 @@ GameObject:
   - 4: {fileID: 1077378555}
   - 212: {fileID: 1077378554}
   - 95: {fileID: 1077378556}
+  - 114: {fileID: 1077378557}
   m_Layer: 0
   m_Name: backdrop
   m_TagString: Untagged
@@ -2233,6 +2232,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1077378557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1077378553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 205008c812680f0439ae6f43637728ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backdrop: {fileID: 1077378556}
 --- !u!1 &1086667441
 GameObject:
   m_ObjectHideFlags: 0
@@ -2297,7 +2308,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 3915.3184}
+  m_AnchoredPosition: {x: 0, y: 3173.4922}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1131645263
@@ -2675,7 +2686,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cdf4da0bb979c14e8450ea5142587e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backdrop: {fileID: 0}
   buttons: {fileID: 0}
 --- !u!114 &1283197037
 MonoBehaviour:
@@ -3119,7 +3129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cdf4da0bb979c14e8450ea5142587e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backdrop: {fileID: 0}
   buttons: {fileID: 1059731763}
 --- !u!1 &1563080634
 GameObject:
@@ -3209,6 +3218,17 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1059731764}
+        m_MethodName: animationplay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1077378557}
         m_MethodName: animationplay
         m_Mode: 1
         m_Arguments:
