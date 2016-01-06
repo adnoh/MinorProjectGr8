@@ -93,11 +93,9 @@ public class BaseController : MonoBehaviour{
 			Time.timeScale = 1;
 		}
 
-		if (lastHitObject != null) {
+		if (lastHitObject != null && Input.GetMouseButton(0)) {
 			setBuildMenu();
-		} else {
-			buildMenu.SetActive (false);
-		}
+		} 
 
 		if (pause) {
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -137,7 +135,7 @@ public class BaseController : MonoBehaviour{
         }
     }
 
-	void Delete(){
+	public void Delete(){
 		float temp = 3;
 		int placeOfObject = 0;
 		GameObject other = null;
@@ -180,7 +178,7 @@ public class BaseController : MonoBehaviour{
         }
     }
 
-    void Build1st(){
+    public void Build1st(){
 		string buildingToBuild = buildingText1.text;
 		BuildingFactory buildingFactory = new BuildingFactory ();
 		Building building = buildingFactory.getBuilding (buildingToBuild);
@@ -224,7 +222,7 @@ public class BaseController : MonoBehaviour{
         }
 	}
 
-	void Build2nd(){
+	public void Build2nd(){
 		string buildingToBuild = buildingText2.text;
 		BuildingFactory buildingFactory = new BuildingFactory ();
 		Building building = buildingFactory.getBuilding (buildingToBuild);
@@ -267,7 +265,7 @@ public class BaseController : MonoBehaviour{
         }
 	}
 
-	void Build3rd(){
+	public void Build3rd(){
 		string buildingToBuild = buildingText3.text;
 		BuildingFactory buildingFactory = new BuildingFactory ();
 		Building building = buildingFactory.getBuilding (buildingToBuild);
@@ -480,6 +478,11 @@ public class BaseController : MonoBehaviour{
     public static bool getPause()
     {
         return pause;
+    }
+
+    public void closeBuildMenu()
+    {
+        buildMenu.SetActive(false);
     }
 }
 
