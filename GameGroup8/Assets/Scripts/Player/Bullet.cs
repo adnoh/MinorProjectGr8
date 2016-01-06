@@ -10,7 +10,6 @@ public class Bullet : MonoBehaviour {
 
     Score score_;
 
-
     void Start(){
 
         score_ = Camera.main.GetComponent<Score>();

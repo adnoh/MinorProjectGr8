@@ -8,7 +8,7 @@ public class PlayerAttributes : MonoBehaviour {
 	public static int experience = 0;
 	public static int pointsToUpgrade = 0;
 
-	private static int experienceNeededToLevelUp = 1;
+	private static int experienceNeededToLevelUp = 10;
 
 	public static int attackPoints = 0;
 	public static int speedPoints = 0;

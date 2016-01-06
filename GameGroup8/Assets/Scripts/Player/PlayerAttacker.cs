@@ -5,14 +5,6 @@ using System.Collections.Generic;
 
 public class PlayerAttacker : MonoBehaviour {
 	
-	public GameObject enemyDescription;
-	public bool showEnemyDescription;
-	
-	public Text enemyDescriptionText;
-	public Slider enemyHealthBar;
-	public Text enemyWeaponDamageText;
-	public Text enemyLevelText;
-	
 	public GameObject bullet;
 	public float bulletSpeed = 1000f;
 	public static Weapon currentWeapon;
@@ -57,9 +49,7 @@ public class PlayerAttacker : MonoBehaviour {
 
         currentWeapon = weaponFactory.getPistol ();
 		currentWeaponInt = 1;
-		showEnemyDescription = false;
-		enemyDescription.SetActive (false);
-		unlocked [0] = true;
+	    unlocked [0] = true;
 		for (int i = 1; i < unlocked.Length; i++) {
 			unlocked [i] = false;
 		}
@@ -76,16 +66,9 @@ public class PlayerAttacker : MonoBehaviour {
 		if(Time.time > nextAttack){
 			playerAnimator.SetBool("attack", false);
 		}
-		enemyDescription.SetActive (showEnemyDescription);
 		bool Base = BaseController.pause;
 		setUnActive ();
 		setActive ();
-		
-		if (lastAttackedEnemy != null) {
-			setEnemyDescription (lastAttackedEnemy);
-		} else {
-			showEnemyDescription = false;
-		}
 		
 		if (!Base){
 			if(currentWeapon.getIfElectric() && Input.GetMouseButton(0) && lastAttackedEnemy != null){
@@ -218,31 +201,7 @@ public class PlayerAttacker : MonoBehaviour {
 		}
 		
 	}
-	
-	public void setEnemyDescription(EnemyController enemyController){
-		if (enemyController.getType ().getType () == 1) {
-			enemyDescriptionText.text = "Desert Eagle";
-		}
-		if (enemyController.getType ().getType () == 2) {
-			enemyDescriptionText.text = "Fire Fox";
-		} else {
-			enemyDescriptionText.text = "Hammerhead Shark";
-		}
-		enemyHealthBar.maxValue = (float)enemyController.getMaxHealth ();
-		enemyHealthBar.value = (float)enemyController.getHealth ();
-		enemyWeaponDamageText.text = "Weapon Damage:" + enemyController.getAttackPower ();
-		enemyLevelText.text = "Level: " + enemyController.getLevel ();
-		showEnemyDescription = true;
-	}
-	
-	public void setEnemyDescriptionOff(){
-		showEnemyDescription = false;
-	}
-	
-	public void setEnemyDescriptionOn(){
-		showEnemyDescription = true;
-	}
-	
+
 	public void OnTriggerEnter(Collider col){
 		if (col.gameObject.CompareTag ("Enemy")) {
 			lastAttackedEnemy = col.gameObject.GetComponent<EnemyController>();
