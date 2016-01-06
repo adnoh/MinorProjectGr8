@@ -41,7 +41,7 @@ public class Seeker : MonoBehaviour
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
     {
-        if (pathSuccessful && !destroyed && toBase){
+        if (pathSuccessful && !destroyed && toBase && !withinBaseRange){
             path = newPath;
             // Stop the Coroutine before starting.
             StopCoroutine("FollowPath");
@@ -55,8 +55,9 @@ public class Seeker : MonoBehaviour
               
             Vector3 currentWaypoint = path[0];
 
-		while (true && !destroyed && toBase){
-			if (transform.position == currentWaypoint && !destroyed && toBase)
+		while (true && !destroyed && toBase && !withinBaseRange)
+        {
+			if (transform.position == currentWaypoint && !destroyed && toBase && !withinBaseRange)
             {
                     targetIndex++;
                     if (targetIndex >= path.Length){
@@ -94,6 +95,22 @@ public class Seeker : MonoBehaviour
                     Gizmos.DrawLine(path[i - 1], path[i]);
                 }
             }
+        }
+    }
+
+    public void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.CompareTag("BASE"))
+        {
+            withinBaseRange = true;
+        }
+    }
+
+    public void OnTriggerExit(Collider col)
+    {
+        if (col.gameObject.CompareTag("BASE"))
+        {
+            withinBaseRange = false;
         }
     }
 }

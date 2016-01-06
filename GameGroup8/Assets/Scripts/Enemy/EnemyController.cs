@@ -102,9 +102,17 @@ public class EnemyController : MonoBehaviour {
                 transform.position = Vector3.MoveTowards(transform.position, PlayerController.getPosition(), walkingSpeed * Time.deltaTime);
             }
         }
-		if (isWithinRange && Time.time > nextAttack) {
-			nextAttack = Time.time + attackRate;
-			StartCoroutine(attack ());
+		if (Time.time > nextAttack) {
+            if (isWithinRange)
+            {
+                nextAttack = Time.time + attackRate;
+                StartCoroutine(attack());
+            }
+            if (baseWithinRange)
+            {
+                nextAttack = Time.time + attackRate;
+                StartCoroutine(attackBase());
+            }
 		}
 		if (poisoned && Time.time > timeToGetPoisonDamage) {
 			timeToGetPoisonDamage = Time.time + intervalToGetPoisonDamage;
@@ -196,11 +204,17 @@ public class EnemyController : MonoBehaviour {
         }
 	}
 
-    public void attackBase()
+    public IEnumerator attackBase()
     {
         if (!dead)
         {
-
+            GameObject.Find("Gate").GetComponent<BaseController>().baseHealth -= attackPower;
+            if (enemy.getType().getType() == 2)
+            {
+                anim.SetBool("attack", true);
+                yield return new WaitForSeconds(1);
+                anim.SetBool("attack", false);
+            }
         }
     }
 
@@ -257,4 +271,20 @@ public class EnemyController : MonoBehaviour {
         descriptionClone.transform.position = new Vector3(-1000, -1000, 0);
         Destroy (this.gameObject);
 	}
+
+    public void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.CompareTag("BASE"))
+        {
+            baseWithinRange = true;
+        }
+    }
+
+    public void OnTriggerExit(Collider col)
+    {
+        if (col.gameObject.CompareTag("BASE"))
+        {
+            baseWithinRange = false;
+        }
+    }
 }

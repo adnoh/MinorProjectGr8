@@ -50,6 +50,7 @@ public class BaseController : MonoBehaviour{
     Score score_;
 
     public int baseHealth = 1000;
+    public Slider healthSlider;
 
     void Awake(){
 
@@ -61,6 +62,8 @@ public class BaseController : MonoBehaviour{
     }
 	
     void Update(){
+
+        healthSlider.value = baseHealth;
 
         if (Vector3.Distance(Gate.transform.position, GameObject.Find("player").transform.position) < 50)
             Analytics.set_timeCTBase();

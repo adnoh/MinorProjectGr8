@@ -2012,6 +2012,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 323993197}
+  - 65: {fileID: 323993198}
   m_Layer: 8
   m_Name: Base
   m_TagString: BASE
@@ -2034,6 +2035,18 @@ Transform:
   - {fileID: 1905394259}
   m_Father: {fileID: 0}
   m_RootOrder: 8
+--- !u!65 &323993198
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 323993196}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12, y: 4, z: 12}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &337191078 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 148588, guid: 57a24050f06a56b498e1a60d90fdb95b, type: 2}
