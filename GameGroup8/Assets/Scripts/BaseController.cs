@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class BaseController : MonoBehaviour{
 
     private GameObject lastHitObject;
+    private GameObject buildObject;
     private Material originalMat;
     public static bool pause;
 	public static bool building;
@@ -95,9 +96,10 @@ public class BaseController : MonoBehaviour{
 
 		if (lastHitObject != null && Input.GetMouseButton(0)) {
 			setBuildMenu();
+            building = true;
 		} 
 
-		if (pause) {
+		if (pause & !building) {
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 		
@@ -135,24 +137,30 @@ public class BaseController : MonoBehaviour{
         }
     }
 
-	public void Delete(){
-		float temp = 3;
-		int placeOfObject = 0;
-		GameObject other = null;
-		for (int i = 0; i < turrets.Count; i++) {
-			float distance = Vector3.Distance (lastHitObject.transform.position, turrets [i].transform.position);
-			if (distance < temp) {
-				temp = distance;
-				other = turrets [i];
-				placeOfObject = i;
-			}
-		}
-		turrets.RemoveAt (placeOfObject);
-		Destroy (other);
+	void Delete(){
+        if (turrets.Count != 0)
+        {
+            float temp = 3;
+            int placeOfObject = 0;
+            GameObject other = null;
+            for (int i = 0; i < turrets.Count; i++)
+            {
+                float distance = Vector3.Distance(lastHitObject.transform.position, turrets[i].transform.position);
+                if (distance < temp)
+                {
+                    temp = distance;
+                    other = turrets[i];
+                    placeOfObject = i;
+                }
+            }
+            turrets.RemoveAt(placeOfObject);
+            Destroy(other);
+        }
 	}
 
-    void RemoveBuilding()
+    public void RemoveBuilding()
     {
+        Debug.Log("delete");
         float temp = 3;
         int placeOfObject = 0;
         GameObject other = null;
@@ -175,10 +183,12 @@ public class BaseController : MonoBehaviour{
             turrets.RemoveAt(placeOfObject);
             Destroy(other);
             lastHitObject.tag = "emptyPlane";
+            setBuildMenu();
         }
     }
 
     public void Build1st(){
+        Debug.Log("build 1");
 		string buildingToBuild = buildingText1.text;
 		BuildingFactory buildingFactory = new BuildingFactory ();
 		Building building = buildingFactory.getBuilding (buildingToBuild);
@@ -219,11 +229,13 @@ public class BaseController : MonoBehaviour{
 		    }
             UpdateUnits(building);
             score_.addScoreBuilding(building.getCost());
+            setBuildMenu();
         }
 	}
 
 	public void Build2nd(){
-		string buildingToBuild = buildingText2.text;
+        Debug.Log("build 2");
+        string buildingToBuild = buildingText2.text;
 		BuildingFactory buildingFactory = new BuildingFactory ();
 		Building building = buildingFactory.getBuilding (buildingToBuild);
 		if(PlayerController.getCount() >= building.getCost()){
@@ -262,11 +274,13 @@ public class BaseController : MonoBehaviour{
 		    }
             UpdateUnits(building);
             score_.addScoreBuilding(building.getCost());
+            setBuildMenu();
         }
 	}
 
 	public void Build3rd(){
-		string buildingToBuild = buildingText3.text;
+        Debug.Log("build 3");
+        string buildingToBuild = buildingText3.text;
 		BuildingFactory buildingFactory = new BuildingFactory ();
 		Building building = buildingFactory.getBuilding (buildingToBuild);
 		if(PlayerController.getCount() >= building.getCost()){
@@ -297,6 +311,7 @@ public class BaseController : MonoBehaviour{
 		    }
             UpdateUnits(building);
             score_.addScoreBuilding(building.getCost());
+            setBuildMenu();
         }
 	}
 
@@ -483,6 +498,7 @@ public class BaseController : MonoBehaviour{
     public void closeBuildMenu()
     {
         buildMenu.SetActive(false);
+        building = false;
     }
 }
 
