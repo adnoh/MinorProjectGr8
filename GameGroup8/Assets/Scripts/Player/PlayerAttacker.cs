@@ -86,7 +86,8 @@ public class PlayerAttacker : MonoBehaviour {
 				bulletClone.GetComponent<Bullet>().dmg = currentWeapon.getWeaponDamage();
 				bulletClone.GetComponent<Bullet>().poisonous = currentWeapon.getIfPoisonous();
 				bulletClone.GetComponent<Bullet>().stun = currentWeapon.getIfStuns();
-				bulletClone.transform.Rotate(90, 0, 0);
+                bulletClone.GetComponent<Bullet>().shotByPlayer = true;
+                bulletClone.transform.Rotate(90, 0, 0);
 				bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
 			}
 			if(!currentWeapon.getIfAutomatic() && Input.GetMouseButtonDown(0) && Time.time > nextAttack && !currentWeapon.getIfMelee()){
@@ -96,7 +97,8 @@ public class PlayerAttacker : MonoBehaviour {
 				bulletClone.GetComponent<Bullet>().dmg = currentWeapon.getWeaponDamage();
 				bulletClone.GetComponent<Bullet>().poisonous = currentWeapon.getIfPoisonous();
 				bulletClone.GetComponent<Bullet>().stun = currentWeapon.getIfStuns();
-				bulletClone.transform.Rotate(90, 0, 0);
+                bulletClone.GetComponent<Bullet>().shotByPlayer = true;
+                bulletClone.transform.Rotate(90, 0, 0);
 				bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
 			}
 			if (Input.GetMouseButtonDown(0) && Time.time > nextAttack && currentWeapon.getIfMelee()){
