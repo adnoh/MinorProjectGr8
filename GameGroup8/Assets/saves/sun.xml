@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <SunSave xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <posx>0</posx>
-  <posy>497.8524</posy>
-  <posz>46.2927971</posz>
-  <rotx>0</rotx>
-  <roty>0.7391162</roty>
-  <rotz>-0.673577964</rotz>
-  <rotw>0</rotw>
+  <posy>269.9196</posy>
+  <posz>-420.884125</posz>
+  <rotx>0.281275481</rotx>
+  <roty>0</roty>
+  <rotz>0</rotz>
+  <rotw>0.9596271</rotw>
 </SunSave>
