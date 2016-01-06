@@ -43,6 +43,7 @@ public class EnemyController : MonoBehaviour {
 	private Animator anim;
 
     public bool dead = false;
+    public bool shotByPlayer = false;
 
     public Slider healthBar;
     public Slider healthBarClone;
@@ -88,7 +89,7 @@ public class EnemyController : MonoBehaviour {
         healthBarClone.transform.position = Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, 20, 0);
         descriptionClone.transform.position = Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, 25, 0);
         healthBarClone.value = health;
-        if (health == maxHealth)
+        if (!shotByPlayer)
         {
             this.gameObject.transform.LookAt(GameObject.FindGameObjectWithTag("BASE").transform.position);
         }
@@ -263,6 +264,7 @@ public class EnemyController : MonoBehaviour {
 
 	public IEnumerator die(){
         dead = true;
+        walkingSpeed = 0;
 		anim.SetBool ("dying", true);
         yield return new WaitForSeconds(1);
         PSpawner spawner = Camera.main.GetComponent<PSpawner>();

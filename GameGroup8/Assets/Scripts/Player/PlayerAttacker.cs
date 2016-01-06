@@ -16,16 +16,9 @@ public class PlayerAttacker : MonoBehaviour {
 	public static EnemyController lastAttackedEnemy;
 	
 	public GameObject weaponPanel;
-	
-	public Image pistolImage;
-	public Image shrimpImage;
-	public Image stingerImage;
-	public Text eelText;
-	public Text wunderwuffenText;
-	public Image batteringRamImage;
-	public Text swordfishText;
-	public Image baseBallBatImage;
 
+    public Image[] weaponImages = new Image[8];
+	
 	public static bool[] unlocked = new bool[8];
 	public Text[] lockedUnlockedTexts = new Text[8];
 	public Text[] unitCostWeaponTexts = new Text[8];
@@ -93,7 +86,8 @@ public class PlayerAttacker : MonoBehaviour {
 				bulletClone.GetComponent<Bullet>().dmg = currentWeapon.getWeaponDamage();
 				bulletClone.GetComponent<Bullet>().poisonous = currentWeapon.getIfPoisonous();
 				bulletClone.GetComponent<Bullet>().stun = currentWeapon.getIfStuns();
-				bulletClone.transform.Rotate(90, 0, 0);
+                bulletClone.GetComponent<Bullet>().shotByPlayer = true;
+                bulletClone.transform.Rotate(90, 0, 0);
 				bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
 			}
 			if(!currentWeapon.getIfAutomatic() && Input.GetMouseButtonDown(0) && Time.time > nextAttack && !currentWeapon.getIfMelee()){
@@ -103,7 +97,8 @@ public class PlayerAttacker : MonoBehaviour {
 				bulletClone.GetComponent<Bullet>().dmg = currentWeapon.getWeaponDamage();
 				bulletClone.GetComponent<Bullet>().poisonous = currentWeapon.getIfPoisonous();
 				bulletClone.GetComponent<Bullet>().stun = currentWeapon.getIfStuns();
-				bulletClone.transform.Rotate(90, 0, 0);
+                bulletClone.GetComponent<Bullet>().shotByPlayer = true;
+                bulletClone.transform.Rotate(90, 0, 0);
 				bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
 			}
 			if (Input.GetMouseButtonDown(0) && Time.time > nextAttack && currentWeapon.getIfMelee()){
@@ -209,85 +204,28 @@ public class PlayerAttacker : MonoBehaviour {
 	}
 
 	private void setActive(){
-		if (currentWeaponInt == 1) {
-			pistolImage.color = Color.red;
-            Analytics.setWeapons(1);
-		}
-		if (currentWeaponInt == 2) {
-			shrimpImage.color = Color.red;
-            Analytics.setWeapons(2);
-        }
-		if (currentWeaponInt == 3) {
-			stingerImage.color = Color.red;
-            Analytics.setWeapons(3);
-        }
-		if (currentWeaponInt == 4) {
-			eelText.color = Color.red;
-            Analytics.setWeapons(4);
-        }
-		if (currentWeaponInt == 5) {
-			wunderwuffenText.color = Color.red;
-			typeOfWunderWaffenText.color = Color.red;
-            Analytics.setWeapons(5);
-        }
-		if (currentWeaponInt == 6) {
-			batteringRamImage.color = Color.red;
-            Analytics.setWeapons(6);
-        }
-		if (currentWeaponInt == 7) {
-			swordfishText.color = Color.red;
-            Analytics.setWeapons(7);
-        }
-		if (currentWeaponInt == 8) {
-			baseBallBatImage.color = Color.red;
-            Analytics.setWeapons(8);
-        }
+        weaponImages[currentWeaponInt - 1].color = Color.red;
+        Analytics.setWeapons(currentWeaponInt - 1);
 	}
 
 	private void setUnActive(){
-		if (!unlocked [0]) {
-			pistolImage.color = Color.gray;
-		} else {
-			pistolImage.color = Color.black;
-		}
-		if (!unlocked [1]) {
-			shrimpImage.color = Color.gray;
-		} else {
-			shrimpImage.color = Color.black;
-		}
-		if (!unlocked [2]) {
-			stingerImage.color = Color.gray;
-		} else {
-			stingerImage.color = Color.black;
-		}
-		if (!unlocked [3]) {
-			eelText.color = Color.gray;
-		} else {
-			eelText.color = Color.black;
-		}
+        for(int i = 0; i < 8; i++)
+        {
+            if (!unlocked[i])
+            {
+                weaponImages[i].color = Color.gray;
+            }
+            else
+            {
+                weaponImages[i].color = Color.black;
+            }
+        }
+		
 		if (!unlocked [4]) {
-			wunderwuffenText.color = Color.gray;
 			typeOfWunderWaffenText.color = Color.gray;
 		} else {
-			wunderwuffenText.color = Color.black;
 			typeOfWunderWaffenText.color = Color.black;
 		}
-		if (!unlocked [5]) {
-			batteringRamImage.color = Color.gray;
-		} else {
-			batteringRamImage.color = Color.black;
-		}
-		if (!unlocked [6]) {
-			swordfishText.color = Color.gray;
-		} else {
-			swordfishText.color = Color.black;
-		}
-		if (!unlocked [7]) {
-			baseBallBatImage.color = Color.gray;
-		} else {
-			baseBallBatImage.color = Color.black;
-		}
-
 	}
 
 	public static void unlock(int i){
@@ -295,7 +233,6 @@ public class PlayerAttacker : MonoBehaviour {
 	}
 
 	public void unlockInt(int i){
-        Debug.Log(i);
 		if(PlayerController.getCount() >= weaponCost){
 		    unlocked [i - 1] = true;
 		    setTextOfLockUnlock ();
