@@ -14,6 +14,9 @@ public class Seeker : MonoBehaviour
     private float speed;
 	public bool destroyed = false;
 
+    public bool toBase = true;
+    public bool withinBaseRange = false;
+
 
     Vector3[] path;
     int targetIndex; // current index in the path array 
@@ -28,7 +31,6 @@ public class Seeker : MonoBehaviour
 
     void Start()
     {
-		
 	  	PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
 		speed = this.gameObject.GetComponent<EnemyController> ().walkingSpeed;
     }
@@ -39,7 +41,7 @@ public class Seeker : MonoBehaviour
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
     {
-        if (pathSuccessful && !destroyed){
+        if (pathSuccessful && !destroyed && toBase){
             path = newPath;
             // Stop the Coroutine before starting.
             StopCoroutine("FollowPath");
@@ -53,8 +55,9 @@ public class Seeker : MonoBehaviour
               
             Vector3 currentWaypoint = path[0];
 
-		while (true && !destroyed){
-			if (transform.position == currentWaypoint && !destroyed){
+		while (true && !destroyed && toBase){
+			if (transform.position == currentWaypoint && !destroyed && toBase)
+            {
                     targetIndex++;
                     if (targetIndex >= path.Length){
                         // reset targetindex counter + path
