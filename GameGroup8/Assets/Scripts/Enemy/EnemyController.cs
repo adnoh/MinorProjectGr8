@@ -40,6 +40,8 @@ public class EnemyController : MonoBehaviour {
 
 	private Animator anim;
 
+    public bool dead = false;
+
 	void Start () {
 		level = this.gameObject.GetComponent<EnemyController> ().getLevel ();
 		if (this.gameObject.transform.name.Equals ("HammerHeadPrefab(Clone)")) {
@@ -155,14 +157,18 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
 
-	public IEnumerator attack() {
-		PlayerAttributes.takeDamage(attackPower);
-		CameraShaker.shakeCamera ();
-		if (enemy.getType ().getType () == 2) {
-			anim.SetBool ("attack", true);
-			yield return new WaitForSeconds (1);
-			anim.SetBool ("attack", false);
-		}
+    public IEnumerator attack()
+    {
+        if (!dead) { 
+        PlayerAttributes.takeDamage(attackPower);
+        CameraShaker.shakeCamera();
+        if (enemy.getType().getType() == 2)
+        {
+            anim.SetBool("attack", true);
+            yield return new WaitForSeconds(1);
+            anim.SetBool("attack", false);
+        }
+    }
 
 	}
 
@@ -210,8 +216,11 @@ public class EnemyController : MonoBehaviour {
     }
 
 	public IEnumerator die(){
+        dead = true;
 		anim.SetBool ("dying", true);
-        yield return new WaitForSeconds(1);        
+        yield return new WaitForSeconds(1);
+        PSpawner spawner = Camera.main.GetComponent<PSpawner>();
+        spawner.placeUnit(this.gameObject.transform.position);
         Destroy (this.gameObject);
 	}
 }

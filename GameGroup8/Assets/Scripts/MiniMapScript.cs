@@ -30,7 +30,6 @@ public class MiniMapScript : MonoBehaviour {
 			enemiesDotList.RemoveAt(enemiesDotList.Count - 1);
 		}
 
-
 		if (enemies.Count > 0) {
 			for(int i = 0; i < enemies.Count; i++){
 				enemiesDotList[i].enabled = true;
@@ -54,6 +53,7 @@ public class MiniMapScript : MonoBehaviour {
         Vector3 basePos = GameObject.FindGameObjectWithTag("BASE").transform.position;
         float xBase = 0.5f * basePos.x;
         float yBase = 0.5f * basePos.z;
+
         Vector3 baseDot_pos = new Vector3(xBase, yBase, 0f);
         
         baseDot.GetComponent<RectTransform>().anchoredPosition = baseDot_pos;

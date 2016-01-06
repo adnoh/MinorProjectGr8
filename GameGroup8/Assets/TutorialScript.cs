@@ -6,7 +6,7 @@ public class TutorialScript : MonoBehaviour {
 
     public Text Tutorialtext;
     int count = 0;
-    float starttime ;
+    float starttime;
 
     void Start () {
         float starttime = Time.time;
