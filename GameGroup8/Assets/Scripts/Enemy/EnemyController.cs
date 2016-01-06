@@ -25,6 +25,7 @@ public class EnemyController : MonoBehaviour {
     public Quaternion rotation;
 
     private bool isWithinRange;
+    private bool baseWithinRange;
 
 	public float attackRate = 2f;
 	private float nextAttack = 0.0f;
@@ -87,10 +88,31 @@ public class EnemyController : MonoBehaviour {
         healthBarClone.transform.position = Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, 20, 0);
         descriptionClone.transform.position = Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, 25, 0);
         healthBarClone.value = health;
-		this.gameObject.transform.LookAt (GameObject.Find ("player").transform.position);
-		if (isWithinRange && Time.time > nextAttack) {
-			nextAttack = Time.time + attackRate;
-			StartCoroutine(attack ());
+        if (health == maxHealth)
+        {
+            this.gameObject.transform.LookAt(GameObject.FindGameObjectWithTag("BASE").transform.position);
+        }
+        else
+        {
+            this.gameObject.GetComponent<Seeker>().toBase = false;
+            this.gameObject.GetComponent<Seeker>().StopAllCoroutines();
+            this.gameObject.transform.LookAt(GameObject.Find("player").transform.position);
+            if (!isWithinRange)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, PlayerController.getPosition(), walkingSpeed * Time.deltaTime);
+            }
+        }
+		if (Time.time > nextAttack) {
+            if (isWithinRange)
+            {
+                nextAttack = Time.time + attackRate;
+                StartCoroutine(attack());
+            }
+            if (baseWithinRange)
+            {
+                nextAttack = Time.time + attackRate;
+                StartCoroutine(attackBase());
+            }
 		}
 		if (poisoned && Time.time > timeToGetPoisonDamage) {
 			timeToGetPoisonDamage = Time.time + intervalToGetPoisonDamage;
@@ -105,16 +127,6 @@ public class EnemyController : MonoBehaviour {
         Quaternion EnemyRotation = this.gameObject.transform.rotation;
         setRotation(EnemyRotation);
     }
-
-
-    // basic pathfinding code
-	/* void FixedUpdate ()	{
-		 position = PlayerController.getPosition ();
-		if (!isWithinRange) {
-			transform.position = Vector3.MoveTowards (transform.position, position, speed * Time.deltaTime);
-		}
-	} */
-
 
     // Getters and setters
 
@@ -179,20 +191,32 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
 
-    public IEnumerator attack()
+    public IEnumerator attack(){
+        if (!dead){
+            PlayerAttributes.takeDamage(attackPower);
+            CameraShaker.shakeCamera();
+            if (enemy.getType().getType() == 2)
+            {
+                anim.SetBool("attack", true);
+                yield return new WaitForSeconds(1);
+                anim.SetBool("attack", false);
+            }
+        }
+	}
+
+    public IEnumerator attackBase()
     {
-        if (!dead) { 
-        PlayerAttributes.takeDamage(attackPower);
-        CameraShaker.shakeCamera();
-        if (enemy.getType().getType() == 2)
+        if (!dead)
         {
-            anim.SetBool("attack", true);
-            yield return new WaitForSeconds(1);
-            anim.SetBool("attack", false);
+            GameObject.Find("Gate").GetComponent<BaseController>().baseHealth -= attackPower;
+            if (enemy.getType().getType() == 2)
+            {
+                anim.SetBool("attack", true);
+                yield return new WaitForSeconds(1);
+                anim.SetBool("attack", false);
+            }
         }
     }
-
-	}
 
 	public void setPoisoned(bool poi){
 		poisoned = poi;
@@ -238,7 +262,6 @@ public class EnemyController : MonoBehaviour {
     }
 
 	public IEnumerator die(){
-        
         dead = true;
 		anim.SetBool ("dying", true);
         yield return new WaitForSeconds(1);
@@ -248,4 +271,20 @@ public class EnemyController : MonoBehaviour {
         descriptionClone.transform.position = new Vector3(-1000, -1000, 0);
         Destroy (this.gameObject);
 	}
+
+    public void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.CompareTag("BASE"))
+        {
+            baseWithinRange = true;
+        }
+    }
+
+    public void OnTriggerExit(Collider col)
+    {
+        if (col.gameObject.CompareTag("BASE"))
+        {
+            baseWithinRange = false;
+        }
+    }
 }
