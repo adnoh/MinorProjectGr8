@@ -295,6 +295,7 @@ public class PlayerAttacker : MonoBehaviour {
 	}
 
 	public void unlockInt(int i){
+        Debug.Log(i);
 		if(PlayerController.getCount() >= weaponCost){
 		    unlocked [i - 1] = true;
 		    setTextOfLockUnlock ();

@@ -41,28 +41,6 @@ public class BuildingController : MonoBehaviour {
         {
             this.gameObject.transform.Rotate(0, -90, 0);
         }
-        if (building.getName().Equals("GunSmith"))
-        {
-            GameObject[] objects = this.gameObject.GetComponentsInChildren<GameObject>();
-            for(int i = 0; i < 3; i++)
-            {
-                if (objects[i].name.Equals("wd40"))
-                {
-                    objects[i].SetActive(true);
-                }
-            }
-        }
-        if (building.getName().Equals("TechSmith"))
-        {
-            GameObject[] objects = this.gameObject.GetComponentsInChildren<GameObject>();
-            for (int i = 0; i < 3; i++)
-            {
-                if (objects[i].name.Equals("scissor") || objects[i].name.Equals("glue"))
-                {
-                    objects[i].SetActive(true);
-                }
-            }
-        }
     }
     
     void Update(){

@@ -293,7 +293,7 @@ public class BaseController : MonoBehaviour{
 			    Delete();
 			    Vector3 place = lastHitObject.transform.position;
 			    GameObject newObject = (GameObject)Instantiate(gadgetSmith, place, Quaternion.identity);
-			    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
+			    newObject.transform.Rotate(new Vector3(-90, (Random.Range(0, 360)), 0));
 			    turrets.Add(newObject);
 			    lastHitObject.tag = "occupiedPlane";
 		    }
