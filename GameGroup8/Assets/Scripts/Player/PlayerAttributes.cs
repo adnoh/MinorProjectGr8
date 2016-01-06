@@ -8,12 +8,12 @@ public class PlayerAttributes : MonoBehaviour {
 	public static int experience = 0;
 	public static int pointsToUpgrade = 0;
 
-	private static int experienceNeededToLevelUp = 5;
+	private static int experienceNeededToLevelUp = 10;
 
-	public int attackPoints = 0;
-	public int speedPoints = 0;
-	public int maxHealthPoints = 0;
-	public int maxEnergyPoints = 0;
+	public static int attackPoints = 0;
+	public static int speedPoints = 0;
+	public static int maxHealthPoints = 0;
+	public static int maxEnergyPoints = 0;
 
 	private static float attackMultiplier = 1f;
 	private static float walkingSpeed = 5f;
@@ -21,8 +21,8 @@ public class PlayerAttributes : MonoBehaviour {
 	private static float runningSpeed = walkingSpeed * 2f;
 	private static int maxHealth = 100;
 	private static int health = 100;
-	private static int maxEnergy = 100;
-	private static int energy = 100;
+	private static int maxEnergy = 500;
+	private static int energy = 500;
 
 	private static bool running = false;
 	private static float speed = 5f;
@@ -94,6 +94,7 @@ public class PlayerAttributes : MonoBehaviour {
 		if (pointsToUpgrade > 0) {
 			speedPoints++;
 			maxWalkingSpeed = 5f + (float)speedPoints * 0.5f;
+            runningSpeed = maxWalkingSpeed * 2;
 			speedPointsText.text = "Speed Points: " + speedPoints;
 			pointsToUpgrade --;
 			pointsToAssignText.text = "Points to assign " + pointsToUpgrade;
@@ -174,7 +175,7 @@ public class PlayerAttributes : MonoBehaviour {
 	}
 
 	public static void replenish(){
-		energy ++;
+		energy += 10;
 	}
 
 	public static void run(){
@@ -191,6 +192,11 @@ public class PlayerAttributes : MonoBehaviour {
 		return running;
 	}
 
+    public static int getMaxFatique()
+    {
+        return maxFatique;
+    }
+
 	public static int getFatique(){
 		return fatique;
 	}
@@ -204,4 +210,37 @@ public class PlayerAttributes : MonoBehaviour {
 		fatique = maxFatique;
 		walkingSpeed = maxWalkingSpeed;
 	}
+
+    private static void resetPoints()
+    {
+        attackPoints = 0;
+        speedPoints = 0;
+        maxHealthPoints = 0;
+        maxEnergyPoints = 0;
+    }
+
+    public static void reset()
+    {
+        level = 1;
+        experience = 0;
+        pointsToUpgrade = 0;
+
+        resetPoints();
+
+        attackMultiplier = 1f;
+        walkingSpeed = 5f;
+        maxWalkingSpeed = 5f;
+        runningSpeed = walkingSpeed * 2f;
+        maxHealth = 100;
+        health = 100;
+        maxEnergy = 500;
+        energy = 500;
+
+        running = false;
+        speed = 5f;
+
+        maxFatique = 10000;
+        fatique = 10000;
+
+}
 }

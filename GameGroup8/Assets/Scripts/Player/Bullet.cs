@@ -10,7 +10,6 @@ public class Bullet : MonoBehaviour {
 
     Score score_;
 
-
     void Start(){
 
         score_ = Camera.main.GetComponent<Score>();
@@ -47,17 +46,17 @@ public class Bullet : MonoBehaviour {
 			}
 			PlayerAttacker.lastAttackedEnemy = enemyController;
 			if(enemyController.getHealth () <= 0){
-				PSpawner spawner = Camera.main.GetComponent<PSpawner>();
-				spawner.placeUnit(enemyController.gameObject.transform.position);
 				EnemySpawner.enemiesDefeaten++;
 				col.gameObject.GetComponent<Seeker>().StopAllCoroutines();
 				col.gameObject.GetComponent<Seeker>().destroyed = true;
                 score_.addScoreEnemy(enemyController.getLevel());
                 enemyController.destroyed = true;
-				enemyController.StartCoroutine (enemyController.die());                
+                if (!enemyController.dead){
+                    PlayerAttributes.getExperience(enemyController.getLevel());
+                }
+                enemyController.StartCoroutine (enemyController.die());                
                 PlayerAttacker.lastAttackedEnemy = null;
 				MiniMapScript.enemies.Remove(enemyController);
-				PlayerAttributes.getExperience(enemyController.getLevel());
                 Analytics.setPlaceKill(col.gameObject.transform.position);
                 if (col.gameObject.name == "FireFoxPrefab(Clone)")
                     Analytics.setHitByEnemy(0);

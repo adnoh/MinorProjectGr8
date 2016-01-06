@@ -23,6 +23,7 @@ TagManager:
   - BASE
   - Sun
   - Moon
+  - EnemyHealthBars
   layers:
   - Default
   - TransparentFX

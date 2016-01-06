@@ -5,14 +5,6 @@ using System.Collections.Generic;
 
 public class PlayerAttacker : MonoBehaviour {
 	
-	public GameObject enemyDescription;
-	public bool showEnemyDescription;
-	
-	public Text enemyDescriptionText;
-	public Slider enemyHealthBar;
-	public Text enemyWeaponDamageText;
-	public Text enemyLevelText;
-	
 	public GameObject bullet;
 	public float bulletSpeed = 1000f;
 	public static Weapon currentWeapon;
@@ -57,9 +49,7 @@ public class PlayerAttacker : MonoBehaviour {
 
         currentWeapon = weaponFactory.getPistol ();
 		currentWeaponInt = 1;
-		showEnemyDescription = false;
-		enemyDescription.SetActive (false);
-		unlocked [0] = true;
+	    unlocked [0] = true;
 		for (int i = 1; i < unlocked.Length; i++) {
 			unlocked [i] = false;
 		}
@@ -76,31 +66,24 @@ public class PlayerAttacker : MonoBehaviour {
 		if(Time.time > nextAttack){
 			playerAnimator.SetBool("attack", false);
 		}
-		enemyDescription.SetActive (showEnemyDescription);
 		bool Base = BaseController.pause;
 		setUnActive ();
 		setActive ();
-		
-		if (lastAttackedEnemy != null) {
-			setEnemyDescription (lastAttackedEnemy);
-		} else {
-			showEnemyDescription = false;
-		}
 		
 		if (!Base){
 			if(currentWeapon.getIfElectric() && Input.GetMouseButton(0) && lastAttackedEnemy != null){
 				lastAttackedEnemy.health -= (int)(2 * currentWeapon.getType ().damageMultiplierToType(lastAttackedEnemy.getType()) * PlayerAttributes.getAttackMultiplier());
 				if(lastAttackedEnemy.getHealth () <= 0){
-					PSpawner spawner = Camera.main.GetComponent<PSpawner>();
-					spawner.placeUnit(lastAttackedEnemy.gameObject.transform.position);
 					EnemySpawner.enemiesDefeaten++;
 					lastAttackedEnemy.GetComponent<Seeker>().StopAllCoroutines();
 					lastAttackedEnemy.GetComponent<Seeker>().destroyed = true;
                     _score.addScoreEnemy(lastAttackedEnemy.getLevel());
                     lastAttackedEnemy.die ();
 					MiniMapScript.enemies.Remove(lastAttackedEnemy);
-					PlayerAttributes.getExperience(lastAttackedEnemy.getLevel());
-					PlayerAttacker.lastAttackedEnemy = null;
+                    if (!lastAttackedEnemy.dead){
+                        PlayerAttributes.getExperience(lastAttackedEnemy.getLevel());
+                    }
+                    PlayerAttacker.lastAttackedEnemy = null;
 				}
 			}
 			if(!currentWeapon.getIfElectric() && currentWeapon.getIfAutomatic() && Input.GetMouseButton(0) && Time.time > nextAttack && !currentWeapon.getIfMelee()){
@@ -132,8 +115,6 @@ public class PlayerAttacker : MonoBehaviour {
 					lastAttackedEnemy.setHealth(lastAttackedEnemy.getHealth () - damage);
 					//lastAttackedEnemy.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3((this.gameObject.transform.position.x - lastAttackedEnemy.gameObject.transform.position.x) * currentWeapon.getKnockBack(), 0, (this.gameObject.transform.position.z - lastAttackedEnemy.gameObject.transform.position.z) * currentWeapon.getKnockBack())); 
 					if (lastAttackedEnemy.getHealth () <= 0) {
-						PSpawner spawner = Camera.main.GetComponent<PSpawner> ();
-						spawner.placeUnit (lastAttackedEnemy.gameObject.transform.position);
 						EnemySpawner.enemiesDefeaten++;
 						lastAttackedEnemy.GetComponent<Seeker> ().StopAllCoroutines ();
 						lastAttackedEnemy.GetComponent<Seeker> ().destroyed = true;
@@ -141,7 +122,9 @@ public class PlayerAttacker : MonoBehaviour {
                         _score.addScoreEnemy(lastAttackedEnemy.getLevel());
                         lastAttackedEnemy.StartCoroutine(lastAttackedEnemy.die ());
 						MiniMapScript.enemies.Remove (lastAttackedEnemy);
-						PlayerAttributes.getExperience (lastAttackedEnemy.getLevel ());
+                        if (!lastAttackedEnemy.dead){
+                            PlayerAttributes.getExperience(lastAttackedEnemy.getLevel());
+                        }
 						PlayerAttacker.lastAttackedEnemy = null;
 					}
 				}
@@ -218,31 +201,7 @@ public class PlayerAttacker : MonoBehaviour {
 		}
 		
 	}
-	
-	public void setEnemyDescription(EnemyController enemyController){
-		if (enemyController.getType ().getType () == 1) {
-			enemyDescriptionText.text = "Desert Eagle";
-		}
-		if (enemyController.getType ().getType () == 2) {
-			enemyDescriptionText.text = "Fire Fox";
-		} else {
-			enemyDescriptionText.text = "Hammerhead Shark";
-		}
-		enemyHealthBar.maxValue = (float)enemyController.getMaxHealth ();
-		enemyHealthBar.value = (float)enemyController.getHealth ();
-		enemyWeaponDamageText.text = "Weapon Damage:" + enemyController.getAttackPower ();
-		enemyLevelText.text = "Level: " + enemyController.getLevel ();
-		showEnemyDescription = true;
-	}
-	
-	public void setEnemyDescriptionOff(){
-		showEnemyDescription = false;
-	}
-	
-	public void setEnemyDescriptionOn(){
-		showEnemyDescription = true;
-	}
-	
+
 	public void OnTriggerEnter(Collider col){
 		if (col.gameObject.CompareTag ("Enemy")) {
 			lastAttackedEnemy = col.gameObject.GetComponent<EnemyController>();
@@ -336,6 +295,7 @@ public class PlayerAttacker : MonoBehaviour {
 	}
 
 	public void unlockInt(int i){
+        Debug.Log(i);
 		if(PlayerController.getCount() >= weaponCost){
 		    unlocked [i - 1] = true;
 		    setTextOfLockUnlock ();

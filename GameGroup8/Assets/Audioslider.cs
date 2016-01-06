@@ -26,7 +26,7 @@ public class Audioslider : MonoBehaviour {
 
 		PlayerPrefs.SetFloat("sound option", temp);
 		PlayerPrefs.Save();
-		Debug.Log (temp);
+		// Debug.Log (temp);
 
 	}
 }
