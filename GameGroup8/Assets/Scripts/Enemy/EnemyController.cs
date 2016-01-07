@@ -192,6 +192,11 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
 
+    public bool getWithinRange()
+    {
+        return isWithinRange;
+    }
+
     public IEnumerator attack(){
         if (!dead){
             PlayerAttributes.takeDamage(attackPower);

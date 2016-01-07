@@ -13,8 +13,9 @@ public class BaseController : MonoBehaviour{
     public static List<GameObject> turrets;
 
     public Material hoverMat;
-
+    
     public GameObject BaseMenu;
+    public GameObject WeaponMenu;
 	public GameObject Gate;
     public Text countText;
 
@@ -167,7 +168,7 @@ public class BaseController : MonoBehaviour{
 
     public void RemoveBuilding()
     {
-        Debug.Log("delete");
+        //Debug.Log("delete");
         float temp = 3;
         int placeOfObject = 0;
         GameObject other = null;
@@ -195,7 +196,7 @@ public class BaseController : MonoBehaviour{
     }
 
     public void Build1st(){
-        Debug.Log("build 1");
+        //Debug.Log("build 1");
 		string buildingToBuild = buildingText1.text;
 		BuildingFactory buildingFactory = new BuildingFactory ();
 		Building building = buildingFactory.getBuilding (buildingToBuild);
@@ -241,7 +242,7 @@ public class BaseController : MonoBehaviour{
 	}
 
 	public void Build2nd(){
-        Debug.Log("build 2");
+        //Debug.Log("build 2");
         string buildingToBuild = buildingText2.text;
 		BuildingFactory buildingFactory = new BuildingFactory ();
 		Building building = buildingFactory.getBuilding (buildingToBuild);
@@ -277,7 +278,7 @@ public class BaseController : MonoBehaviour{
 			    newObject.transform.Rotate(new Vector3(-90, 0, 0));
 			    newObject.transform.Translate(new Vector3(0, 0.1957196f, 0));
 			    turrets.Add(newObject);
-			    lastHitObject.tag = "occupiedPlane";
+			    lastHitObject.tag = "Gunsmith";
 		    }
             UpdateUnits(building);
             score_.addScoreBuilding(building.getCost());
@@ -286,7 +287,7 @@ public class BaseController : MonoBehaviour{
 	}
 
 	public void Build3rd(){
-        Debug.Log("build 3");
+        //Debug.Log("build 3");
         string buildingToBuild = buildingText3.text;
 		BuildingFactory buildingFactory = new BuildingFactory ();
 		Building building = buildingFactory.getBuilding (buildingToBuild);
@@ -335,6 +336,7 @@ public class BaseController : MonoBehaviour{
 			upgradeBuild2.text = "Build(2)";
 			upgradeBuild3.text = "Build(3)";
 			buildMenu.SetActive (true);
+            WeaponMenu.SetActive(false);
 		}
 		if (lastHitObject.CompareTag ("BasicTurretPlane")) {
 			title.text = "Rock-Paper-Scissor turret";
@@ -389,6 +391,11 @@ public class BaseController : MonoBehaviour{
             upgradeBuild3.text = "";
             buildMenu.SetActive(true);
         }
+        if (lastHitObject.CompareTag("Gunsmith"))
+        {
+            WeaponMenu.SetActive(true);
+            buildMenu.SetActive(false);
+        }
     }
 
     void UpdateUnits(Building building)
@@ -399,7 +406,7 @@ public class BaseController : MonoBehaviour{
 
     public void buildFromSave(){
 
-        //matchWalls();
+        matchWalls();
 
 		var Temp = MonsterCollection.turretLoad("Assets/saves/turrets.xml");
 		var TurretList = Temp.getTurretList();
@@ -409,7 +416,7 @@ public class BaseController : MonoBehaviour{
 			{
 				case "Rock-paper-scissor turret":
 				{
-					GameObject basicTurretClone = (GameObject)Instantiate(basicTurret, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					GameObject basicTurretClone = (GameObject)Instantiate(basicTurret, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot, TurretList[i].wRot));
 					basicTurretClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
 					basicTurretClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
 					turrets.Add(basicTurretClone);
@@ -417,7 +424,7 @@ public class BaseController : MonoBehaviour{
 				}
 				case "Snailgun":
 				{
-					GameObject snailGunClone = (GameObject)Instantiate(snailGun, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					GameObject snailGunClone = (GameObject)Instantiate(snailGun, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot, TurretList[i].wRot));
 					snailGunClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
 					snailGunClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
 					turrets.Add(snailGunClone);
@@ -425,7 +432,7 @@ public class BaseController : MonoBehaviour{
 				}
 				case "Harpgoon":
 				{
-					GameObject harpgoonClone = (GameObject)Instantiate(harpgoon, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					GameObject harpgoonClone = (GameObject)Instantiate(harpgoon, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot, TurretList[i].wRot));
 					harpgoonClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
 					harpgoonClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
 					turrets.Add(harpgoonClone);
@@ -433,7 +440,7 @@ public class BaseController : MonoBehaviour{
 				}
 				case "Cat-a-pult":
 				{
-					GameObject catapultClone = (GameObject)Instantiate(catapult, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					GameObject catapultClone = (GameObject)Instantiate(catapult, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot, TurretList[i].wRot));
 					catapultClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
 					catapultClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
 					turrets.Add(catapultClone);
@@ -441,7 +448,7 @@ public class BaseController : MonoBehaviour{
 				}
 				case "Bed":
 				{
-					GameObject bedClone = (GameObject)Instantiate(bed, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					GameObject bedClone = (GameObject)Instantiate(bed, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot, TurretList[i].wRot));
 					bedClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
 					bedClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
 					turrets.Add(bedClone);
@@ -449,7 +456,7 @@ public class BaseController : MonoBehaviour{
 				}
 				case "EnergyBed":
 				{
-					GameObject energyBedClone = (GameObject)Instantiate(energyBed, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					GameObject energyBedClone = (GameObject)Instantiate(energyBed, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot, TurretList[i].wRot));
 					energyBedClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
 					energyBedClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
 					turrets.Add(energyBedClone);
@@ -457,7 +464,7 @@ public class BaseController : MonoBehaviour{
 				}
 				case "HealthBed":
 				{
-					GameObject healthBedClone = (GameObject)Instantiate(healthBed, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					GameObject healthBedClone = (GameObject)Instantiate(healthBed, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot, TurretList[i].wRot));
 					healthBedClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
 					healthBedClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
 					turrets.Add(healthBedClone);
@@ -465,7 +472,7 @@ public class BaseController : MonoBehaviour{
 				}
 				case "Gearshack":
 				{
-					GameObject gearshackClone = (GameObject)Instantiate(gearShack, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					GameObject gearshackClone = (GameObject)Instantiate(gearShack, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot, TurretList[i].wRot));
 					gearshackClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
 					gearshackClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
 					turrets.Add(gearshackClone);
@@ -473,7 +480,7 @@ public class BaseController : MonoBehaviour{
 				}
 				case "Generator":
 				{
-					GameObject generatorClone = (GameObject)Instantiate(generator, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					GameObject generatorClone = (GameObject)Instantiate(generator, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot, TurretList[i].wRot));
 					generatorClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
 					generatorClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
 					turrets.Add(generatorClone);
@@ -481,7 +488,7 @@ public class BaseController : MonoBehaviour{
 				}
 				case "GunSmith":
 				{
-					GameObject gunSmithClone = (GameObject)Instantiate(weaponSmith, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					GameObject gunSmithClone = (GameObject)Instantiate(weaponSmith, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot, TurretList[i].wRot));
 					gunSmithClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
 					gunSmithClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
 					turrets.Add(gunSmithClone);
@@ -489,7 +496,7 @@ public class BaseController : MonoBehaviour{
 				}
 				case "TechSmith":
 				{
-					GameObject techSmithClone = (GameObject)Instantiate(gadgetSmith, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].wRot, TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot));
+					GameObject techSmithClone = (GameObject)Instantiate(gadgetSmith, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot, TurretList[i].wRot));
 					techSmithClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
 					techSmithClone.GetComponent<BuildingController>().timeInterval = TurretList[i].timeTillNext;
 					turrets.Add(techSmithClone);
@@ -510,8 +517,14 @@ public class BaseController : MonoBehaviour{
         buildMenu.SetActive(false);
         building = false;
     }
+    
+    public void closeWeaponMenu()
+    {
+        WeaponMenu.SetActive(false);
+        building = false;
+    }
 
-    public void matchWalls()
+    void matchWalls()
     {
         switch (wall)
         {
@@ -538,12 +551,15 @@ public class BaseController : MonoBehaviour{
 
     public void UpgradeWalls()
     {
-        wall++;
-        baseHealth += 1000;
-        matchWalls();
+        if (PlayerController.getCount() >= 20)
+        {
+            wall++;
+            baseHealth += 1000;
+            matchWalls();
 
-        PlayerController.setCount(20);
-        countText.text = "Amount of units: " + PlayerController.getCount();
+            PlayerController.setCount(20);
+            countText.text = "Amount of units: " + PlayerController.getCount();
+        }
 
         if (wall >= 2)
             GameObject.Find("WallUpBtn").SetActive(false);
