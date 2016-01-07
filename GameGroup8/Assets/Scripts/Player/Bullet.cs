@@ -14,6 +14,11 @@ public class Bullet : MonoBehaviour {
 
     void Start(){
 
+        if(this.gameObject.name.Equals("CatPrefab(Clone)") && this.gameObject.name.Equals("SnailPrefab(Clone)"))
+        {
+            shotByPlayer = false;
+        }
+
         score_ = Camera.main.GetComponent<Score>();
 
         if (this.gameObject.CompareTag ("No type")) {
