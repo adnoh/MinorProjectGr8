@@ -11,7 +11,6 @@ public class EnemyController : MonoBehaviour {
 
 	public Enemy enemy;
 	private EnemyFactory enemyFactory = new EnemyFactory();
-    
 
     // Properties of the actual instance of the enemy
 	public int level;
@@ -50,6 +49,8 @@ public class EnemyController : MonoBehaviour {
     public Text description;
     public Text descriptionClone;
     public int offset = 2000;
+
+    public GameObject bullet;
 
     void Start()
     {
@@ -194,8 +195,19 @@ public class EnemyController : MonoBehaviour {
 
     public IEnumerator attack(){
         if (!dead){
-            PlayerAttributes.takeDamage(attackPower);
-            CameraShaker.shakeCamera();
+            if (this.gameObject.name.Equals("DesertEaglePrefab(Clone)"))
+            {
+                GameObject bulletClone = GameObject.Instantiate(bullet, transform.position + (transform.forward), transform.rotation) as GameObject;
+                bulletClone.GetComponent<Bullet>().dmg = attackPower;
+                bulletClone.GetComponent<Bullet>().shotByPlayer = false;
+                bulletClone.GetComponent<Bullet>().shotByEnemy = true;
+                bulletClone.transform.Rotate(90, 0, 0);
+                bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f);
+            }
+            else {
+                PlayerAttributes.takeDamage(attackPower);
+                CameraShaker.shakeCamera();
+            }
             if (enemy.getType().getType() == 2)
             {
                 anim.SetBool("attack", true);
@@ -209,7 +221,13 @@ public class EnemyController : MonoBehaviour {
     {
         if (!dead)
         {
-            GameObject.Find("Gate").GetComponent<BaseController>().baseHealth -= attackPower;
+            if (this.gameObject.name.Equals("HammerHeadPrefab(Clone)"))
+            {
+                GameObject.Find("Gate").GetComponent<BaseController>().baseHealth -= attackPower * 2;
+            }
+            else {
+                GameObject.Find("Gate").GetComponent<BaseController>().baseHealth -= attackPower;
+            }
             if (enemy.getType().getType() == 2)
             {
                 anim.SetBool("attack", true);
@@ -279,6 +297,10 @@ public class EnemyController : MonoBehaviour {
         if (col.gameObject.CompareTag("BASE"))
         {
             baseWithinRange = true;
+        }
+        if(this.gameObject.name.Equals("DesertEaglePrefab(Clone)") && col.gameObject.name.Equals("player")){
+            isWithinRange = true;
+            shotByPlayer = true;
         }
     }
 
