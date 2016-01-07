@@ -95,6 +95,7 @@ public class GameStateController : MonoBehaviour
     void Start()
     {
 
+		Debug.Log("Newgame: " + newgame);
         // setNewgame(newgame2);
         GenerateMap();
         initializePathfindingGrid();
@@ -107,10 +108,12 @@ public class GameStateController : MonoBehaviour
 
     void GenerateMap()
     {
+		Debug.Log("Generating Map");
 
         if (newgame)
         {
             worldBuilder.FirstLoad();
+
         }
         else
         {

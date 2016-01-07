@@ -40,6 +40,9 @@ public class BaseSave
     public float roty;
     public float rotz;
     public float rotw;
+
+    public int wall;
+    public int health;
             
     public BaseSave()
     {
@@ -54,6 +57,9 @@ public class BaseSave
         roty = rotation.y;
         rotz = rotation.z;
         rotw = rotation.w;
+        
+        wall = GameObject.Find("Gate").GetComponent<BaseController>().wall;
+        health = GameObject.Find("Gate").GetComponent<BaseController>().baseHealth;
     }
 }
 
@@ -177,7 +183,7 @@ public class Outsidesave{
         this.wave = Camera.main.GetComponent<EnemySpawner>().wave;
 		// this.timeTillNextWave = Camera.main.GetComponent<EnemySpawner>().timeTillNextWave;
         this.CountDownTimer_Value = Camera.main.GetComponent<EnemySpawner>().CountDownTimerValue;
-        Debug.Log(timeTillNextWave.ToString());
+        //Debug.Log(timeTillNextWave.ToString());
 		this.enemiesDefeaten = EnemySpawner.enemiesDefeaten;
 		this.totalEnemiesSpawned = EnemySpawner.totalEnemiesSpawned;
 		enemiesToDefeat = Camera.main.GetComponent<EnemySpawner> ().enemiesToDefeat;
@@ -430,6 +436,9 @@ public class MonsterCollection : MonoBehaviour
 
         tempBase.transform.position = templocation;
         tempBase.transform.rotation = temprotation;
+
+        GameObject.Find("Gate").GetComponent<BaseController>().wall = base_.wall;
+        GameObject.Find("Gate").GetComponent<BaseController>().baseHealth = base_.health;
     }
 
 

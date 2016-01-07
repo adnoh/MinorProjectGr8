@@ -45,3 +45,4 @@ GameGroup8/Assets/saves/moon.xml
 GameGroup8/Assets/saves/world.xml
 GameGroup8/Assets/saves/outside.xml
 *.xml
+*.meta
