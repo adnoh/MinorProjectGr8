@@ -40,6 +40,9 @@ public class BaseSave
     public float roty;
     public float rotz;
     public float rotw;
+
+    public int wall;
+    public int health;
             
     public BaseSave()
     {
@@ -54,6 +57,9 @@ public class BaseSave
         roty = rotation.y;
         rotz = rotation.z;
         rotw = rotation.w;
+        
+        wall = GameObject.Find("Gate").GetComponent<BaseController>().wall;
+        health = GameObject.Find("Gate").GetComponent<BaseController>().baseHealth;
     }
 }
 
@@ -430,6 +436,11 @@ public class MonsterCollection : MonoBehaviour
 
         tempBase.transform.position = templocation;
         tempBase.transform.rotation = temprotation;
+
+        GameObject.Find("Gate").GetComponent<BaseController>().wall = base_.wall;
+        GameObject.Find("Gate").GetComponent<BaseController>().baseHealth = base_.health;
+
+        GameObject.Find("Gate").GetComponent<BaseController>().matchWalls();
     }
 
 

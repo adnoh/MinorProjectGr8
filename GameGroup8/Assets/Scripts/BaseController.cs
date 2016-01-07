@@ -13,7 +13,8 @@ public class BaseController : MonoBehaviour{
     public static List<GameObject> turrets;
 
     public Material hoverMat;
-   
+
+    public GameObject BaseMenu;
 	public GameObject Gate;
     public Text countText;
 
@@ -51,7 +52,12 @@ public class BaseController : MonoBehaviour{
     Score score_;
 
     public int baseHealth = 1000;
+    public int wall = 0;
     public Slider healthSlider;
+
+    public GameObject Wall_1;
+    public GameObject Wall_2;
+    public GameObject Wall_3;
 
     void Awake(){
 
@@ -65,7 +71,7 @@ public class BaseController : MonoBehaviour{
     void Update(){
 
         healthSlider.value = baseHealth;
-
+        
         if (Vector3.Distance(Gate.transform.position, GameObject.Find("player").transform.position) < 50)
             Analytics.set_timeCTBase();
         
@@ -76,13 +82,14 @@ public class BaseController : MonoBehaviour{
 				playerPos = GameObject.Find("player").transform.position;
                 Vector3 TempPlayerPos = GameObject.FindGameObjectWithTag("BASE").transform.position - new Vector3(0,1f,5.31f);
 				GameObject.Find("player").transform.position = TempPlayerPos;
+                BaseMenu.SetActive(true);
                 Analytics.set_timeBase();
 			} 
 			else {
                 GameObject.Find("player").transform.position = playerPos;
-				buildMenu.SetActive(false);
 				GameObject.Find ("player").GetComponent<PlayerAttacker>().weaponUnlockScreen.SetActive(false);
-				ReturnColour();
+                BaseMenu.SetActive(false);
+                ReturnColour();
 			}
 		}
 
@@ -315,12 +322,6 @@ public class BaseController : MonoBehaviour{
         }
 	}
 
-    void UpdateUnits(Building building)
-    {
-        PlayerController.setCount(building.getCost());
-        countText.text = "Amount of units: " + PlayerController.getCount();
-    }
-
 	void setBuildMenu(){
 		if (lastHitObject.CompareTag ("emptyPlane")) {
 			title.text = "Empty spot";
@@ -390,7 +391,15 @@ public class BaseController : MonoBehaviour{
         }
     }
 
-	public void buildFromSave(){
+    void UpdateUnits(Building building)
+    {
+        PlayerController.setCount(building.getCost());
+        countText.text = "Amount of units: " + PlayerController.getCount();
+    }
+
+    public void buildFromSave(){
+
+        //matchWalls();
 
 		var Temp = MonsterCollection.turretLoad("Assets/saves/turrets.xml");
 		var TurretList = Temp.getTurretList();
@@ -488,6 +497,7 @@ public class BaseController : MonoBehaviour{
 				}
 			}
 		}
+        //Debug.Log("Base loaded");
 	}
 
     public static bool getPause()
@@ -499,6 +509,52 @@ public class BaseController : MonoBehaviour{
     {
         buildMenu.SetActive(false);
         building = false;
+    }
+
+    public void matchWalls()
+    {
+        switch (wall)
+        {
+            case 0:
+                healthSlider.maxValue = 1000;
+                Wall_1.SetActive(true);
+                Wall_2.SetActive(false);
+                Wall_3.SetActive(false);
+                break;
+            case 1:
+                healthSlider.maxValue = 2000;
+                Wall_1.SetActive(false);
+                Wall_2.SetActive(true);
+                Wall_3.SetActive(false);
+                break;
+            case 2:
+                healthSlider.maxValue = 3000;
+                Wall_1.SetActive(false);
+                Wall_2.SetActive(false);
+                Wall_3.SetActive(true);
+                break;
+        }
+    }
+
+    public void UpgradeWalls()
+    {
+        wall++;
+        baseHealth += 1000;
+        matchWalls();
+
+        PlayerController.setCount(20);
+        countText.text = "Amount of units: " + PlayerController.getCount();
+
+        if (wall >= 2)
+            GameObject.Find("WallUpBtn").SetActive(false);
+    }
+
+    public void RepareWalls()
+    {
+        baseHealth += 50;
+
+        PlayerController.setCount(5);
+        countText.text = "Amount of units: " + PlayerController.getCount();
     }
 }
 
