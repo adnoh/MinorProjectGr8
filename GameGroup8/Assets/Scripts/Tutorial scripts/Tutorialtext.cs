@@ -62,6 +62,7 @@ public class Tutorialtext : MonoBehaviour {
         txt.text = "Press Spacebar to demonstrate your abbility to read!";
         count = 0;
 
+
     }
     void Update()
     {
@@ -77,6 +78,7 @@ public class Tutorialtext : MonoBehaviour {
                
                 if (count == 6)
                 {
+            
                     nextslide.sprite = slide2;
 
 
