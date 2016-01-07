@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour {
 	public bool stun;
 	public bool poisonous;
     public bool shotByPlayer;
+    public bool shotByEnemy;
 
     Score score_;
 
@@ -35,7 +36,7 @@ public class Bullet : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col){
-		if(col.gameObject.CompareTag ("Enemy") && (this.gameObject.name.Equals("newBullet(Clone)") || this.gameObject.name.Equals ("CatPrefab(Clone)") || this.gameObject.name.Equals("SnailPrefab(Clone)"))){
+		if(col.gameObject.CompareTag ("Enemy") && !shotByEnemy && (this.gameObject.name.Equals("newBullet(Clone)") || this.gameObject.name.Equals ("CatPrefab(Clone)") || this.gameObject.name.Equals("SnailPrefab(Clone)"))){
 			EnemyController enemyController = col.gameObject.GetComponent<EnemyController>();
             enemyController.shotByPlayer = true;
 			int damage = (int)(Random.Range (dmg, dmg + 10) * type.damageMultiplierToType(enemyController.getType()) * PlayerAttributes.getAttackMultiplier());
@@ -75,6 +76,11 @@ public class Bullet : MonoBehaviour {
 
 			GameObject.Destroy (gameObject);
 		}
+        if (col.gameObject.name.Equals("player") && shotByEnemy)
+        {
+            PlayerAttributes.takeDamage(dmg);
+            CameraShaker.shakeCamera();
+        }
 
 	}
 
