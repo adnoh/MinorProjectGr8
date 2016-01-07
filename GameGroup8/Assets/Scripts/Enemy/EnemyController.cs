@@ -196,6 +196,11 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
 
+    public bool getWithinRange()
+    {
+        return isWithinRange;
+    }
+
     public IEnumerator attack(){
         if (!dead){
             if (this.gameObject.name.Equals("DesertEaglePrefab(Clone)"))

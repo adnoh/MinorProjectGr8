@@ -65,6 +65,7 @@ public class Tutorialtext : MonoBehaviour {
 	
         count = 0;
 
+
     }
     void Update()
     {
@@ -85,6 +86,7 @@ public class Tutorialtext : MonoBehaviour {
                
                 if (count == 6)
                 {
+            
                     nextslide.sprite = slide2;
                 }
 
