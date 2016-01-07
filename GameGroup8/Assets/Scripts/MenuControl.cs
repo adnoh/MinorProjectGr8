@@ -15,15 +15,15 @@ public class MenuControl : MonoBehaviour {
 
 	}
 
-    IEnumerator MyMethod1()
+    IEnumerator startTutorial()
     {
         yield return new WaitForSeconds(2);
         GameStateController.newgame = true;
         // Application.LoadLevel (1);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(3);
     }
 
-    IEnumerator MyMethod2()
+    IEnumerator LoadGame_()
     {
         yield return new WaitForSeconds(2);
         GameStateController.newgame = false;
@@ -33,14 +33,14 @@ public class MenuControl : MonoBehaviour {
 
     public void StartGame(){
 
-        StartCoroutine(MyMethod1());
+		StartCoroutine(startTutorial());
         //GameStateController.newgame = true;
 		// Application.LoadLevel (1);
 		//SceneManager.LoadScene(1);
 	}
 
 	public void LoadGame(){
-        StartCoroutine(MyMethod2());
+        StartCoroutine(LoadGame_());
         //GameStateController.newgame = false;
         //SceneManager.LoadScene(1);
     }
