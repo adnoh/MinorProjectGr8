@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class Tutorialtext : MonoBehaviour {
 
@@ -59,59 +60,65 @@ public class Tutorialtext : MonoBehaviour {
         
 
         txt = Camera.main.GetComponentInChildren<Text>();
-        txt.text = "Press Spacebar to demonstrate your abbility to read!";
+        txt.text = "Press Spacebar to demonstrate your abbility to read! /n/r  Press Escape to skip ";
+
+	
         count = 0;
 
     }
     void Update()
     {
-        if (IsKeyEnabled_W)
+        
+		if ( Input.GetKeyDown(KeyCode.Escape))
+		{
+				count = 31;
+		}
+
+		if (IsKeyEnabled_W)
         {
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 if( count == list.Capacity)
                 {
                     IsKeyEnabled_W = false;
-
                 }
                
                 if (count == 6)
                 {
                     nextslide.sprite = slide2;
-
-
                 }
+
                 if (count == 12)
                 {
                     nextslide.sprite = slide3;
-
-
                 }
 
-                if (count == 15)
+				if (count == 15)
                 {
                     nextslide.sprite = slide4;
-
-
                 }
+
                 if (count == 17)
                 {
                     nextslide.sprite = slide5;
-
-
                 }
+
                 if (count == 23)
                 {
                     nextslide.sprite = slide6;
+				}
 
-
-                }
                 if (count == 27)
                 {
                     nextslide.sprite = slide7;
+				}
 
+				if (count == 31)
+				{
+				
+					SceneManager.LoadScene (1);
+				}
 
-                }
                 StartCoroutine(AnimateText(list[count]));
                 count++;
             }
