@@ -222,7 +222,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	void setEnemiesThisWave(){
-		enemiesThisWave = (int)Mathf.Floor(2f + wave * (1f/2f));
+        enemiesThisWave = Random.Range(5 + wave, 7 + wave);
 	}
 
 	void calculateLevelToSpawn(){

@@ -11,7 +11,6 @@ public class EnemyController : MonoBehaviour {
 
 	public Enemy enemy;
 	private EnemyFactory enemyFactory = new EnemyFactory();
-    
 
     // Properties of the actual instance of the enemy
 	public int level;
@@ -51,20 +50,22 @@ public class EnemyController : MonoBehaviour {
     public Text descriptionClone;
     public int offset = 2000;
 
+    public GameObject bullet;
+
     void Start()
     {
         level = this.gameObject.GetComponent<EnemyController>().getLevel();
         if (this.gameObject.transform.name.Equals("HammerHeadPrefab(Clone)"))
         {
-            enemy = enemyFactory.getEnemy("water", level);
+            enemy = enemyFactory.getEnemy("Hammerhead", level);
         }
         else if (this.gameObject.transform.name.Equals("DesertEaglePrefab(Clone)"))
         {
-            enemy = enemyFactory.getEnemy("wind", level);
+            enemy = enemyFactory.getEnemy("DesertEagle", level);
         }
         else if (this.gameObject.transform.name.Equals("FireFoxPrefab(Clone)"))
         {
-            enemy = enemyFactory.getEnemy("earth", level);
+            enemy = enemyFactory.getEnemy("FireFox", level);
         }
 
         level = enemy.getLevel();
@@ -109,7 +110,7 @@ public class EnemyController : MonoBehaviour {
                 nextAttack = Time.time + attackRate;
                 StartCoroutine(attack());
             }
-            if (baseWithinRange)
+            else if (baseWithinRange)
             {
                 nextAttack = Time.time + attackRate;
                 StartCoroutine(attackBase());
@@ -199,8 +200,30 @@ public class EnemyController : MonoBehaviour {
 
     public IEnumerator attack(){
         if (!dead){
-            PlayerAttributes.takeDamage(attackPower);
-            CameraShaker.shakeCamera();
+            if (this.gameObject.name.Equals("DesertEaglePrefab(Clone)"))
+            {
+                GameObject bulletClone = GameObject.Instantiate(bullet, transform.position + (transform.forward), transform.rotation) as GameObject;
+                bulletClone.GetComponent<Bullet>().dmg = attackPower;
+                bulletClone.GetComponent<Bullet>().shotByPlayer = false;
+                bulletClone.GetComponent<Bullet>().shotByEnemy = true;
+                bulletClone.transform.Rotate(90, 0, 0);
+                bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * 500f);
+            }
+            if (this.gameObject.name.Equals("FireFoxPrefab(Clone)"))
+            {
+                PlayerAttributes.takeDamage(attackPower);
+                CameraShaker.shakeCamera();
+                StartCoroutine(die());
+                EnemySpawner.enemiesDefeaten++;
+                this.gameObject.GetComponent<Seeker>().StopAllCoroutines();
+                this.gameObject.GetComponent<Seeker>().destroyed = true;
+                MiniMapScript.enemies.Remove(this);
+                health = 0;
+            }
+            else {
+                PlayerAttributes.takeDamage(attackPower);
+                CameraShaker.shakeCamera();
+            }
             if (enemy.getType().getType() == 2)
             {
                 anim.SetBool("attack", true);
@@ -214,7 +237,23 @@ public class EnemyController : MonoBehaviour {
     {
         if (!dead)
         {
-            GameObject.Find("Gate").GetComponent<BaseController>().baseHealth -= attackPower;
+            if (this.gameObject.name.Equals("HammerHeadPrefab(Clone)"))
+            {
+                GameObject.Find("Gate").GetComponent<BaseController>().baseHealth -= attackPower * 2;
+            }
+            if(this.gameObject.name.Equals("FireFoxPrefab(Clone)"))
+            {
+                GameObject.Find("Gate").GetComponent<BaseController>().baseHealth -= attackPower;
+                StartCoroutine(die());
+                EnemySpawner.enemiesDefeaten++;
+                this.gameObject.GetComponent<Seeker>().StopAllCoroutines();
+                this.gameObject.GetComponent<Seeker>().destroyed = true;
+                MiniMapScript.enemies.Remove(this);
+                health = 0;
+            }
+            else {
+                GameObject.Find("Gate").GetComponent<BaseController>().baseHealth -= attackPower;
+            }
             if (enemy.getType().getType() == 2)
             {
                 anim.SetBool("attack", true);
@@ -276,6 +315,7 @@ public class EnemyController : MonoBehaviour {
         spawner.placeUnit(this.gameObject.transform.position);
         healthBarClone.transform.position = new Vector3(-1000, -1000, 0);
         descriptionClone.transform.position = new Vector3(-1000, -1000, 0);
+        destroyed = true;
         Destroy (this.gameObject);
 	}
 
@@ -284,6 +324,10 @@ public class EnemyController : MonoBehaviour {
         if (col.gameObject.CompareTag("BASE"))
         {
             baseWithinRange = true;
+        }
+        if(this.gameObject.name.Equals("DesertEaglePrefab(Clone)") && col.gameObject.name.Equals("player")){
+            isWithinRange = true;
+            shotByPlayer = true;
         }
     }
 
