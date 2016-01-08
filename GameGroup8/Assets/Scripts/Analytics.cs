@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// Class to store all the necessery information for the game.
+/// This class is used for the analytics of the game, and for the AI of the game.
+/// It only contains getters and setters and is not continuesly running when the game is, it only gets updated with an event.
+/// </summary>
 public class Analytics {
 
     private static int score = 0;

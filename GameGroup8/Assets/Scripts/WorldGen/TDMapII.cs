@@ -40,9 +40,7 @@ public class TDMapII {
 
         List<Vector2> connections = ConnectCityGrid(villages[0], villages[1]);
         ConnectRoadGrid(villages[0], villages[1], connections[0], connections[1]);
-
-        BroadenRoads(7);
-
+        
         for (int i = 0; i < nrForr; i++)
         {
             MakeForrests(i, villages);
@@ -293,9 +291,8 @@ public class TDMapII {
     }
 
     /// <summary>
-    /// This makes the roads accross the map.
+    /// This makes the road grid across the map, only the points to where the roads lead to.
     /// The input is to connect the roads to the city grid and to make shure the roads lead away from the city. 
-    /// Width is 1 tile
     /// </summary>
     /// <param name="xV"></param>
     /// <param name="yV"></param>
@@ -383,7 +380,7 @@ public class TDMapII {
     }
 
     /// <summary>
-    /// Generates the road to connect the city to the other roads, and generates the square city road grid. Width is 1 tile
+    /// Generates the road grit to connect the city to the other roads, and generates the square city road grid in points
     /// </summary>
     /// <param name="xB"></param>
     /// <param name="yB"></param>
@@ -424,7 +421,7 @@ public class TDMapII {
     }
 
     /// <summary>
-    /// Checkes if the generated point for the road has a proper distance to the other points.
+    /// Checkes if the generated point for the road has a proper distance to the other points, only in x AND y direction.
     /// The input is the new point, the list as to where to compare the point with and the distance
     /// </summary>
     /// <param name="point"></param>
@@ -487,6 +484,14 @@ public class TDMapII {
         return true;
     }
 
+    /// <summary>
+    /// Connects the main roads grid with roads, the road is only one point wide.
+    /// This method is build to make the roads not straight, but let them meander slightly 
+    /// </summary>
+    /// <param name="x1"></param>
+    /// <param name="y1"></param>
+    /// <param name="x2"></param>
+    /// <param name="y2"></param>
     void makePrimaryRoads(int x1, int y1, int x2, int y2)
     {
         int rand = 0;
@@ -543,6 +548,13 @@ public class TDMapII {
         }
     }
 
+    /// <summary>
+    /// Connects the points of the city grid with straight roads, it also looks to the offset of the grid points
+    /// </summary>
+    /// <param name="x1"></param>
+    /// <param name="y1"></param>
+    /// <param name="x2"></param>
+    /// <param name="y2"></param>
     void makeVillageRoads(int x1, int y1, int x2, int y2)
     {
         while(x1 != x2 || y1 != y2)
@@ -567,6 +579,13 @@ public class TDMapII {
         }
     }
 
+    /// <summary>
+    /// Creates the roads for the map. It uses the grid, connect and broaden methods
+    /// </summary>
+    /// <param name="xB"></param>
+    /// <param name="yB"></param>
+    /// <param name="con_1"></param>
+    /// <param name="con_2"></param>
     void ConnectRoadGrid(int xB, int yB, Vector2 con_1, Vector2 con_2)
     {
         List<Vector2>[] con_Points = MakeRoadGrid(xB, yB, con_1, con_2);
@@ -592,8 +611,17 @@ public class TDMapII {
         point3 = con_Points2[1];
         point4 = con_Points2[con_Points2.Count - 1];
         makePrimaryRoads((int)point3.x, (int)point3.y, (int)point4.x, (int)point4.y);
+
+        BroadenRoads(7);
     }
 
+    /// <summary>
+    /// Creates the roads for the city. It uses the grid, connect and broaden methods.
+    /// The return of this method are the connection points for the main roads
+    /// </summary>
+    /// <param name="xB"></param>
+    /// <param name="yB"></param>
+    /// <returns></returns>
     List<Vector2> ConnectCityGrid(int xB, int yB)
     {
         List<Vector2> con_Points = MakeCityGrid(xB, yB);
@@ -617,9 +645,16 @@ public class TDMapII {
             }
         }
 
+        BroadenRoads(7);
+
         return new List<Vector2> { con_Points[0], con_Points[2] };
     }
 
+    /// <summary>
+    /// Broaden the roads created with the connect methods from 1 to 3 tiles.
+    /// The input is a texture similar to the roadtexture, but with a different index as to not make all the map into roads
+    /// </summary>
+    /// <param name="tileTex"></param>
     void BroadenRoads(int tileTex)
     {
         for (int i = 0; i < size_x; i++)
@@ -634,6 +669,14 @@ public class TDMapII {
         }
     }
 
+    /// <summary>
+    /// Method used in the BroadenRoads method. 
+    /// This method checks for the tile with given coordnates (i,j) if this tile has an roadtile connected to it
+    /// </summary>
+    /// <param name="i"></param>
+    /// <param name="j"></param>
+    /// <param name="tileTex"></param>
+    /// <returns></returns>
     private bool HasFloorConnect(int i, int j, int tileTex)
     {
         if (j < size_y - 1 && tiles[j + 1][i] == tileTex)
