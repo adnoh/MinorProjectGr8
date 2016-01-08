@@ -9,6 +9,7 @@ public class EnemySpawner : MonoBehaviour {
 	public GameObject hammerHead;
 	public GameObject fireFox;
     public GameObject polarBear;
+    public GameObject meepMeep;
 	public int wave = 1;
 
 	private int enemiesThisWave;
@@ -30,6 +31,7 @@ public class EnemySpawner : MonoBehaviour {
 	private float changeToSpawnHammerHead = 1/3;
 	private float changeToSpawnFireFox = 1/3;
     private float changeToSpawnPolarBear = 1/3;
+    private float changeToSpawnMeepMeep = 0;
 
 	private float[] changeToSpawnByLevel = new float[5];
 	private float mu = 0f;
@@ -87,10 +89,11 @@ public class EnemySpawner : MonoBehaviour {
         calculateChangeToSpawnHammerHead();
         calculateChangeToSpawnDesertEagle();
         calculateChangeToSpawnPolarBear();
+        calculateChangeToSpawnMeepMeep();
         waveText.text = "Current wave: " + wave;
 		enemiesToDefeat = 0;
 		for(int i = 0; i < enemiesThisWave; i++){
-			float random = Random.Range (0.0f, changeToSpawnHammerHead + changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnPolarBear);
+			float random = Random.Range (0.0f, changeToSpawnHammerHead + changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnPolarBear + changeToSpawnMeepMeep);
 			if(random <= changeToSpawnHammerHead){
 				GameObject waterEnemyClone = hammerHead;
 				waterEnemyClone.GetComponent<EnemyController>().setLevel(getLevelToSpawn());
@@ -108,7 +111,13 @@ public class EnemySpawner : MonoBehaviour {
                 polarBearClone.GetComponent<EnemyController>().setLevel(getLevelToSpawn());
                 Instantiate(polarBearClone, getRandomPosition(), Quaternion.identity);
             }
-			else{
+            else if (random <= changeToSpawnHammerHead + changeToSpawnDesertEagle + changeToSpawnPolarBear + changeToSpawnMeepMeep)
+            {
+                GameObject meepMeepClone = meepMeep;
+                meepMeepClone.GetComponent<EnemyController>().setLevel(getLevelToSpawn());
+                Instantiate(meepMeepClone, getRandomPosition(), Quaternion.identity);
+            }
+            else {
 				GameObject earthEnemyClone = fireFox;
 				earthEnemyClone.GetComponent<EnemyController>().setLevel (getLevelToSpawn());
 				Instantiate (earthEnemyClone, getRandomPosition(), Quaternion.identity);
@@ -234,10 +243,15 @@ public class EnemySpawner : MonoBehaviour {
 
     void calculateChangeToSpawnPolarBear()
     {
-        changeToSpawnPolarBear = 0.125f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead);
+        changeToSpawnPolarBear = 0.125f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead + changeToSpawnMeepMeep);
     }
 
-	void setEnemiesThisWave(){
+    void calculateChangeToSpawnMeepMeep()
+    {
+        changeToSpawnMeepMeep = 0.5625f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead + changeToSpawnPolarBear);
+    }
+
+    void setEnemiesThisWave(){
         enemiesThisWave = Random.Range(3 + wave, 5 + wave);
 	}
 
