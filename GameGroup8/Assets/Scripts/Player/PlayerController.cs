@@ -42,6 +42,8 @@ public class PlayerController : MonoBehaviour {
 
 	private Animator playerAnimator;
 
+    public bool binded;
+
 	public void Start(){
 		playerAnimator = GetComponent<Animator> ();
 	}
@@ -147,7 +149,7 @@ public class PlayerController : MonoBehaviour {
 	void FixedUpdate (){
 		float moveHorizontal = Input.GetAxis("Horizontal") * Time.deltaTime;
 		float moveVertical = Input.GetAxis ("Vertical") * Time.deltaTime;
-		if (moveHorizontal != 0 || moveVertical != 0) {
+		if ((moveHorizontal != 0 || moveVertical != 0) && !binded) {
 			playerAnimator.SetBool ("walking", true);
 			transform.Translate (PlayerAttributes.getSpeed () * moveHorizontal, 0.0f, PlayerAttributes.getSpeed () * moveVertical, Space.World);
 		} else {
@@ -210,6 +212,11 @@ public class PlayerController : MonoBehaviour {
     public static void setCount_2(int change)
     {
         count = change;
+    }
+
+    public void bind(bool b)
+    {
+        binded = b;
     }
 
     void updateBars(){
