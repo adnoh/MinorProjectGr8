@@ -36,7 +36,7 @@ public class Seeker : MonoBehaviour
     }
 
 	void Update(){
-		speed = this.gameObject.GetComponent<EnemyController> ().walkingSpeed;
+		speed = this.gameObject.GetComponent<EnemyController> ().updatedSpeed;
 	}
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
