@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 
+/// <summary>
+/// Class for saving the map of the game
+/// </summary>
 public class MapSaver {
 
     [XmlArray("treelist"), XmlArrayItem("treeposition")]
@@ -20,11 +23,18 @@ public class MapSaver {
 
     public int nr_cHouses;
 
+    /// <summary>
+    /// Used when loading from xml-files
+    /// </summary>
     public MapSaver()
     {
         //Because of things
     }
 
+    /// <summary>
+    /// Stores all the important information in this class so that it can be serialized with xml
+    /// </summary>
+    /// <param name="WorldBuilder"></param>
     public MapSaver(WorldBuilderII WorldBuilder)
     {
         List<Vector3> TreePos = WorldBuilder.getTrees();
@@ -64,6 +74,10 @@ public class MapSaver {
         Tilemap = WorldBuilder.getMap();
     }
 
+    /// <summary>
+    /// Sets all the saved information from xml-files to the data in the WorldBuilder class
+    /// </summary>
+    /// <param name="WorldBuilder"></param>
     public void MapLoader(WorldBuilderII WorldBuilder)
     {
         List<Vector3> TreePositions = new List<Vector3>();

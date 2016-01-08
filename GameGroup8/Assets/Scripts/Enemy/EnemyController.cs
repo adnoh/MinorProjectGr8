@@ -68,6 +68,10 @@ public class EnemyController : MonoBehaviour {
         {
             enemy = enemyFactory.getEnemy("FireFox", level);
         }
+        else if (this.gameObject.transform.name.Equals("PolarBearPrefab(Clone)"))
+        {
+            enemy = enemyFactory.getEnemy("PolarBear", level);
+        }
 
         level = enemy.getLevel();
         maxHealth = enemy.getMaxHealth();
@@ -86,10 +90,15 @@ public class EnemyController : MonoBehaviour {
         descriptionClone = Instantiate(description);
         descriptionClone.text = "Lvl:" + enemy.getLevel() + " . " + enemy.getType().toString();
         descriptionClone.transform.SetParent(Camera.main.GetComponent<EnemySpawner>().EnemyHealthBars.transform, false);
+        if (this.gameObject.name.Equals("PolarBearPrefab(Clone)"))
+        {
+            this.gameObject.GetComponent<Seeker>().toBase = false;
+            shotByPlayer = true;
+        }
     }
 
 	void Update () {
-        updatedSpeed = walkingSpeed * (1f + (0.6f * (Analytics.getHitCount()[0] / (Analytics.getHitCount()[1] + Analytics.getHitCount()[0]) - 0.5f)));
+        updatedSpeed = walkingSpeed * (1f + (0.6f * ((float)((float)Analytics.getHitCount()[0] / ((float)Analytics.getShotsFired() + 1f)) - 0.5f)));
         healthBarClone.transform.position = Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, 20, 0);
         descriptionClone.transform.position = Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, 25, 0);
         healthBarClone.value = health;
@@ -111,12 +120,12 @@ public class EnemyController : MonoBehaviour {
             if (isWithinRange)
             {
                 nextAttack = Time.time + attackRate;
-                StartCoroutine(attack());
+                attack();
             }
             else if (baseWithinRange)
             {
                 nextAttack = Time.time + attackRate;
-                StartCoroutine(attackBase());
+                attackBase();
             }
 		}
 		if (poisoned && Time.time > timeToGetPoisonDamage) {
@@ -201,7 +210,7 @@ public class EnemyController : MonoBehaviour {
         return isWithinRange;
     }
 
-    public IEnumerator attack(){
+    public void attack(){
         if (!dead){
             if (this.gameObject.name.Equals("DesertEaglePrefab(Clone)"))
             {
@@ -223,20 +232,25 @@ public class EnemyController : MonoBehaviour {
                 MiniMapScript.enemies.Remove(this);
                 health = 0;
             }
+            if (this.gameObject.name.Equals("PolarBearPrefab(Clone)"))
+            {
+
+            }
             else {
                 PlayerAttributes.takeDamage(attackPower);
                 CameraShaker.shakeCamera();
             }
-            if (enemy.getType().getType() == 2)
+          
+            if (this.gameObject.name.Equals("PolarBearPrefab(Clone)"))
             {
                 anim.SetBool("attack", true);
-                yield return new WaitForSeconds(1);
-                anim.SetBool("attack", false);
+                GameObject.Find("player").GetComponent<PlayerController>().bind(true);
+                walkingSpeed = 0f;
             }
         }
 	}
 
-    public IEnumerator attackBase()
+    public void attackBase()
     {
         if (!dead)
         {
@@ -256,12 +270,6 @@ public class EnemyController : MonoBehaviour {
             }
             else {
                 GameObject.Find("Gate").GetComponent<BaseController>().baseHealth -= attackPower;
-            }
-            if (enemy.getType().getType() == 2)
-            {
-                anim.SetBool("attack", true);
-                yield return new WaitForSeconds(1);
-                anim.SetBool("attack", false);
             }
         }
     }
@@ -315,11 +323,16 @@ public class EnemyController : MonoBehaviour {
 		anim.SetBool ("dying", true);
         yield return new WaitForSeconds(1);
         PSpawner spawner = Camera.main.GetComponent<PSpawner>();
-        if (Random.Range(0f, 1f) > Analytics.get_timeCTBase() / Analytics.get_timePlayed()) {
+        Debug.Log(Analytics.get_timeCTBase() / Time.time);
+        if (Random.Range(0f, 1f) > Analytics.get_timeCTBase() / Time.time) {
             spawner.placeUnit(this.gameObject.transform.position);
         }
         healthBarClone.transform.position = new Vector3(-1000, -1000, 0);
         descriptionClone.transform.position = new Vector3(-1000, -1000, 0);
+        if (this.gameObject.name.Equals("PolarBearPrefab(Clone)"))
+        {
+            GameObject.Find("player").GetComponent<PlayerController>().bind(false);
+        }
         destroyed = true;
         Destroy (this.gameObject);
 	}

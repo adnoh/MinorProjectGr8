@@ -89,6 +89,7 @@ public class PlayerAttacker : MonoBehaviour {
                 bulletClone.GetComponent<Bullet>().shotByPlayer = true;
                 bulletClone.transform.Rotate(90, 0, 0);
 				bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
+                Analytics.fireShot();
 			}
 			if(!currentWeapon.getIfAutomatic() && Input.GetMouseButtonDown(0) && Time.time > nextAttack && !currentWeapon.getIfMelee()){
 				nextAttack = Time.time + currentWeapon.getAttackSpeed();
@@ -100,7 +101,8 @@ public class PlayerAttacker : MonoBehaviour {
                 bulletClone.GetComponent<Bullet>().shotByPlayer = true;
                 bulletClone.transform.Rotate(90, 0, 0);
 				bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
-			}
+                Analytics.fireShot();
+            }
 			if (Input.GetMouseButtonDown(0) && Time.time > nextAttack && currentWeapon.getIfMelee()){
 				Debug.Log (true);
 				playerAnimator.SetBool ("attack", true);

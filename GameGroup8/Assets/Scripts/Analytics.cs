@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// Class to store all the necessery information for the game.
+/// This class is used for the analytics of the game, and for the AI of the game.
+/// It only contains getters and setters and is not continuesly running when the game is, it only gets updated with an event.
+/// </summary>
 public class Analytics {
 
     private static int score = 0;
@@ -14,6 +19,7 @@ public class Analytics {
 
     private static int[] weapon = new int[8];//                  // index = weaponNr
     private static int[] shots_hit = new int[2];//               // [0] = hit, [1] = miss
+    private static int shots_fired;
     private static int[] hit_enemyType = new int[3];//           // [0] = firefox, [1] = hamerhead, [2] = deserteagle
     private static int[] playerUpgrades = new int[4];//          // [0] = attack, [1] = speed, [2] = health, [3] = energy
     private static int[] building = new int[4];//                // [0] = Rock, [1] = C-a-P, [2] = Snail, [3] = Harp
@@ -67,6 +73,11 @@ public class Analytics {
             shots_hit[0] += 1;
         else if (!hit)
             shots_hit[1] += 1;
+    }
+
+    public static void fireShot()
+    {
+        shots_fired++;
     }
 
     public static void setHitByEnemy(int Enemy)
@@ -184,6 +195,11 @@ public class Analytics {
     public static int[] getHitCount()
     {
         return shots_hit;
+    }
+
+    public static int getShotsFired()
+    {
+        return shots_fired;
     }
 
     public static int[] getHitByEnemy()
