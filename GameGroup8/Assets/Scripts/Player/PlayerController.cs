@@ -176,7 +176,10 @@ public class PlayerController : MonoBehaviour {
 
 	void OnTriggerExit(Collider collider){
 		if (collider.gameObject.CompareTag ("Enemy")) {
-			collider.gameObject.GetComponent<EnemyController> ().setWithinRange ();
+            if (collider.gameObject.GetComponent<EnemyController>().getWithinRange())
+            {
+                collider.gameObject.GetComponent<EnemyController>().setWithinRange();
+            }
 		}
 	}
 

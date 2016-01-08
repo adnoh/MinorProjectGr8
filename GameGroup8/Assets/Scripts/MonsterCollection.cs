@@ -183,7 +183,7 @@ public class Outsidesave{
         this.wave = Camera.main.GetComponent<EnemySpawner>().wave;
 		// this.timeTillNextWave = Camera.main.GetComponent<EnemySpawner>().timeTillNextWave;
         this.CountDownTimer_Value = Camera.main.GetComponent<EnemySpawner>().CountDownTimerValue;
-        Debug.Log(timeTillNextWave.ToString());
+        //Debug.Log(timeTillNextWave.ToString());
 		this.enemiesDefeaten = EnemySpawner.enemiesDefeaten;
 		this.totalEnemiesSpawned = EnemySpawner.totalEnemiesSpawned;
 		enemiesToDefeat = Camera.main.GetComponent<EnemySpawner> ().enemiesToDefeat;
@@ -439,8 +439,6 @@ public class MonsterCollection : MonoBehaviour
 
         GameObject.Find("Gate").GetComponent<BaseController>().wall = base_.wall;
         GameObject.Find("Gate").GetComponent<BaseController>().baseHealth = base_.health;
-
-        GameObject.Find("Gate").GetComponent<BaseController>().matchWalls();
     }
 
 
