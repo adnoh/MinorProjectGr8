@@ -417,7 +417,6 @@ GameObject:
   - 114: {fileID: 11451894}
   - 54: {fileID: 5420972}
   - 65: {fileID: 6593226}
-  - 135: {fileID: 13593456}
   m_Layer: 0
   m_Name: DesertEaglePrefab
   m_TagString: Enemy
@@ -965,7 +964,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119960}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.271183, y: 0.5, z: 23.802322}
+  m_LocalPosition: {x: 29.139784, y: 3.4375471e-18, z: -4.6444006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 463352}
@@ -1353,7 +1352,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 143330}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.1209774, y: 266, z: -7.708683}
+  m_LocalPosition: {x: 2.1209774, y: 660, z: -7.708683}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 440688}
@@ -1790,7 +1789,7 @@ MonoBehaviour:
   health: 100
   maxHealth: 100
   attackPower: 10
-  walkingSpeed: 2
+  walkingSpeed: 4
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 0}
   attackRate: 2
@@ -1801,13 +1800,11 @@ MonoBehaviour:
   stunTimeInterval: 2
   destroyed: 0
   dead: 0
-  shotByPlayer: 0
   healthBar: {fileID: 11461224, guid: b411a647d14b258499c2179d779a8440, type: 2}
   healthBarClone: {fileID: 0}
   description: {fileID: 11484142, guid: 2079d000159592e4eaeb276452aa74cd, type: 2}
   descriptionClone: {fileID: 0}
   offset: 10
-  bullet: {fileID: 113490, guid: d14f7c6495d71874da0a5d2177a81d98, type: 2}
 --- !u!114 &11426394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1834,13 +1831,11 @@ MonoBehaviour:
   stunTimeInterval: 2
   destroyed: 0
   dead: 0
-  shotByPlayer: 0
   healthBar: {fileID: 0}
   healthBarClone: {fileID: 0}
   description: {fileID: 0}
   descriptionClone: {fileID: 0}
   offset: 10
-  bullet: {fileID: 0}
 --- !u!114 &11429254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1870,7 +1865,7 @@ MonoBehaviour:
   health: 100
   maxHealth: 100
   attackPower: 10
-  walkingSpeed: 2
+  walkingSpeed: 4
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 0}
   attackRate: 2
@@ -1881,13 +1876,11 @@ MonoBehaviour:
   stunTimeInterval: 2
   destroyed: 0
   dead: 0
-  shotByPlayer: 0
   healthBar: {fileID: 11461224, guid: b411a647d14b258499c2179d779a8440, type: 2}
   healthBarClone: {fileID: 0}
   description: {fileID: 11484142, guid: 2079d000159592e4eaeb276452aa74cd, type: 2}
   descriptionClone: {fileID: 0}
   offset: 10
-  bullet: {fileID: 0}
 --- !u!114 &11451894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1942,13 +1935,11 @@ MonoBehaviour:
   stunTimeInterval: 2
   destroyed: 0
   dead: 0
-  shotByPlayer: 0
   healthBar: {fileID: 11461224, guid: b411a647d14b258499c2179d779a8440, type: 2}
   healthBarClone: {fileID: 0}
   description: {fileID: 11484142, guid: 2079d000159592e4eaeb276452aa74cd, type: 2}
   descriptionClone: {fileID: 0}
   offset: 10
-  bullet: {fileID: 0}
 --- !u!135 &13547216
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1960,18 +1951,6 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &13593456
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 143330}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &13706044
 SkinnedMeshRenderer:
@@ -2382,14 +2361,6 @@ Prefab:
       value: 
       objectReference: {fileID: 11484142, guid: 2079d000159592e4eaeb276452aa74cd,
         type: 2}
-    - target: {fileID: 0}
-      propertyPath: bullet
-      value: 
-      objectReference: {fileID: 113490, guid: d14f7c6495d71874da0a5d2177a81d98, type: 2}
-    - target: {fileID: 0}
-      propertyPath: m_Radius
-      value: 15
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 119960}
