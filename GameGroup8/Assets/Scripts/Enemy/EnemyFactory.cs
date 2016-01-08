@@ -18,6 +18,10 @@ public class EnemyFactory {
         {
             return getPolarBear(level);
         }
+        else if (name.Equals("MeepMeep"))
+        {
+            return getMeepMeep(level);
+        }
         else
         {
             return getHammerhead(level);
@@ -96,6 +100,33 @@ public class EnemyFactory {
         }
         else {
             return new Enemy(1, 125, 0, 5f, new Type(2));
+        }
+    }
+
+    private Enemy getMeepMeep(int level)
+    {
+        if (level == 1)
+        {
+            return new Enemy(1, 75, 0, 10f, new Type(1));
+        }
+        else if (level == 2)
+        {
+            return new Enemy(2, 125, 0, 10f, new Type(1));
+        }
+        else if (level == 3)
+        {
+            return new Enemy(3, 150, 0, 10f, new Type(1));
+        }
+        else if (level == 4)
+        {
+            return new Enemy(4, 220, 0, 10f, new Type(1));
+        }
+        else if (level == 5)
+        {
+            return new Enemy(5, 250, 0, 10f, new Type(2));
+        }
+        else {
+            return new Enemy(1, 75, 0, 10f, new Type(2));
         }
     }
 }
