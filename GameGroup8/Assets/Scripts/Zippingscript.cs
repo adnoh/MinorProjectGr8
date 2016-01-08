@@ -11,8 +11,8 @@ using Ionic.Zip;
 
     void Start()
     {
-        Compress();
-        Decompress();
+       // Compress();
+      //  Decompress();
 
     }
 

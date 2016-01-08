@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour {
 
-	public GameObject windEnemy;
-	public GameObject waterEnemy;
-	public GameObject earthEnemy;
-	public int wave  = 1;
+	public GameObject desertEagle;
+	public GameObject hammerHead;
+	public GameObject fireFox;
+	public int wave = 1;
 
 	private int enemiesThisWave;
 	public static int totalEnemiesSpawned;
@@ -25,10 +25,9 @@ public class EnemySpawner : MonoBehaviour {
 
 	public Text timeTillNextWaveText;
 
-
-	private float changeToSpawnWindEnemy = 1/3;
-	private float changeToSpawnWaterEnemy = 1/3;
-	private float changeToSpawnEarthEnemy = 1/3;
+	private float changeToSpawnDesertEagle = 1/3;
+	private float changeToSpawnHammerHead = 1/3;
+	private float changeToSpawnFireFox = 1/3;
 
 	private float[] changeToSpawnByLevel = new float[5];
 	private float mu = 0f;
@@ -71,43 +70,37 @@ public class EnemySpawner : MonoBehaviour {
 		}
         CountDownTimerValue = timeTillNextWave - Time.timeSinceLevelLoad; 
 
-        //Debug.Log(timeTillNextWave.ToString());
         enemiesToDefeatText.text = "Enemies to defeat: " + enemiesToDefeat;
 		timeTillNextWaveText.text = "Time till next wave: " + (int)(CountDownTimerValue);
-		calculateChangeToSpawnEarth ();
-		calculateChangeToSpawnWater ();
-		calculateChangeToSpawnWind ();
         enemiesToDefeat = MiniMapScript.enemies.Count;
 		enemiesToDefeatText.text = "Enemies to defeat: " + enemiesToDefeat;
 	}
 
 	Vector3 getRandomPosition(){
-        /*Vector3 basePos = GameObject.FindGameObjectWithTag("BASE").transform.position;
-        Vector3 randomPos = new Vector3();
-        randomPos.x = basePos.x - Random.Range(10, 20) * Mathf.Pow(1, Random.Range(0, 2));
-        randomPos.z = basePos.z - Random.Range(10, 20) * Mathf.Pow(1, Random.Range(0, 2));*/
-
         return new Vector3(Random.Range(-100, 100), 1, Random.Range(-100, 100)) ;
 	}
 
 	void nextWave(){
-		waveText.text = "Current wave: " + wave;
+        calculateChangeToSpawnFireFox();
+        calculateChangeToSpawnHammerHead();
+        calculateChangeToSpawnDesertEagle();
+        waveText.text = "Current wave: " + wave;
 		enemiesToDefeat = 0;
 		for(int i = 0; i < enemiesThisWave; i++){
-			float random = Random.Range (0.0f, changeToSpawnWaterEnemy + changeToSpawnWindEnemy + changeToSpawnEarthEnemy);
-			if(random <= changeToSpawnWaterEnemy){
-				GameObject waterEnemyClone = waterEnemy;
+			float random = Random.Range (0.0f, changeToSpawnHammerHead + changeToSpawnDesertEagle + changeToSpawnFireFox);
+			if(random <= changeToSpawnHammerHead){
+				GameObject waterEnemyClone = hammerHead;
 				waterEnemyClone.GetComponent<EnemyController>().setLevel(getLevelToSpawn());
 				Instantiate (waterEnemyClone, getRandomPosition(), Quaternion.identity);
 			}
-			else if(random <= changeToSpawnWaterEnemy + changeToSpawnWindEnemy){
-				GameObject windEnemyClone = windEnemy;
+			else if(random <= changeToSpawnHammerHead + changeToSpawnDesertEagle){
+				GameObject windEnemyClone = desertEagle;
 				windEnemyClone.GetComponent<EnemyController>().setLevel (getLevelToSpawn());
 				windEnemyClone.transform.Translate(new Vector3(0f, 5f, 0f));
 				Instantiate (windEnemyClone, getRandomPosition(), Quaternion.identity);
 			}
 			else{
-				GameObject earthEnemyClone = earthEnemy;
+				GameObject earthEnemyClone = fireFox;
 				earthEnemyClone.GetComponent<EnemyController>().setLevel (getLevelToSpawn());
 				Instantiate (earthEnemyClone, getRandomPosition(), Quaternion.identity);
 			}
@@ -133,7 +126,7 @@ public class EnemySpawner : MonoBehaviour {
             {
                 case "Earth":
                     {
-                        GameObject earthEnemyClone = earthEnemy;
+                        GameObject earthEnemyClone = fireFox;
                         var monster = earthEnemyClone.GetComponent<EnemyController>();
                         monster.setLevel(MonsterList[i].level);
                         monster.setHealth(MonsterList[i].health);
@@ -148,7 +141,7 @@ public class EnemySpawner : MonoBehaviour {
 
                 case "Wind":
                     {
-                        GameObject windEnemyClone = windEnemy;
+                        GameObject windEnemyClone = desertEagle;
                         var monster = windEnemyClone.GetComponent<EnemyController>();
                         monster.setLevel(MonsterList[i].level);
                         monster.setHealth(MonsterList[i].health);
@@ -163,7 +156,7 @@ public class EnemySpawner : MonoBehaviour {
                 
                 case "Water":
                     {
-                        GameObject waterEnemyClone = waterEnemy;
+                        GameObject waterEnemyClone = hammerHead;
                         var monster = waterEnemyClone.GetComponent<EnemyController>();
                         monster.setLevel(MonsterList[i].level);
                         monster.setHealth(MonsterList[i].health);
@@ -182,47 +175,58 @@ public class EnemySpawner : MonoBehaviour {
         }
     }
 
-    void calculateChangeToSpawnWind(){
+    void calculateChangeToSpawnDesertEagle(){
 		int tempType = PlayerAttacker.currentWeapon.getType().getType ();
-		if(tempType == 1 || tempType == 0){
-			changeToSpawnWindEnemy = 1f/3f;
+        changeToSpawnDesertEagle = 0;
+        changeToSpawnDesertEagle += 1f / 4f * Analytics.getBuildings()[1];
+        if (tempType == 1 || tempType == 0){
+			changeToSpawnDesertEagle += 1f/3f;
 		}
 		if(tempType == 2){
-			changeToSpawnWindEnemy = 1f/2f;
+			changeToSpawnDesertEagle += 1f/2f;
 		}
 		if(tempType == 3){
-			changeToSpawnWindEnemy = 1f/3f;
+			changeToSpawnDesertEagle += 1f/3f;
 		}
-	}
+    }
 
-	void calculateChangeToSpawnWater(){
+	void calculateChangeToSpawnHammerHead(){
 		int tempType = PlayerAttacker.currentWeapon.getType().getType ();
-		if(tempType == 1){
-			changeToSpawnWaterEnemy = 1f/6f;
+        changeToSpawnHammerHead = 0;
+        changeToSpawnHammerHead += Analytics.getPlayerUpgrades()[1] * 1f / 4f;
+        changeToSpawnHammerHead += 1f / 4f * Analytics.getBuildings()[2];
+
+        if (tempType == 1){
+			changeToSpawnHammerHead += 1f/6f;
 		}
 		if(tempType == 2 || tempType == 0){
-			changeToSpawnWaterEnemy = 1f/3f;
+			changeToSpawnHammerHead += 1f/3f;
 		}
 		if(tempType == 3){
-			changeToSpawnWaterEnemy = 1f/2f;
+			changeToSpawnHammerHead += 1f/2f;
 		}
-	}
+    }
 
-	void calculateChangeToSpawnEarth(){
+	void calculateChangeToSpawnFireFox(){
 		int tempType = PlayerAttacker.currentWeapon.getType().getType ();
-		if(tempType == 1){
-			changeToSpawnEarthEnemy = 1f/2f;
+        changeToSpawnFireFox = 0;
+        changeToSpawnFireFox += Analytics.getPlayerUpgrades()[0] * 1f / 4f;
+        changeToSpawnFireFox += 1f / 4f * Analytics.getBuildings()[3];
+        if (tempType == 1){
+			changeToSpawnFireFox += 1f/2f;
 		}
 		if(tempType == 2){
-			changeToSpawnEarthEnemy = 1f/6f;
+			changeToSpawnFireFox += 1f/6f;
 		}
 		if(tempType == 3 || tempType == 0){
-			changeToSpawnEarthEnemy = 1f/3f;
+			changeToSpawnFireFox += 1f/3f;
 		}
+        
+        
 	}
 
 	void setEnemiesThisWave(){
-		enemiesThisWave = (int)Mathf.Floor(2f + wave * (1f/2f));
+        enemiesThisWave = Random.Range(3 + wave, 5 + wave);
 	}
 
 	void calculateLevelToSpawn(){

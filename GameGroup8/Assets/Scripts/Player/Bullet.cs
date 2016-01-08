@@ -7,10 +7,17 @@ public class Bullet : MonoBehaviour {
 	public int dmg;
 	public bool stun;
 	public bool poisonous;
+    public bool shotByPlayer;
+    public bool shotByEnemy;
 
     Score score_;
 
     void Start(){
+
+        if(this.gameObject.name.Equals("CatPrefab(Clone)") && this.gameObject.name.Equals("SnailPrefab(Clone)"))
+        {
+            shotByPlayer = false;
+        }
 
         score_ = Camera.main.GetComponent<Score>();
 
@@ -25,17 +32,25 @@ public class Bullet : MonoBehaviour {
 		}
 	}
 
+    /// <summary>
+    /// If the bullet hits something else than an enemy, it gets distroyed
+    /// </summary>
 	void Update(){
 		if ((this.gameObject.name.Equals("newBullet(Clone)") || this.gameObject.name.Equals ("CatPrefab(Clone)") || this.gameObject.name.Equals("SnailPrefab(Clone)")) && this.gameObject.GetComponent<Rigidbody> ().velocity == new Vector3(0f, 0f, 0f)) {
 			GameObject.Destroy (gameObject);
-            if (this.gameObject.name.Equals("newBullet(Clone)"))
+            if (shotByPlayer)
                 Analytics.setHitCount(false);
 		}
 	}
 
+    /// <summary>
+    /// If the bullet hits an enemy (col) it does damage to it and destroys the bullet
+    /// </summary>
+    /// <param name="col"></param>
 	void OnTriggerEnter(Collider col){
-		if(col.gameObject.CompareTag ("Enemy") && (this.gameObject.name.Equals("newBullet(Clone)") || this.gameObject.name.Equals ("CatPrefab(Clone)") || this.gameObject.name.Equals("SnailPrefab(Clone)"))){
+		if(col.gameObject.CompareTag ("Enemy") && !shotByEnemy && (this.gameObject.name.Equals("newBullet(Clone)") || this.gameObject.name.Equals ("CatPrefab(Clone)") || this.gameObject.name.Equals("SnailPrefab(Clone)"))){
 			EnemyController enemyController = col.gameObject.GetComponent<EnemyController>();
+            enemyController.shotByPlayer = true;
 			int damage = (int)(Random.Range (dmg, dmg + 10) * type.damageMultiplierToType(enemyController.getType()) * PlayerAttributes.getAttackMultiplier());
 			enemyController.setHealth(enemyController.getHealth () - damage);
 			if(poisonous){
@@ -66,17 +81,19 @@ public class Bullet : MonoBehaviour {
                     Analytics.setHitByEnemy(2);
             }
 
-            if (this.gameObject.name.Equals("newBullet(Clone)"))
+            if (shotByPlayer)
+            {
                 Analytics.setHitCount(true);
+            }
 
 			GameObject.Destroy (gameObject);
 		}
+        if (col.gameObject.name.Equals("player") && shotByEnemy)
+        {
+            PlayerAttributes.takeDamage(dmg);
+            CameraShaker.shakeCamera();
+        }
 
 	}
-
-	/*void OnCollisionEnter(Collision col){
-		if ((col.gameObject.CompareTag ("Wall") || col.gameObject.name.Equals ("House(Clone)") || col.gameObject.name.Equals("Gate")) && this.gameObject.name.Equals ("newBullet(Clone)")) {
-			GameObject.Destroy (gameObject);
-		}
-	}*/
+ 
 }
