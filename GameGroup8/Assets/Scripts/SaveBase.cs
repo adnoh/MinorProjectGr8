@@ -1,9 +1,11 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
 using MySql.Data.MySqlClient;
 using System.IO;
+using System;
+using UnityEngine;
 
-public class SaveBase : MonoBehaviour
+
+public class SaveBase
 {
 	MySql.Data.MySqlClient.MySqlConnection conn;
 	MySql.Data.MySqlClient.MySqlCommand cmd;
@@ -24,9 +26,14 @@ public class SaveBase : MonoBehaviour
 			conn.Open();
 		}
 
-		catch (MySql.Data.MySqlClient.MySqlException ex)
-				{
-			Debug.Log(ex.Message);
+		catch (Exception ex)
+		{
+			if (ex is MySqlException) 
+			{				
+				MySqlException ex2 = (MySqlException)ex;
+				Debug.Log (ex2.Number);
+			}
+			Debug.Log (ex.Message.ToString ());
 		}
 	}
 
@@ -50,33 +57,21 @@ public class SaveBase : MonoBehaviour
 			// Execute
 			cmd.ExecuteNonQuery();
 		}
-		catch (MySql.Data.MySqlClient.MySqlErrorCode e) 
+		catch (Exception ex) 
 		{
+			Debug.Log (ex.Message.ToString ());
+			throw ex;
 
-			// if the error is 
-			if (e = MySqlErrorCode.DuplicateUnique) {
-
-				Debug.Log ("Same username");
-			}
-
-			if (e = MySqlErrorCode.DuplicateKey) {
-				Debug.Log ("Same username");
-			}
-
-			if (e = MySqlErrorCode.DuplicateKeyEntry) {
-				Debug.Log ("Same username");
-			}
-			
 		}
 
 		finally
 		{ 
 
 			// needs fixing
-			if (conn.State == "Open")
-			{
+			//if (conn.State ==)
+			//{
 				conn.Close();
-			}
+			//}
 		}
 
 
