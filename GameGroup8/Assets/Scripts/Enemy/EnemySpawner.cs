@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour {
 	public GameObject desertEagle;
 	public GameObject hammerHead;
 	public GameObject fireFox;
+    public GameObject polarBear;
 	public int wave = 1;
 
 	private int enemiesThisWave;
@@ -28,6 +29,7 @@ public class EnemySpawner : MonoBehaviour {
 	private float changeToSpawnDesertEagle = 1/3;
 	private float changeToSpawnHammerHead = 1/3;
 	private float changeToSpawnFireFox = 1/3;
+    private float changeToSpawnPolarBear = 1/3;
 
 	private float[] changeToSpawnByLevel = new float[5];
 	private float mu = 0f;
@@ -84,10 +86,11 @@ public class EnemySpawner : MonoBehaviour {
         calculateChangeToSpawnFireFox();
         calculateChangeToSpawnHammerHead();
         calculateChangeToSpawnDesertEagle();
+        calculateChangeToSpawnPolarBear();
         waveText.text = "Current wave: " + wave;
 		enemiesToDefeat = 0;
 		for(int i = 0; i < enemiesThisWave; i++){
-			float random = Random.Range (0.0f, changeToSpawnHammerHead + changeToSpawnDesertEagle + changeToSpawnFireFox);
+			float random = Random.Range (0.0f, changeToSpawnHammerHead + changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnPolarBear);
 			if(random <= changeToSpawnHammerHead){
 				GameObject waterEnemyClone = hammerHead;
 				waterEnemyClone.GetComponent<EnemyController>().setLevel(getLevelToSpawn());
@@ -99,6 +102,12 @@ public class EnemySpawner : MonoBehaviour {
 				windEnemyClone.transform.Translate(new Vector3(0f, 5f, 0f));
 				Instantiate (windEnemyClone, getRandomPosition(), Quaternion.identity);
 			}
+            else if(random <= changeToSpawnHammerHead + changeToSpawnDesertEagle + changeToSpawnPolarBear)
+            {
+                GameObject polarBearClone = polarBear;
+                polarBearClone.GetComponent<EnemyController>().setLevel(getLevelToSpawn());
+                Instantiate(polarBearClone, getRandomPosition(), Quaternion.identity);
+            }
 			else{
 				GameObject earthEnemyClone = fireFox;
 				earthEnemyClone.GetComponent<EnemyController>().setLevel (getLevelToSpawn());
@@ -178,7 +187,7 @@ public class EnemySpawner : MonoBehaviour {
     void calculateChangeToSpawnDesertEagle(){
 		int tempType = PlayerAttacker.currentWeapon.getType().getType ();
         changeToSpawnDesertEagle = 0;
-        changeToSpawnDesertEagle += 1f / 4f * Analytics.getBuildings()[1];
+        changeToSpawnDesertEagle += 1f / 2f * Analytics.getBuildings()[1];
         if (tempType == 1 || tempType == 0){
 			changeToSpawnDesertEagle += 1f/3f;
 		}
@@ -194,7 +203,7 @@ public class EnemySpawner : MonoBehaviour {
 		int tempType = PlayerAttacker.currentWeapon.getType().getType ();
         changeToSpawnHammerHead = 0;
         changeToSpawnHammerHead += Analytics.getPlayerUpgrades()[1] * 1f / 4f;
-        changeToSpawnHammerHead += 1f / 4f * Analytics.getBuildings()[2];
+        changeToSpawnHammerHead += 1f / 2f * Analytics.getBuildings()[2];
 
         if (tempType == 1){
 			changeToSpawnHammerHead += 1f/6f;
@@ -211,7 +220,7 @@ public class EnemySpawner : MonoBehaviour {
 		int tempType = PlayerAttacker.currentWeapon.getType().getType ();
         changeToSpawnFireFox = 0;
         changeToSpawnFireFox += Analytics.getPlayerUpgrades()[0] * 1f / 4f;
-        changeToSpawnFireFox += 1f / 4f * Analytics.getBuildings()[3];
+        changeToSpawnFireFox += 1f / 2f * Analytics.getBuildings()[3];
         if (tempType == 1){
 			changeToSpawnFireFox += 1f/2f;
 		}
@@ -221,9 +230,12 @@ public class EnemySpawner : MonoBehaviour {
 		if(tempType == 3 || tempType == 0){
 			changeToSpawnFireFox += 1f/3f;
 		}
-        
-        
 	}
+
+    void calculateChangeToSpawnPolarBear()
+    {
+        changeToSpawnPolarBear = 0.125f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead);
+    }
 
 	void setEnemiesThisWave(){
         enemiesThisWave = Random.Range(3 + wave, 5 + wave);

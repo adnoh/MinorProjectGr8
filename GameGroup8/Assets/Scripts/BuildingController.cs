@@ -44,7 +44,7 @@ public class BuildingController : MonoBehaviour {
     }
     
     void Update(){
-        bool pause = BaseController.getPause();
+        //bool pause = BaseController.getPause();
 
 		for (int i = 0; i < enemys.Count; i++) {
 			if (enemys [i] == null) {
@@ -95,7 +95,7 @@ public class BuildingController : MonoBehaviour {
 			PlayerController.setCount(-1);
 			time = Time.time + timeInterval;
 		}
-
+        /*
 		if(Input.GetKeyDown(KeyCode.T) && pause){
 			if (building.getName ().Equals ("GunSmith") && !weaponUnlocker) {
 				GameObject.Find ("player").GetComponent<PlayerAttacker> ().weaponUnlockScreen.SetActive (true);
@@ -110,7 +110,7 @@ public class BuildingController : MonoBehaviour {
         {
             GameObject.Find("player").GetComponent<PlayerAttacker>().weaponUnlockScreen.SetActive(false);
             weaponUnlocker = false;
-        }
+        }*/
     }
 
     void OnTriggerEnter(Collider other){

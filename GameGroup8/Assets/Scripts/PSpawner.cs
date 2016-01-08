@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// Class for spawning units
+/// </summary>
 public class PSpawner : MonoBehaviour {
 	
 	public GameObject unit;
@@ -12,12 +15,19 @@ public class PSpawner : MonoBehaviour {
 		PlaceCubes ();
 	}
 
+    /// <summary>
+    /// Place an unit at a given location
+    /// </summary>
+    /// <param name="place"></param>
 	public void placeUnit(Vector3 place){
 		GameObject unitClone = unit;
 		unitClone.transform.Rotate (new Vector3 (-90, 0, 0));
 		Instantiate (unitClone, new Vector3(place.x, 1, place.z), Quaternion.identity);
 	}
 
+    /// <summary>
+    /// Spawn all the units
+    /// </summary>
 	void PlaceCubes(){
 		
 		List<Vector3> occupied = new List<Vector3> ();

@@ -14,6 +14,10 @@ public class EnemyFactory {
 		} else if(name.Equals("FireFox")){
 			return getFireFox(level);
 		}
+        else if (name.Equals("PolarBear"))
+        {
+            return getPolarBear(level);
+        }
         else
         {
             return getHammerhead(level);
@@ -67,4 +71,31 @@ public class EnemyFactory {
 			return new Enemy (1, 25, 30, 6f, new Type (2));
 		}
 	}
+
+    private Enemy getPolarBear(int level)
+    {
+        if (level == 1)
+        {
+            return new Enemy(1, 125, 0, 5f, new Type(2));
+        }
+        else if (level == 2)
+        {
+            return new Enemy(2, 200, 0, 5f, new Type(2));
+        }
+        else if (level == 3)
+        {
+            return new Enemy(3, 280, 0, 5f, new Type(2));
+        }
+        else if (level == 4)
+        {
+            return new Enemy(4, 350, 0, 5f, new Type(2));
+        }
+        else if (level == 5)
+        {
+            return new Enemy(5, 435, 0, 5f, new Type(2));
+        }
+        else {
+            return new Enemy(1, 125, 0, 5f, new Type(2));
+        }
+    }
 }

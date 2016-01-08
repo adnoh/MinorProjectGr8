@@ -33,6 +33,9 @@ public class Seeker : MonoBehaviour
     {
 	  	PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
 		speed = this.gameObject.GetComponent<EnemyController> ().walkingSpeed;
+        if (this.gameObject.name.Equals("PolarBearPrefab(Clone)")){
+            toBase = false;
+        }
     }
 
 	void Update(){

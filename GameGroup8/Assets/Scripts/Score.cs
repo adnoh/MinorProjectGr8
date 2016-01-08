@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+/// <summary>
+/// Class to store and show the score of the player.
+/// Passive class, only works if one of its methods is called
+/// </summary>
 public class Score : MonoBehaviour {
 
 
