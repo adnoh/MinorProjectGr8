@@ -7,7 +7,7 @@ using System.Collections;
 /// </summary>
 public class Daynight : MonoBehaviour {
 
-	public float Height;
+	public static float Height;
 
     public float intensity;
 	
@@ -20,9 +20,13 @@ public class Daynight : MonoBehaviour {
         GetComponent<Light>().intensity = (Height < 0f) ? 0f * intensity : 1f * intensity *(0.5f+(Height/500));
 	}
 
-	/*
 	public static float getCount()
 	{
 		return Height;
-	}*/
+	}
+
+    public float getHeigth()
+    {
+        return Height;
+    }
 }

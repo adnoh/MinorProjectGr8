@@ -11,6 +11,7 @@ public class WorldBuilderII : MonoBehaviour {
     private int[][] TileMap;
 
     public GameObject Tree;
+    //public GameObject PineTree;
     public int nrTrees;
     public GameObject C_Building;
     public GameObject House;
@@ -20,6 +21,7 @@ public class WorldBuilderII : MonoBehaviour {
     private List<Vector3> TreePos = new List<Vector3>();
     private List<Vector3[]> HouseInfo = new List<Vector3[]>();
     private List<Vector3> HousePos = new List<Vector3>(2);
+    private List<Vector3> WallsPos = new List<Vector3>();
     private Vector3 BasePos;
     private float offset = 0.5f;
 
@@ -190,7 +192,16 @@ public class WorldBuilderII : MonoBehaviour {
 
                 if (CheckIfPlacableTile(z, x, map) && ObjPossible(TreePos, Pos, 2) && ObjPossible(HousePos, Pos, 6))
                 {
-                    Instantiate(Tree, Pos, Quaternion.identity);
+                    float nr = Random.Range(0f, 1f);
+                    if(nr >= .4)
+                    {
+                        Instantiate(Tree, Pos, Quaternion.identity);
+                    } else if (nr < .4)
+                    {
+                        Pos.y = 0.8f;
+                        Instantiate(Tree, Pos, Quaternion.identity); //PineTree
+                    }
+                    
                     TreePos.Add(Pos);
                 }
                 else
@@ -231,7 +242,10 @@ public class WorldBuilderII : MonoBehaviour {
             int z = (int)(150 - Pos.x - offset);
 
             if (HousePossible(z, x, map, 15) && ObjPossible(TreePos, Pos, 10))
+            {
                 placeWalls(Pos);
+                WallsPos.Add(Pos);
+            }
         }
     }
 
@@ -264,7 +278,15 @@ public class WorldBuilderII : MonoBehaviour {
 
         foreach (Vector3 Pos in TreePos)
         {
-            Instantiate(Tree, Pos, Quaternion.identity);
+            if (Pos.y == 0)
+                Instantiate(Tree, Pos, Quaternion.identity);
+            else if (Pos.y != 0)
+                Instantiate(Tree, Pos, Quaternion.identity);
+        }
+
+        foreach (Vector3 Pos in WallsPos)
+        {
+            placeWalls(Pos);
         }
     }
 
@@ -469,5 +491,23 @@ public class WorldBuilderII : MonoBehaviour {
         SouthWall.transform.Rotate(new Vector3(0, 90, 0));
         SouthWall.transform.localScale = new Vector3(15, 1, 0.5f);
         WestWall.transform.Rotate(new Vector3(0, 0, 0));
+    }
+
+    /// <summary>
+    /// Returns the positions of the 'object' which contains the walls
+    /// </summary>
+    /// <returns></returns>
+    public List<Vector3> getWalls()
+    {
+        return WallsPos;
+    }
+
+    /// <summary>
+    /// Sets the positions of walls
+    /// </summary>
+    /// <param name="WallsPos"></param>
+    public void setWalls(List<Vector3> WallsPos)
+    {
+        this.WallsPos = WallsPos;
     }
 }
