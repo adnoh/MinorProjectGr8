@@ -95,7 +95,13 @@ public class SaveBase : MonoBehaviour
 		}
 	}
 
-	public void UploadSave(string un, string pwd, string path)
+	/// <summary>
+	/// Uploads the save.
+	/// </summary>
+	/// <param name="un">Lun, loggedin username</param>
+	/// <param name="path">Path, path where save is saved.</param>
+
+	public void UploadSave(string lun, string path)
 	{
 
 		// Open the Connection
@@ -112,10 +118,11 @@ public class SaveBase : MonoBehaviour
 			fs.Close();
 
 			cmd = conn.CreateCommand();
-			cmd.CommandText = "INSERT INTO saves(username, password, save)VALUES(@username, @password, @save)";
-			cmd.Parameters.AddWithValue("@username", un);
-			cmd.Parameters.AddWithValue("@password", pwd);
+			cmd.CommandText = "UPDATE savebase.saves SET save=@save WHERE username=@Username";
 			cmd.Parameters.AddWithValue("@save", rawData);
+			cmd.Parameters.AddWithValue("@UserName", lun);
+
+			
 			// Execute
 			cmd.ExecuteNonQuery();
 		}
@@ -143,10 +150,13 @@ public class SaveBase : MonoBehaviour
 		}		
 	}
 
+
+
+	// test code
 	public void Start(){
 	
-		// CreateNamePassword ("test", "test1234");
-		UploadSave ("test1", "test12345", path);
+		CreateNamePassword ("test", "test1234");
+		UploadSave ("test", path);
 		Debug.Log (1);
 	}
 
