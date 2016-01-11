@@ -5,21 +5,28 @@ using System;
 using UnityEngine;
 
 
-public class SaveBase
+public class SaveBase : MonoBehaviour
 {
 	MySql.Data.MySqlClient.MySqlConnection conn;
 	MySql.Data.MySqlClient.MySqlCommand cmd;
 	MySqlCommand cmd2;
 
+	string LoggedInUser;
+	string LoggedInPwd;
 
 	// ConnectionString
 	string mySQLconnectionString = "Server=80.60.131.231;Database=savebase;UID=userw;Pwd=Minor#8;";
 
 	// savegame path
-	string path = "Assets/saves1/saves/package.zip";
+	string path = "Assets/saves/package.zip";
+	int FileSize;
+	byte[] rawData;
+	FileStream fs;
 
-
-	void openConnection(){
+	/// <summary>
+	/// Opens the the connection to the remote MySQL server.
+	/// </summary>
+	public void openConnection(){
 		try
 		{
 			conn = new MySql.Data.MySqlClient.MySqlConnection(mySQLconnectionString);
@@ -28,25 +35,25 @@ public class SaveBase
 
 		catch (Exception ex)
 		{
+
+			// This works :)
 			if (ex is MySqlException) 
 			{				
 				MySqlException ex2 = (MySqlException)ex;
-				Debug.Log (ex2.Number);
+				Debug.Log ("MySQL Error: " + ex2.Number);
 			}
-			Debug.Log (ex.Message.ToString ());
 		}
 	}
 
-	void UploadSave()
-	{
-
-	}
-
-	void UploadNamePassword(string un, string pwd)
+	/// <summary>
+	/// Create a new Username + Password and upload it to the server
+	/// </summary>
+	/// <param name="un">Un.</param>
+	/// <param name="pwd">Pwd.</param>
+	public void CreateNamePassword(string un, string pwd)
 	{
 		// Open the Connection
 		openConnection ();
-
 
 		try 
 		{
@@ -60,32 +67,93 @@ public class SaveBase
 		catch (Exception ex) 
 		{
 			Debug.Log (ex.Message.ToString ());
+			if (ex is MySqlException) 
+			{				
+				MySqlException ex2 = (MySqlException)ex;
+				Debug.Log (ex2.Number);
+
+				if (ex2.Number == 1062) {
+					Debug.Log ("Same username: Pick another");
+				}
+			}
+
+
+			Debug.Log (ex.ToString());
+
+
 			throw ex;
+
 
 		}
 
 		finally
-		{ 
-
-			// needs fixing
+		{ 	// needs fixing
 			//if (conn.State ==)
 			//{
 				conn.Close();
 			//}
 		}
-
-
 	}
 
-	void UploadPassword()
+	public void UploadSave(string un, string pwd, string path)
 	{
-	
+
+		// Open the Connection
+		openConnection ();
+
+		try
+		{
+
+			fs = new FileStream(@path, FileMode.Open, FileAccess.Read);
+			FileSize = (int)fs.Length;
+
+			rawData = new byte[FileSize];
+			fs.Read(rawData, 0, FileSize);
+			fs.Close();
+
+			cmd = conn.CreateCommand();
+			cmd.CommandText = "INSERT INTO saves(username, password, save)VALUES(@username, @password, @save)";
+			cmd.Parameters.AddWithValue("@username", un);
+			cmd.Parameters.AddWithValue("@password", pwd);
+			cmd.Parameters.AddWithValue("@save", rawData);
+			// Execute
+			cmd.ExecuteNonQuery();
+		}
+
+		catch (Exception ex) {
+			Debug.Log (ex.Message.ToString ());
+			if (ex is MySqlException) {				
+				MySqlException ex2 = (MySqlException)ex;
+				Debug.Log (ex2.Number);
+
+				if (ex2.Number == 1062) {
+					Debug.Log ("Same username: Pick another");
+				}
+			}
+
+
+			Debug.Log (ex.ToString ());
+
+
+			throw ex;
+		}
+		finally 
+		{
+			conn.Close ();
+		}		
 	}
 
-	void Start(){
+	public void Start(){
 	
-		UploadNamePassword ("test", "test1234");
+		// CreateNamePassword ("test", "test1234");
+		UploadSave ("test1", "test12345", path);
+		Debug.Log (1);
 	}
+
+
+
+
+
 
 }
 
