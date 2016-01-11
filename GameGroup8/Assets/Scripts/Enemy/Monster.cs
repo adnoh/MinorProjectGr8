@@ -24,6 +24,9 @@ public class Monster {
 	[XmlAttribute("type")]	
     public string type { get; private set; }
 
+    [XmlAttribute("name")]
+    public string name;
+
     [XmlAttribute("location")]
 	public float location_x;
     public float location_y;
@@ -52,6 +55,7 @@ public class Monster {
 		attackPower = enemy.getAttackPower ();
 		walkingSpeed = enemy.getWalkingSpeed ();
 		type = enemy.getType().toString();
+        name = enemy.getName();
 
 		location_x = enemy.getPosition().x;
         location_y = enemy.getPosition().y;

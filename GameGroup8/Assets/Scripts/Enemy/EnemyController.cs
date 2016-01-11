@@ -50,14 +50,21 @@ public class EnemyController : MonoBehaviour {
     public Slider healthBarClone;
     public Text description;
     public Text descriptionClone;
-    public int offset = 2000;
 
     public GameObject bullet;
 
-    public List<EnemyController> otherEnemies = new List<EnemyController>();
+    public bool wandering = true;
+    public float wanderingTime;
+    public Vector3 currentWanderingDirection;
+    public float timeToChangeDirection;
+
+    private List<EnemyController> otherEnemies = new List<EnemyController>();
 
     void Start()
     {
+        wanderingTime = Random.Range(10.0f, 12.0f) + Time.time;
+        timeToChangeDirection = 1.0f + Time.time;
+        otherEnemies = Camera.main.GetComponent<EnemySpawner>().unbuffedEnemies;
         level = this.gameObject.GetComponent<EnemyController>().getLevel();
         if (this.gameObject.transform.name.Equals("HammerHeadPrefab(Clone)"))
         {
@@ -79,6 +86,10 @@ public class EnemyController : MonoBehaviour {
         {
             enemy = enemyFactory.getEnemy("MeepMeep", level);
         }
+        else if(this.gameObject.transform.name.Equals("OilphantPrefab(Clone)"))
+        {
+            enemy = enemyFactory.getEnemy("Oilphant", level);
+        }
 
         level = enemy.getLevel();
         maxHealth = enemy.getMaxHealth();
@@ -92,12 +103,10 @@ public class EnemyController : MonoBehaviour {
         MiniMapScript.enemies.Add(this);
         anim = GetComponent<Animator>();
         healthBarClone = Instantiate(healthBar);
-        healthBarClone.transform.SetParent(Camera.main.GetComponent<EnemySpawner>().EnemyHealthBars.transform, false);
         healthBarClone.maxValue = health;
         descriptionClone = Instantiate(description);
         descriptionClone.text = "Lvl:" + enemy.getLevel() + " . " + enemy.getType().toString();
-        descriptionClone.transform.SetParent(Camera.main.GetComponent<EnemySpawner>().EnemyHealthBars.transform, false);
-        if (this.gameObject.name.Equals("PolarBearPrefab(Clone)"))
+        if (this.gameObject.name.Equals("PolarBearPrefab(Clone)") || this.gameObject.name.Equals("OilphantPrefab(Clone)"))
         {
             this.gameObject.GetComponent<Seeker>().toBase = false;
             shotByPlayer = true;
@@ -105,36 +114,34 @@ public class EnemyController : MonoBehaviour {
     }
 
 	void Update () {
-        Debug.Log(otherEnemies.Count);
         if(otherEnemies.Count == 0)
         {
-            otherEnemies = MiniMapScript.enemies;
-            //otherEnemies.Remove(this);
+            otherEnemies = Camera.main.GetComponent<EnemySpawner>().unbuffedEnemies;
         }
         updatedSpeed = walkingSpeed * (1f + (0.6f * ((float)((float)Analytics.getHitCount()[0] / ((float)Analytics.getShotsFired() + 1f)) - 0.5f)));
         healthBarClone.transform.position = Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, 20, 0);
         descriptionClone.transform.position = Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, 25, 0);
         healthBarClone.value = health;
-        if (!shotByPlayer && !this.gameObject.name.Equals("MeepMeepPrefab(Clone)"))
+        if (!shotByPlayer && !this.gameObject.name.Equals("MeepMeepPrefab(Clone)") && !wandering)
         {
             this.gameObject.transform.LookAt(GameObject.FindGameObjectWithTag("BASE").transform.position);
         }
         else
         {
-            if (!this.gameObject.name.Equals("MeepMeepPrefab(Clone)")) { 
+            if (!this.gameObject.name.Equals("MeepMeepPrefab(Clone)") && !wandering) { 
                 this.gameObject.GetComponent<Seeker>().toBase = false;
                 this.gameObject.GetComponent<Seeker>().StopAllCoroutines();
             }
-            if (!this.gameObject.name.Equals("MeepMeepPrefab(Clone)"))
+            if (!this.gameObject.name.Equals("MeepMeepPrefab(Clone)") && !wandering)
             {
                 this.gameObject.transform.LookAt(GameObject.Find("player").transform.position);
             }
-            if (!isWithinRange && !this.gameObject.name.Equals("MeepMeepPrefab(Clone)"))
+            if (!isWithinRange && !this.gameObject.name.Equals("MeepMeepPrefab(Clone)") && !wandering)
             {
                 transform.position = Vector3.MoveTowards(transform.position, PlayerController.getPosition(), updatedSpeed * Time.deltaTime);
             }
         }
-		if (Time.time > nextAttack && !this.gameObject.name.Equals("MeepMeepPrefab(Clone)")) {
+		if (Time.time > nextAttack && !this.gameObject.name.Equals("MeepMeepPrefab(Clone)") && !wandering) {
             if (isWithinRange)
             {
                 nextAttack = Time.time + attackRate;
@@ -159,7 +166,7 @@ public class EnemyController : MonoBehaviour {
         Quaternion EnemyRotation = this.gameObject.transform.rotation;
         setRotation(EnemyRotation);
 
-        if (this.gameObject.name.Equals("MeepMeepPrefab(Clone)") && otherEnemies.Count > 0)
+        if (this.gameObject.name.Equals("MeepMeepPrefab(Clone)") && otherEnemies.Count > 0 && !wandering)
         {
             for(int i = 0; i < otherEnemies.Count; i++)
             {
@@ -173,8 +180,24 @@ public class EnemyController : MonoBehaviour {
                     }
                 }
             }
-            this.gameObject.transform.LookAt(otherEnemies[1].gameObject.transform);
-            transform.position = Vector3.MoveTowards(transform.position, otherEnemies[1].gameObject.transform.position, updatedSpeed * Time.deltaTime);
+            this.gameObject.transform.LookAt(otherEnemies[0].gameObject.transform);
+            transform.position = Vector3.MoveTowards(transform.position, otherEnemies[0].gameObject.transform.position, updatedSpeed * Time.deltaTime);
+        }
+
+        if(wanderingTime - Time.time > 0)
+        {
+            if(currentWanderingDirection == new Vector3(0f, 0f, 0f) || Time.time > timeToChangeDirection)
+            {
+                timeToChangeDirection += 1.0f;
+                float ran = Random.Range(0f, 2f * Mathf.PI);
+                currentWanderingDirection = this.gameObject.transform.position + new Vector3(10f * Mathf.Sin(ran), 0, 10f * Mathf.Cos(ran));
+            }
+            gameObject.transform.LookAt(currentWanderingDirection);
+            transform.position = Vector3.MoveTowards(transform.position, currentWanderingDirection, 1f * Time.deltaTime);
+        }
+        else
+        {
+            wandering = false;
         }
     }
 
@@ -190,7 +213,10 @@ public class EnemyController : MonoBehaviour {
 
 	public void setHealth(int health) {
 		this.health = health;
-	}
+        wanderingTime = -1f;
+        healthBarClone.transform.SetParent(Camera.main.GetComponent<EnemySpawner>().EnemyHealthBars.transform, false);
+        descriptionClone.transform.SetParent(Camera.main.GetComponent<EnemySpawner>().EnemyHealthBars.transform, false);
+    }
 
 	public int getLevel(){
 		return level;
@@ -227,6 +253,11 @@ public class EnemyController : MonoBehaviour {
 		return type;
 	}
 
+    public string getName()
+    {
+        return enemy.getName();
+    }
+
 	public Enemy getEnemy() {
 		return enemy;
 	}
@@ -257,8 +288,7 @@ public class EnemyController : MonoBehaviour {
                 bulletClone.transform.Rotate(90, 0, 0);
                 bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * 500f);
             }
-            if (this.gameObject.name.Equals("FireFoxPrefab(Clone)"))
-            {
+            else if (this.gameObject.name.Equals("FireFoxPrefab(Clone)")){
                 PlayerAttributes.takeDamage(attackPower);
                 CameraShaker.shakeCamera();
                 StartCoroutine(die());
@@ -268,21 +298,15 @@ public class EnemyController : MonoBehaviour {
                 MiniMapScript.enemies.Remove(this);
                 health = 0;
             }
-            if (this.gameObject.name.Equals("PolarBearPrefab(Clone)"))
-            {
-
-            }
-            else {
-                PlayerAttributes.takeDamage(attackPower);
-                CameraShaker.shakeCamera();
-            }
-          
-            if (this.gameObject.name.Equals("PolarBearPrefab(Clone)"))
-            {
+            else if (this.gameObject.name.Equals("PolarBearPrefab(Clone)")) { 
                 anim.SetBool("attack", true);
                 GameObject.Find("player").GetComponent<PlayerController>().bind(true);
                 walkingSpeed = 0f;
             }
+            else {
+                PlayerAttributes.takeDamage(attackPower);
+                CameraShaker.shakeCamera();
+            } 
         }
 	}
 
@@ -382,11 +406,13 @@ public class EnemyController : MonoBehaviour {
         if(this.gameObject.name.Equals("DesertEaglePrefab(Clone)") && col.gameObject.name.Equals("player")){
             isWithinRange = true;
             shotByPlayer = true;
+            wanderingTime = -1;
         }
         if (col.gameObject.CompareTag("Enemy") && this.gameObject.name.Equals("MeepMeepPrefab(Clone)"))
         {
             col.gameObject.GetComponent<EnemyController>().walkingSpeed *= 1.5f;
             otherEnemies.Remove(col.gameObject.GetComponent<EnemyController>());
+            Camera.main.GetComponent<EnemySpawner>().unbuffedEnemies.Remove(col.gameObject.GetComponent<EnemyController>());
         }
     }
 
