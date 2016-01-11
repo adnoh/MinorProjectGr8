@@ -7,13 +7,28 @@ public class MenuControl : MonoBehaviour {
 
 	public Canvas Main;
 	public Canvas Options;
+	SaveBase savebase;
+
+	void Awake(){
+		savebase = GetComponent<SaveBase> (); 
+	}
 
 	void Start () {
 
 		Options = Options.GetComponent<Canvas> ();
 		Options.enabled = false;
-
 	}
+
+	void Update(){
+
+		/// 
+		if ( Input.GetKeyDown(KeyCode.K))
+		{
+			// TestMySql ();
+		}
+	
+	}
+
 
     IEnumerator startTutorial()
     {
@@ -44,6 +59,15 @@ public class MenuControl : MonoBehaviour {
         //GameStateController.newgame = false;
         //SceneManager.LoadScene(1);
     }
-	
+
+
+
+	/*
+	public void TestMySql()
+	{
+		savebase.Test();
+		Debug.Log ("1");
+	}
+	*/
 
 }

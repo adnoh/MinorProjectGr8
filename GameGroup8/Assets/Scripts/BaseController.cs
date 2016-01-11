@@ -43,6 +43,15 @@ public class BaseController : MonoBehaviour{
 	public Text upgradeBuild2;
 	public Text upgradeBuild3;
 
+    public GameObject TechMenu;
+    public Text LightUpgrade;
+    public Text LightUpgradeBtn;
+    public Text BaseLightUpgrade;
+    public Text BaseLightUpgradeBtn;
+    public Text WallsUpgrade;
+    public Text WallsCost;
+    public Text WallsUpgradeBtn;
+
 	private Vector3 playerPos;
     
     private int First_Building = 5;
@@ -59,6 +68,9 @@ public class BaseController : MonoBehaviour{
     public GameObject Wall_1;
     public GameObject Wall_2;
     public GameObject Wall_3;
+
+    public GameObject Flashlight;
+    public GameObject BaseSpot;
 
     void Awake(){
 
@@ -83,8 +95,10 @@ public class BaseController : MonoBehaviour{
 			pause = !pause;
 			if (pause){
 				playerPos = GameObject.Find("player").transform.position;
-                Vector3 TempPlayerPos = GameObject.FindGameObjectWithTag("BASE").transform.position - new Vector3(0,1f,5.31f);
+                Vector3 TempPlayerPos = GameObject.FindGameObjectWithTag("BASE").transform.position - new Vector3(0,1f,7.81f);
 				GameObject.Find("player").transform.position = TempPlayerPos;
+                Flashlight.SetActive(false);
+                BaseSpot.SetActive(true);
                 BaseMenu.SetActive(true);
                 Analytics.set_timeBase();
 			} 
@@ -93,7 +107,9 @@ public class BaseController : MonoBehaviour{
 				GameObject.Find ("player").GetComponent<PlayerAttacker>().weaponUnlockScreen.SetActive(false);
                 BaseMenu.SetActive(false);
                 ReturnColour();
-			}
+                Flashlight.SetActive(true);
+                BaseSpot.SetActive(false);
+            }
 		}
 
 		if (pause)
@@ -337,7 +353,7 @@ public class BaseController : MonoBehaviour{
 			    GameObject newObject = (GameObject)Instantiate(gadgetSmith, place, Quaternion.identity);
 			    newObject.transform.Rotate(new Vector3(-90, (Random.Range(0, 360)), 0));
 			    turrets.Add(newObject);
-			    lastHitObject.tag = "occupiedPlane";
+			    lastHitObject.tag = "Techsmith";
 		    }
             UpdateUnits(building);
             score_.addScoreBuilding(building.getCost());
@@ -363,6 +379,7 @@ public class BaseController : MonoBehaviour{
 			upgradeBuild3.text = "Build(3)";
 			buildMenu.SetActive (true);
             WeaponMenu.SetActive(false);
+            TechMenu.SetActive(false);
 		}
 		if (lastHitObject.CompareTag ("BasicTurretPlane")) {
 			title.text = "Rock-Paper-Scissor turret";
@@ -420,6 +437,11 @@ public class BaseController : MonoBehaviour{
         if (lastHitObject.CompareTag("Gunsmith"))
         {
             WeaponMenu.SetActive(true);
+            buildMenu.SetActive(false);
+        }
+        if (lastHitObject.CompareTag("Techsmith"))
+        {
+            TechMenu.SetActive(true);
             buildMenu.SetActive(false);
         }
     }
@@ -571,6 +593,15 @@ public class BaseController : MonoBehaviour{
     }
 
     /// <summary>
+    /// Close the tech-upgrade menu
+    /// </summary>
+    public void closeTechMenu()
+    {
+        TechMenu.SetActive(false);
+        building = false;
+    }
+
+    /// <summary>
     /// Matches the visuals of the wall with the wall upgrades and updates the base-healt bar
     /// </summary>
     void matchWalls()
@@ -612,10 +643,14 @@ public class BaseController : MonoBehaviour{
 
             PlayerController.setCount(20);
             countText.text = "Amount of units: " + PlayerController.getCount();
-        }
 
-        if (wall >= 2)
-            GameObject.Find("WallUpBtn").SetActive(false);
+            WallsUpgrade.text = "Walls (level " + wall + ")";
+        }
+        
+        if(wall >= 2)
+        {
+            WallsUpgradeBtn.gameObject.SetActive(false);
+        }
     }
 
     /// <summary>
