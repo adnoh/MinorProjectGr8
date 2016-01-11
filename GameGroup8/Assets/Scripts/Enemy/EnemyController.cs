@@ -105,7 +105,7 @@ public class EnemyController : MonoBehaviour {
     }
 
 	void Update () {
-        Debug.Log(otherEnemies.Count);
+        //Debug.Log(otherEnemies.Count);
         if(otherEnemies.Count == 0)
         {
             otherEnemies = MiniMapScript.enemies;

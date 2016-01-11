@@ -11,7 +11,7 @@ public class WorldBuilderII : MonoBehaviour {
     private int[][] TileMap;
 
     public GameObject Tree;
-    //public GameObject PineTree;
+    public GameObject PineTree;
     public int nrTrees;
     public GameObject C_Building;
     public GameObject House;
@@ -199,7 +199,7 @@ public class WorldBuilderII : MonoBehaviour {
                     } else if (nr < .4)
                     {
                         Pos.y = 0.8f;
-                        Instantiate(Tree, Pos, Quaternion.identity); //PineTree
+                        Instantiate(PineTree, Pos, new Quaternion(-0.7071f, 0, 0, 0.7071f)); //PineTree
                     }
                     
                     TreePos.Add(Pos);
@@ -211,7 +211,7 @@ public class WorldBuilderII : MonoBehaviour {
             }
         }
 
-        misses = 15;
+        misses = 25;
         while (TreePos.Count <= nrTrees)
         {
             if (misses <= 0)
@@ -224,7 +224,17 @@ public class WorldBuilderII : MonoBehaviour {
 
             if (CheckIfPlacableTile(z, x, map) && ObjPossible(TreePos, Pos, 2) && ObjPossible(HousePos, Pos, 6))
             {
-                Instantiate(Tree, Pos, Quaternion.identity);
+                float nr = Random.Range(0f, 1f);
+                if (nr >= .4)
+                {
+                    Instantiate(Tree, Pos, Quaternion.identity);
+                }
+                else if (nr < .4)
+                {
+                    Pos.y = 0.8f;
+                    Instantiate(PineTree, Pos, new Quaternion(-0.7071f, 0, 0, 0.7071f)); //PineTree
+                }
+
                 TreePos.Add(Pos);
             }
             else
@@ -281,13 +291,15 @@ public class WorldBuilderII : MonoBehaviour {
             if (Pos.y == 0)
                 Instantiate(Tree, Pos, Quaternion.identity);
             else if (Pos.y != 0)
-                Instantiate(Tree, Pos, Quaternion.identity);
+                Instantiate(PineTree, Pos, new Quaternion(-0.7071f, 0, 0, 0.7071f)); //PineTree
         }
 
         foreach (Vector3 Pos in WallsPos)
         {
             placeWalls(Pos);
         }
+
+        Debug.Log(TreePos.Count);
     }
 
     /// <summary>
