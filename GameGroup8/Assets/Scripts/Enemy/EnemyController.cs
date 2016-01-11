@@ -62,7 +62,7 @@ public class EnemyController : MonoBehaviour {
 
     void Start()
     {
-        wanderingTime = Random.Range(10.0f, 12.0f) + Time.time;
+        wanderingTime = Random.Range(5.0f, 15.0f) + Time.time;
         timeToChangeDirection = 1.0f + Time.time;
         otherEnemies = Camera.main.GetComponent<EnemySpawner>().unbuffedEnemies;
         level = this.gameObject.GetComponent<EnemyController>().getLevel();

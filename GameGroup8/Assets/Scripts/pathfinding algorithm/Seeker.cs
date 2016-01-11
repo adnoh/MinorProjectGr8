@@ -51,7 +51,6 @@ public class Seeker : MonoBehaviour
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
     {
-        Debug.Log(true);
         if (pathSuccessful && !destroyed && toBase && !withinBaseRange && !this.gameObject.GetComponent<EnemyController>().wandering)
         {
             path = newPath;

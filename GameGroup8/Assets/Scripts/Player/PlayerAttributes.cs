@@ -8,8 +8,8 @@ public class PlayerAttributes : MonoBehaviour {
 	public static int experience = 0;
 	public static int pointsToUpgrade = 0;
 
-	private static int experienceNeededToLevelUp = 10;
-
+	private static int experienceNeededToLevelUp = 5;
+    
 	public static int attackPoints = 0;
 	public static int speedPoints = 0;
 	public static int maxHealthPoints = 0;
