@@ -25,6 +25,7 @@ TagManager:
   - Moon
   - EnemyHealthBars
   - Gunsmith
+  - Techsmith
   layers:
   - Default
   - TransparentFX
