@@ -202,7 +202,6 @@ public class PlayerAttacker : MonoBehaviour {
 					typeOfWunderWaffenText.text = currentWeapon.getType().toString();
 				}
 			}
-
 		}
 		
 	}

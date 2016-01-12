@@ -40,16 +40,18 @@ public class PlayerController : MonoBehaviour {
 	public Text textOnDeathScreen;
 	public Text scoreOnDeathScreen;
 
-	private Animator playerAnimator;
+	public Animator playerAnimator;
 
     public bool binded;
+    public float speedMultiplier = 1f;
 
 	public void Start(){
-		playerAnimator = GetComponent<Animator> ();
-	}
+        playerAnimator = GetComponent<Animator>();
+    }
 
 	public void FirstLoad() {
-		count = 0;
+        speedMultiplier = 1f;
+        count = 0;
 		countText.text = "Amount of units: " + count;
 		playerHealthBar.value = PlayerAttributes.getHealth ();
 		energyBar.value = PlayerAttributes.getEnergy();
@@ -61,6 +63,7 @@ public class PlayerController : MonoBehaviour {
             PlayerAttacker.unlocked[i] = false;
         }
         PlayerAttacker.currentWeapon = new WeaponFactory().getPistol();
+        
     }
 
 	void Update(){
@@ -151,7 +154,7 @@ public class PlayerController : MonoBehaviour {
 		float moveVertical = Input.GetAxis ("Vertical") * Time.deltaTime;
 		if ((moveHorizontal != 0 || moveVertical != 0) && !binded) {
 			playerAnimator.SetBool ("walking", true);
-			transform.Translate (PlayerAttributes.getSpeed () * moveHorizontal, 0.0f, PlayerAttributes.getSpeed () * moveVertical, Space.World);
+			transform.Translate (speedMultiplier * PlayerAttributes.getSpeed () * moveHorizontal, 0.0f, speedMultiplier * PlayerAttributes.getSpeed () * moveVertical, Space.World);
 		} else {
 			playerAnimator.SetBool ("walking", false);
 		}
@@ -177,13 +180,14 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnTriggerExit(Collider collider){
-		if (collider.gameObject.CompareTag ("Enemy")) {
+        if (collider.gameObject.CompareTag("Enemy"))
+        {
             if (collider.gameObject.GetComponent<EnemyController>().getWithinRange())
             {
                 collider.gameObject.GetComponent<EnemyController>().setWithinRange();
             }
-		}
-	}
+        }
+    }
 
 	void setPosition(Vector3 here){
 		currentPosition = here;

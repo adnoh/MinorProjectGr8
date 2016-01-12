@@ -68,7 +68,6 @@ public class Seeker : MonoBehaviour
 
 		while (!destroyed && toBase && !withinBaseRange && !this.gameObject.GetComponent<EnemyController>().wandering)
         {
-            Debug.Log(true);
             if (transform.position == currentWaypoint && !destroyed && toBase && !withinBaseRange && !this.gameObject.GetComponent<EnemyController>().wandering)
             {
                     targetIndex++;

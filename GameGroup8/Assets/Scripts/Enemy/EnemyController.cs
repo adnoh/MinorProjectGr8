@@ -52,6 +52,8 @@ public class EnemyController : MonoBehaviour {
     public Text descriptionClone;
 
     public GameObject bullet;
+    public GameObject oilSpot;
+    public bool hasShotOil;
 
     public bool wandering = true;
     public float wanderingTime;
@@ -153,6 +155,12 @@ public class EnemyController : MonoBehaviour {
                 attackBase();
             }
 		}
+        if(this.gameObject.name.Equals("OilphantPrefab(Clone)") && !hasShotOil && !dead && Vector3.Distance(this.gameObject.transform.position, GameObject.Find("player").transform.position) < 5)
+        {
+            Instantiate(oilSpot, GameObject.Find("player").transform.position, Quaternion.identity);
+            hasShotOil = true;
+            StartCoroutine(attackAnimation("oliesquirt"));
+        }
 		if (poisoned && Time.time > timeToGetPoisonDamage) {
 			timeToGetPoisonDamage = Time.time + intervalToGetPoisonDamage;
 			health -= (int)(maxHealth / 20);
@@ -277,6 +285,13 @@ public class EnemyController : MonoBehaviour {
         return isWithinRange;
     }
 
+    public IEnumerator attackAnimation(string animation)
+    {
+        anim.SetBool(animation, true);
+        yield return new WaitForSeconds(1);
+        anim.SetBool(animation, false);
+    }
+
     public void attack(){
         if (!dead && !this.gameObject.Equals("MeepMeepPrefab(Clone)")){
             if (this.gameObject.name.Equals("DesertEaglePrefab(Clone)"))
@@ -304,6 +319,7 @@ public class EnemyController : MonoBehaviour {
                 walkingSpeed = 0f;
             }
             else {
+                StartCoroutine(attackAnimation("attack"));
                 PlayerAttributes.takeDamage(attackPower);
                 CameraShaker.shakeCamera();
             } 
@@ -383,7 +399,6 @@ public class EnemyController : MonoBehaviour {
 		anim.SetBool ("dying", true);
         yield return new WaitForSeconds(1);
         PSpawner spawner = Camera.main.GetComponent<PSpawner>();
-        Debug.Log(Analytics.get_timeCTBase() / Time.time);
         if (Random.Range(0f, 1f) > Analytics.get_timeCTBase() / Time.time) {
             spawner.placeUnit(this.gameObject.transform.position);
         }
