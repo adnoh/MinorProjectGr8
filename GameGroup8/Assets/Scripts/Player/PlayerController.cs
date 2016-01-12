@@ -174,7 +174,36 @@ public class PlayerController : MonoBehaviour {
 			count ++;
 			countText.text = "Amount of units: " + count;
 		}
-		if (collider.gameObject.CompareTag ("Enemy")) {
+        if (collider.gameObject.CompareTag("Health-Pick-Up") && this.gameObject.name.Equals("player"))
+        {
+            Destroy(collider.gameObject);
+            if(PlayerAttributes.getHealth() - PlayerAttributes.getMaxHealth() > 20)
+            {
+                PlayerAttributes.setHealth(PlayerAttributes.getHealth() + 20);
+            }
+            else
+            {
+                PlayerAttributes.setHealth(PlayerAttributes.getMaxHealth());
+            }
+        }
+        if (collider.gameObject.CompareTag("Energy-Pick-Up") && this.gameObject.name.Equals("player"))
+        {
+            Destroy(collider.gameObject);
+            if (PlayerAttributes.getHealth() - PlayerAttributes.getMaxEnergy() > 20)
+            {
+                PlayerAttributes.setHealth(PlayerAttributes.getEnergy() + 20);
+            }
+            else
+            {
+                PlayerAttributes.setHealth(PlayerAttributes.getMaxEnergy());
+            }
+        }
+        if (collider.gameObject.CompareTag("Fatique-Pick-Up") && this.gameObject.name.Equals("player"))
+        {
+            Destroy(collider.gameObject);
+            PlayerAttributes.resetFatique();
+        }
+        if (collider.gameObject.CompareTag ("Enemy")) {
 			collider.gameObject.GetComponent<EnemyController> ().setWithinRange();
 		}
 	}

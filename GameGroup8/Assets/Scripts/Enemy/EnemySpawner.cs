@@ -88,6 +88,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	void nextWave(){
+        Camera.main.GetComponent<PSpawner>().nextWave();
         calculateChangeToSpawnFireFox();
         calculateChangeToSpawnHammerHead();
         calculateChangeToSpawnDesertEagle();

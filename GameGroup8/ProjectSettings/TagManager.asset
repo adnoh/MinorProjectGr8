@@ -26,6 +26,9 @@ TagManager:
   - EnemyHealthBars
   - Gunsmith
   - Techsmith
+  - Health-Pick-Up
+  - Energy-Pick-Up
+  - Fatique-Pick-Up
   layers:
   - Default
   - TransparentFX

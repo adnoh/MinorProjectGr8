@@ -154,7 +154,7 @@ public class PlayerAttributes : MonoBehaviour {
 	}
 
 	public static void regenerate(){
-		health ++;
+		health += 3;
 	}
 
 	public static int getMaxEnergy(){
@@ -175,7 +175,7 @@ public class PlayerAttributes : MonoBehaviour {
 	}
 
 	public static void replenish(){
-		energy += 10;
+		energy += 15;
 	}
 
 	public static void run(){
