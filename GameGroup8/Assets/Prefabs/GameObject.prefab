@@ -2972,7 +2972,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 143332}
-  m_LocalRotation: {x: -0, y: -1, z: 0, w: 0.0000006556709}
+  m_LocalRotation: {x: -0, y: -1, z: 0, w: 0.0000013550526}
   m_LocalPosition: {x: -14.252806, y: 0, z: -0.82105064}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
@@ -3509,6 +3509,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  currentPos: {fileID: 0}
+  speed: 0
   destroyed: 0
   toBase: 1
   withinBaseRange: 0
@@ -3597,6 +3600,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  currentPos: {fileID: 0}
+  speed: 0
   destroyed: 0
   toBase: 1
   withinBaseRange: 0
@@ -3611,6 +3617,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  currentPos: {fileID: 0}
+  speed: 0
   destroyed: 0
   toBase: 1
   withinBaseRange: 0
@@ -3625,6 +3634,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  currentPos: {fileID: 0}
+  speed: 0
   destroyed: 0
   toBase: 1
   withinBaseRange: 0
@@ -3639,7 +3651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505bf8902e68e6a4f85a365ed1da8059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
+  level: 2
   health: 0
   maxHealth: 0
   attackPower: 0

@@ -28,6 +28,9 @@ public class PlayerAttacker : MonoBehaviour {
 
 	public GameObject weaponUnlockScreen;
 
+    public ParticleSystem pSys1;
+    public ParticleSystem pSys2;
+
 	private Animator playerAnimator;
 
     private int weaponCost = 5;
@@ -56,7 +59,12 @@ public class PlayerAttacker : MonoBehaviour {
 	}
 	
 	void Update () {
-		if(Time.time > nextAttack){
+
+        pSys1.startRotation = (-gameObject.transform.rotation.eulerAngles.y+90) * Mathf.Deg2Rad;
+        pSys2.startRotation = (-gameObject.transform.rotation.eulerAngles.y + 90) * Mathf.Deg2Rad;
+
+
+        if (Time.time > nextAttack){
 			playerAnimator.SetBool("attack", false);
 		}
 		bool Base = BaseController.pause;
