@@ -1250,6 +1250,7 @@ GameObject:
   - 54: {fileID: 5477382}
   - 65: {fileID: 6527304}
   - 114: {fileID: 11440230}
+  - 114: {fileID: 11431806}
   m_Layer: 0
   m_Name: OilphantPrefab
   m_TagString: Enemy
@@ -2972,7 +2973,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 143332}
-  m_LocalRotation: {x: -0, y: -1, z: 0, w: 0.0000006556709}
+  m_LocalRotation: {x: -0, y: -1, z: 0, w: 0.00000083051646}
   m_LocalPosition: {x: -14.252806, y: 0, z: -0.82105064}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
@@ -3420,6 +3421,8 @@ MonoBehaviour:
   description: {fileID: 11484142, guid: 2079d000159592e4eaeb276452aa74cd, type: 2}
   descriptionClone: {fileID: 0}
   bullet: {fileID: 0}
+  oilSpot: {fileID: 0}
+  hasShotOil: 0
   wandering: 1
   wanderingTime: 0
   currentWanderingDirection: {x: 0, y: 0, z: 0}
@@ -3457,6 +3460,8 @@ MonoBehaviour:
   description: {fileID: 11484142, guid: 2079d000159592e4eaeb276452aa74cd, type: 2}
   descriptionClone: {fileID: 0}
   bullet: {fileID: 113490, guid: d14f7c6495d71874da0a5d2177a81d98, type: 2}
+  oilSpot: {fileID: 0}
+  hasShotOil: 0
   wandering: 1
   wanderingTime: 0
   currentWanderingDirection: {x: 0, y: 0, z: 0}
@@ -3494,6 +3499,8 @@ MonoBehaviour:
   description: {fileID: 0}
   descriptionClone: {fileID: 0}
   bullet: {fileID: 0}
+  oilSpot: {fileID: 0}
+  hasShotOil: 0
   wandering: 1
   wanderingTime: 0
   currentWanderingDirection: {x: 0, y: 0, z: 0}
@@ -3509,6 +3516,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  currentPos: {fileID: 0}
+  speed: 0
   destroyed: 0
   toBase: 1
   withinBaseRange: 0
@@ -3545,10 +3555,29 @@ MonoBehaviour:
   description: {fileID: 11484142, guid: 2079d000159592e4eaeb276452aa74cd, type: 2}
   descriptionClone: {fileID: 0}
   bullet: {fileID: 0}
+  oilSpot: {fileID: 0}
+  hasShotOil: 0
   wandering: 1
   wanderingTime: 0
   currentWanderingDirection: {x: 0, y: 0, z: 0}
   timeToChangeDirection: 0
+--- !u!114 &11431806
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  currentPos: {fileID: 0}
+  speed: 0
+  destroyed: 0
+  toBase: 1
+  withinBaseRange: 0
 --- !u!114 &11440230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3560,7 +3589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505bf8902e68e6a4f85a365ed1da8059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
+  level: 1
   health: 0
   maxHealth: 0
   attackPower: 0
@@ -3582,6 +3611,8 @@ MonoBehaviour:
   description: {fileID: 11484142, guid: 2079d000159592e4eaeb276452aa74cd, type: 2}
   descriptionClone: {fileID: 0}
   bullet: {fileID: 0}
+  oilSpot: {fileID: 194096, guid: 2afda4e296179b04187af5750f21b088, type: 2}
+  hasShotOil: 0
   wandering: 1
   wanderingTime: 0
   currentWanderingDirection: {x: 0, y: 0, z: 0}
@@ -3597,6 +3628,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  currentPos: {fileID: 0}
+  speed: 0
   destroyed: 0
   toBase: 1
   withinBaseRange: 0
@@ -3611,6 +3645,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  currentPos: {fileID: 0}
+  speed: 0
   destroyed: 0
   toBase: 1
   withinBaseRange: 0
@@ -3625,6 +3662,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  currentPos: {fileID: 0}
+  speed: 0
   destroyed: 0
   toBase: 1
   withinBaseRange: 0
@@ -3661,6 +3701,8 @@ MonoBehaviour:
   description: {fileID: 11484142, guid: 2079d000159592e4eaeb276452aa74cd, type: 2}
   descriptionClone: {fileID: 0}
   bullet: {fileID: 0}
+  oilSpot: {fileID: 0}
+  hasShotOil: 0
   wandering: 1
   wanderingTime: 0
   currentWanderingDirection: {x: 0, y: 0, z: 0}
@@ -3698,6 +3740,8 @@ MonoBehaviour:
   description: {fileID: 11484142, guid: 2079d000159592e4eaeb276452aa74cd, type: 2}
   descriptionClone: {fileID: 0}
   bullet: {fileID: 0}
+  oilSpot: {fileID: 0}
+  hasShotOil: 0
   wandering: 1
   wanderingTime: 0
   currentWanderingDirection: {x: 0, y: 0, z: 0}
@@ -4311,6 +4355,10 @@ Prefab:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 85911cdf68169f64c9c277b4d014243a, type: 2}
+    - target: {fileID: 0}
+      propertyPath: oilSpot
+      value: 
+      objectReference: {fileID: 194096, guid: 2afda4e296179b04187af5750f21b088, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 119960}
