@@ -3,51 +3,97 @@ using System.Collections;
 
 public class SearchLight : MonoBehaviour {
 
+    public GameObject Lamp;
     public GameObject Light;
 
     private bool rotationStan;
-    private int rotationY;
     private bool rotationLight;
-    private int rotationX;
+    private Vector3 offset = new Vector3(0, 40, 0);
+    private Vector3 offsetLight = new Vector3(0, 20, 0);
+    private Vector3 initialRotation;
+    private Vector3 maxRotation;
+    private Vector3 minRotation;
+    private Vector3 initialRotationLight;
+    private Vector3 maxRotationLight;
+    private Vector3 minRotationLight;
+
+    private GameObject Enemy;
 
     void Start() {
         rotationStan = false;
         rotationLight = false;
-        rotationY = 100;
-        rotationX = 10;
+        Enemy = null;
+
+        initialRotation = transform.rotation.eulerAngles;
+        maxRotation = initialRotation + offset;
+        minRotation = initialRotation - offset;
+        initialRotationLight = Lamp.transform.rotation.eulerAngles;
+        maxRotationLight = initialRotationLight + offsetLight;
+        minRotationLight = initialRotationLight - offsetLight;
     }
 	
 	void Update () {
-        /*
-        if (!rotationStan)
+        float height = GameObject.Find("SUn").GetComponent<Daynight>().getHeigth();
+        if (height < 150)
         {
-            gameObject.transform.Rotate(Vector3.up, 1);
-            rotationY--;
-            if (rotationY <= 0)
-                rotationStan = true;
+            Light.SetActive(true);
+            if (Enemy == null)
+            {
+                if (!rotationStan)
+                {
+                    gameObject.transform.Rotate(Vector3.up, 1f);
+                    if (transform.rotation.eulerAngles.y >= maxRotation.y)
+                        rotationStan = true;
+                }
+                else if (rotationStan)
+                {
+                    gameObject.transform.Rotate(Vector3.up, -1f);
+                    if (transform.rotation.eulerAngles.y <= minRotation.y)
+                        rotationStan = false;
+                }
+
+                if (!rotationLight)
+                {
+                    Lamp.transform.Rotate(Vector3.up, 0.1f);
+                    if (Lamp.transform.rotation.eulerAngles.y >= maxRotationLight.y)
+                        rotationLight = true;
+                }
+                else if (rotationLight)
+                {
+                    Lamp.transform.Rotate(Vector3.up, -.1f);
+                    if (Lamp.transform.rotation.eulerAngles.y <= minRotationLight.y)
+                        rotationLight = false;
+                }
+            }
+            else if (Enemy != null)
+            {
+                Vector3 placeY = new Vector3(Enemy.transform.position.x, transform.position.y, Enemy.transform.position.z);
+                transform.LookAt(placeY);
+                transform.Rotate(new Vector3(0, 90, 0));
+                Lamp.transform.LookAt(Enemy.transform.position);
+            }
+        } else
+        {
+            Light.SetActive(false);
         }
-        else if (rotationStan)
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (Enemy == null)
         {
-            gameObject.transform.Rotate(Vector3.up, -1);
-            rotationY++;
-            if (rotationY >= 200)
-                rotationStan = false;
+            if (col.CompareTag("Enemy"))
+            {
+                Enemy = col.gameObject;
+            }
         }
-        /**/
-        if (!rotationLight)
+    }
+
+    void onTriggerExit(Collider col)
+    {
+        if (col.CompareTag("Enemy"))
         {
-            Light.transform.Rotate(Vector3.up, 0.25f);
-            rotationX--;
-            if (rotationX <= 0)
-                rotationLight = true;
-        }
-        else if (rotationLight)
-        {
-            Light.transform.Rotate(Vector3.up, -.25f);
-            rotationX++;
-            if (rotationX >= 80)
-                rotationLight = false;
-            //dingen
+            Enemy = null;
         }
     }
 }
