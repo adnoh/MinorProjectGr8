@@ -62,8 +62,11 @@ public class Bullet : MonoBehaviour {
 			PlayerAttacker.lastAttackedEnemy = enemyController;
 			if(enemyController.getHealth () <= 0){
 				EnemySpawner.enemiesDefeaten++;
-				col.gameObject.GetComponent<Seeker>().StopAllCoroutines();
-				col.gameObject.GetComponent<Seeker>().destroyed = true;
+                if (!enemyController.getName().Equals("MeepMeep"))
+                {
+                    col.gameObject.GetComponent<Seeker>().StopAllCoroutines();
+                    col.gameObject.GetComponent<Seeker>().destroyed = true;
+                }
                 score_.addScoreEnemy(enemyController.getLevel());
                 enemyController.destroyed = true;
                 if (!enemyController.dead){

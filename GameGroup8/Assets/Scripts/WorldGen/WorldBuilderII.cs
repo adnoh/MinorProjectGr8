@@ -298,8 +298,7 @@ public class WorldBuilderII : MonoBehaviour {
         {
             placeWalls(Pos);
         }
-
-        Debug.Log(TreePos.Count);
+        
     }
 
     /// <summary>

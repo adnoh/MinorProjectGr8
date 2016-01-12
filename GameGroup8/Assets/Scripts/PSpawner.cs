@@ -7,7 +7,10 @@ using System.Collections.Generic;
 public class PSpawner : MonoBehaviour {
 	
 	public GameObject unit;
-	public int amount;
+    public GameObject healthUnit;
+    public GameObject energyUnit;
+    public GameObject fatiqueUnit;
+    public int amount;
 	public int minL, minR, maxL, maxR;
 	
 
@@ -25,49 +28,39 @@ public class PSpawner : MonoBehaviour {
 		Instantiate (unitClone, new Vector3(place.x, 1, place.z), Quaternion.identity);
 	}
 
+    public void nextWave()
+    {
+        for(int i = 0; i < 5; i++)
+        {
+            GameObject unitClone = unit;
+            unitClone.transform.Rotate(new Vector3(-90, 0, 0));
+            Instantiate(unitClone, getRandomPosition(), Quaternion.identity);
+        }
+        for (int i = 0; i < 2; i++)
+        {
+            GameObject healthUnitClone = healthUnit;
+            healthUnitClone.transform.Rotate(new Vector3(-90, 0, 0));
+            Instantiate(healthUnitClone, getRandomPosition(), Quaternion.identity);
+            GameObject energyUnitClone = energyUnit;
+            energyUnitClone.transform.Rotate(new Vector3(-90, 0, 0));
+            Instantiate(energyUnitClone, getRandomPosition(), Quaternion.identity);
+            GameObject fatiqueUnitClone = fatiqueUnit;
+            fatiqueUnitClone.transform.Rotate(new Vector3(-90, 0, 0));
+            Instantiate(fatiqueUnitClone, getRandomPosition(), Quaternion.identity);
+        }
+    }
+
     /// <summary>
     /// Spawn all the units
     /// </summary>
 	void PlaceCubes(){
 		
 		List<Vector3> occupied = new List<Vector3> ();
-		int x, y, z, random1;
-		x = 0;
-		y = 0;
-		z = 0;
+		
 
 		while (occupied.Count <= amount) {
 
-			random1 = Random.Range (0, 5);
-
-			switch (random1)
-			{
-			case 1:
-				x = Random.Range (minL, maxL);
-				y = 1;
-				z = Random.Range (minL, maxL);
-				break;
-			case 2:
-				x = Random.Range (minL, maxL);
-				y = 1;
-				z = Random.Range (minR, maxR);
-				break;
-			case 3:
-				x = Random.Range (minR, maxR);
-				y = 1;
-				z = Random.Range (minL, maxL);
-				break;
-			case 4:
-				x = Random.Range (minR, maxR);
-				y = 1;
-				z = Random.Range (minR, maxR);
-				break;
-			default:
-				break;
-			}
-
-			Vector3 Location = new Vector3 (x, y, z);
-
+            Vector3 Location = getRandomPosition();
 
 			if (!occupied.Contains (Location)) {
 				occupied.Add (Location);
@@ -79,4 +72,43 @@ public class PSpawner : MonoBehaviour {
 			Instantiate (unit, V, Quaternion.identity);
 		}
 	}
+
+    public Vector3 getRandomPosition()
+    {
+        int x, y, z;
+        x = 0;
+        y = 0;
+        z = 0;
+        int random1 = Random.Range(0, 5);
+
+        switch (random1)
+        {
+            case 1:
+                x = Random.Range(minL, maxL);
+                y = 1;
+                z = Random.Range(minL, maxL);
+                break;
+            case 2:
+                x = Random.Range(minL, maxL);
+                y = 1;
+                z = Random.Range(minR, maxR);
+                break;
+            case 3:
+                x = Random.Range(minR, maxR);
+                y = 1;
+                z = Random.Range(minL, maxL);
+                break;
+            case 4:
+                x = Random.Range(minR, maxR);
+                y = 1;
+                z = Random.Range(minR, maxR);
+                break;
+            default:
+                break;
+        }
+
+        return new Vector3(x, y, z);
+
+
+    }
 }

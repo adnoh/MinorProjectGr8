@@ -10,6 +10,7 @@ public class EnemySpawner : MonoBehaviour {
 	public GameObject fireFox;
     public GameObject polarBear;
     public GameObject meepMeep;
+    public GameObject oilPhant;
 	public int wave = 1;
 
 	private int enemiesThisWave;
@@ -32,11 +33,13 @@ public class EnemySpawner : MonoBehaviour {
 	private float changeToSpawnFireFox = 1/3;
     private float changeToSpawnPolarBear = 1/3;
     private float changeToSpawnMeepMeep = 0;
+    private float changeToSpawnOilphant = 0;
 
 	private float[] changeToSpawnByLevel = new float[5];
 	private float mu = 0f;
 	private float sigma = 1f;
 
+    public List<EnemyController> unbuffedEnemies = new List<EnemyController>();
 
     Score score_;
     public Canvas canvas;
@@ -81,47 +84,59 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	Vector3 getRandomPosition(){
-        return new Vector3(Random.Range(-100, 100), 1, Random.Range(-100, 100)) ;
+        return new Vector3(Random.Range(-100, 100), 0, Random.Range(-100, 100)) ;
 	}
 
 	void nextWave(){
+        Camera.main.GetComponent<PSpawner>().nextWave();
         calculateChangeToSpawnFireFox();
         calculateChangeToSpawnHammerHead();
         calculateChangeToSpawnDesertEagle();
         calculateChangeToSpawnPolarBear();
         calculateChangeToSpawnMeepMeep();
+        calculateChangeToSpawnOilphant();
         waveText.text = "Current wave: " + wave;
 		enemiesToDefeat = 0;
 		for(int i = 0; i < enemiesThisWave; i++){
-			float random = Random.Range (0.0f, changeToSpawnHammerHead + changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnPolarBear + changeToSpawnMeepMeep);
+			float random = Random.Range (0.0f, changeToSpawnHammerHead + changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnPolarBear + changeToSpawnMeepMeep + changeToSpawnOilphant);
 			if(random <= changeToSpawnHammerHead){
 				GameObject waterEnemyClone = hammerHead;
 				waterEnemyClone.GetComponent<EnemyController>().setLevel(getLevelToSpawn());
 				Instantiate (waterEnemyClone, getRandomPosition(), Quaternion.identity);
+                unbuffedEnemies.Add(waterEnemyClone.GetComponent<EnemyController>());
 			}
 			else if(random <= changeToSpawnHammerHead + changeToSpawnDesertEagle){
 				GameObject windEnemyClone = desertEagle;
 				windEnemyClone.GetComponent<EnemyController>().setLevel (getLevelToSpawn());
-				windEnemyClone.transform.Translate(new Vector3(0f, 5f, 0f));
 				Instantiate (windEnemyClone, getRandomPosition(), Quaternion.identity);
-			}
+                unbuffedEnemies.Add(windEnemyClone.GetComponent<EnemyController>());
+            }
             else if(random <= changeToSpawnHammerHead + changeToSpawnDesertEagle + changeToSpawnPolarBear)
             {
                 GameObject polarBearClone = polarBear;
                 polarBearClone.GetComponent<EnemyController>().setLevel(getLevelToSpawn());
                 Instantiate(polarBearClone, getRandomPosition(), Quaternion.identity);
+                unbuffedEnemies.Add(polarBearClone.GetComponent<EnemyController>());
             }
             else if (random <= changeToSpawnHammerHead + changeToSpawnDesertEagle + changeToSpawnPolarBear + changeToSpawnMeepMeep)
             {
                 GameObject meepMeepClone = meepMeep;
                 meepMeepClone.GetComponent<EnemyController>().setLevel(getLevelToSpawn());
+                meepMeepClone.transform.Rotate(0f, 180f, 0f);
                 Instantiate(meepMeepClone, getRandomPosition(), Quaternion.identity);
+            }
+            else if (random <= changeToSpawnHammerHead + changeToSpawnDesertEagle + changeToSpawnPolarBear + changeToSpawnMeepMeep + changeToSpawnOilphant)
+            {
+                GameObject oilphantClone = oilPhant;
+                oilphantClone.GetComponent<EnemyController>().setLevel(getLevelToSpawn());
+                Instantiate(oilphantClone, getRandomPosition(), Quaternion.identity);
             }
             else {
 				GameObject earthEnemyClone = fireFox;
 				earthEnemyClone.GetComponent<EnemyController>().setLevel (getLevelToSpawn());
 				Instantiate (earthEnemyClone, getRandomPosition(), Quaternion.identity);
-			}
+                unbuffedEnemies.Add(earthEnemyClone.GetComponent<EnemyController>());
+            }
 		}
         wave++;
 	}
@@ -140,9 +155,9 @@ public class EnemySpawner : MonoBehaviour {
             Vector3 location = new Vector3(MonsterList[i].location_x, MonsterList[i].location_y, MonsterList[i].location_z);
             Quaternion rotation = new Quaternion(MonsterList[i].rotation_w, MonsterList[i].rotation_x, MonsterList[i].rotation_y, MonsterList[i].rotation_z);
        
-            switch (MonsterList[i].type)
+            switch (MonsterList[i].name)
             {
-                case "Earth":
+                case "FireFox":
                     {
                         GameObject earthEnemyClone = fireFox;
                         var monster = earthEnemyClone.GetComponent<EnemyController>();
@@ -151,13 +166,13 @@ public class EnemySpawner : MonoBehaviour {
                         monster.setmaxhealth(MonsterList[i].maxHealth);
                         monster.setAttackPower(MonsterList[i].attackPower);
                         monster.setWalkingSpeed(MonsterList[i].walkingSpeed);
-                        monster.setPoisoned(MonsterList[i].isPoisoned);                 
-
+                        monster.setPoisoned(MonsterList[i].isPoisoned);
+                        unbuffedEnemies.Add(earthEnemyClone.GetComponent<EnemyController>());
                         Instantiate(earthEnemyClone, location, rotation);
                         break;
                     }
 
-                case "Wind":
+                case "DesertEagle":
                     {
                         GameObject windEnemyClone = desertEagle;
                         var monster = windEnemyClone.GetComponent<EnemyController>();
@@ -167,12 +182,12 @@ public class EnemySpawner : MonoBehaviour {
                         monster.setAttackPower(MonsterList[i].attackPower);
                         monster.setWalkingSpeed(MonsterList[i].walkingSpeed);
                         monster.setPoisoned(MonsterList[i].isPoisoned);
-
+                        unbuffedEnemies.Add(windEnemyClone.GetComponent<EnemyController>());
                         Instantiate(windEnemyClone, location, rotation);
                         break;
                     }
                 
-                case "Water":
+                case "HammerHead":
                     {
                         GameObject waterEnemyClone = hammerHead;
                         var monster = waterEnemyClone.GetComponent<EnemyController>();
@@ -182,8 +197,53 @@ public class EnemySpawner : MonoBehaviour {
                         monster.setAttackPower(MonsterList[i].attackPower);
                         monster.setWalkingSpeed(MonsterList[i].walkingSpeed);
                         monster.setPoisoned(MonsterList[i].isPoisoned);
-
+                        unbuffedEnemies.Add(waterEnemyClone.GetComponent<EnemyController>());
                         Instantiate(waterEnemyClone, location, rotation);
+                        break;
+                    }
+
+                case "Oilphant":
+                    {
+                        GameObject oilphantClone = oilPhant;
+                        var monster = oilphantClone.GetComponent<EnemyController>();
+                        monster.setLevel(MonsterList[i].level);
+                        monster.setHealth(MonsterList[i].health);
+                        monster.setmaxhealth(MonsterList[i].maxHealth);
+                        monster.setAttackPower(MonsterList[i].attackPower);
+                        monster.setWalkingSpeed(MonsterList[i].walkingSpeed);
+                        monster.setPoisoned(MonsterList[i].isPoisoned);
+                        unbuffedEnemies.Add(oilphantClone.GetComponent<EnemyController>());
+                        Instantiate(oilphantClone, location, rotation);
+                        break;
+                    }
+
+                case "MeepMeep":
+                    {
+                        GameObject meepMeepClone = meepMeep;
+                        var monster = meepMeepClone.GetComponent<EnemyController>();
+                        monster.setLevel(MonsterList[i].level);
+                        monster.setHealth(MonsterList[i].health);
+                        monster.setmaxhealth(MonsterList[i].maxHealth);
+                        monster.setAttackPower(MonsterList[i].attackPower);
+                        monster.setWalkingSpeed(MonsterList[i].walkingSpeed);
+                        monster.setPoisoned(MonsterList[i].isPoisoned);
+                        unbuffedEnemies.Add(meepMeepClone.GetComponent<EnemyController>());
+                        Instantiate(meepMeepClone, location, rotation);
+                        break;
+                    }
+
+                case "PolarBear":
+                    {
+                        GameObject polarBearClone = polarBear;
+                        var monster = polarBearClone.GetComponent<EnemyController>();
+                        monster.setLevel(MonsterList[i].level);
+                        monster.setHealth(MonsterList[i].health);
+                        monster.setmaxhealth(MonsterList[i].maxHealth);
+                        monster.setAttackPower(MonsterList[i].attackPower);
+                        monster.setWalkingSpeed(MonsterList[i].walkingSpeed);
+                        monster.setPoisoned(MonsterList[i].isPoisoned);
+                        unbuffedEnemies.Add(polarBearClone.GetComponent<EnemyController>());
+                        Instantiate(polarBearClone, location, rotation);
                         break;
                     }
 
@@ -243,12 +303,17 @@ public class EnemySpawner : MonoBehaviour {
 
     void calculateChangeToSpawnPolarBear()
     {
-        changeToSpawnPolarBear = 0.125f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead + changeToSpawnMeepMeep);
+        changeToSpawnPolarBear = 0.125f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead + changeToSpawnMeepMeep + changeToSpawnOilphant);
     }
 
     void calculateChangeToSpawnMeepMeep()
     {
-        changeToSpawnMeepMeep = 0.5625f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead + changeToSpawnPolarBear);
+        changeToSpawnMeepMeep = 0.0625f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead + changeToSpawnPolarBear + changeToSpawnOilphant);
+    }
+
+    void calculateChangeToSpawnOilphant()
+    {
+        changeToSpawnOilphant = 0.125f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead + changeToSpawnPolarBear + changeToSpawnMeepMeep);
     }
 
     void setEnemiesThisWave(){

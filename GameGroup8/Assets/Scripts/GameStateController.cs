@@ -9,7 +9,7 @@ public class GameStateController : MonoBehaviour
 
 
     public GameObject player;
-    public static bool newgame;
+    public static bool newgame = true;
     // public bool newgame2;
 
 

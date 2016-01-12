@@ -11,6 +11,7 @@ GameObject:
   - 33: {fileID: 3389522}
   - 23: {fileID: 2366768}
   - 95: {fileID: 9582380}
+  - 136: {fileID: 13667782}
   m_Layer: 0
   m_Name: denne boom
   m_TagString: Untagged
@@ -80,6 +81,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!136 &13667782
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175854}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 3.5
+  m_Height: 5
+  m_Direction: 2
+  m_Center: {x: -0.00000047683716, y: -0.0000004768371, z: -0.81197286}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -90,6 +104,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.y
       value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Direction
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Radius
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Height
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
