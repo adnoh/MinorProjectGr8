@@ -40,14 +40,18 @@ public class PlayerController : MonoBehaviour {
 	public Text textOnDeathScreen;
 	public Text scoreOnDeathScreen;
 
-	private Animator playerAnimator;
+	public Animator playerAnimator;
+
+    public bool binded;
+    public float speedMultiplier = 1f;
 
 	public void Start(){
-		playerAnimator = GetComponent<Animator> ();
-	}
+        playerAnimator = GetComponent<Animator>();
+    }
 
 	public void FirstLoad() {
-		count = 0;
+        speedMultiplier = 1f;
+        count = 0;
 		countText.text = "Amount of units: " + count;
 		playerHealthBar.value = PlayerAttributes.getHealth ();
 		energyBar.value = PlayerAttributes.getEnergy();
@@ -59,6 +63,7 @@ public class PlayerController : MonoBehaviour {
             PlayerAttacker.unlocked[i] = false;
         }
         PlayerAttacker.currentWeapon = new WeaponFactory().getPistol();
+        
     }
 
 	void Update(){
@@ -147,9 +152,9 @@ public class PlayerController : MonoBehaviour {
 	void FixedUpdate (){
 		float moveHorizontal = Input.GetAxis("Horizontal") * Time.deltaTime;
 		float moveVertical = Input.GetAxis ("Vertical") * Time.deltaTime;
-		if (moveHorizontal != 0 || moveVertical != 0) {
+		if ((moveHorizontal != 0 || moveVertical != 0) && !binded) {
 			playerAnimator.SetBool ("walking", true);
-			transform.Translate (PlayerAttributes.getSpeed () * moveHorizontal, 0.0f, PlayerAttributes.getSpeed () * moveVertical, Space.World);
+			transform.Translate (speedMultiplier * PlayerAttributes.getSpeed () * moveHorizontal, 0.0f, speedMultiplier * PlayerAttributes.getSpeed () * moveVertical, Space.World);
 		} else {
 			playerAnimator.SetBool ("walking", false);
 		}
@@ -169,19 +174,49 @@ public class PlayerController : MonoBehaviour {
 			count ++;
 			countText.text = "Amount of units: " + count;
 		}
-		if (collider.gameObject.CompareTag ("Enemy")) {
+        if (collider.gameObject.CompareTag("Health-Pick-Up") && this.gameObject.name.Equals("player"))
+        {
+            Destroy(collider.gameObject);
+            if(PlayerAttributes.getHealth() - PlayerAttributes.getMaxHealth() > 20)
+            {
+                PlayerAttributes.setHealth(PlayerAttributes.getHealth() + 20);
+            }
+            else
+            {
+                PlayerAttributes.setHealth(PlayerAttributes.getMaxHealth());
+            }
+        }
+        if (collider.gameObject.CompareTag("Energy-Pick-Up") && this.gameObject.name.Equals("player"))
+        {
+            Destroy(collider.gameObject);
+            if (PlayerAttributes.getHealth() - PlayerAttributes.getMaxEnergy() > 20)
+            {
+                PlayerAttributes.setHealth(PlayerAttributes.getEnergy() + 20);
+            }
+            else
+            {
+                PlayerAttributes.setHealth(PlayerAttributes.getMaxEnergy());
+            }
+        }
+        if (collider.gameObject.CompareTag("Fatique-Pick-Up") && this.gameObject.name.Equals("player"))
+        {
+            Destroy(collider.gameObject);
+            PlayerAttributes.resetFatique();
+        }
+        if (collider.gameObject.CompareTag ("Enemy")) {
 			collider.gameObject.GetComponent<EnemyController> ().setWithinRange();
 		}
 	}
 
 	void OnTriggerExit(Collider collider){
-		if (collider.gameObject.CompareTag ("Enemy")) {
+        if (collider.gameObject.CompareTag("Enemy"))
+        {
             if (collider.gameObject.GetComponent<EnemyController>().getWithinRange())
             {
                 collider.gameObject.GetComponent<EnemyController>().setWithinRange();
             }
-		}
-	}
+        }
+    }
 
 	void setPosition(Vector3 here){
 		currentPosition = here;
@@ -210,6 +245,11 @@ public class PlayerController : MonoBehaviour {
     public static void setCount_2(int change)
     {
         count = change;
+    }
+
+    public void bind(bool b)
+    {
+        binded = b;
     }
 
     void updateBars(){

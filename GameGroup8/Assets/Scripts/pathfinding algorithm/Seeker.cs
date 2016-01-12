@@ -9,9 +9,9 @@ public class Seeker : MonoBehaviour
 {
 
     // public / dynamic properties
-    private Transform target;
-    private Transform currentPos;
-    private float speed;
+    public Transform target;
+    public Transform currentPos;
+    public float speed;
 	public bool destroyed = false;
 
     public bool toBase = true;
@@ -20,11 +20,12 @@ public class Seeker : MonoBehaviour
 
     Vector3[] path;
     int targetIndex; // current index in the path array 
+    bool pathIsFound = false;
 
     // get target
     void Awake()
     {
-		target = GameObject.FindGameObjectWithTag ("Wall").GetComponent<Transform> ();
+        target = GameObject.FindGameObjectWithTag("Wall").GetComponent<Transform>();
     }
 
     // Request path
@@ -33,15 +34,25 @@ public class Seeker : MonoBehaviour
     {
 	  	PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
 		speed = this.gameObject.GetComponent<EnemyController> ().walkingSpeed;
+        if (this.gameObject.name.Equals("PolarBearPrefab(Clone)")){
+            toBase = false;
+        }
     }
 
 	void Update(){
 		speed = this.gameObject.GetComponent<EnemyController> ().updatedSpeed;
+        currentPos = this.gameObject.transform;
+        if (!this.gameObject.GetComponent<EnemyController>().wandering && !pathIsFound)
+        {
+            PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+            pathIsFound = true;
+        }
 	}
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
     {
-        if (pathSuccessful && !destroyed && toBase && !withinBaseRange){
+        if (pathSuccessful && !destroyed && toBase && !withinBaseRange && !this.gameObject.GetComponent<EnemyController>().wandering)
+        {
             path = newPath;
             // Stop the Coroutine before starting.
             StopCoroutine("FollowPath");
@@ -55,9 +66,9 @@ public class Seeker : MonoBehaviour
               
             Vector3 currentWaypoint = path[0];
 
-		while (true && !destroyed && toBase && !withinBaseRange)
+		while (!destroyed && toBase && !withinBaseRange && !this.gameObject.GetComponent<EnemyController>().wandering)
         {
-			if (transform.position == currentWaypoint && !destroyed && toBase && !withinBaseRange)
+            if (transform.position == currentWaypoint && !destroyed && toBase && !withinBaseRange && !this.gameObject.GetComponent<EnemyController>().wandering)
             {
                     targetIndex++;
                     if (targetIndex >= path.Length){
@@ -68,6 +79,7 @@ public class Seeker : MonoBehaviour
                     }
                     currentWaypoint = path[targetIndex];
                 }
+            
                 transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
                 yield return null;
             }

@@ -28,6 +28,9 @@ public class PlayerAttacker : MonoBehaviour {
 
 	public GameObject weaponUnlockScreen;
 
+    public ParticleSystem pSys1;
+    public ParticleSystem pSys2;
+
 	private Animator playerAnimator;
 
     private int weaponCost = 5;
@@ -56,7 +59,12 @@ public class PlayerAttacker : MonoBehaviour {
 	}
 	
 	void Update () {
-		if(Time.time > nextAttack){
+
+        pSys1.startRotation = (-gameObject.transform.rotation.eulerAngles.y+90) * Mathf.Deg2Rad;
+        pSys2.startRotation = (-gameObject.transform.rotation.eulerAngles.y + 90) * Mathf.Deg2Rad;
+
+
+        if (Time.time > nextAttack){
 			playerAnimator.SetBool("attack", false);
 		}
 		bool Base = BaseController.pause;
@@ -89,6 +97,7 @@ public class PlayerAttacker : MonoBehaviour {
                 bulletClone.GetComponent<Bullet>().shotByPlayer = true;
                 bulletClone.transform.Rotate(90, 0, 0);
 				bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
+                Analytics.fireShot();
 			}
 			if(!currentWeapon.getIfAutomatic() && Input.GetMouseButtonDown(0) && Time.time > nextAttack && !currentWeapon.getIfMelee()){
 				nextAttack = Time.time + currentWeapon.getAttackSpeed();
@@ -100,7 +109,8 @@ public class PlayerAttacker : MonoBehaviour {
                 bulletClone.GetComponent<Bullet>().shotByPlayer = true;
                 bulletClone.transform.Rotate(90, 0, 0);
 				bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
-			}
+                Analytics.fireShot();
+            }
 			if (Input.GetMouseButtonDown(0) && Time.time > nextAttack && currentWeapon.getIfMelee()){
 				Debug.Log (true);
 				playerAnimator.SetBool ("attack", true);
@@ -192,7 +202,6 @@ public class PlayerAttacker : MonoBehaviour {
 					typeOfWunderWaffenText.text = currentWeapon.getType().toString();
 				}
 			}
-
 		}
 		
 	}

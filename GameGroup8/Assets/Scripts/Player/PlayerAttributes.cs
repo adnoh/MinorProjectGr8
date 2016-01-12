@@ -8,8 +8,8 @@ public class PlayerAttributes : MonoBehaviour {
 	public static int experience = 0;
 	public static int pointsToUpgrade = 0;
 
-	private static int experienceNeededToLevelUp = 10;
-
+	private static int experienceNeededToLevelUp = 5;
+    
 	public static int attackPoints = 0;
 	public static int speedPoints = 0;
 	public static int maxHealthPoints = 0;
@@ -154,7 +154,7 @@ public class PlayerAttributes : MonoBehaviour {
 	}
 
 	public static void regenerate(){
-		health ++;
+		health += 3;
 	}
 
 	public static int getMaxEnergy(){
@@ -175,7 +175,7 @@ public class PlayerAttributes : MonoBehaviour {
 	}
 
 	public static void replenish(){
-		energy += 10;
+		energy += 15;
 	}
 
 	public static void run(){
