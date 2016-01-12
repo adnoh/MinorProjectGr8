@@ -57,7 +57,7 @@ public class SaveBase : MonoBehaviour
 		try 
 		{
 			cmd = conn.CreateCommand();
-			cmd.CommandText = "INSERT INTO saves(username, password)VALUES(@username, @password)";
+			cmd.CommandText = "INSERT INTO savebase.saves(username, password)VALUES(@username, @password)";
 			cmd.Parameters.AddWithValue("@username", un);
 			cmd.Parameters.AddWithValue("@password", pwd);
 			// Execute
@@ -116,9 +116,11 @@ public class SaveBase : MonoBehaviour
 			fs.Close();
 
 			cmd = conn.CreateCommand();
-			cmd.CommandText = "UPDATE savebase.saves SET save=@save WHERE username=@Username";
+			cmd.CommandText = "UPDATE savebase.saves SET save=@save, filesize=@FileSize WHERE username=@Username";
 			cmd.Parameters.AddWithValue("@save", rawData);
 			cmd.Parameters.AddWithValue("@UserName", lun);
+			cmd.Parameters.AddWithValue("@FileSize", FileSize);
+
 
 			
 			// Execute
@@ -230,9 +232,7 @@ public class SaveBase : MonoBehaviour
 		finally 
 		{
 			conn.Close ();
-		}	
-
-			
+		}			
 
 		// read database username
 		// read database password
@@ -246,44 +246,89 @@ public class SaveBase : MonoBehaviour
 	}
 
 	
+	/// <summary>
+	/// Downloads the save.
+	/// </summary>
+	/// <param name="lun">Lun. Logged in User</param>
+	/// <param name="path">Path. path for saving the zip</param>
 
-	/* 
 	public void DownloadSave(string lun, string path)
 	{
-		int FileSize;
-		byte[] rawData;
-		FileStream fs;
+		if (loggedIn) {
+			
+			int db_FileSize;
+			byte[] rawData;
+			FileStream fs;
 
-		openConnection ();
+			int db_id;
+			string db_name;
+			string db_password;
 
-		cmd.CommandText = "SELECT save FROM saves";
+			openConnection ();
 
-		try {
-
-			myData.Close = cmd.ExecuteReader();
-			if (!myData.Has
-
-				FileSize = (int)myData.GetInt32(myData.GetOr
-
+			try { 	
 
 
-		
+				string sql = "SELECT save, filesize FROM savebase.saves WHERE username=@username";
+				cmd = new MySqlCommand (sql, conn);
+				cmd.CommandText = sql;
+				cmd.Parameters.AddWithValue ("@username", lun);
 
-		
-		
+				myData = cmd.ExecuteReader ();
+
+				if (! myData.HasRows){
+					throw new Exception("There are no rows");
+				}
+
+				myData.Read();
+
+
+				db_FileSize = myData.GetInt32("filesize");
+				rawData = new byte[db_FileSize];
+
+				myData.GetBytes(myData.GetOrdinal("save"), 0, rawData, 0, db_FileSize);
+
+				fs = new FileStream(@path, FileMode.Create, FileAccess.Write);
+				fs.Write(rawData, 0, db_FileSize);
+				fs.Close();
+
+				myData.Close();
+				conn.Close();
+
+
+			} catch (Exception ex) {
+				Debug.Log (ex.Message.ToString ());
+				if (ex is MySqlException) {				
+					MySqlException ex2 = (MySqlException)ex;
+					Debug.Log (ex2.Number);
+				}
+
+
+				Debug.Log (ex.ToString ());
+
+
+				throw ex;
+			} finally {
+				conn.Close ();
+			}
 		}
-	
+
+
+
 	}
-*/
+		
+
 	// test code, currently on start but should move to a button
 	public void Start(){
 	
-		// CreateNamePassword ("test", "test1234");
-		// UploadSave ("test", path);
+		//CreateNamePassword ("test2222", "test1234");
+		//UploadSave ("test2222", path);
 		Login("test", "test1234");
 		//Debug.Log (1);
 		//Login("test", "test12345");
 		//Debug.Log (2);
+		DownloadSave("test2222", path);
+
 
 	}
 
