@@ -9,8 +9,10 @@ public class SaveBase : MonoBehaviour
 {
 	MySql.Data.MySqlClient.MySqlConnection conn;
 	MySql.Data.MySqlClient.MySqlCommand cmd;
+	MySql.Data.MySqlClient.MySqlDataReader myData;
 	MySqlCommand cmd2;
 
+	static bool loggedIn = false;
 	string LoggedInUser;
 	string LoggedInPwd;
 
@@ -19,9 +21,7 @@ public class SaveBase : MonoBehaviour
 
 	// savegame path
 	string path = "Assets/saves/package.zip";
-	int FileSize;
-	byte[] rawData;
-	FileStream fs;
+
 
 	/// <summary>
 	/// Opens the the connection to the remote MySQL server.
@@ -36,7 +36,6 @@ public class SaveBase : MonoBehaviour
 		catch (Exception ex)
 		{
 
-			// This works :)
 			if (ex is MySqlException) 
 			{				
 				MySqlException ex2 = (MySqlException)ex;
@@ -63,6 +62,7 @@ public class SaveBase : MonoBehaviour
 			cmd.Parameters.AddWithValue("@password", pwd);
 			// Execute
 			cmd.ExecuteNonQuery();
+			conn.Close();
 		}
 		catch (Exception ex) 
 		{
@@ -72,12 +72,7 @@ public class SaveBase : MonoBehaviour
 				MySqlException ex2 = (MySqlException)ex;
 				Debug.Log (ex2.Number);
 
-				if (ex2.Number == 1062) {
-					Debug.Log ("Same username: Pick another");
-				}
 			}
-
-
 			Debug.Log (ex.ToString());
 
 
@@ -100,9 +95,12 @@ public class SaveBase : MonoBehaviour
 	/// </summary>
 	/// <param name="un">Lun, loggedin username</param>
 	/// <param name="path">Path, path where save is saved.</param>
-
 	public void UploadSave(string lun, string path)
 	{
+
+		int FileSize;
+		byte[] rawData;
+		FileStream fs;
 
 		// Open the Connection
 		openConnection ();
@@ -125,6 +123,7 @@ public class SaveBase : MonoBehaviour
 			
 			// Execute
 			cmd.ExecuteNonQuery();
+			conn.Close();
 		}
 
 		catch (Exception ex) {
@@ -133,6 +132,7 @@ public class SaveBase : MonoBehaviour
 				MySqlException ex2 = (MySqlException)ex;
 				Debug.Log (ex2.Number);
 
+				// catch duplicate entry exception
 				if (ex2.Number == 1062) {
 					Debug.Log ("Same username: Pick another");
 				}
@@ -151,13 +151,140 @@ public class SaveBase : MonoBehaviour
 	}
 
 
+	/// <summary>
+	/// Login using the specified username and password.
+	/// </summary>
+	/// <param name="username">Username. the username</param>
+	/// <param name="password">Password. the password</param>
 
-	// test code
+	public void Login(string username, string password)
+	{
+		int db_id;
+		string db_name;
+		string db_password;
+
+		openConnection ();
+
+		try 
+		{ 	
+
+
+			string sql = "SELECT id, username, password FROM savebase.saves WHERE username=@username";
+			cmd = new MySqlCommand(sql, conn);
+			cmd.CommandText = sql;
+			cmd.Parameters.AddWithValue("@username", username);
+
+
+			myData = cmd.ExecuteReader();
+
+			while (myData.Read())
+			{
+				db_id = myData.GetInt32("id");;
+				db_name = myData.GetString("username");
+				db_password = myData.GetString("password");
+
+
+				//Debug.Log(db_id);
+				//Debug.Log(db_name);
+				//Debug.Log(db_password);
+
+
+				// verify if password matches username
+				if (password == db_password) {
+					loggedIn = true;
+					Debug.Log("password match");
+					Debug.Log("Succesfully Logged in");
+					LoggedInUser = username;
+					LoggedInPwd = password;
+				} 
+
+				else 
+				{
+					loggedIn = false;
+					Debug.Log("password doesn't match username");
+					// Insert error text to unity
+				}		
+			
+			}
+			myData.Close();
+			conn.Close();
+
+
+
+		}
+
+		catch (Exception ex) {
+			Debug.Log (ex.Message.ToString ());
+			if (ex is MySqlException) 
+			{				
+				MySqlException ex2 = (MySqlException)ex;
+				Debug.Log (ex2.Number);
+			}
+
+
+			Debug.Log (ex.ToString ());
+
+
+			throw ex;
+		}
+		finally 
+		{
+			conn.Close ();
+		}	
+
+			
+
+		// read database username
+		// read database password
+
+		// search username  -> which id
+		// save id as int, find password
+		// save password as string
+		// does password match?
+
+
+	}
+
+	
+
+	/* 
+	public void DownloadSave(string lun, string path)
+	{
+		int FileSize;
+		byte[] rawData;
+		FileStream fs;
+
+		openConnection ();
+
+		cmd.CommandText = "SELECT save FROM saves";
+
+		try {
+
+			myData.Close = cmd.ExecuteReader();
+			if (!myData.Has
+
+				FileSize = (int)myData.GetInt32(myData.GetOr
+
+
+
+		
+
+		
+		
+		}
+	
+	}
+*/
+	// test code, currently on start but should move to a button
 	public void Start(){
 	
-		CreateNamePassword ("test", "test1234");
-		UploadSave ("test", path);
-		Debug.Log (1);
+		// CreateNamePassword ("test", "test1234");
+		// UploadSave ("test", path);
+		Login("test", "test1234");
+		//Debug.Log (1);
+		//Login("test", "test12345");
+		//Debug.Log (2);
+
 	}
 
 

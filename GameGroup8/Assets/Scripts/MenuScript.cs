@@ -9,7 +9,9 @@ public class MenuScript : MonoBehaviour {
 
     public Animator buttons;
 
-
+	void Start(){
+		
+	}
 
     public void animationplay()
     {
