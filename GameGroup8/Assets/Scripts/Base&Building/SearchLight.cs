@@ -9,7 +9,7 @@ public class SearchLight : MonoBehaviour {
     private bool rotationStan;
     private bool rotationLight;
     private Vector3 offset = new Vector3(0, 40, 0);
-    private Vector3 offsetLight = new Vector3(0, 20, 0);
+    private Vector3 offsetLight = new Vector3(5, 0, 0);
     private Vector3 initialRotation;
     private Vector3 maxRotation;
     private Vector3 minRotation;
@@ -28,7 +28,7 @@ public class SearchLight : MonoBehaviour {
         maxRotation = initialRotation + offset;
         minRotation = initialRotation - offset;
         initialRotationLight = Lamp.transform.rotation.eulerAngles;
-        maxRotationLight = initialRotationLight + offsetLight;
+        maxRotationLight = initialRotationLight + offsetLight * 4;
         minRotationLight = initialRotationLight - offsetLight;
     }
 	
@@ -39,6 +39,7 @@ public class SearchLight : MonoBehaviour {
             Light.SetActive(true);
             if (Enemy == null)
             {
+                
                 if (!rotationStan)
                 {
                     gameObject.transform.Rotate(Vector3.up, 1f);
@@ -51,17 +52,17 @@ public class SearchLight : MonoBehaviour {
                     if (transform.rotation.eulerAngles.y <= minRotation.y)
                         rotationStan = false;
                 }
-
+                
                 if (!rotationLight)
                 {
                     Lamp.transform.Rotate(Vector3.up, 0.1f);
-                    if (Lamp.transform.rotation.eulerAngles.y >= maxRotationLight.y)
+                    if (Lamp.transform.rotation.eulerAngles.x <= minRotationLight.x)
                         rotationLight = true;
                 }
                 else if (rotationLight)
                 {
                     Lamp.transform.Rotate(Vector3.up, -.1f);
-                    if (Lamp.transform.rotation.eulerAngles.y <= minRotationLight.y)
+                    if (Lamp.transform.rotation.eulerAngles.x >= maxRotationLight.x)
                         rotationLight = false;
                 }
             }
