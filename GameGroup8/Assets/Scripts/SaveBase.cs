@@ -3,6 +3,8 @@ using MySql.Data.MySqlClient;
 using System.IO;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 
 public class SaveBase : MonoBehaviour
@@ -12,9 +14,19 @@ public class SaveBase : MonoBehaviour
 	MySql.Data.MySqlClient.MySqlDataReader myData;
 	MySqlCommand cmd2;
 
-	static bool loggedIn = false;
-	string LoggedInUser;
-	string LoggedInPwd;
+    public InputField signup_playername;
+    public InputField signup_password;  
+
+    public InputField login_username;
+    public InputField login_password;
+
+    public Text LoggedInPlayer;
+    public Button SignInOut;
+
+    static bool loggedIn = false;
+	static string LoggedInUser;
+	static string LoggedInPwd;
+    static int LoggedInId;
 
 	// ConnectionString
 	string mySQLconnectionString = "Server=80.60.131.231;Database=savebase;UID=userw;Pwd=Minor#8;";
@@ -22,11 +34,27 @@ public class SaveBase : MonoBehaviour
 	// savegame path
 	string path = "Assets/saves/package.zip";
 
+    // test code, currently on start but should move to a button
+    public void Start()
+    {
 
-	/// <summary>
-	/// Opens the the connection to the remote MySQL server.
-	/// </summary>
-	public void openConnection(){
+        //CreateNamePassword ("test2222", "test1234");
+        //UploadSave ("test2222", path);
+        Login();
+        //Debug.Log (1);
+        //Login("test", "test12345");
+        //Debug.Log (2);
+        // DownloadSave();
+
+
+    }
+
+    /// <summary>
+    /// Opens the the connection to the remote MySQL server.
+    /// </summary>
+    /// 
+
+    public void openConnection(){
 		try
 		{
 			conn = new MySql.Data.MySqlClient.MySqlConnection(mySQLconnectionString);
@@ -44,13 +72,19 @@ public class SaveBase : MonoBehaviour
 		}
 	}
 
-	/// <summary>
-	/// Create a new Username + Password and upload it to the server
-	/// </summary>
-	/// <param name="un">Un.</param>
-	/// <param name="pwd">Pwd.</param>
-	public void CreateNamePassword(string un, string pwd)
+    /// <summary>
+    /// Create a new Username + Password and upload it to the server
+    /// </summary>
+    /// <param name="un">Un.</param>
+    /// <param name="pwd">Pwd.</param>
+
+    public void CreateNamePassword()
 	{
+
+
+        string un = signup_playername.text;
+        string pwd = signup_password.text;
+
 		// Open the Connection
 		openConnection ();
 
@@ -98,6 +132,7 @@ public class SaveBase : MonoBehaviour
 	public void UploadSave(string lun, string path)
 	{
 
+        
 		int FileSize;
 		byte[] rawData;
 		FileStream fs;
@@ -159,8 +194,12 @@ public class SaveBase : MonoBehaviour
 	/// <param name="username">Username. the username</param>
 	/// <param name="password">Password. the password</param>
 
-	public void Login(string username, string password)
+	public void Login()
 	{
+
+        string username = login_username.text;
+        string password = login_password.text;
+
 		int db_id;
 		string db_name;
 		string db_password;
@@ -198,6 +237,7 @@ public class SaveBase : MonoBehaviour
 					Debug.Log("Succesfully Logged in");
 					LoggedInUser = username;
 					LoggedInPwd = password;
+                    LoggedInId = db_id;
 				} 
 
 				else 
@@ -245,6 +285,16 @@ public class SaveBase : MonoBehaviour
 
 	}
 
+    public void signout()
+    {
+        loggedIn = false;
+        LoggedInUser = null;
+        LoggedInPwd = null;
+
+        LoggedInPlayer.text = "Not logged in";
+        
+    }
+
 	
 	/// <summary>
 	/// Downloads the save.
@@ -252,9 +302,11 @@ public class SaveBase : MonoBehaviour
 	/// <param name="lun">Lun. Logged in User</param>
 	/// <param name="path">Path. path for saving the zip</param>
 
-	public void DownloadSave(string lun, string path)
+	public void DownloadSave()
 	{
 		if (loggedIn) {
+
+            string lun = LoggedInUser;
 			
 			int db_FileSize;
 			byte[] rawData;
@@ -316,26 +368,5 @@ public class SaveBase : MonoBehaviour
 
 
 	}
-		
-
-	// test code, currently on start but should move to a button
-	public void Start(){
-	
-		//CreateNamePassword ("test2222", "test1234");
-		//UploadSave ("test2222", path);
-		Login("test", "test1234");
-		//Debug.Log (1);
-		//Login("test", "test12345");
-		//Debug.Log (2);
-		DownloadSave("test2222", path);
-
-
-	}
-
-
-
-
-
-
 }
 
