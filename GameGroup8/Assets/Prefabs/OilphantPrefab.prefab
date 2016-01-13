@@ -571,8 +571,8 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 162174}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: a7f42475a90070140852e6eeee542175, type: 3}
-  m_Controller: {fileID: 9100000, guid: e53f86d2f8ea6d04ca5ad60342a61e19, type: 2}
+  m_Avatar: {fileID: 9000000, guid: e03c4b3a3bef5a64eb65c22c50038e9b, type: 3}
+  m_Controller: {fileID: 9100000, guid: 962ce6fe50d59d54e9999397cd33e442, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -612,8 +612,13 @@ MonoBehaviour:
   healthBarClone: {fileID: 0}
   description: {fileID: 11484142, guid: 2079d000159592e4eaeb276452aa74cd, type: 2}
   descriptionClone: {fileID: 0}
-  offset: 2000
   bullet: {fileID: 0}
+  oilSpot: {fileID: 0}
+  hasShotOil: 0
+  wandering: 1
+  wanderingTime: 0
+  currentWanderingDirection: {x: 0, y: 0, z: 0}
+  timeToChangeDirection: 0
 --- !u!137 &13725794
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -673,7 +678,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 962ce6fe50d59d54e9999397cd33e442, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: e03c4b3a3bef5a64eb65c22c50038e9b, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 162174}
