@@ -70,7 +70,11 @@ public class BaseController : MonoBehaviour{
     public GameObject Wall_3;
 
     public GameObject Flashlight;
+    public GameObject Arealight;
     public GameObject BaseSpot;
+    public GameObject Searchlights;
+    public bool boughtLights = false;
+    public bool boughtFlashlight = false;
 
     void Awake(){
 
@@ -98,16 +102,25 @@ public class BaseController : MonoBehaviour{
                 Vector3 TempPlayerPos = GameObject.FindGameObjectWithTag("BASE").transform.position - new Vector3(0,1f,7.81f);
 				GameObject.Find("player").transform.position = TempPlayerPos;
                 Flashlight.SetActive(false);
+                Arealight.SetActive(false);
                 BaseSpot.SetActive(true);
                 BaseMenu.SetActive(true);
                 Analytics.set_timeBase();
+                PlayerController.setCount_2(1000);
 			} 
 			else {
                 GameObject.Find("player").transform.position = playerPos;
 				GameObject.Find ("player").GetComponent<PlayerAttacker>().weaponUnlockScreen.SetActive(false);
                 BaseMenu.SetActive(false);
                 ReturnColour();
-                Flashlight.SetActive(true);
+                if (boughtFlashlight == false)
+                {
+                    Flashlight.SetActive(true);
+                }
+                else if (boughtLights == true)
+                {
+                    Arealight.SetActive(true);
+                }
                 BaseSpot.SetActive(false);
             }
 		}
@@ -465,6 +478,15 @@ public class BaseController : MonoBehaviour{
     public void buildFromSave(){
 
         matchWalls();
+        if (boughtLights == true)
+        {
+            Searchlights.SetActive(true);
+        }
+        if (boughtFlashlight)
+        {
+            Arealight.SetActive(true);
+            Flashlight.SetActive(false);
+        }
 
 		var Temp = MonsterCollection.turretLoad("Assets/saves/turrets.xml");
 		var TurretList = Temp.getTurretList();
@@ -662,6 +684,36 @@ public class BaseController : MonoBehaviour{
 
         PlayerController.setCount(5);
         countText.text = "Amount of units: " + PlayerController.getCount();
+    }
+
+    /// <summary>
+    /// "Buy" searchlights
+    /// </summary>
+    public void buySearchLights()
+    {
+        if (boughtLights == false)
+        {
+            boughtLights = true;
+            Searchlights.SetActive(true);
+            BaseLightUpgradeBtn.text = "bought";
+            BaseLightUpgrade.text = "";
+        }
+    }
+
+    /// <summary>
+    /// upgrade flashlight of player
+    /// </summary>
+    public void upgradeFlashlight()
+    {
+        if (boughtFlashlight == false)
+        {
+            boughtFlashlight = true;
+            Flashlight.SetActive(false);
+            Arealight.SetActive(true);
+
+            LightUpgrade.text = "";
+            BaseLightUpgradeBtn.text = "bought";
+        }
     }
 }
 
