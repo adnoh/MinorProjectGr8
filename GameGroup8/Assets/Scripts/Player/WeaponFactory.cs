@@ -11,7 +11,7 @@ public class WeaponFactory {
 	}
 
 	public Weapon getShrimpPistol(){
-		return new Weapon (15, 1.5f, false, new Type (3), false, false, false, true, false, 0f);
+		return new Weapon (30, 1.5f, false, new Type (3), false, false, false, true, false, 0f);
 	}
 
 	public Weapon getStingerGun(){

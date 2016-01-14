@@ -53,11 +53,9 @@ public class Seeker : MonoBehaviour
     {
         if (pathSuccessful && !destroyed && toBase && !withinBaseRange && !this.gameObject.GetComponent<EnemyController>().wandering)
         {
-            Debug.Log(0);
             path = newPath;
             // Stop the Coroutine before starting.
             StopCoroutine("FollowPath");
-            Debug.Log(path.Length > 0);
             if (path.Length > 0){
                 StartCoroutine("FollowPath");
             }

@@ -41,7 +41,7 @@ public class PathRequestManager : MonoBehaviour {
 
     // Action -> stores the method
     public static void RequestPath(Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> succesful){
-        // if ie al op positie is, ga niet nog een x daarheen. 
+        // if ie al op positie is, ga niet nog een x daarheen.
         if (pathStart != pathEnd)
         {
             PathRequest newRequest = new PathRequest(pathStart, pathEnd, succesful);

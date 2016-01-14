@@ -28,8 +28,8 @@ public class PlayerAttacker : MonoBehaviour {
 
 	public GameObject weaponUnlockScreen;
 
-    //public ParticleSystem pSys1;
-    //public ParticleSystem pSys2;
+    public ParticleSystem pSys1;
+    public ParticleSystem pSys2;
 
 	private Animator playerAnimator;
 
@@ -56,12 +56,14 @@ public class PlayerAttacker : MonoBehaviour {
 			unitCostWeaponTexts[i].text = weaponCost + " Units";
 		}
 		playerAnimator = gameObject.GetComponent<Animator> ();
-	}
+        pSys1.enableEmission = false;
+        pSys2.enableEmission = false;
+    }
 	
 	void Update () {
 
-        //pSys1.startRotation = (-gameObject.transform.rotation.eulerAngles.y + 90) * Mathf.Deg2Rad;
-        //pSys2.startRotation = (-gameObject.transform.rotation.eulerAngles.y + 90) * Mathf.Deg2Rad;
+        pSys1.startRotation = (-gameObject.transform.rotation.eulerAngles.y + 90) * Mathf.Deg2Rad;
+        pSys2.startRotation = (-gameObject.transform.rotation.eulerAngles.y + 90) * Mathf.Deg2Rad;
 
 
         if (Time.time > nextAttack){
@@ -72,22 +74,37 @@ public class PlayerAttacker : MonoBehaviour {
 		setActive ();
 		
 		if (!Base){
-			if(currentWeapon.getIfElectric() && Input.GetMouseButton(0) && lastAttackedEnemy != null){
-				lastAttackedEnemy.health -= (int)(2 * currentWeapon.getType ().damageMultiplierToType(lastAttackedEnemy.getType()) * PlayerAttributes.getAttackMultiplier());
-				if(lastAttackedEnemy.getHealth () <= 0){
-					EnemySpawner.enemiesDefeaten++;
-					lastAttackedEnemy.GetComponent<Seeker>().StopAllCoroutines();
-					lastAttackedEnemy.GetComponent<Seeker>().destroyed = true;
-                    _score.addScoreEnemy(lastAttackedEnemy.getLevel());
-                    lastAttackedEnemy.die ();
-					MiniMapScript.enemies.Remove(lastAttackedEnemy);
-                    if (!lastAttackedEnemy.dead){
-                        PlayerAttributes.getExperience(lastAttackedEnemy.getLevel());
+			if(currentWeapon.getIfElectric() && Input.GetMouseButton(0)){
+                pSys1.enableEmission = true;
+                pSys2.enableEmission = true;
+                GameObject[] nearbyEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+                Vector3 placeOfLightning = pSys1.transform.position;
+                for (int i = 0; i < nearbyEnemies.Length; i++) {
+                    if (Vector3.Distance(placeOfLightning, nearbyEnemies[i].transform.position) < 2){
+                        nearbyEnemies[i].GetComponent<EnemyController>().setHealth((int)(nearbyEnemies[i].GetComponent<EnemyController>().getHealth() - 2 * currentWeapon.getType().damageMultiplierToType(nearbyEnemies[i].GetComponent<EnemyController>().getType()) * PlayerAttributes.getAttackMultiplier()));
+                        if (nearbyEnemies[i].GetComponent<EnemyController>().getHealth() <= 0)
+                        {
+                            EnemySpawner.enemiesDefeaten++;
+                            nearbyEnemies[i].GetComponent<Seeker>().StopAllCoroutines();
+                            nearbyEnemies[i].GetComponent<Seeker>().destroyed = true;
+                            nearbyEnemies[i].GetComponent<EnemyController>().destroyed = true;
+                            _score.addScoreEnemy(nearbyEnemies[i].GetComponent<EnemyController>().getLevel());
+                            nearbyEnemies[i].GetComponent<EnemyController>().StartCoroutine(nearbyEnemies[i].GetComponent<EnemyController>().die());
+                            MiniMapScript.enemies.Remove(nearbyEnemies[i].GetComponent<EnemyController>());
+                            if (!nearbyEnemies[i].GetComponent<EnemyController>().dead)
+                            {
+                                PlayerAttributes.getExperience(nearbyEnemies[i].GetComponent<EnemyController>().getLevel());
+                            }
+                        }
                     }
-                    PlayerAttacker.lastAttackedEnemy = null;
-				}
-			}
-			if(!currentWeapon.getIfElectric() && currentWeapon.getIfAutomatic() && Input.GetMouseButton(0) && Time.time > nextAttack && !currentWeapon.getIfMelee()){
+                }
+            }
+            if (currentWeapon.getIfElectric() && Input.GetMouseButtonUp(0))
+            {
+                pSys1.enableEmission = false;
+                pSys2.enableEmission = false;
+            }
+            if (!currentWeapon.getIfElectric() && currentWeapon.getIfAutomatic() && Input.GetMouseButton(0) && Time.time > nextAttack && !currentWeapon.getIfMelee()){
 				nextAttack = Time.time + currentWeapon.getAttackSpeed();
 				GameObject bulletClone = GameObject.Instantiate(bullet, transform.position + (transform.forward), transform.rotation) as GameObject;
 				bulletClone.tag = currentWeapon.getType().toString ();
@@ -99,7 +116,8 @@ public class PlayerAttacker : MonoBehaviour {
 				bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
                 Analytics.fireShot();
 			}
-			if(!currentWeapon.getIfAutomatic() && Input.GetMouseButtonDown(0) && Time.time > nextAttack && !currentWeapon.getIfMelee()){
+           
+            if (!currentWeapon.getIfAutomatic() && Input.GetMouseButtonDown(0) && Time.time > nextAttack && !currentWeapon.getIfMelee()){
 				nextAttack = Time.time + currentWeapon.getAttackSpeed();
 				GameObject bulletClone = GameObject.Instantiate(bullet, transform.position + (transform.forward), transform.rotation) as GameObject;
 				bulletClone.tag = currentWeapon.getType().toString ();
