@@ -28,8 +28,8 @@ public class PlayerAttacker : MonoBehaviour {
 
 	public GameObject weaponUnlockScreen;
 
-    public ParticleSystem pSys1;
-    public ParticleSystem pSys2;
+    //public ParticleSystem pSys1;
+    //public ParticleSystem pSys2;
 
 	private Animator playerAnimator;
 
@@ -60,8 +60,8 @@ public class PlayerAttacker : MonoBehaviour {
 	
 	void Update () {
 
-        pSys1.startRotation = (-gameObject.transform.rotation.eulerAngles.y+90) * Mathf.Deg2Rad;
-        pSys2.startRotation = (-gameObject.transform.rotation.eulerAngles.y + 90) * Mathf.Deg2Rad;
+        //pSys1.startRotation = (-gameObject.transform.rotation.eulerAngles.y + 90) * Mathf.Deg2Rad;
+        //pSys2.startRotation = (-gameObject.transform.rotation.eulerAngles.y + 90) * Mathf.Deg2Rad;
 
 
         if (Time.time > nextAttack){

@@ -207,6 +207,12 @@ public class EnemyController : MonoBehaviour {
         {
             wandering = false;
         }
+        if (this.gameObject.name.Equals("DesertEaglePrefab(Clone)") && Vector3.Distance(this.gameObject.transform.position, GameObject.Find("player").transform.position) < 12)
+        {
+            isWithinRange = true;
+            shotByPlayer = true;
+            wanderingTime = -1;
+        }
     }
 
     // Getters and setters
@@ -417,11 +423,6 @@ public class EnemyController : MonoBehaviour {
         if (col.gameObject.CompareTag("BASE"))
         {
             baseWithinRange = true;
-        }
-        if(this.gameObject.name.Equals("DesertEaglePrefab(Clone)") && col.gameObject.name.Equals("player")){
-            isWithinRange = true;
-            shotByPlayer = true;
-            wanderingTime = -1;
         }
         if (col.gameObject.CompareTag("Enemy") && this.gameObject.name.Equals("MeepMeepPrefab(Clone)"))
         {
