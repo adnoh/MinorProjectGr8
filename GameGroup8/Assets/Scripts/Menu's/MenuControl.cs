@@ -14,15 +14,7 @@ public class MenuControl : MonoBehaviour {
 		Options.enabled = false;
 	}
 
-	void Update(){
 
-		/// 
-		if ( Input.GetKeyDown(KeyCode.K))
-		{
-			
-		}
-	
-	}
 
 
     IEnumerator startTutorial()
@@ -50,5 +42,10 @@ public class MenuControl : MonoBehaviour {
 
 	public void LoadGame(){
         StartCoroutine(LoadGame_());
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

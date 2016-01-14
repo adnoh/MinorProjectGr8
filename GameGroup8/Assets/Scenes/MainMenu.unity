@@ -160,7 +160,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2001075655}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.6558018
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -215,9 +215,8 @@ GameObject:
   - 222: {fileID: 5347433}
   - 114: {fileID: 5347432}
   - 82: {fileID: 5347435}
-  - 114: {fileID: 5347436}
-  - 114: {fileID: 5347438}
   - 114: {fileID: 5347437}
+  - 114: {fileID: 5347436}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -345,7 +344,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a4967651973dc6e4e8c04df8c5fad0f5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e325845e77722ec45bc7b8c734a44ddf, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -418,7 +417,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5347427}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2d3a8409189b2b46be1e16a3d3f48ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 431d99c46e1262f42ba4b7fe54d61401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   signup_playername: {fileID: 512014446}
@@ -442,23 +441,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5347427}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50e9af8e83bbd894c9e0c4139d8c1ac2, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b77c9810746530439212dad67a86784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Main: {fileID: 0}
-  Options: {fileID: 0}
---- !u!114 &5347438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 5347427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c447658bd9f786d488fbd8c447d197d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  Main: {fileID: 1059731762}
+  Options: {fileID: 523929067}
 --- !u!1 &28998824
 GameObject:
   m_ObjectHideFlags: 0
@@ -1723,7 +1710,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa084b71fb97d874398dde79644fe02b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomaudio: {fileID: 1870315742}
 --- !u!1 &453347053
 GameObject:
   m_ObjectHideFlags: 0
@@ -2468,7 +2454,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 576461496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b44d4a7e5eeb674080a4d432ee2d742, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ed58e8a67dbfe14a91e7fae8caafcdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   addScoreURL: http://80.60.131.231/groep8/Highscores/addscore.php?
@@ -3153,17 +3139,6 @@ MonoBehaviour:
       - m_Target: {fileID: 5347435}
         m_MethodName: Play
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 576461497}
-        m_MethodName: set_enabled
-        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4152,7 +4127,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1059731757}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c151415b220f2d47b1694544a9fdc1e, type: 3}
+  m_Script: {fileID: 11500000, guid: 91cca6e19869915489b0e543928db839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: {fileID: 0}
@@ -4376,7 +4351,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 252.87878}
+  m_AnchoredPosition: {x: 0, y: -267.75995}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1131645263
@@ -5525,7 +5500,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5347436}
+      - m_Target: {fileID: 0}
         m_MethodName: signout
         m_Mode: 1
         m_Arguments:
@@ -5830,9 +5805,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1463944593}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cdf4da0bb979c14e8450ea5142587e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b77c9810746530439212dad67a86784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Main: {fileID: 0}
+  Options: {fileID: 0}
 --- !u!1 &1466747943
 GameObject:
   m_ObjectHideFlags: 0
@@ -6511,7 +6488,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1059731764}
+      - m_Target: {fileID: 0}
         m_MethodName: animationplay
         m_Mode: 1
         m_Arguments:
@@ -7528,7 +7505,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: bea1330fcd630ea42857eec65e7092d3, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 969c3348319f77d4baca6a0715a0051c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -8468,8 +8445,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 576461498}
-        m_MethodName: StartGetScores
+      - m_Target: {fileID: 576461496}
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8479,7 +8456,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 576461498}
+      - m_Target: {fileID: 0}
         m_MethodName: StartGetScores
         m_Mode: 1
         m_Arguments:
@@ -8534,7 +8511,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &2041812656
 GameObject:
@@ -8561,7 +8538,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e2386c4a95314f64a8d717fe6c43bc23, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d963b263a1e3e744fa7112f721abe666, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
