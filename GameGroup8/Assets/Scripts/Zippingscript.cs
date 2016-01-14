@@ -23,7 +23,7 @@ using Ionic.Zip;
             {
               foreach (ZipEntry e in zip)
                   {
-                e.Extract("Assets/saves1", ExtractExistingFileAction.OverwriteSilently);
+                e.Extract("", ExtractExistingFileAction.OverwriteSilently);
             }
             }
 
@@ -34,7 +34,7 @@ using Ionic.Zip;
        
         using (ZipFile zip = new ZipFile())
             {
-              zip.AddFile("Assets/saves/base.xml");
+              /*zip.AddFile("Assets/saves/base.xml");
               zip.AddFile("Assets/saves/monsters.xml");
              zip.AddFile("Assets/saves/moon.xml");
             zip.AddFile("Assets/saves/outside.xml");
@@ -42,7 +42,8 @@ using Ionic.Zip;
             zip.AddFile("Assets/saves/sun.xml");
             zip.AddFile("Assets/saves/turrets.xml");
             zip.AddFile("Assets/saves/world.xml");
-            zip.Save("Assets/saves/Package.zip");
+            zip.Save("Assets/saves/Package.zip");*/
+            zip.AddDirectoryByName("saves");
            }
     }
     }
