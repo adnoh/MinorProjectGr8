@@ -206,6 +206,19 @@ public class Player
 	public float roty;
 	public float rotz;
 	public float rotw;
+
+    public int attackPoints;
+    public int speedPoints;
+    public int healthPoints;
+    public int energyPoints;
+
+    public int level;
+    public int experience;
+    public int pointsToUpgrade;
+
+    public int health;
+    public int fatique;
+    public int energy;
 	
 	public Player(){
 		var position = PlayerController.getPosition();
@@ -219,9 +232,23 @@ public class Player
 		roty = rotation.y;
 		rotz = rotation.z;
 		rotw = rotation.w;
-		
-		
-	}
+
+        attackPoints = PlayerAttributes.attackPoints;
+        speedPoints = PlayerAttributes.speedPoints;
+        healthPoints = PlayerAttributes.maxHealthPoints;
+        energyPoints = PlayerAttributes.maxEnergyPoints;
+
+        level = PlayerAttributes.level;
+        experience = PlayerAttributes.experience;
+        pointsToUpgrade = PlayerAttributes.pointsToUpgrade;
+
+        health = PlayerAttributes.getHealth();
+        energy = PlayerAttributes.getEnergy();
+        fatique = PlayerAttributes.getFatique();
+
+
+
+    }
 	public  float getRotx(){
 		return rotx;
 	}
@@ -484,6 +511,20 @@ public class MonsterCollection : MonoBehaviour
 
         tempplayer.transform.position = templocation;
         tempplayer.transform.rotation = temprotation;
+
+        PlayerAttributes.attackPoints = player.attackPoints;
+        PlayerAttributes.speedPoints = player.speedPoints;
+        PlayerAttributes.maxHealthPoints = player.healthPoints;
+        PlayerAttributes.maxEnergyPoints = player.energyPoints;
+
+        PlayerAttributes.level = player.level;
+        PlayerAttributes.experience = player.experience;
+        PlayerAttributes.pointsToUpgrade = player.pointsToUpgrade;
+
+        PlayerAttributes.setHealth(player.health);
+        PlayerAttributes.setEnergy(player.energy);
+        PlayerAttributes.setFatique(player.fatique);
+
     }
 
     public static void turretSave(string path){

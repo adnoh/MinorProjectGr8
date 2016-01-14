@@ -47,19 +47,27 @@ public class PlayerAttributes : MonoBehaviour {
 		speed = walkingSpeed;
 	}
 
-	public void openUpgradePanel(){
-		upgradePanel.SetActive (true);
-		Time.timeScale = 0;
-		pointsToAssignText.text = "Points to assign " + pointsToUpgrade;
-		attackPointsText.text = "Attack Points: " + attackPoints;
-		speedPointsText.text = "Speed Points: " + speedPoints;
-		healthPointsText.text = "Max Health Points: " + maxHealthPoints;
-		energyPointsText.text = "Max Energy Points: " + maxEnergyPoints;
-	}
+    public void firstLoad()
+    {
+        attackMultiplier = 1f + (float)attackPoints * 0.05f;
+        maxWalkingSpeed = 5f + (float)speedPoints * 0.5f;
+        runningSpeed = 2f * maxWalkingSpeed;
+        maxHealth = 100 + 5 * maxHealthPoints;
+        maxEnergy = 100 + 5 * maxEnergyPoints;
+    }
+
+    public void openUpgradePanel()
+    {
+        upgradePanel.SetActive(true);
+        pointsToAssignText.text = "Points to assign " + pointsToUpgrade;
+        attackPointsText.text = "Attack Points: " + attackPoints;
+        speedPointsText.text = "Speed Points: " + speedPoints;
+        healthPointsText.text = "Max Health Points: " + maxHealthPoints;
+        energyPointsText.text = "Max Energy Points: " + maxEnergyPoints;
+    }
 
 	public void closeUpgradePanel(){
 		upgradePanel.SetActive (false);
-		Time.timeScale = 1;
 	}
 
 	private static void levelUp(){
@@ -170,12 +178,17 @@ public class PlayerAttributes : MonoBehaviour {
 		return energy;
 	}
 
+    public static void setEnergy(int res)
+    {
+        energy = res;
+    }
+
 	public static void setEnergyDown(){
 		energy --;
 	}
 
 	public static void replenish(){
-		energy += 15;
+        energy += 10;
 	}
 
 	public static void run(){
@@ -200,8 +213,13 @@ public class PlayerAttributes : MonoBehaviour {
 	public static int getFatique(){
 		return fatique;
 	}
-	
-	public static void getTired(){
+
+    public static void setFatique(int res)
+    {
+        fatique = res;
+    }
+
+    public static void getTired(){
 		fatique--;
 		walkingSpeed = maxWalkingSpeed * Mathf.Pow (0.8f, (10000f - (float)fatique) / 10000f);
 	}
