@@ -9,6 +9,6 @@ public class Lightswitch : MonoBehaviour {
 
 	void Update () {
 		var Height = GameObject.Find("SUn").GetComponent<Daynight>().getHeigth();
-		GetComponent<Light>().intensity = (Height >= 100f) ? 0f : 3f;
+		GetComponent<Light>().intensity = (Height >= 150f) ? 0f : 3f;
 	}
 }
