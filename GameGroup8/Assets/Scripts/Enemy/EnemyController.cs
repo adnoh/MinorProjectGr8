@@ -108,7 +108,7 @@ public class EnemyController : MonoBehaviour {
         healthBarClone.maxValue = health;
         descriptionClone = Instantiate(description);
         descriptionClone.text = "Lvl:" + enemy.getLevel() + " . " + enemy.getType().toString();
-        if (this.gameObject.name.Equals("PolarBearPrefab(Clone)") || this.gameObject.name.Equals("OilphantPrefab(Clone)"))
+        if (this.gameObject.name.Equals("PolarBearPrefab(Clone)"))
         {
             this.gameObject.GetComponent<Seeker>().toBase = false;
             shotByPlayer = true;

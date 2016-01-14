@@ -33,20 +33,23 @@ public class PSpawner : MonoBehaviour {
         for(int i = 0; i < 5; i++)
         {
             GameObject unitClone = unit;
-            unitClone.transform.Rotate(new Vector3(-90, 0, 0));
+            unitClone.transform.Rotate(-90, 0, 0);
             Instantiate(unitClone, getRandomPosition(), Quaternion.identity);
         }
         for (int i = 0; i < 2; i++)
         {
             GameObject healthUnitClone = healthUnit;
+            healthUnitClone.transform.Rotate(-90, 0, 0);
             Instantiate(healthUnitClone, getRandomPosition(), Quaternion.identity);
-            healthUnitClone.transform.Rotate(new Vector3(-90, 0, 0));
+            
             GameObject energyUnitClone = energyUnit;
+            energyUnitClone.transform.Rotate(-90, 0, 0);
             Instantiate(energyUnitClone, getRandomPosition(), Quaternion.identity);
-            energyUnitClone.transform.Rotate(new Vector3(-90, 0, 0));
+            
             GameObject fatiqueUnitClone = fatiqueUnit;
+            fatiqueUnitClone.transform.Rotate(-90, 0, 0);
             Instantiate(fatiqueUnitClone, getRandomPosition(), Quaternion.identity);
-            fatiqueUnitClone.transform.Rotate(new Vector3(-90, 0, 0));
+            
         }
     }
 

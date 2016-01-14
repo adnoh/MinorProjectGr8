@@ -12,7 +12,7 @@ GameObject:
   - 23: {fileID: 2366768}
   - 95: {fileID: 9582380}
   - 136: {fileID: 13667782}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: denne boom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,6 +125,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ab50a2f02687cc14fa88984b829ee27b, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 175854}
