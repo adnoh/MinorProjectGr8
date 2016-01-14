@@ -6,7 +6,7 @@ public class sfxslider : MonoBehaviour
 {
 
     public AudioSource zoomaudio;
-    
+
     void Start()
     {
         var slider = gameObject.GetComponent<Slider>();
@@ -20,9 +20,9 @@ public class sfxslider : MonoBehaviour
     void Update()
     {
 
-        var buttonaudio = Camera.main.GetComponent<AudioSource>();
+        //var buttonaudio = Camera.main.GetComponent<AudioSource>();
         var zoom = zoomaudio.GetComponent<AudioSource>();
-      
+
 
 
         var slider = gameObject.GetComponent<Slider>();
@@ -30,8 +30,8 @@ public class sfxslider : MonoBehaviour
 
         float temp = slider.value;
         zoom.volume = temp;
-        buttonaudio.volume = temp;
-       
+       // buttonaudio.volume = temp;
+
 
         PlayerPrefs.SetFloat("sfx option", temp);
         PlayerPrefs.Save();

@@ -253,21 +253,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Your basic gearshack.
-
-    It gives you acces to a few simple weapons
-
-    and gadgets, you can upgrade it later
-
-    to a more specific role.
-
-    Cost: 10 units
-
-    Unlocks:
-
-    Shrimp pistol
-
-    Enhanced headlight'
+  m_Text: "Your basic gearshack.\nIt gives you acces to the\nshrimp gun. \nYou can
+    upgrade it later\nto a more specific role.\nCost: 10 units\nUnlocks:\nShrimp pistol\n"
 --- !u!222 &74253603
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -340,13 +327,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'The Shrimp pistol
+  m_Text: 'The baseball bat. This bat has medium damge but knocks back people a tremendous
+    amount.
 
-    Damage:
+    Damage-type: Wind
 
-    Cost:
+    Cost:10
 
-    Build from:'
+    Build from: weaponsmith'
 --- !u!222 &134296569
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -419,13 +407,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'The Shrimp pistol
+  m_Text: 'The battering ram, this ram has a high damage rate with quite a big knockback.
 
-    Damage:
+    Damage-type: Ground
 
-    Cost:
+    Cost: 20
 
-    Build from:'
+    Build from: Weaponsmith'
 --- !u!222 &149154424
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2809,7 +2797,7 @@ RectTransform:
   m_RootOrder: 21
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10.023361, y: 15.394558}
+  m_AnchoredPosition: {x: -15.8, y: 21.9}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &424867907
@@ -3134,7 +3122,7 @@ RectTransform:
   m_RootOrder: 17
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 17.715698, y: 30.514221}
+  m_AnchoredPosition: {x: 18.9, y: 44.4}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &447829921
@@ -4113,7 +4101,7 @@ RectTransform:
   m_RootOrder: 24
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -26.107338, y: 16.99816}
+  m_AnchoredPosition: {x: -37.6, y: 25.2}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &633939550
@@ -4210,7 +4198,7 @@ RectTransform:
   m_RootOrder: 20
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.2634277, y: 14.936388}
+  m_AnchoredPosition: {x: 0.4, y: 22.3}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &645329024
@@ -5037,13 +5025,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'The Shrimp pistol
+  m_Text: 'Weaponized-eel, THis weapon unleshes a constant stream of damage.
 
-    Damage:
+    Damage-type: Ground
 
-    Cost:
+    Cost: 15
 
-    Build from:'
+    Build from: Weaponsmith'
 --- !u!222 &719723719
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5424,13 +5412,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'The Shrimp pistol
+  m_Text: 'The Stinger, a fast firing weapon, doesnt do a lot of damage but does poison
+    your enemies,
 
-    Damage:
+    Damage-type: Earth
 
-    Cost:
+    Cost: 10
 
-    Build from:'
+    Build from: Weaponsmith'
 --- !u!222 &729355489
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5520,7 +5509,7 @@ Canvas:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 756687627}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_RenderMode: 2
   m_Camera: {fileID: 401732406}
@@ -5671,13 +5660,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'The Shrimp pistol
+  m_Text: 'The basic pistol, does medium damage against everything.
 
-    Damage:
+    Cost: free
 
-    Cost:
-
-    Build from:'
+'
 --- !u!222 &767252501
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6142,7 +6129,7 @@ RectTransform:
   m_RootOrder: 15
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.2634277, y: 30.056046}
+  m_AnchoredPosition: {x: 0.4, y: 44.3}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &913004162
@@ -6654,17 +6641,12 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'A resources generator.
 
-    It generatates resources for you on its own.
+    It generatates resources for
 
-    Futhermore in gives you enough power to
-
-    light the area around your base with floodlights.
+    you on its own.
 
     Cost: 25 units
 
-    Unlocks:
-
-    Base Floodlights.
 
 '
 --- !u!222 &972054783
@@ -7555,7 +7537,7 @@ RectTransform:
   m_RootOrder: 18
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 31.701813, y: 39.219475}
+  m_AnchoredPosition: {x: 35.8, y: 55.1}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1046070156
@@ -7800,14 +7782,14 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1054604283}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 34.8016}
-  m_LocalScale: {x: 0.062252365, y: 0.38592246, z: 1.4322522}
+  m_LocalPosition: {x: 0, y: 0, z: 547}
+  m_LocalScale: {x: 0.065977976, y: 0.3857791, z: 1.379971}
   m_Children: []
   m_Father: {fileID: 1338105033}
   m_RootOrder: 14
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 30.769379, y: 24.09982}
+  m_AnchoredPosition: {x: 50.3, y: 42.4}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1054604285
@@ -8160,7 +8142,7 @@ RectTransform:
   m_RootOrder: 8
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -13.72966, y: -1.7181396}
+  m_AnchoredPosition: {x: -13.72966, y: -1.71814}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1082338044
@@ -8990,15 +8972,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'The Gunsmith
-
-    Allows you to unlock advanced weapons.
-
-    Costs: 25
-
-    Unlocks:
-
-'
+  m_Text: "The Gunsmith\nAllows you to unlock advanced weapons.\nCosts: 25\nUnlocks:\nStinger-gun,
+    wunderwaffen,\n baseball bat, battering ram,\n swordfish \nand weaponized -eel.\n\n\n"
 --- !u!222 &1140852037
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9242,7 +9217,7 @@ Canvas:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1227919545}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_RenderMode: 2
   m_Camera: {fileID: 401732406}
@@ -9353,7 +9328,7 @@ RectTransform:
   m_RootOrder: 16
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10.955765, y: 30.285133}
+  m_AnchoredPosition: {x: -17.5, y: 43.7}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1287291369
@@ -9639,13 +9614,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'The Shrimp pistol
+  m_Text: 'The Wunderwaffen, this incredible weapon can do all damage-types. YOu can
+    cycle through these types by pressing right mouse-button.
 
-    Damage:
+    Damage-types: All types
 
-    Cost:
+    Cost: 30
 
-    Build from:'
+    Build from: Weaponsmith'
 --- !u!222 &1309108971
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9781,9 +9757,9 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 926, y: -33.2}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 945, y: -41.92652}
+  m_SizeDelta: {x: 138, y: 151}
+  m_Pivot: {x: 0.5, y: 0.6130694}
 --- !u!114 &1338105034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10712,13 +10688,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'The Shrimp pistol
+  m_Text: 'The swordfish, This dangerous fish does high damage but with a small knockback.
 
-    Damage:
+    Damage-type:Water
 
-    Cost:
+    Cost: 10
 
-    Build from:'
+    Build from: Weaponsmith'
 --- !u!222 &1503695854
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12159,7 +12135,7 @@ RectTransform:
   m_RootOrder: 23
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -26.340446, y: 30.285133}
+  m_AnchoredPosition: {x: -37.9, y: 43.7}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1778684626
@@ -12513,7 +12489,7 @@ RectTransform:
   m_RootOrder: 22
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -26.573547, y: 43.343025}
+  m_AnchoredPosition: {x: -38.9, y: 62.1}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1794625414
@@ -13875,13 +13851,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'The Shrimp pistol
+  m_Text: 'Has a slow rate of fire, but high damage and stuns enemies, making them
+    unable to move for a short time.
 
-    Damage:
+    Damage-type: Water
 
-    Cost:
+    Cost: Free
 
-    Build from:'
+    Build from: Gearshack'
 --- !u!222 &1900695156
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14754,7 +14731,7 @@ RectTransform:
   m_RootOrder: 19
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 17.715698, y: 14.936388}
+  m_AnchoredPosition: {x: 19, y: 23.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2025312401
@@ -15734,7 +15711,8 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "The Techsmith.\nThe tech smith allows you too make the most \nadvanced
-    gadget you can have.\nCost: 25 units\nUnlocks: Player flood lights\nAdvanced GPS"
+    gadget you can have.\nCost: 25 units\nUnlocks: Player flood lights\nBase Flood
+    lights,\nWall upgrades"
 --- !u!222 &2145801188
 CanvasRenderer:
   m_ObjectHideFlags: 0
