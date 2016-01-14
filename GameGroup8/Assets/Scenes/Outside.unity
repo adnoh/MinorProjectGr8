@@ -191,7 +191,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5347427}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3101fbd2992b3604fab0b0787742748c, type: 3}
+  m_Script: {fileID: 11500000, guid: 09026150aec7cf94597511bba54f0ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 266868245}
@@ -2714,7 +2714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   World_texture: {fileID: 2800000, guid: 238667b276b405f4e8475d9fecceb7eb, type: 3}
   Tree: {fileID: 147258, guid: 5bd6e7db15c9819439c8ea211dff03ba, type: 2}
-  PineTree: {fileID: 175854, guid: 0ef5451981ca44c4fa4a5573c0399d87, type: 2}
+  PineTree: {fileID: 175854, guid: a9a9935879a2d504bb52db894478cfa7, type: 2}
   nrTrees: 450
   C_Building: {fileID: 157494, guid: 40cd2daa8b61d144c9b89a515d2e7c57, type: 2}
   House: {fileID: 179942, guid: b4955279ef2bfe34289f1b66ebe9321e, type: 2}
@@ -7365,12 +7365,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 610627895}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a44883fa04658a49b4aeee5186b1d5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ed58e8a67dbfe14a91e7fae8caafcdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   addScoreURL: http://80.60.131.231/groep8/Highscores/addscore.php?
   highscoreURL: http://80.60.131.231/groep8/Highscores/display_scores.php
-  higscoretext: {fileID: 0}
+  higscoretext: {fileID: 1911530930}
   playername: {fileID: 1235690921}
 --- !u!1 &613406353
 GameObject:
@@ -7561,17 +7561,6 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

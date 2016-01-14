@@ -24,7 +24,7 @@ public class PSpawner : MonoBehaviour {
     /// <param name="place"></param>
 	public void placeUnit(Vector3 place){
 		GameObject unitClone = unit;
-		unitClone.transform.Rotate (new Vector3 (-90, 0, 0));
+		unitClone.transform.Rotate (-90, 0, 0);
 		Instantiate (unitClone, new Vector3(place.x, 1, place.z), Quaternion.identity);
 	}
 
@@ -39,14 +39,14 @@ public class PSpawner : MonoBehaviour {
         for (int i = 0; i < 2; i++)
         {
             GameObject healthUnitClone = healthUnit;
-            healthUnitClone.transform.Rotate(new Vector3(-90, 0, 0));
             Instantiate(healthUnitClone, getRandomPosition(), Quaternion.identity);
+            healthUnitClone.transform.Rotate(new Vector3(-90, 0, 0));
             GameObject energyUnitClone = energyUnit;
-            energyUnitClone.transform.Rotate(new Vector3(-90, 0, 0));
             Instantiate(energyUnitClone, getRandomPosition(), Quaternion.identity);
+            energyUnitClone.transform.Rotate(new Vector3(-90, 0, 0));
             GameObject fatiqueUnitClone = fatiqueUnit;
-            fatiqueUnitClone.transform.Rotate(new Vector3(-90, 0, 0));
             Instantiate(fatiqueUnitClone, getRandomPosition(), Quaternion.identity);
+            fatiqueUnitClone.transform.Rotate(new Vector3(-90, 0, 0));
         }
     }
 
