@@ -7,34 +7,20 @@ public class MenuControl : MonoBehaviour {
 
 	public Canvas Main;
 	public Canvas Options;
-	SaveBase savebase;
-
-	void Awake(){
-		savebase = GetComponent<SaveBase> (); 
-	}
-
+	
 	void Start () {
 
 		Options = Options.GetComponent<Canvas> ();
 		Options.enabled = false;
 	}
 
-	void Update(){
 
-		/// 
-		if ( Input.GetKeyDown(KeyCode.K))
-		{
-			// TestMySql ();
-		}
-	
-	}
 
 
     IEnumerator startTutorial()
     {
         yield return new WaitForSeconds(2);
-        GameStateController.newgame = true;
-        // Application.LoadLevel (1);
+        GameStateController.newgame = true;        
         SceneManager.LoadScene(3);
     }
 
@@ -56,18 +42,10 @@ public class MenuControl : MonoBehaviour {
 
 	public void LoadGame(){
         StartCoroutine(LoadGame_());
-        //GameStateController.newgame = false;
-        //SceneManager.LoadScene(1);
     }
 
-
-
-	/*
-	public void TestMySql()
-	{
-		savebase.Test();
-		Debug.Log ("1");
-	}
-	*/
-
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
