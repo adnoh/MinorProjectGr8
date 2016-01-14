@@ -10,6 +10,7 @@ public class PSpawner : MonoBehaviour {
     public GameObject healthUnit;
     public GameObject energyUnit;
     public GameObject fatiqueUnit;
+    public GameObject baseUnit;
     public int amount;
 	public int minL, minR, maxL, maxR;
 	
@@ -50,6 +51,10 @@ public class PSpawner : MonoBehaviour {
             Instantiate(fatiqueUnitClone, getRandomPosition(), Quaternion.identity);
             //fatiqueUnitClone.transform.Rotate(270, 0, 0);
 
+            GameObject baseUnitClone = baseUnit;
+            Instantiate(baseUnitClone, getRandomPosition(), Quaternion.identity);
+            //fatiqueUnitClone.transform.Rotate(270, 0, 0);
+
         }
     }
 
@@ -82,7 +87,7 @@ public class PSpawner : MonoBehaviour {
         x = 0;
         y = 0;
         z = 0;
-        int random1 = Random.Range(0, 5);
+        int random1 = Random.Range(1, 5);
 
         switch (random1)
         {
