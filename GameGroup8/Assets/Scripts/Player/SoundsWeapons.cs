@@ -19,7 +19,7 @@ public class SoundsWeapons : MonoBehaviour {
     private AudioSource[] Eel;
     private AudioSource[] Wunder;
 
-    private AudioSource[][] Sounds;
+    private AudioSource[][] Sounds = new AudioSource[8][];
 
     private bool playing = false;
     private int soundNr;

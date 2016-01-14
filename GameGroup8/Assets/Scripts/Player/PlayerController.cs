@@ -45,8 +45,11 @@ public class PlayerController : MonoBehaviour {
     public bool binded;
     public float speedMultiplier = 1f;
 
+    private SoundsPlayer PlayerSounds;
+
 	public void Start(){
         playerAnimator = GetComponent<Animator>();
+        PlayerSounds = gameObject.GetComponent<SoundsPlayer>();
     }
 
 	public void FirstLoad() {
@@ -155,8 +158,10 @@ public class PlayerController : MonoBehaviour {
 		if ((moveHorizontal != 0 || moveVertical != 0) && !binded) {
 			playerAnimator.SetBool ("walking", true);
 			transform.Translate (speedMultiplier * PlayerAttributes.getSpeed () * moveHorizontal, 0.0f, speedMultiplier * PlayerAttributes.getSpeed () * moveVertical, Space.World);
+            PlayerSounds.PlayWalk();
 		} else {
 			playerAnimator.SetBool ("walking", false);
+            PlayerSounds.StopWalk();
 		}
 			
         
