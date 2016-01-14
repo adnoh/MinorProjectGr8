@@ -115,6 +115,7 @@ public class Seeker : MonoBehaviour
         if (col.gameObject.CompareTag("BASE"))
         {
             withinBaseRange = true;
+            StopCoroutine("FollowPath");
         }
     }
 
