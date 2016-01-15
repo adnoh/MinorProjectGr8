@@ -712,7 +712,7 @@ public class BaseController : MonoBehaviour{
             Arealight.SetActive(true);
 
             LightUpgrade.text = "";
-            BaseLightUpgradeBtn.text = "bought";
+            LightUpgradeBtn.text = "bought";
         }
     }
 }

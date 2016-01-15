@@ -159,6 +159,7 @@ public class PlayerAttributes : MonoBehaviour {
 
 	public static void takeDamage(int damage){
 		health -= damage;
+        GameObject.Find("player").GetComponent<SoundsPlayer>().PlayHit();           // Sound
 	}
 
 	public static void regenerate(){

@@ -31,7 +31,17 @@ public class SoundsPlayer : MonoBehaviour {
         {
             Sounds[0].Play();
             playwalk = true;
-            StartCoroutine("WalkPlay");
+            StartCoroutine(WalkPlay());
+        }
+    }
+
+    public void PlayRun()
+    {
+        if (playwalk == false)
+        {
+            Sounds[0].Play();
+            playwalk = true;
+            StartCoroutine(RunPlay());
         }
     }
 
@@ -61,7 +71,14 @@ public class SoundsPlayer : MonoBehaviour {
 
     IEnumerator WalkPlay()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
+        playwalk = false;
+        yield return null;
+    }
+
+    IEnumerator RunPlay()
+    {
+        yield return new WaitForSeconds(0.4f);
         playwalk = false;
         yield return null;
     }
