@@ -11121,7 +11121,7 @@ MonoBehaviour:
   highscoreURL: http://80.60.131.231/groep8/Highscores/display_scores.php
   higscoretext: {fileID: 1911530930}
   playername: {fileID: 1235690921}
-  playername2: {fileID: 0}
+  playername2: {fileID: 1220779646}
 --- !u!1 &613406353
 GameObject:
   m_ObjectHideFlags: 0
