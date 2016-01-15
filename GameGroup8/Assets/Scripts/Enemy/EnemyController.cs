@@ -226,7 +226,6 @@ public class EnemyController : MonoBehaviour {
         }
         if ((!this.gameObject.name.Equals("DesertEaglePrefab(Clone)") || !this.gameObject.name.Equals("MeepMeepPrefab(Clone)")) && Vector3.Distance(this.gameObject.transform.position, GameObject.Find("player").transform.position) < 5)
         {
-            isWithinRange = true;
             shotByPlayer = true;
             wanderingTime = -1;
         }
