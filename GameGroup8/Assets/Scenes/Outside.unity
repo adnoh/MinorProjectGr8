@@ -107,6 +107,7 @@ GameObject:
   - 114: {fileID: 5347442}
   - 114: {fileID: 5347437}
   - 114: {fileID: 5347433}
+  - 114: {fileID: 5347443}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -242,9 +243,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5347427}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a823d6648685534e883247b5003d5f4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b77c9810746530439212dad67a86784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Pause_SaveGameToCloud: {fileID: 0}
 --- !u!114 &5347438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,6 +395,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 237996650}
+--- !u!114 &5347443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 5347427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 757acf3f87a98784a8cc875d6516aaf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sharky:
+  - {fileID: 8300000, guid: ea1a45c4a9154174ca5b8e7607f06d79, type: 3}
+  Firefox:
+  - {fileID: 8300000, guid: 2d005142f7c843b4c9cf1355c34d06b9, type: 3}
+  DesertEagle:
+  - {fileID: 8300000, guid: e1157db3d9e1bfa47ac27d9d0664ff8a, type: 3}
+  - {fileID: 8300000, guid: 94c92675bc6c07243a12cf12d80e3b0c, type: 3}
+  - {fileID: 8300000, guid: 620644824310e4347be13c0c1b859b8d, type: 3}
+  - {fileID: 8300000, guid: 296289af525df2547bb0419be786b4dd, type: 3}
+  PolarBear:
+  - {fileID: 8300000, guid: cd4e8357cd61481489124989553893e9, type: 3}
+  - {fileID: 8300000, guid: 9b1fc47bb8a8e1e4e8c1f6a5781a1637, type: 3}
+  - {fileID: 8300000, guid: 0cb1124360f695842ace53c3c85792b8, type: 3}
+  - {fileID: 8300000, guid: 1a20582737d432f47a2dd181dd4e2bc6, type: 3}
+  Oilfant:
+  - {fileID: 8300000, guid: 0ff7b002865af72489f05cf84db77a53, type: 3}
+  - {fileID: 8300000, guid: 6f32e1174fd29d542ab347d9ee25db51, type: 3}
+  - {fileID: 8300000, guid: 61ea14005c9d7b642a415c3c8c372f42, type: 3}
+  - {fileID: 8300000, guid: bed414a7afc7c924a99e5cdae812ea5b, type: 3}
+  Meep:
+  - {fileID: 8300000, guid: 01096d6a28e9bc3448bedfe8a77ae163, type: 3}
 --- !u!1 &12619072
 GameObject:
   m_ObjectHideFlags: 0
@@ -8971,6 +9005,14 @@ Prefab:
       propertyPath: energyText
       value: 
       objectReference: {fileID: 1827383730}
+    - target: {fileID: 11478670, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
+      propertyPath: brightness
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11405916, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
+      propertyPath: brightness
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
   m_IsPrefabParent: 0
