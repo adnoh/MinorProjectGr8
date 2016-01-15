@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class sfxpause : MonoBehaviour
+public class sfxmenu : MonoBehaviour
 {
 
     public AudioSource zoomaudio;
