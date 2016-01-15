@@ -3,69 +3,64 @@ using System.Collections;
 
 public class ButtonAnimation : MonoBehaviour {
 
+    // Canvas of the main menu
     public Canvas can1;
     public Canvas can2;
     public Canvas can3;
     public Canvas can4;
     public Canvas can5;
+    // The time it takes for the animation to play
     public float wait;
 
-    IEnumerator MyMethod1()
+
+    // the canvases are disabled for the wait time and afterwards activated
+    IEnumerator PageFlipWait1()
     {
-        Debug.Log("Before Waiting 2 seconds");
         can1.gameObject.SetActive(false);
         yield return new WaitForSeconds(wait);
-        Debug.Log("After Waiting 2 Seconds");
         can1.gameObject.SetActive(true);
     }
 
-    IEnumerator MyMethod2()
+    IEnumerator PageFlipWait2()
     {
-        Debug.Log("Before Waiting 2 seconds");
          can2.gameObject.SetActive(false);
         yield return new WaitForSeconds(wait);
-        Debug.Log("After Waiting 2 Seconds");
         can2.gameObject.SetActive(true);
     }
 
-    IEnumerator MyMethod3()
+    IEnumerator PageFlipWait3()
     {
-        Debug.Log("Before Waiting 2 seconds");
         can3.gameObject.SetActive(false);
         yield return new WaitForSeconds(wait);
-        Debug.Log("After Waiting 2 Seconds");
         can3.gameObject.SetActive(true);
     }
 
-    IEnumerator MyMethod4()
+    IEnumerator PageFlipWait4()
     {
-        Debug.Log("Before Waiting 2 seconds");
         can4.gameObject.SetActive(false);
         yield return new WaitForSeconds(wait);
-        Debug.Log("After Waiting 2 Seconds");
         can4.gameObject.SetActive(true);
     }
 
-    IEnumerator MyMethod5()
+    IEnumerator PageFlipWait5()
     {
-        Debug.Log("Before Waiting 2 seconds");
         can5.gameObject.SetActive(false);
         yield return new WaitForSeconds(wait);
-        Debug.Log("After Waiting 2 Seconds");
         can5.gameObject.SetActive(true);
     }
 
+    // the animation and sound is played and the Coroutine started
     public void PlayAnimation()
     {
         AudioSource audio = GetComponent<AudioSource>();
         audio.Play();
-        Animation anim = GetComponent<Animation>();
+  
 
         GetComponent<Animator>().Play("bookert_");
         if (can1.gameObject.activeSelf == true)
         {
         
-            StartCoroutine(MyMethod1());
+            StartCoroutine(PageFlipWait1());
             
         }
 
@@ -73,27 +68,27 @@ public class ButtonAnimation : MonoBehaviour {
         if (can2.gameObject.activeSelf == true)
         {
          
-            StartCoroutine(MyMethod2());
+            StartCoroutine(PageFlipWait2());
             
         }
 
         if (can3.gameObject.activeSelf == true)
         {
             
-            StartCoroutine(MyMethod3());
+            StartCoroutine(PageFlipWait3());
           
         }
         if (can4.gameObject.activeSelf == true)
         {
            
-            StartCoroutine(MyMethod4());
+            StartCoroutine(PageFlipWait4());
            
         }
 
         if (can5.gameObject.activeSelf == true)
         {
             
-            StartCoroutine(MyMethod5());
+            StartCoroutine(PageFlipWait5());
            
         }
  

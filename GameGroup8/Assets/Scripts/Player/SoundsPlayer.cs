@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class SoundsPlayer : MonoBehaviour {
 
@@ -7,6 +8,7 @@ public class SoundsPlayer : MonoBehaviour {
     public AudioClip dead;
 
     private AudioSource[] Sounds;
+    private bool playwalk = false;
 
 	void Start () {
         Sounds = new AudioSource[4];
@@ -24,7 +26,28 @@ public class SoundsPlayer : MonoBehaviour {
 	
 	public void PlayWalk()
     {
-        Sounds[0].Play();
+        
+        if (playwalk == false)
+        {
+            Sounds[0].Play();
+            playwalk = true;
+            StartCoroutine(WalkPlay());
+        }
+    }
+
+    public void PlayRun()
+    {
+        if (playwalk == false)
+        {
+            Sounds[0].Play();
+            playwalk = true;
+            StartCoroutine(RunPlay());
+        }
+    }
+
+    public void StopWalk()
+    {
+        Sounds[0].Stop();
     }
 
     public void PlayHit()
@@ -44,5 +67,19 @@ public class SoundsPlayer : MonoBehaviour {
     public void PlayDead()
     {
         Sounds[3].Play();
+    }
+
+    IEnumerator WalkPlay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        playwalk = false;
+        yield return null;
+    }
+
+    IEnumerator RunPlay()
+    {
+        yield return new WaitForSeconds(0.4f);
+        playwalk = false;
+        yield return null;
     }
 }

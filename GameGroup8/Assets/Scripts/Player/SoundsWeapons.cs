@@ -19,7 +19,7 @@ public class SoundsWeapons : MonoBehaviour {
     private AudioSource[] Eel;
     private AudioSource[] Wunder;
 
-    private AudioSource[][] Sounds;
+    private AudioSource[][] Sounds = new AudioSource[8][];
 
     private bool playing = false;
     private int soundNr;
@@ -72,6 +72,7 @@ public class SoundsWeapons : MonoBehaviour {
         {
             sounds[i] = weapon.AddComponent<AudioSource>();
             sounds[i].clip = soundsStinger[i];
+            sounds[i].loop = true; 
         }
 
         return sounds;
@@ -99,6 +100,8 @@ public class SoundsWeapons : MonoBehaviour {
             sounds[i] = weapon.AddComponent<AudioSource>();
             sounds[i].clip = soundsEel[i];
         }
+
+        sounds[1].loop = true;
 
         return sounds;
     }
@@ -142,11 +145,32 @@ public class SoundsWeapons : MonoBehaviour {
 
         if (playing == false)
         {
-            soundNr = Random.Range(0, sounds.Length);
-            WeaponFire = sounds[soundNr];
-            playing = true;
-            StartCoroutine("WeaponShot");
+            if (weapon != 2 && weapon != 3)
+            {
+                soundNr = Random.Range(0, sounds.Length - 1);
+                WeaponFire = sounds[soundNr];
+                playing = true;
+                StartCoroutine(WeaponShot());
+            }
+            else if (weapon == 2 || weapon == 3)
+            {
+                if (weapon == 2)
+                    soundNr = 0;
+                else if (weapon == 3)
+                    soundNr = 1;
+
+                WeaponFire = sounds[soundNr];
+                playing = true;
+                StartCoroutine(WaspShot());
+            }
         }
+    }
+
+    public void StopWeaponsound(int weapon)
+    {
+        AudioSource[] sounds = Sounds[weapon];
+        sounds[soundNr].Stop();
+        playing = false;
     }
 
     IEnumerator WeaponShot()
@@ -155,6 +179,12 @@ public class SoundsWeapons : MonoBehaviour {
         yield return new WaitForSeconds(0.5f);
         WeaponFire.Stop();
         playing = false;
+        yield return null;
+    }
+
+    IEnumerator WaspShot()
+    {
+        WeaponFire.Play();
         yield return null;
     }
 }

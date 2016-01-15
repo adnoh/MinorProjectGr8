@@ -27,8 +27,8 @@ public class SaveBase : MonoBehaviour
     public Button loadfromcloud;
     public Button savefromcloud;
 
-    static bool loggedIn = false;
-	static string LoggedInUser;
+    public static bool loggedIn = false;
+	public static string LoggedInUser;
 	static string LoggedInPwd;
     static int LoggedInId;
 

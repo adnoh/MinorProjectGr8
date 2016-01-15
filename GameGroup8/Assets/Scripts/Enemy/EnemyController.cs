@@ -62,6 +62,8 @@ public class EnemyController : MonoBehaviour {
 
     private List<EnemyController> otherEnemies = new List<EnemyController>();
 
+    SoundsEnemies Sound;
+
     void Start()
     {
         wanderingTime = Random.Range(5.0f, 15.0f) + Time.time;

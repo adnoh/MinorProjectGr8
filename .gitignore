@@ -44,3 +44,11 @@ GameGroup8/Assets/saves/Player.xml
 GameGroup8/Assets/saves/moon.xml
 GameGroup8/Assets/saves/world.xml
 *.xml
+GameGroup8/Assets/saves/base.xml.meta
+GameGroup8/Assets/saves/sun.xml.meta
+GameGroup8/Assets/saves/world.xml.meta
+GameGroup8/Assets/saves/Player.xml.meta
+GameGroup8/Assets/saves/monsters.xml.meta
+GameGroup8/Assets/saves/turrets.xml.meta
+GameGroup8/Assets/saves/outside.xml.meta
+GameGroup8/Assets/saves/moon.xml.meta

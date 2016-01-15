@@ -38,6 +38,9 @@ public class PlayerAttacker : MonoBehaviour {
 
 	public GameObject[] weapons = new GameObject[8];
 
+    private SoundsPlayer PlayerSounds;
+    private SoundsWeapons WeaponsSounds;
+
     Score _score;
 	
 	void Start () {
@@ -58,6 +61,11 @@ public class PlayerAttacker : MonoBehaviour {
 		playerAnimator = gameObject.GetComponent<Animator> ();
         pSys1.enableEmission = false;
         pSys2.enableEmission = false;
+
+        PlayerSounds = gameObject.GetComponent<SoundsPlayer>();
+        WeaponsSounds = gameObject.GetComponent<SoundsWeapons>();
+
+        WeaponsSounds.loadGunSounds(gameObject);
     }
 	
 	void Update () {
@@ -77,6 +85,7 @@ public class PlayerAttacker : MonoBehaviour {
 			if(currentWeapon.getIfElectric() && Input.GetMouseButton(0)){
                 pSys1.enableEmission = true;
                 pSys2.enableEmission = true;
+                WeaponsSounds.playWeaponSound(currentWeaponInt - 1);                            //Sound
                 GameObject[] nearbyEnemies = GameObject.FindGameObjectsWithTag("Enemy");
                 Vector3 placeOfLightning = pSys1.transform.position;
                 for (int i = 0; i < nearbyEnemies.Length; i++) {
@@ -115,7 +124,8 @@ public class PlayerAttacker : MonoBehaviour {
                 bulletClone.transform.Rotate(90, 0, 0);
 				bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
                 Analytics.fireShot();
-			}
+                WeaponsSounds.playWeaponSound(currentWeaponInt - 1);                            //Sound
+            }
            
             if (!currentWeapon.getIfAutomatic() && Input.GetMouseButtonDown(0) && Time.time > nextAttack && !currentWeapon.getIfMelee()){
 				nextAttack = Time.time + currentWeapon.getAttackSpeed();
@@ -128,12 +138,14 @@ public class PlayerAttacker : MonoBehaviour {
                 bulletClone.transform.Rotate(90, 0, 0);
 				bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
                 Analytics.fireShot();
+                WeaponsSounds.playWeaponSound(currentWeaponInt - 1);                            //Sound
             }
 			if (Input.GetMouseButtonDown(0) && Time.time > nextAttack && currentWeapon.getIfMelee()){
 				Debug.Log (true);
 				playerAnimator.SetBool ("attack", true);
 				nextAttack = Time.time + currentWeapon.getAttackSpeed();
-				if(lastAttackedEnemy != null){
+                WeaponsSounds.playWeaponSound(currentWeaponInt - 1);                            //Sound
+                if (lastAttackedEnemy != null){
 					int damage = (int)(Random.Range (currentWeapon.getWeaponDamage(), currentWeapon.getWeaponDamage() + 10) * currentWeapon.getType ().damageMultiplierToType(lastAttackedEnemy.getType()) * PlayerAttributes.getAttackMultiplier());
 					lastAttackedEnemy.setHealth(lastAttackedEnemy.getHealth () - damage);
 					//lastAttackedEnemy.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3((this.gameObject.transform.position.x - lastAttackedEnemy.gameObject.transform.position.x) * currentWeapon.getKnockBack(), 0, (this.gameObject.transform.position.z - lastAttackedEnemy.gameObject.transform.position.z) * currentWeapon.getKnockBack())); 
@@ -152,6 +164,10 @@ public class PlayerAttacker : MonoBehaviour {
 					}
 				}
 			}
+            if ((currentWeaponInt == 3 || currentWeaponInt == 4) && Input.GetMouseButtonUp(0))
+            {
+                WeaponsSounds.StopWeaponsound(currentWeaponInt - 1);
+            }
 
 			if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1)) && unlocked[0]){
 				currentWeapon = weaponFactory.getPistol();
