@@ -101,7 +101,7 @@ public class PlayerAttributes : MonoBehaviour {
 	public void upgradeSpeed(){
 		if (pointsToUpgrade > 0) {
 			speedPoints++;
-			maxWalkingSpeed = 5f + (float)speedPoints * 0.5f;
+			maxWalkingSpeed = 5f + (float)speedPoints * 0.1f;
             runningSpeed = maxWalkingSpeed * 2;
 			speedPointsText.text = "Speed Points: " + speedPoints;
 			pointsToUpgrade --;
@@ -124,7 +124,7 @@ public class PlayerAttributes : MonoBehaviour {
 	public void upgradeMaxEnergy(){
 		if (pointsToUpgrade > 0) {
 			maxEnergyPoints++;
-			maxEnergy = 100 + 5 * maxEnergyPoints;
+			maxEnergy = 500 + 20 * maxEnergyPoints;
 			energyPointsText.text = "Max Energy Points: " + maxEnergyPoints;
 			pointsToUpgrade --;
 			pointsToAssignText.text = "Points to assign " + pointsToUpgrade;

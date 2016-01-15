@@ -193,6 +193,11 @@ public class EnemyController : MonoBehaviour {
             this.gameObject.transform.LookAt(otherEnemies[0].gameObject.transform);
             transform.position = Vector3.MoveTowards(transform.position, otherEnemies[0].gameObject.transform.position, updatedSpeed * Time.deltaTime);
         }
+        else if(this.gameObject.name.Equals("MeepMeepPrefab(Clone)") && otherEnemies.Count == 0)
+        {
+            wandering = true;
+            wanderingTime = 1f + Time.time;
+        }
 
         if(wanderingTime - Time.time > 0)
         {
