@@ -243,9 +243,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5347427}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a823d6648685534e883247b5003d5f4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b77c9810746530439212dad67a86784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Pause_SaveGameToCloud: {fileID: 0}
 --- !u!114 &5347438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11120,6 +11121,7 @@ MonoBehaviour:
   highscoreURL: http://80.60.131.231/groep8/Highscores/display_scores.php
   higscoretext: {fileID: 1911530930}
   playername: {fileID: 1235690921}
+  playername2: {fileID: 0}
 --- !u!1 &613406353
 GameObject:
   m_ObjectHideFlags: 0
