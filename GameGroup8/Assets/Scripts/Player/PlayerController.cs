@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour {
 	public Slider fatiqueBar;    
 
 	public float regenerationTime = 20.0f;
-	public float regenerationTimeInBase = 20.0f;
 	private float timeToRegenerate = 20.0f;
 
 	public static int amountOfBeds = 0;
@@ -122,11 +121,7 @@ public class PlayerController : MonoBehaviour {
 
 		if (PlayerAttributes.getHealth() < PlayerAttributes.getMaxHealth() && Time.time > timeToRegenerate && !BaseController.pause) {
 			PlayerAttributes.regenerate ();
-			timeToRegenerate = Time.time + regenerationTime;
-		}
-		if (PlayerAttributes.getHealth() < PlayerAttributes.getMaxHealth() && Time.time > timeToRegenerate && BaseController.pause) {
-			PlayerAttributes.regenerate ();
-			timeToRegenerate = Time.time + regenerationTimeInBase / (1 + amountOfBeds);
+			timeToRegenerate = Time.time + regenerationTime / (1 + amountOfBeds);
 		}
 
 		if (PlayerAttributes.pointsToUpgrade > 0 && Time.time > timeToFlash) {

@@ -2,12 +2,12 @@
 
 public class SoundsEnemies : MonoBehaviour {
 
-    public AudioClip[] Sharky;
-    public AudioClip[] Firefox;
-    public AudioClip[] DesertEagle;
-    public AudioClip[] PolarBear;
-    public AudioClip[] Oilfant;
-    public AudioClip[] Meep;
+    public AudioClip[] Sharky = new AudioClip[1];
+    public AudioClip[] Firefox = new AudioClip[1];
+    public AudioClip[] DesertEagle = new AudioClip[1];
+    public AudioClip[] PolarBear = new AudioClip[1];
+    public AudioClip[] Oilfant = new AudioClip[1];
+    public AudioClip[] Meep = new AudioClip[1];
 
     private float Volume;
 
