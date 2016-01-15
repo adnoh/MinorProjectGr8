@@ -107,6 +107,7 @@ GameObject:
   - 114: {fileID: 5347442}
   - 114: {fileID: 5347437}
   - 114: {fileID: 5347433}
+  - 114: {fileID: 5347443}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -242,9 +243,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5347427}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a823d6648685534e883247b5003d5f4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b77c9810746530439212dad67a86784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Pause_SaveGameToCloud: {fileID: 0}
 --- !u!114 &5347438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,6 +395,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 237996650}
+--- !u!114 &5347443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 5347427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 757acf3f87a98784a8cc875d6516aaf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sharky: []
+  Firefox: []
+  DesertEagle: []
+  PolarBear: []
+  Oilfant: []
+  Meep: []
 --- !u!1 &12619072
 GameObject:
   m_ObjectHideFlags: 0
@@ -2287,6 +2306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87629edba25d68446863f4d0151fc2bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brightness: 3
 --- !u!108 &56313242
 Light:
   m_ObjectHideFlags: 0
@@ -11101,6 +11121,7 @@ MonoBehaviour:
   highscoreURL: http://80.60.131.231/groep8/Highscores/display_scores.php
   higscoretext: {fileID: 1911530930}
   playername: {fileID: 1235690921}
+  playername2: {fileID: 0}
 --- !u!1 &613406353
 GameObject:
   m_ObjectHideFlags: 0
@@ -12532,6 +12553,10 @@ Prefab:
       propertyPath: pSys2
       value: 
       objectReference: {fileID: 84293123}
+    - target: {fileID: 13702748, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c2f528ee31152184d9310f7d619481b2, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
   m_IsPrefabParent: 0
@@ -15667,6 +15692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87629edba25d68446863f4d0151fc2bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brightness: 1
 --- !u!1 &982487908
 GameObject:
   m_ObjectHideFlags: 0
@@ -30046,7 +30072,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1905394258}
-  m_LocalRotation: {x: 0.000000115202326, y: 0.7071067, z: 0.7071068, w: -0.00000011520231}
+  m_LocalRotation: {x: 0.7069844, y: 0, z: 0, w: -0.7072292}
   m_LocalPosition: {x: -5e-14, y: 1, z: -7.5}
   m_LocalScale: {x: 1.2520294, y: 0.5345665, z: 0.75}
   m_Children: []
@@ -30136,7 +30162,7 @@ MonoBehaviour:
   upgradeBuild2: {fileID: 133510160}
   upgradeBuild3: {fileID: 196718074}
   TechMenu: {fileID: 156561285}
-  LightUpgrade: {fileID: 1984078968}
+  LightUpgrade: {fileID: 811304072}
   LightUpgradeBtn: {fileID: 1072417593}
   BaseLightUpgrade: {fileID: 1977939325}
   BaseLightUpgradeBtn: {fileID: 1146103112}
