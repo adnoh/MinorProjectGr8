@@ -5,17 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class MenuControl : MonoBehaviour {
 
-	public Canvas Main;
-	public Canvas Options;
-	
-	void Start () {
-
-		Options = Options.GetComponent<Canvas> ();
-		Options.enabled = false;
-	}
-
-
-
 
     IEnumerator startTutorial()
     {
