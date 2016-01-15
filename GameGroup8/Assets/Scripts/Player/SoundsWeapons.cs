@@ -24,6 +24,12 @@ public class SoundsWeapons : MonoBehaviour {
     private bool playing = false;
     private int soundNr;
     private AudioSource WeaponFire;
+    private float Volume;
+
+    void Start()
+    {
+        Volume = PlayerPrefs.GetFloat("sfx option");
+    }
 
     AudioSource[] loadBatSounds(GameObject weapon)
     {
@@ -33,6 +39,7 @@ public class SoundsWeapons : MonoBehaviour {
         {
             sounds[i] = weapon.AddComponent<AudioSource>();
             sounds[i].clip = soundsBaseBat[i];
+            sounds[i].volume = Volume;
         }
 
         return sounds;
@@ -46,6 +53,7 @@ public class SoundsWeapons : MonoBehaviour {
         {
             sounds[i] = weapon.AddComponent<AudioSource>();
             sounds[i].clip = soundsPistol[i];
+            sounds[i].volume = Volume;
         }
 
         return sounds;
@@ -59,6 +67,7 @@ public class SoundsWeapons : MonoBehaviour {
         {
             sounds[i] = weapon.AddComponent<AudioSource>();
             sounds[i].clip = soundsRam[i];
+            sounds[i].volume = Volume;
         }
 
         return sounds;
@@ -72,7 +81,8 @@ public class SoundsWeapons : MonoBehaviour {
         {
             sounds[i] = weapon.AddComponent<AudioSource>();
             sounds[i].clip = soundsStinger[i];
-            sounds[i].loop = true; 
+            sounds[i].loop = true;
+            sounds[i].volume = Volume;
         }
 
         return sounds;
@@ -86,6 +96,7 @@ public class SoundsWeapons : MonoBehaviour {
         {
             sounds[i] = weapon.AddComponent<AudioSource>();
             sounds[i].clip = soundsSwordFish[i];
+            sounds[i].volume = Volume;
         }
 
         return sounds;
@@ -99,6 +110,7 @@ public class SoundsWeapons : MonoBehaviour {
         {
             sounds[i] = weapon.AddComponent<AudioSource>();
             sounds[i].clip = soundsEel[i];
+            sounds[i].volume = Volume;
         }
 
         sounds[1].loop = true;
@@ -114,6 +126,7 @@ public class SoundsWeapons : MonoBehaviour {
         {
             sounds[i] = weapon.AddComponent<AudioSource>();
             sounds[i].clip = soundsWunderWaffen[i];
+            sounds[i].volume = Volume;
         }
 
         return sounds;
