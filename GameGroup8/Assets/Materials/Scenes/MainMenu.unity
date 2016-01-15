@@ -444,6 +444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b77c9810746530439212dad67a86784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Pause_SaveGameToCloud: {fileID: 0}
 --- !u!1 &28998824
 GameObject:
   m_ObjectHideFlags: 0
@@ -2459,6 +2460,7 @@ MonoBehaviour:
   highscoreURL: http://80.60.131.231/groep8/Highscores/display_scores.php
   higscoretext: {fileID: 1131645263}
   playername: {fileID: 0}
+  playername2: {fileID: 0}
 --- !u!114 &576461499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4349,7 +4351,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -774.22046}
+  m_AnchoredPosition: {x: 0, y: -1630.0422}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1131645263
@@ -5783,6 +5785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b77c9810746530439212dad67a86784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Pause_SaveGameToCloud: {fileID: 0}
 --- !u!1 &1466747943
 GameObject:
   m_ObjectHideFlags: 0
