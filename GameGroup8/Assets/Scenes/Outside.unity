@@ -260,6 +260,7 @@ MonoBehaviour:
   healthUnit: {fileID: 190298, guid: d1e7a0b4ded276b46b71cd30e1b7fddc, type: 2}
   energyUnit: {fileID: 181334, guid: f1ab31756389da94eb0a07df43e82f72, type: 2}
   fatiqueUnit: {fileID: 197028, guid: 094c07952463a014f852fa81ee5eac18, type: 2}
+  baseUnit: {fileID: 116618, guid: ddd0d7830d19d5c4f821610b5bd6d250, type: 2}
   amount: 100
   minL: -10
   minR: 10
@@ -5995,7 +5996,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 216480271c978f947bf0c112cf4dabc9, type: 2}
+  - {fileID: 2100000, guid: 240264021d882f8408b24ad3a5fc2a99, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -30045,9 +30046,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1905394258}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.25, z: -7.5}
-  m_LocalScale: {x: 2, y: 2.5, z: 1.5}
+  m_LocalRotation: {x: 0.000000115202326, y: 0.7071067, z: 0.7071068, w: -0.00000011520231}
+  m_LocalPosition: {x: -5e-14, y: 1, z: -7.5}
+  m_LocalScale: {x: 1.2520294, y: 0.5345665, z: 0.75}
   m_Children: []
   m_Father: {fileID: 323993197}
   m_RootOrder: 2
@@ -30061,7 +30062,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3cec194db9ed23040a689f4698bb04f3, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -30095,7 +30096,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1905394258}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 37591f8f265269743be074da6476adaa, type: 3}
 --- !u!114 &1905394263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30152,6 +30153,8 @@ MonoBehaviour:
   Arealight: {fileID: 977602434}
   BaseSpot: {fileID: 1374816354}
   Searchlights: {fileID: 1535564179}
+  boughtLights: 0
+  boughtFlashlight: 0
 --- !u!1 &1908640213
 GameObject:
   m_ObjectHideFlags: 0

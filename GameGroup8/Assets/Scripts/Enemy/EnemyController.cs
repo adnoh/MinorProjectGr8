@@ -213,6 +213,10 @@ public class EnemyController : MonoBehaviour {
             shotByPlayer = true;
             wanderingTime = -1;
         }
+        if (this.gameObject.name.Equals("DesertEaglePrefab(Clone)") && !wandering && Vector3.Distance(this.gameObject.transform.position, GameObject.Find("player").transform.position) > 12)
+        {
+            isWithinRange = false;
+        }
     }
 
     // Getters and setters
@@ -299,6 +303,10 @@ public class EnemyController : MonoBehaviour {
     }
 
     public void attack(){
+        if (this.gameObject.name.Equals("OilphantPrefab(Clone)"))
+        {
+            Debug.Log(nextAttack);
+        }
         if (!dead && !this.gameObject.Equals("MeepMeepPrefab(Clone)")){
             if (this.gameObject.name.Equals("DesertEaglePrefab(Clone)"))
             {

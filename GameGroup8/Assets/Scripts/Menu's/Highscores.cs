@@ -13,11 +13,20 @@ public class Highscores : MonoBehaviour
     public Text higscoretext;
 
     // currently an input field for both playername and score. Score must be an integer.
-    public InputField playername;    
+    public InputField playername;  
+    public Text playername2;  
     
     // needed for posting
     string player_name;
     int hi_score;
+
+    void Start()
+    {
+        if (SaveBase.loggedIn)
+        {
+            playername2.text = SaveBase.LoggedInUser;
+        }        
+    }
 
         
     public void StartGetScores()
@@ -25,9 +34,9 @@ public class Highscores : MonoBehaviour
         StartCoroutine(GetScores());
     }
 
-
     public void StartPostScores()
     {
+
         player_name = playername.text;
 		if (player_name != null) 
 		{

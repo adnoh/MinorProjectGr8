@@ -94,6 +94,7 @@ public class Bullet : MonoBehaviour {
         if (col.gameObject.name.Equals("player") && shotByEnemy)
         {
             PlayerAttributes.takeDamage(dmg);
+            GameObject.Destroy(this.gameObject);
             CameraShaker.shakeCamera();
         }
 

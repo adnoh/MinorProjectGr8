@@ -29,6 +29,7 @@ TagManager:
   - Health-Pick-Up
   - Energy-Pick-Up
   - Fatique-Pick-Up
+  - Base-Pick-Up
   layers:
   - Default
   - TransparentFX
