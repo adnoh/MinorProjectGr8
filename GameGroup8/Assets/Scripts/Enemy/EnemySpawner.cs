@@ -162,7 +162,7 @@ public class EnemySpawner : MonoBehaviour {
                         GameObject earthEnemyClone = fireFox;
                         var monster = earthEnemyClone.GetComponent<EnemyController>();
                         monster.setLevel(MonsterList[i].level);
-                        monster.setHealth(MonsterList[i].health);
+                        monster.setHealthFirstTime(MonsterList[i].health);
                         monster.setmaxhealth(MonsterList[i].maxHealth);
                         monster.setAttackPower(MonsterList[i].attackPower);
                         monster.setWalkingSpeed(MonsterList[i].walkingSpeed);
@@ -177,7 +177,7 @@ public class EnemySpawner : MonoBehaviour {
                         GameObject windEnemyClone = desertEagle;
                         var monster = windEnemyClone.GetComponent<EnemyController>();
                         monster.setLevel(MonsterList[i].level);
-                        monster.setHealth(MonsterList[i].health);
+                        monster.setHealthFirstTime(MonsterList[i].health);
                         monster.setmaxhealth(MonsterList[i].maxHealth);
                         monster.setAttackPower(MonsterList[i].attackPower);
                         monster.setWalkingSpeed(MonsterList[i].walkingSpeed);
@@ -192,7 +192,7 @@ public class EnemySpawner : MonoBehaviour {
                         GameObject waterEnemyClone = hammerHead;
                         var monster = waterEnemyClone.GetComponent<EnemyController>();
                         monster.setLevel(MonsterList[i].level);
-                        monster.setHealth(MonsterList[i].health);
+                        monster.setHealthFirstTime(MonsterList[i].health);
                         monster.setmaxhealth(MonsterList[i].maxHealth);
                         monster.setAttackPower(MonsterList[i].attackPower);
                         monster.setWalkingSpeed(MonsterList[i].walkingSpeed);
@@ -207,7 +207,7 @@ public class EnemySpawner : MonoBehaviour {
                         GameObject oilphantClone = oilPhant;
                         var monster = oilphantClone.GetComponent<EnemyController>();
                         monster.setLevel(MonsterList[i].level);
-                        monster.setHealth(MonsterList[i].health);
+                        monster.setHealthFirstTime(MonsterList[i].health);
                         monster.setmaxhealth(MonsterList[i].maxHealth);
                         monster.setAttackPower(MonsterList[i].attackPower);
                         monster.setWalkingSpeed(MonsterList[i].walkingSpeed);
@@ -222,7 +222,7 @@ public class EnemySpawner : MonoBehaviour {
                         GameObject meepMeepClone = meepMeep;
                         var monster = meepMeepClone.GetComponent<EnemyController>();
                         monster.setLevel(MonsterList[i].level);
-                        monster.setHealth(MonsterList[i].health);
+                        monster.setHealthFirstTime(MonsterList[i].health);
                         monster.setmaxhealth(MonsterList[i].maxHealth);
                         monster.setAttackPower(MonsterList[i].attackPower);
                         monster.setWalkingSpeed(MonsterList[i].walkingSpeed);
@@ -237,7 +237,7 @@ public class EnemySpawner : MonoBehaviour {
                         GameObject polarBearClone = polarBear;
                         var monster = polarBearClone.GetComponent<EnemyController>();
                         monster.setLevel(MonsterList[i].level);
-                        monster.setHealth(MonsterList[i].health);
+                        monster.setHealthFirstTime(MonsterList[i].health);
                         monster.setmaxhealth(MonsterList[i].maxHealth);
                         monster.setAttackPower(MonsterList[i].attackPower);
                         monster.setWalkingSpeed(MonsterList[i].walkingSpeed);

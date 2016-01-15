@@ -229,6 +229,12 @@ public class EnemyController : MonoBehaviour {
 		return maxHealth;
 	}
 
+    public void setHealthFirstTime(int health)
+    {
+        this.health = health;
+        wanderingTime = -1f;
+    }
+
 	public void setHealth(int health) {
 		this.health = health;
         wanderingTime = -1f;
