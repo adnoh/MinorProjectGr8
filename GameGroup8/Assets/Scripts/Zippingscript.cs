@@ -23,7 +23,7 @@ using Ionic.Zip;
             {
               foreach (ZipEntry e in zip)
                   {
-                e.Extract("", ExtractExistingFileAction.OverwriteSilently);
+                e.Extract("Assets/saves", ExtractExistingFileAction.OverwriteSilently);
             }
             }
 
@@ -34,16 +34,15 @@ using Ionic.Zip;
        
         using (ZipFile zip = new ZipFile())
             {
-              /*zip.AddFile("Assets/saves/base.xml");
-              zip.AddFile("Assets/saves/monsters.xml");
-             zip.AddFile("Assets/saves/moon.xml");
-            zip.AddFile("Assets/saves/outside.xml");
-            zip.AddFile("Assets/saves/Player.xml");
-            zip.AddFile("Assets/saves/sun.xml");
-            zip.AddFile("Assets/saves/turrets.xml");
-            zip.AddFile("Assets/saves/world.xml");
-            zip.Save("Assets/saves/Package.zip");*/
-            zip.AddDirectoryByName("saves");
+              zip.AddFile("Assets/saves/base.xml","");
+              zip.AddFile("Assets/saves/monsters.xml", "");
+             zip.AddFile("Assets/saves/moon.xml", "");
+            zip.AddFile("Assets/saves/outside.xml", "");
+            zip.AddFile("Assets/saves/Player.xml", "");
+            zip.AddFile("Assets/saves/sun.xml", "");
+            zip.AddFile("Assets/saves/turrets.xml", "");
+            zip.AddFile("Assets/saves/world.xml", "");
+            zip.Save("Assets/saves/Package.zip", "");
            }
     }
     }
