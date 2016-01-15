@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
+    path: Assets/Materials/Scenes/MainMenu.unity
   - enabled: 1
-    path: Assets/Scenes/Outside.unity
+    path: Assets/Materials/Scenes/Outside.unity
   - enabled: 1
-    path: Assets/Scenes/pausemenu.unity
+    path: Assets/Materials/Scenes/pausemenu.unity
   - enabled: 1
-    path: Assets/Scenes/Tutorial.unity
+    path: Assets/Materials/Scenes/Tutorial.unity
