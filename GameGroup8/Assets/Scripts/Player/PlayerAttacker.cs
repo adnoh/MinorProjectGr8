@@ -22,7 +22,7 @@ public class PlayerAttacker : MonoBehaviour {
 	public static bool[] unlocked = new bool[8];
 	public Text[] lockedUnlockedTexts = new Text[8];
 	public Text[] unitCostWeaponTexts = new Text[8];
-	private int currentWeaponInt;
+	public int currentWeaponInt = 1;
 
 	public Text typeOfWunderWaffenText;
 
@@ -66,6 +66,71 @@ public class PlayerAttacker : MonoBehaviour {
         WeaponsSounds = gameObject.GetComponent<SoundsWeapons>();
 
         WeaponsSounds.loadGunSounds(gameObject);
+        if (currentWeaponInt == 1)
+        {
+            currentWeapon = weaponFactory.getPistol();
+            playerAnimator.SetInteger("weapon", 1);
+            currentWeaponInt = 1;
+            setAllWeaponsUnactive();
+            weapons[0].SetActive(true);
+        }
+        if (currentWeaponInt == 2)
+        {
+            currentWeapon = weaponFactory.getShrimpPistol();
+            currentWeaponInt = 2;
+            playerAnimator.SetInteger("weapon", 1);
+            setAllWeaponsUnactive();
+            weapons[1].SetActive(true);
+        }
+        if (currentWeaponInt == 3)
+        {
+            currentWeapon = weaponFactory.getStingerGun();
+            currentWeaponInt = 3;
+            playerAnimator.SetInteger("weapon", 1);
+            setAllWeaponsUnactive();
+            weapons[2].SetActive(true);
+        }
+        if (currentWeaponInt == 4)
+        {
+            currentWeapon = weaponFactory.getWeaponizedEel();
+            currentWeaponInt = 4;
+            playerAnimator.SetInteger("weapon", 3);
+            setAllWeaponsUnactive();
+            weapons[3].SetActive(true);
+        }
+        if (currentWeaponInt == 5)
+        {
+            currentWeapon = weaponFactory.getWunderwuffen();
+            currentWeapon.setType(new Type(1));
+            currentWeaponInt = 5;
+            playerAnimator.SetInteger("weapon", 1);
+            setAllWeaponsUnactive();
+            weapons[4].SetActive(true);
+        }
+        if (currentWeaponInt == 6)
+        {
+            currentWeapon = weaponFactory.getBatteringRam();
+            currentWeaponInt = 6;
+            playerAnimator.SetInteger("weapon", 3);
+            setAllWeaponsUnactive();
+            weapons[5].SetActive(true);
+        }
+        if (currentWeaponInt == 7)
+        {
+            currentWeapon = weaponFactory.getSwordfish();
+            currentWeaponInt = 7;
+            playerAnimator.SetInteger("weapon", 2);
+            setAllWeaponsUnactive();
+            weapons[6].SetActive(true);
+        }
+        if (currentWeaponInt == 8)
+        {
+            currentWeapon = weaponFactory.getBaseballBat();
+            currentWeaponInt = 8;
+            playerAnimator.SetInteger("weapon", 2);
+            setAllWeaponsUnactive();
+            weapons[7].SetActive(true);
+        }
     }
 	
 	void Update () {

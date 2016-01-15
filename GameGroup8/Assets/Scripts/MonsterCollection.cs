@@ -224,6 +224,9 @@ public class Player
     public int health;
     public int fatique;
     public int energy;
+
+    public int currentWeapon;
+    public bool[] unlocked;
 	
 	public Player(){
 		var position = PlayerController.getPosition();
@@ -251,6 +254,8 @@ public class Player
         energy = PlayerAttributes.getEnergy();
         fatique = PlayerAttributes.getFatique();
 
+        currentWeapon = GameObject.Find("player").GetComponent<PlayerAttacker>().currentWeaponInt;
+        unlocked = PlayerAttacker.unlocked;
 
 
     }
@@ -533,6 +538,8 @@ public class MonsterCollection : MonoBehaviour
         PlayerAttributes.setEnergy(player.energy);
         PlayerAttributes.setFatique(player.fatique);
 
+        GameObject.Find("player").GetComponent<PlayerAttacker>().currentWeaponInt = player.currentWeapon;
+        PlayerAttacker.unlocked = player.unlocked;
     }
 
     public static void turretSave(string path){

@@ -195,7 +195,7 @@ public class PlayerController : MonoBehaviour {
         if (collider.gameObject.CompareTag("Health-Pick-Up") && this.gameObject.name.Equals("player"))
         {
             Destroy(collider.gameObject);
-            if(PlayerAttributes.getHealth() - PlayerAttributes.getMaxHealth() > 20)
+            if((PlayerAttributes.getMaxHealth() - PlayerAttributes.getHealth()) > 20)
             {
                 PlayerAttributes.setHealth(PlayerAttributes.getHealth() + 20);
             }
@@ -207,13 +207,13 @@ public class PlayerController : MonoBehaviour {
         if (collider.gameObject.CompareTag("Energy-Pick-Up") && this.gameObject.name.Equals("player"))
         {
             Destroy(collider.gameObject);
-            if (PlayerAttributes.getHealth() - PlayerAttributes.getMaxEnergy() > 20)
+            if ((PlayerAttributes.getMaxEnergy() - PlayerAttributes.getEnergy()) > 20)
             {
-                PlayerAttributes.setHealth(PlayerAttributes.getEnergy() + 20);
+                PlayerAttributes.setEnergy(PlayerAttributes.getEnergy() + 20);
             }
             else
             {
-                PlayerAttributes.setHealth(PlayerAttributes.getMaxEnergy());
+                PlayerAttributes.setEnergy(PlayerAttributes.getMaxEnergy());
             }
         }
         if (collider.gameObject.CompareTag("Fatique-Pick-Up") && this.gameObject.name.Equals("player"))
