@@ -139,14 +139,7 @@ public class PlayerController : MonoBehaviour {
 		PlayerAttributes.getTired ();
 
 		if (PlayerAttributes.getHealth() <= 0) {
-			playerAnimator.SetBool("dieing", true);
-			death = true;
-            PlayerSounds.PlayDead();                                // Sound
-			PlayerAttributes.setHealth(1);
-			deathScreen.SetActive(true);
-			amountOfDeaths ++;
-			textOnDeathScreen.text = "You've died " + amountOfDeaths + "time(s) so far /n Do you want to play again?";
-			scoreOnDeathScreen.text = "You scored: " + Score.score + "/n" + "Do you want to submit your score?";
+            die();
 		}
 
 		if (death) {
@@ -290,5 +283,17 @@ public class PlayerController : MonoBehaviour {
 		MiniMapScript.clearEnemies ();
 		SceneManager.LoadScene (0);
 	}
+
+    public void die()
+    {
+        playerAnimator.SetBool("dieing", true);
+        death = true;
+        PlayerSounds.PlayDead();                                // Sound
+        PlayerAttributes.setHealth(1);
+        deathScreen.SetActive(true);
+        amountOfDeaths++;
+        textOnDeathScreen.text = "You've died " + amountOfDeaths + "time(s) so far /n Do you want to play again?";
+        scoreOnDeathScreen.text = "You scored: " + Score.score + "/n" + "Do you want to submit your score?";
+    }
 		
 }
