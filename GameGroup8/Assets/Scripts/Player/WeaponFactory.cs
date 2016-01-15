@@ -11,11 +11,11 @@ public class WeaponFactory {
 	}
 
 	public Weapon getShrimpPistol(){
-		return new Weapon (30, 1.5f, false, new Type (3), false, false, false, true, false, 0f);
+		return new Weapon (40, 2f, false, new Type (3), false, false, false, true, false, 0f);
 	}
 
 	public Weapon getStingerGun(){
-		return new Weapon (10, 0.25f, true, new Type (2), true, false, false, false, false, 0f);
+		return new Weapon (5, 0.125f, true, new Type (2), true, false, false, false, false, 0f);
 	}
 
 	public Weapon getWeaponizedEel(){
@@ -23,7 +23,7 @@ public class WeaponFactory {
     }
 
 	public Weapon getWunderwuffen(){
-		return new Weapon(15, 1f, true, new Type(0), false, false, false, false, true, 0f);
+		return new Weapon(35, 1f, true, new Type(0), false, false, false, false, true, 0f);
 	}
 
 	public Weapon getBatteringRam(){
