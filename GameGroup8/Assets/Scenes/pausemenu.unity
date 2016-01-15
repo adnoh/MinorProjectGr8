@@ -11564,14 +11564,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'The Wunderwaffen is an incredible weapon and deals all damage-types. Yuu
-    can cycle through these types by pressing right mouse-button.
-
-    Damage-types: All types
-
-    Cost: 30
-
-    Build from: Weaponsmith'
+  m_Text: "Die Wunderwaffen ist eine unglaubliche Waffe und besch\xE4ftigt alle Schadensarten.
+    Sie k\xF6nnen durch diese Art durch Dr\xFCcken der rechten Maustaste .\nDamage-types:
+    All types\nCost: 30\nBuild from: Weaponsmith"
 --- !u!222 &1309108971
 CanvasRenderer:
   m_ObjectHideFlags: 0
