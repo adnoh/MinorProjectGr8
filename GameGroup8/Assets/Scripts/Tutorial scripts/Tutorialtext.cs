@@ -29,8 +29,8 @@ public class Tutorialtext : MonoBehaviour {
         list.Add("Welcome to the tutorial of World War What??");
         list.Add("Well done! Now, the highlighted area you see in the upper right corner are your stats.");
         list.Add("These represent your status, green for your health, if it reaches 0 you die!");
-        list.Add("Yellow for your stamina, While you have stamina you can sprint, if it runs out, you cannot spirnt anymore.");
-        list.Add("The grey bar represents your fatigue levels, IT drains slowly while you are outside in the world. ");
+        list.Add("Yellow for your stamina, While you have stamina you can sprint, if it runs out, you cannot sprint anymore.");
+        list.Add("The grey bar represents your fatigue levels, It drains slowly while you are outside in the world. ");
       /*6*/  list.Add("The more you lose, the slower you will become, refill the bar by sleeping in your base.");
         list.Add("The Upper bar displays more necessary information. ");
         list.Add("For example, the amount of units you have collected ");
@@ -43,7 +43,7 @@ public class Tutorialtext : MonoBehaviour {
         list.Add("You can unlock the rest with buildings from the base, for more info check your tech-tree in the pause menu");
        /*16*/ list.Add("These things are units, they are dropped by slain enemies and strewn across the world.");
         list.Add("Collect them to spend them on upgrades for your base");
-        /*18*/list.Add("This is your base.");
+        /*18*/list.Add("This is your base. Enter it by standing in front of the door and pressing space");
         list.Add("When monsters get close to it, they wil start attacking it");
         list.Add("When your base reaches 0 HP you also lose");
         list.Add("But during the day monster are far less likely to attack your base");
@@ -60,7 +60,7 @@ public class Tutorialtext : MonoBehaviour {
         
 
         txt = Camera.main.GetComponentInChildren<Text>();
-        txt.text = "Press Spacebar to demonstrate your abbility to read! /n/r  Press Escape to skip ";
+        txt.text = "Press Spacebar to demonstrate your ability to read! Press Escape to skip ";
 
 	
         count = 0;
