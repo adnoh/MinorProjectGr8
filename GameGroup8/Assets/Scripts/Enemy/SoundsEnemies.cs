@@ -25,6 +25,7 @@ public class SoundsEnemies : MonoBehaviour {
             sounds[i] = enemy.AddComponent<AudioSource>();
             sounds[i].clip = Sharky[i];
             sounds[i].volume = Volume;
+            sounds[i].spatialBlend = 1;
         }
 
         return sounds;
@@ -39,6 +40,7 @@ public class SoundsEnemies : MonoBehaviour {
             sounds[i] = enemy.AddComponent<AudioSource>();
             sounds[i].clip = Firefox[i];
             sounds[i].volume = Volume;
+            sounds[i].spatialBlend = 1;
         }
 
         return sounds;
@@ -53,12 +55,13 @@ public class SoundsEnemies : MonoBehaviour {
             sounds[i] = enemy.AddComponent<AudioSource>();
             sounds[i].clip = DesertEagle[i];
             sounds[i].volume = Volume;
+            sounds[i].spatialBlend = 1;
         }
 
         return sounds;
     }
 
-    public AudioSource[] loadSPolarBearSounds(GameObject enemy)
+    public AudioSource[] loadPolarBearSounds(GameObject enemy)
     {
         AudioSource[] sounds = new AudioSource[PolarBear.Length];
 
@@ -67,6 +70,7 @@ public class SoundsEnemies : MonoBehaviour {
             sounds[i] = enemy.AddComponent<AudioSource>();
             sounds[i].clip = PolarBear[i];
             sounds[i].volume = Volume;
+            sounds[i].spatialBlend = 1;
         }
 
         return sounds;
@@ -81,6 +85,7 @@ public class SoundsEnemies : MonoBehaviour {
             sounds[i] = enemy.AddComponent<AudioSource>();
             sounds[i].clip = Oilfant[i];
             sounds[i].volume = Volume;
+            sounds[i].spatialBlend = 1;
         }
 
         return sounds;
@@ -95,6 +100,7 @@ public class SoundsEnemies : MonoBehaviour {
             sounds[i] = enemy.AddComponent<AudioSource>();
             sounds[i].clip = Meep[i];
             sounds[i].volume = Volume;
+            sounds[i].spatialBlend = 1;
         }
 
         return sounds;

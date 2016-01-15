@@ -106,7 +106,7 @@ public class BaseController : MonoBehaviour{
                 BaseSpot.SetActive(true);
                 BaseMenu.SetActive(true);
                 Analytics.set_timeBase();
-                PlayerController.setCount_2(1000);
+                //PlayerController.setCount_2(1000);        // hack for units when entered base
 			} 
 			else {
                 GameObject.Find("player").transform.position = playerPos;
