@@ -50,8 +50,11 @@ public class MenuControl : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
+        
+        if (Application.loadedLevel == 1)
+        { 
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
             // Save player position
             MonsterCollection.playerSave("Assets/saves/Player.xml");
 
@@ -73,6 +76,7 @@ public class MenuControl : MonoBehaviour
             MiniMapScript.clearEnemies();
 
             loadpause();
+            }
         }
     }
 

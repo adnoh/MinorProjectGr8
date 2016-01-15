@@ -11120,7 +11120,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: bestiary
+  m_Text: Beastiary
 --- !u!222 &1135442003
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -55,7 +55,6 @@ public class sfxmenu : MonoBehaviour
 
         PlayerPrefs.SetFloat("sfx option", temp);
         PlayerPrefs.Save();
-        // Debug.Log (temp);
-
+        
     }
 }
