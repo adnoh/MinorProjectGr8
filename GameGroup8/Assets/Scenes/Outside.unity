@@ -105,7 +105,6 @@ GameObject:
   - 114: {fileID: 5347440}
   - 82: {fileID: 5347441}
   - 114: {fileID: 5347442}
-  - 114: {fileID: 5347437}
   - 114: {fileID: 5347433}
   m_Layer: 0
   m_Name: Main Camera
@@ -234,17 +233,6 @@ MonoBehaviour:
   enemyDot: {fileID: 11453228, guid: 90e366a89d6c4234b960d2414cceef4b, type: 2}
   baseDot: {fileID: 371744922}
   miniMap: {fileID: 1544232773}
---- !u!114 &5347437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 5347427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a823d6648685534e883247b5003d5f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5347438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13318,7 +13306,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3d286b0ce438aaa49b637143ed9a3414, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
