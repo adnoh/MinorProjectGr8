@@ -16,7 +16,6 @@ public class MenuControl : MonoBehaviour
         {
             Pause_SaveGameToCloud.enabled = true;
         }
-
     }
 
 
@@ -34,7 +33,6 @@ public class MenuControl : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         GameStateController.newgame = false;
-        Time.timeScale = 1;
         SceneManager.LoadScene(1);
     }
 
@@ -42,7 +40,6 @@ public class MenuControl : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         GameStateController.newgame = true;
-        Time.timeScale = 1;
         SceneManager.LoadScene(3);
     }
 
@@ -78,6 +75,7 @@ public class MenuControl : MonoBehaviour
             loadpause();
         }
     }
+
     /// <summary>
     /// Load Pause
     /// </summary>
@@ -97,14 +95,12 @@ public class MenuControl : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-
     /// <summary>
     /// Load outside (the real level)
     /// </summary>
 	public void loadoutside()
     {
         setNGame(false);
-        Time.timeScale = 1;
         SceneManager.LoadScene(1);
     }
 
