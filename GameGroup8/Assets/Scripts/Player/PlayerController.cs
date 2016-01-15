@@ -46,10 +46,12 @@ public class PlayerController : MonoBehaviour {
     public float speedMultiplier = 1f;
 
     private SoundsPlayer PlayerSounds;
+    private bool running;
 
 	public void Start(){
         playerAnimator = GetComponent<Animator>();
-        PlayerSounds = gameObject.GetComponent<SoundsPlayer>();
+        PlayerSounds = gameObject.GetComponent<SoundsPlayer>();         // LoadSound
+        running = false;
     }
 
 	public void FirstLoad() {
@@ -91,15 +93,18 @@ public class PlayerController : MonoBehaviour {
 		if (PlayerAttributes.getEnergy() > 0 && Input.GetKeyDown (KeyCode.LeftShift)) {
 			playerAnimator.SetBool ("running", true);
 			PlayerAttributes.run();
+            running = true;                                         // For sound only
 		} else if (PlayerAttributes.getEnergy() <= 0) {
 			playerAnimator.SetBool ("running", false);
 			PlayerAttributes.dontRun();
-		}
+            running = false;                                        // For sound only
+        }
 
 		if (Input.GetKeyUp(KeyCode.LeftShift)) {
 			playerAnimator.SetBool ("running", false);
 			PlayerAttributes.dontRun();
-		}
+            running = false;                                        // For sound only
+        }
 
 		if (PlayerAttributes.isRunning() && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis ("Vertical") != 0)) {
 			PlayerAttributes.setEnergyDown();
@@ -136,6 +141,7 @@ public class PlayerController : MonoBehaviour {
 		if (PlayerAttributes.getHealth() <= 0) {
 			playerAnimator.SetBool("dieing", true);
 			death = true;
+            PlayerSounds.PlayDead();                                // Sound
 			PlayerAttributes.setHealth(1);
 			deathScreen.SetActive(true);
 			amountOfDeaths ++;
@@ -158,10 +164,17 @@ public class PlayerController : MonoBehaviour {
 		if ((moveHorizontal != 0 || moveVertical != 0) && !binded) {
 			playerAnimator.SetBool ("walking", true);
 			transform.Translate (speedMultiplier * PlayerAttributes.getSpeed () * moveHorizontal, 0.0f, speedMultiplier * PlayerAttributes.getSpeed () * moveVertical, Space.World);
-            PlayerSounds.PlayWalk();
+            if (running == false)
+            {
+                PlayerSounds.PlayWalk();                            // Sound
+            }
+            else if (running == true)
+            {
+                PlayerSounds.PlayRun();                             // Sound
+            }
 		} else {
 			playerAnimator.SetBool ("walking", false);
-            PlayerSounds.StopWalk();
+            PlayerSounds.StopWalk();                                // Sound
 		}
 			
         

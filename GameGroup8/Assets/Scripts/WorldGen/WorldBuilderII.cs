@@ -190,7 +190,7 @@ public class WorldBuilderII : MonoBehaviour {
 
                 Vector3 Pos = new Vector3(150 - x + offset, 0, 150 - z + offset);
 
-                if (CheckIfPlacableTile(z, x, map) && ObjPossible(TreePos, Pos, 2) && ObjPossible(HousePos, Pos, 6))
+                if (CheckIfPlacableTile(z, x, map) && ObjPossible(TreePos, Pos, 2) && ObjPossible(HousePos, Pos, 6) && Vector3.Distance(Pos,BasePos) > 12)
                 {
                     float nr = Random.Range(0f, 1f);
                     if(nr >= .4)
@@ -222,7 +222,7 @@ public class WorldBuilderII : MonoBehaviour {
 
             Vector3 Pos = new Vector3(150 - x + offset, 0, 150 - z + offset);
 
-            if (CheckIfPlacableTile(z, x, map) && ObjPossible(TreePos, Pos, 2) && ObjPossible(HousePos, Pos, 6))
+            if (CheckIfPlacableTile(z, x, map) && ObjPossible(TreePos, Pos, 2) && ObjPossible(HousePos, Pos, 6) && Vector3.Distance(Pos, BasePos) > 12)
             {
                 float nr = Random.Range(0f, 1f);
                 if (nr >= .4)

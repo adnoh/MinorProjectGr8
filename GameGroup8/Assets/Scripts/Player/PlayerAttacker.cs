@@ -164,6 +164,10 @@ public class PlayerAttacker : MonoBehaviour {
 					}
 				}
 			}
+            if ((currentWeaponInt == 3 || currentWeaponInt == 4) && Input.GetMouseButtonUp(0))
+            {
+                WeaponsSounds.StopWeaponsound(currentWeaponInt - 1);
+            }
 
 			if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1)) && unlocked[0]){
 				currentWeapon = weaponFactory.getPistol();
