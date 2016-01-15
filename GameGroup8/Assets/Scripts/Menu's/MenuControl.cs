@@ -95,7 +95,7 @@ public class MenuControl : MonoBehaviour
     /// </summary>
 	public void loadmenu()
     {
-        Time.timeScale = 0;
+     
         SceneManager.LoadScene(0);
     }
 
