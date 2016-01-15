@@ -9,6 +9,13 @@ public class SoundsEnemies : MonoBehaviour {
     public AudioClip[] Oilfant;
     public AudioClip[] Meep;
 
+    private float Volume;
+
+    void Start()
+    {
+        Volume = PlayerPrefs.GetFloat("sfx option");
+    }
+
     public AudioSource[] loadSharkSounds(GameObject enemy)
     {
         AudioSource[] sounds = new AudioSource[Sharky.Length];
@@ -17,6 +24,7 @@ public class SoundsEnemies : MonoBehaviour {
         {
             sounds[i] = enemy.AddComponent<AudioSource>();
             sounds[i].clip = Sharky[i];
+            sounds[i].volume = Volume;
         }
 
         return sounds;
@@ -30,6 +38,7 @@ public class SoundsEnemies : MonoBehaviour {
         {
             sounds[i] = enemy.AddComponent<AudioSource>();
             sounds[i].clip = Firefox[i];
+            sounds[i].volume = Volume;
         }
 
         return sounds;
@@ -43,6 +52,7 @@ public class SoundsEnemies : MonoBehaviour {
         {
             sounds[i] = enemy.AddComponent<AudioSource>();
             sounds[i].clip = DesertEagle[i];
+            sounds[i].volume = Volume;
         }
 
         return sounds;
@@ -56,6 +66,7 @@ public class SoundsEnemies : MonoBehaviour {
         {
             sounds[i] = enemy.AddComponent<AudioSource>();
             sounds[i].clip = PolarBear[i];
+            sounds[i].volume = Volume;
         }
 
         return sounds;
@@ -69,6 +80,7 @@ public class SoundsEnemies : MonoBehaviour {
         {
             sounds[i] = enemy.AddComponent<AudioSource>();
             sounds[i].clip = Oilfant[i];
+            sounds[i].volume = Volume;
         }
 
         return sounds;
@@ -82,6 +94,7 @@ public class SoundsEnemies : MonoBehaviour {
         {
             sounds[i] = enemy.AddComponent<AudioSource>();
             sounds[i].clip = Meep[i];
+            sounds[i].volume = Volume;
         }
 
         return sounds;
