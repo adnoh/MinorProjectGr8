@@ -11,7 +11,7 @@ public class TDMapII {
     int size_x;
     int size_y;
 
-    int baseSize = 12;
+    int baseSize = 16;
     int nrForr = 10;
 
     /// <summary>
@@ -135,7 +135,7 @@ public class TDMapII {
         {
             for (int x = 0; x < baseSize; x++)
             {
-                tiles[y + y_pos - 6][x + x_pos - 6] = 6;
+                tiles[y + y_pos - baseSize/2][x + x_pos - baseSize/2] = 6;
             }
         }
 
