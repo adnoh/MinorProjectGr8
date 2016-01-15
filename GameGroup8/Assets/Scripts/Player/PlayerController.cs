@@ -48,6 +48,9 @@ public class PlayerController : MonoBehaviour {
     private SoundsPlayer PlayerSounds;
     private bool running;
 
+    public Text healthText;
+    public Text energyText;
+
 	public void Start(){
         playerAnimator = GetComponent<Animator>();
         PlayerSounds = gameObject.GetComponent<SoundsPlayer>();         // LoadSound
@@ -72,6 +75,8 @@ public class PlayerController : MonoBehaviour {
     }
 
 	void Update(){
+        healthText.text = PlayerAttributes.getHealth() + " / " + PlayerAttributes.getMaxHealth();
+        energyText.text = PlayerAttributes.getEnergy() + " / " + PlayerAttributes.getMaxEnergy();
         Analytics.set_timeOutside();
         Analytics.setScore(Camera.main.GetComponent<Score>().getScore());
 
