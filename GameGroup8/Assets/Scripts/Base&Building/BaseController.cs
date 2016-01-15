@@ -153,6 +153,10 @@ public class BaseController : MonoBehaviour{
 			} else {
 				ReturnColour ();
 			}
+            if(baseHealth < 0)
+            {
+                GameObject.Find("player").GetComponent<PlayerController>().die();
+            }
 		}
         
         // build turrets via key buttons
