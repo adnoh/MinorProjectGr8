@@ -14,7 +14,7 @@ public class Highscores : MonoBehaviour
 
     // currently an input field for both playername and score. Score must be an integer.
     public InputField playername;  
-    public Text playername2;  
+    public InputField playername2;  
     
     // needed for posting
     string player_name;
@@ -25,6 +25,7 @@ public class Highscores : MonoBehaviour
         if (SaveBase.loggedIn)
         {
             playername2.text = SaveBase.LoggedInUser;
+            playername2.textComponent.text = SaveBase.LoggedInUser;            
         }        
     }
 
