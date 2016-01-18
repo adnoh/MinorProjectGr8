@@ -88,7 +88,7 @@ public class PlayerAttributes : MonoBehaviour {
 	}
 
 	public void upgradeAttack(){
-		if (pointsToUpgrade > 0) {
+		if (pointsToUpgrade > 0 && attackPoints < 25) {
 			attackPoints++;
 			attackMultiplier = 1f + (float)attackPoints * 0.05f;
 			attackPointsText.text = "Attack Points: " + attackPoints;
@@ -99,7 +99,7 @@ public class PlayerAttributes : MonoBehaviour {
 	}
 
 	public void upgradeSpeed(){
-		if (pointsToUpgrade > 0) {
+		if (pointsToUpgrade > 0 && speedPoints < 25) {
 			speedPoints++;
 			maxWalkingSpeed = 5f + (float)speedPoints * 0.1f;
             runningSpeed = maxWalkingSpeed * 2;
@@ -111,7 +111,7 @@ public class PlayerAttributes : MonoBehaviour {
 	}
 
 	public void upgradeMaxHealth(){
-		if (pointsToUpgrade > 0) {
+		if (pointsToUpgrade > 0 && maxHealthPoints < 25) {
 			maxHealthPoints++;
 			maxHealth = 100 + 5 * maxHealthPoints;
 			healthPointsText.text = "Max Health Points: " + maxHealthPoints;
@@ -122,7 +122,7 @@ public class PlayerAttributes : MonoBehaviour {
 	}
 
 	public void upgradeMaxEnergy(){
-		if (pointsToUpgrade > 0) {
+		if (pointsToUpgrade > 0 && maxEnergyPoints < 25) {
 			maxEnergyPoints++;
 			maxEnergy = 500 + 20 * maxEnergyPoints;
 			energyPointsText.text = "Max Energy Points: " + maxEnergyPoints;

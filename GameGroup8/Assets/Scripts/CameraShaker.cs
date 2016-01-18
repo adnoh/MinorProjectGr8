@@ -11,11 +11,13 @@ public class CameraShaker : MonoBehaviour {
 	public float shakeAmount = 0.1f;
 	public float decreaseFactor = 1.0f;
 	Vector3 originalPos;
+	private Vector3 offset;
 
     /// <summary>
     /// Get all necessary components
     /// </summary>
 	void Awake(){
+		offset = transform.position - GameObject.Find("player").transform.position;
 		if(camTransform == null){
 			camTransform = GetComponent(typeof(Transform)) as Transform;
 		}
@@ -28,7 +30,7 @@ public class CameraShaker : MonoBehaviour {
 		originalPos = camTransform.localPosition;
 		if (shake > 0 && !GameObject.Find("player").GetComponent<PlayerController>().death) {
 			CameraController.shaking = true;
-			camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
+			Camera.main.transform.position = GameObject.Find("player").transform.position + offset + Random.insideUnitSphere * shakeAmount;
 			shake -= Time.deltaTime * decreaseFactor;
 		} else {
 			shake = 0;
