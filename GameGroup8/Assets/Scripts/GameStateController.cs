@@ -38,9 +38,9 @@ public class GameStateController : MonoBehaviour
 		Debug.Log("Newgame: " + newgame);
         // setNewgame(newgame2);
         GenerateMap();
-        initializePathfindingGrid();
         LoadBase();        
         LoadPlayer();
+        initializePathfindingGrid();
         LoadEnemies();
    }  
 
