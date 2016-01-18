@@ -44,7 +44,7 @@ public class SaveBase : MonoBehaviour
     string mySQLconnectionString = "Server=80.60.131.231;Database=savebase;UID=userw;Pwd=Minor#8;";
 
 	// savegame path
-	string path = "Assets/saves/package.zip";
+	string path = Application.dataPath + "/saves/package.zip";
 
     // test code, currently on start but should move to a button
     public void Start()
@@ -170,6 +170,7 @@ public class SaveBase : MonoBehaviour
 
          // first compress current savegame
         Zippingscript.Compress();
+        
 
 
 

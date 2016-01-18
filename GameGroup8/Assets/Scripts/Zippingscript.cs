@@ -19,7 +19,7 @@ using Ionic.Zip;
 
     public static void Decompress()
     {
-        using (ZipFile zip = ZipFile.Read("Assets/saves/Package.zip"))
+        using (ZipFile zip = ZipFile.Read(Application.dataPath + "/saves/Package.zip"))
             {
               foreach (ZipEntry e in zip)
                   {
@@ -42,7 +42,8 @@ using Ionic.Zip;
             zip.AddFile("Assets/saves/sun.xml");
             zip.AddFile("Assets/saves/turrets.xml");
             zip.AddFile("Assets/saves/world.xml");
-            zip.Save("Assets/saves/Package.zip");*/
+            zip.Save("Assets/saves/Package.zip");
+            */
             zip.AddDirectoryByName("saves");
            }
     }
