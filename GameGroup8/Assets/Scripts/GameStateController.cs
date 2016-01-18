@@ -9,7 +9,7 @@ public class GameStateController : MonoBehaviour
 
 
     public GameObject player;
-    public static bool newgame = true;
+    public static bool newgame;
     // public bool newgame2;
 
 
@@ -185,7 +185,7 @@ public class GameStateController : MonoBehaviour
         {
             // Load enemies
             MonsterCollection.MonsterLoad("assets/saves/monsters.xml");
-            enemyspawner.savewave();
+            Camera.main.GetComponent<EnemySpawner>().savewave();
                
         }
 

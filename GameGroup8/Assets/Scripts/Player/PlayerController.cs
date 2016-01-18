@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour {
 	public Slider fatiqueBar;    
 
 	public float regenerationTime = 20.0f;
-	public float regenerationTimeInBase = 20.0f;
 	private float timeToRegenerate = 20.0f;
 
 	public static int amountOfBeds = 0;
@@ -48,6 +47,9 @@ public class PlayerController : MonoBehaviour {
     private SoundsPlayer PlayerSounds;
     private bool running;
 
+    public Text healthText;
+    public Text energyText;
+
 	public void Start(){
         playerAnimator = GetComponent<Animator>();
         PlayerSounds = gameObject.GetComponent<SoundsPlayer>();         // LoadSound
@@ -72,6 +74,8 @@ public class PlayerController : MonoBehaviour {
     }
 
 	void Update(){
+        healthText.text = PlayerAttributes.getHealth() + " / " + PlayerAttributes.getMaxHealth();
+        energyText.text = PlayerAttributes.getEnergy() + " / " + PlayerAttributes.getMaxEnergy();
         Analytics.set_timeOutside();
         Analytics.setScore(Camera.main.GetComponent<Score>().getScore());
 
@@ -117,11 +121,7 @@ public class PlayerController : MonoBehaviour {
 
 		if (PlayerAttributes.getHealth() < PlayerAttributes.getMaxHealth() && Time.time > timeToRegenerate && !BaseController.pause) {
 			PlayerAttributes.regenerate ();
-			timeToRegenerate = Time.time + regenerationTime;
-		}
-		if (PlayerAttributes.getHealth() < PlayerAttributes.getMaxHealth() && Time.time > timeToRegenerate && BaseController.pause) {
-			PlayerAttributes.regenerate ();
-			timeToRegenerate = Time.time + regenerationTimeInBase / (1 + amountOfBeds);
+			timeToRegenerate = Time.time + regenerationTime / (1 + amountOfBeds);
 		}
 
 		if (PlayerAttributes.pointsToUpgrade > 0 && Time.time > timeToFlash) {
@@ -139,14 +139,7 @@ public class PlayerController : MonoBehaviour {
 		PlayerAttributes.getTired ();
 
 		if (PlayerAttributes.getHealth() <= 0) {
-			playerAnimator.SetBool("dieing", true);
-			death = true;
-            PlayerSounds.PlayDead();                                // Sound
-			PlayerAttributes.setHealth(1);
-			deathScreen.SetActive(true);
-			amountOfDeaths ++;
-			textOnDeathScreen.text = "You've died " + amountOfDeaths + "time(s) so far /n Do you want to play again?";
-			scoreOnDeathScreen.text = "You scored: " + Score.score + "/n" + "Do you want to submit your score?";
+            die();
 		}
 
 		if (death) {
@@ -195,7 +188,7 @@ public class PlayerController : MonoBehaviour {
         if (collider.gameObject.CompareTag("Health-Pick-Up") && this.gameObject.name.Equals("player"))
         {
             Destroy(collider.gameObject);
-            if(PlayerAttributes.getHealth() - PlayerAttributes.getMaxHealth() > 20)
+            if((PlayerAttributes.getMaxHealth() - PlayerAttributes.getHealth()) > 20)
             {
                 PlayerAttributes.setHealth(PlayerAttributes.getHealth() + 20);
             }
@@ -207,13 +200,13 @@ public class PlayerController : MonoBehaviour {
         if (collider.gameObject.CompareTag("Energy-Pick-Up") && this.gameObject.name.Equals("player"))
         {
             Destroy(collider.gameObject);
-            if (PlayerAttributes.getHealth() - PlayerAttributes.getMaxEnergy() > 20)
+            if ((PlayerAttributes.getMaxEnergy() - PlayerAttributes.getEnergy()) > 20)
             {
-                PlayerAttributes.setHealth(PlayerAttributes.getEnergy() + 20);
+                PlayerAttributes.setEnergy(PlayerAttributes.getEnergy() + 20);
             }
             else
             {
-                PlayerAttributes.setHealth(PlayerAttributes.getMaxEnergy());
+                PlayerAttributes.setEnergy(PlayerAttributes.getMaxEnergy());
             }
         }
         if (collider.gameObject.CompareTag("Fatique-Pick-Up") && this.gameObject.name.Equals("player"))
@@ -221,10 +214,17 @@ public class PlayerController : MonoBehaviour {
             Destroy(collider.gameObject);
             PlayerAttributes.resetFatique();
         }
+        if (collider.gameObject.CompareTag("Base-Pick-Up") && this.gameObject.name.Equals("player"))
+        {
+            Destroy(collider.gameObject);
+            GameObject.Find("Gate").GetComponent<BaseController>().RepareWalls();
+        }
         if (collider.gameObject.CompareTag ("Enemy")) {
 			collider.gameObject.GetComponent<EnemyController> ().setWithinRange();
 		}
-	}
+        
+        
+    }
 
 	void OnTriggerExit(Collider collider){
         if (collider.gameObject.CompareTag("Enemy"))
@@ -290,5 +290,17 @@ public class PlayerController : MonoBehaviour {
 		MiniMapScript.clearEnemies ();
 		SceneManager.LoadScene (0);
 	}
+
+    public void die()
+    {
+        playerAnimator.SetBool("dieing", true);
+        death = true;
+        PlayerSounds.PlayDead();                                // Sound
+        PlayerAttributes.setHealth(1);
+        deathScreen.SetActive(true);
+        amountOfDeaths++;
+        textOnDeathScreen.text = "You've died " + amountOfDeaths + "time(s) so far /n Do you want to play again?";
+        scoreOnDeathScreen.text = "You scored: " + Score.score + "/n" + "Do you want to submit your score?";
+    }
 		
 }

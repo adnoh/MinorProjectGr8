@@ -181,8 +181,13 @@ public class Outsidesave{
 	public string tagOfMat2;
 	public string tagOfMat3;
 	public string tagOfMat4;
-	
-	public int unitCount;
+    public string tagOfMat5;
+    public string tagOfMat6;
+    public string tagOfMat7;
+    public string tagOfMat8;
+    public string tagOfMat9;
+
+    public int unitCount;
 
 	public Outsidesave(){
         this.wave = Camera.main.GetComponent<EnemySpawner>().wave;
@@ -196,7 +201,12 @@ public class Outsidesave{
 		tagOfMat2 = GameObject.Find ("PlacementPlane (1)").tag;
 		tagOfMat3 = GameObject.Find ("PlacementPlane (2)").tag;
 		tagOfMat4 = GameObject.Find ("PlacementPlane (3)").tag;
-		unitCount = PlayerController.getCount();
+        tagOfMat5 = GameObject.Find("PlacementPlane (4)").tag;
+        tagOfMat6 = GameObject.Find("PlacementPlane (5)").tag;
+        tagOfMat7 = GameObject.Find("PlacementPlane (6)").tag;
+        tagOfMat8 = GameObject.Find("PlacementPlane (7)").tag;
+        tagOfMat9 = GameObject.Find("PlacementPlane (8)").tag;
+        unitCount = PlayerController.getCount();
 	}	
 }
 
@@ -224,6 +234,9 @@ public class Player
     public int health;
     public int fatique;
     public int energy;
+
+    public int currentWeapon;
+    public bool[] unlocked;
 	
 	public Player(){
 		var position = PlayerController.getPosition();
@@ -251,6 +264,8 @@ public class Player
         energy = PlayerAttributes.getEnergy();
         fatique = PlayerAttributes.getFatique();
 
+        currentWeapon = GameObject.Find("player").GetComponent<PlayerAttacker>().currentWeaponInt;
+        unlocked = PlayerAttacker.unlocked;
 
 
     }
@@ -533,6 +548,8 @@ public class MonsterCollection : MonoBehaviour
         PlayerAttributes.setEnergy(player.energy);
         PlayerAttributes.setFatique(player.fatique);
 
+        GameObject.Find("player").GetComponent<PlayerAttacker>().currentWeaponInt = player.currentWeapon;
+        PlayerAttacker.unlocked = player.unlocked;
     }
 
     public static void turretSave(string path){
@@ -588,7 +605,12 @@ public class MonsterCollection : MonoBehaviour
 		GameObject.Find ("PlacementPlane (1)").tag = outside.tagOfMat2;
 		GameObject.Find ("PlacementPlane (2)").tag = outside.tagOfMat3;
 		GameObject.Find ("PlacementPlane (3)").tag = outside.tagOfMat4;
-		PlayerController.setCount_2(outside.unitCount);
+        GameObject.Find("PlacementPlane (4)").tag = outside.tagOfMat5;
+        GameObject.Find("PlacementPlane (5)").tag = outside.tagOfMat6;
+        GameObject.Find("PlacementPlane (6)").tag = outside.tagOfMat7;
+        GameObject.Find("PlacementPlane (7)").tag = outside.tagOfMat8;
+        GameObject.Find("PlacementPlane (8)").tag = outside.tagOfMat9;
+        PlayerController.setCount_2(outside.unitCount);
 	}
 	
     public static void MapSave(string path)

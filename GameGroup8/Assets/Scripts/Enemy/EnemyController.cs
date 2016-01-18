@@ -62,7 +62,8 @@ public class EnemyController : MonoBehaviour {
 
     private List<EnemyController> otherEnemies = new List<EnemyController>();
 
-    SoundsEnemies Sound;
+    AudioSource[] Sound;                                                    // sound
+    private bool SoundPeem = false;
 
     void Start()
     {
@@ -70,29 +71,36 @@ public class EnemyController : MonoBehaviour {
         timeToChangeDirection = 1.0f + Time.time;
         otherEnemies = Camera.main.GetComponent<EnemySpawner>().unbuffedEnemies;
         level = this.gameObject.GetComponent<EnemyController>().getLevel();
-        if (this.gameObject.transform.name.Equals("HammerHeadPrefab(Clone)"))
+        SoundsEnemies Source = Camera.main.GetComponent<SoundsEnemies>();   // sound
+        if (gameObject.name.Equals("HammerHeadPrefab(Clone)"))
         {
             enemy = enemyFactory.getEnemy("Hammerhead", level);
+            Sound = Source.loadSharkSounds(gameObject);                     // sound
         }
-        else if (this.gameObject.transform.name.Equals("DesertEaglePrefab(Clone)"))
+        else if (gameObject.name.Equals("DesertEaglePrefab(Clone)"))
         {
             enemy = enemyFactory.getEnemy("DesertEagle", level);
+            Sound = Source.loadEagleSounds(gameObject);                     // sound
         }
-        else if (this.gameObject.transform.name.Equals("FireFoxPrefab(Clone)"))
+        else if (gameObject.name.Equals("FireFoxPrefab(Clone)"))
         {
             enemy = enemyFactory.getEnemy("FireFox", level);
+            Sound = Source.loadFireFoxSounds(gameObject);                   // sound
         }
-        else if (this.gameObject.transform.name.Equals("PolarBearPrefab(Clone)"))
+        else if (gameObject.name.Equals("PolarBearPrefab(Clone)"))
         {
             enemy = enemyFactory.getEnemy("PolarBear", level);
+            Sound = Source.loadPolarBearSounds(gameObject);                 // sound
         }
-        else if (this.gameObject.transform.name.Equals("MeepMeepPrefab(Clone)"))
+        else if (gameObject.name.Equals("MeepMeepPrefab(Clone)"))
         {
             enemy = enemyFactory.getEnemy("MeepMeep", level);
+            Sound = Source.loadMeepSounds(gameObject);                      // sound
         }
-        else if(this.gameObject.transform.name.Equals("OilphantPrefab(Clone)"))
+        else if(gameObject.name.Equals("OilphantPrefab(Clone)"))
         {
             enemy = enemyFactory.getEnemy("Oilphant", level);
+            Sound = Source.loadOilfantSounds(gameObject);                   // sound
         }
 
         level = enemy.getLevel();
@@ -178,7 +186,12 @@ public class EnemyController : MonoBehaviour {
 
         if (this.gameObject.name.Equals("MeepMeepPrefab(Clone)") && otherEnemies.Count > 0 && !wandering)
         {
-            for(int i = 0; i < otherEnemies.Count; i++)
+            if (SoundPeem == false)                             // sound
+            {
+                SoundPeem = true;
+                StartCoroutine(SoundPeemPeem());
+            }
+            for (int i = 0; i < otherEnemies.Count; i++)
             {
                 for(int j = 0; j < otherEnemies.Count - 1; j++)
                 {
@@ -192,6 +205,16 @@ public class EnemyController : MonoBehaviour {
             }
             this.gameObject.transform.LookAt(otherEnemies[0].gameObject.transform);
             transform.position = Vector3.MoveTowards(transform.position, otherEnemies[0].gameObject.transform.position, updatedSpeed * Time.deltaTime);
+        }
+        else if(this.gameObject.name.Equals("MeepMeepPrefab(Clone)") && otherEnemies.Count == 0)
+        {
+            if (SoundPeem == false)                             // sound
+            {
+                SoundPeem = true;
+                StartCoroutine(SoundPeemPeem());
+            }
+            wandering = true;
+            wanderingTime = 1f + Time.time;
         }
 
         if(wanderingTime - Time.time > 0)
@@ -215,9 +238,14 @@ public class EnemyController : MonoBehaviour {
             shotByPlayer = true;
             wanderingTime = -1;
         }
-        if (this.gameObject.name.Equals("DesertEaglePrefab(Clone)") && !wandering && Vector3.Distance(this.gameObject.transform.position, GameObject.Find("player").transform.position) > 12)
+        if (this.gameObject.name.Equals("DesertEaglePrefab(Clone)") && !wandering && Vector3.Distance(this.gameObject.transform.position, GameObject.Find("player").transform.position) > 20)
         {
             isWithinRange = false;
+        }
+        if ((!this.gameObject.name.Equals("DesertEaglePrefab(Clone)") || !this.gameObject.name.Equals("MeepMeepPrefab(Clone)")) && Vector3.Distance(this.gameObject.transform.position, GameObject.Find("player").transform.position) < 10)
+        {
+            shotByPlayer = true;
+            wanderingTime = -1;
         }
     }
 
@@ -230,6 +258,12 @@ public class EnemyController : MonoBehaviour {
 	public int getMaxHealth() {
 		return maxHealth;
 	}
+
+    public void setHealthFirstTime(int health)
+    {
+        this.health = health;
+        wanderingTime = -1f;
+    }
 
 	public void setHealth(int health) {
 		this.health = health;
@@ -307,7 +341,7 @@ public class EnemyController : MonoBehaviour {
     public void attack(){
         if (this.gameObject.name.Equals("OilphantPrefab(Clone)"))
         {
-            Debug.Log(nextAttack);
+            //Debug.Log(nextAttack);
         }
         if (!dead && !this.gameObject.Equals("MeepMeepPrefab(Clone)")){
             if (this.gameObject.name.Equals("DesertEaglePrefab(Clone)"))
@@ -318,6 +352,8 @@ public class EnemyController : MonoBehaviour {
                 bulletClone.GetComponent<Bullet>().shotByEnemy = true;
                 bulletClone.transform.Rotate(90, 0, 0);
                 bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * 500f);
+                int nr = (Random.Range(0f, 1f) <= 0.5f) ? 1:3;      // sound
+                Sound[nr].Play();                                   // sound
             }
             else if (this.gameObject.name.Equals("FireFoxPrefab(Clone)")){
                 PlayerAttributes.takeDamage(attackPower);
@@ -328,16 +364,20 @@ public class EnemyController : MonoBehaviour {
                 this.gameObject.GetComponent<Seeker>().destroyed = true;
                 MiniMapScript.enemies.Remove(this);
                 health = 0;
+                Sound[0].Play();                                    // sound
             }
             else if (this.gameObject.name.Equals("PolarBearPrefab(Clone)")) { 
                 anim.SetBool("attack", true);
                 GameObject.Find("player").GetComponent<PlayerController>().bind(true);
                 walkingSpeed = 0f;
+                int nr = (Random.Range(0f, 1f) <= 0.5f) ? 1 : 3;    // sound
+                Sound[nr].Play();                                   // sound
             }
             else {
                 StartCoroutine(attackAnimation("attack"));
                 PlayerAttributes.takeDamage(attackPower);
                 CameraShaker.shakeCamera();
+                Sound[0].Play();                                    // sound
             } 
         }
 	}
@@ -448,5 +488,13 @@ public class EnemyController : MonoBehaviour {
         {
             baseWithinRange = false;
         }
+    }
+
+    IEnumerator SoundPeemPeem()
+    {
+        Sound[0].Play();
+        yield return new WaitForSeconds(Random.Range(5f, 15f));
+        SoundPeem = false;
+        yield return null;
     }
 }

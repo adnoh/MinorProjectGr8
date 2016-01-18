@@ -3002,7 +3002,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 143332}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.0000014424753}
+  m_LocalRotation: {x: 0, y: -0.000001661032, z: 0, w: -1}
   m_LocalPosition: {x: -14.252806, y: 0, z: -0.82105064}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
@@ -3428,11 +3428,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505bf8902e68e6a4f85a365ed1da8059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 4
-  health: 0
-  maxHealth: 0
+  level: 3
+  health: 125
+  maxHealth: 125
   attackPower: 0
-  walkingSpeed: 0
+  walkingSpeed: 5
   updatedSpeed: 0
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 0}
@@ -3453,7 +3453,7 @@ MonoBehaviour:
   oilSpot: {fileID: 0}
   hasShotOil: 0
   wandering: 1
-  wanderingTime: 0
+  wanderingTime: -1
   currentWanderingDirection: {x: 0, y: 0, z: 0}
   timeToChangeDirection: 0
 --- !u!114 &11416646
@@ -3467,7 +3467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505bf8902e68e6a4f85a365ed1da8059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 5
+  level: 2
   health: 100
   maxHealth: 100
   attackPower: 10
@@ -3564,9 +3564,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   health: 25
-  maxHealth: 100
-  attackPower: 10
-  walkingSpeed: 2
+  maxHealth: 25
+  attackPower: 30
+  walkingSpeed: 6
   updatedSpeed: 0
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 0}
@@ -3709,10 +3709,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  health: 0
-  maxHealth: 0
+  health: 75
+  maxHealth: 75
   attackPower: 0
-  walkingSpeed: 0
+  walkingSpeed: 10
   updatedSpeed: 0
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 0}
@@ -3733,7 +3733,7 @@ MonoBehaviour:
   oilSpot: {fileID: 0}
   hasShotOil: 0
   wandering: 1
-  wanderingTime: 0
+  wanderingTime: -1
   currentWanderingDirection: {x: 0, y: 0, z: 0}
   timeToChangeDirection: 0
 --- !u!114 &11499348
@@ -3747,7 +3747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505bf8902e68e6a4f85a365ed1da8059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 2
+  level: 1
   health: 82
   maxHealth: 100
   attackPower: 10
