@@ -42,7 +42,7 @@ using Ionic.Zip;
             zip.AddFile("Assets/saves/sun.xml", "");
             zip.AddFile("Assets/saves/turrets.xml", "");
             zip.AddFile("Assets/saves/world.xml", "");
-            zip.Save("Assets/saves/Package.zip", "");
+            zip.Save("Assets/saves/Package.zip");
            }
     }
     }

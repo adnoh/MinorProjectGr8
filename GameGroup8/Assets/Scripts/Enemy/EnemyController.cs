@@ -25,8 +25,8 @@ public class EnemyController : MonoBehaviour {
     public Vector3 position;
     public Quaternion rotation;
 
-    private bool isWithinRange;
-    private bool baseWithinRange;
+    public bool isWithinRange;
+    public bool baseWithinRange;
 
 	public float attackRate = 2f;
 	private float nextAttack = 0.0f;
@@ -65,39 +65,42 @@ public class EnemyController : MonoBehaviour {
     AudioSource[] Sound;                                                    // sound
     private bool SoundPeem = false;
 
+	string name;
+
     void Start()
     {
+		name = gameObject.name;
         wanderingTime = Random.Range(5.0f, 15.0f) + Time.time;
         timeToChangeDirection = 1.0f + Time.time;
         otherEnemies = Camera.main.GetComponent<EnemySpawner>().unbuffedEnemies;
         level = this.gameObject.GetComponent<EnemyController>().getLevel();
         SoundsEnemies Source = Camera.main.GetComponent<SoundsEnemies>();   // sound
-        if (gameObject.name.Equals("HammerHeadPrefab(Clone)"))
+        if (name.Equals("HammerHeadPrefab(Clone)"))
         {
             enemy = enemyFactory.getEnemy("Hammerhead", level);
             Sound = Source.loadSharkSounds(gameObject);                     // sound
         }
-        else if (gameObject.name.Equals("DesertEaglePrefab(Clone)"))
+        else if (name.Equals("DesertEaglePrefab(Clone)"))
         {
             enemy = enemyFactory.getEnemy("DesertEagle", level);
             Sound = Source.loadEagleSounds(gameObject);                     // sound
         }
-        else if (gameObject.name.Equals("FireFoxPrefab(Clone)"))
+        else if (name.Equals("FireFoxPrefab(Clone)"))
         {
             enemy = enemyFactory.getEnemy("FireFox", level);
             Sound = Source.loadFireFoxSounds(gameObject);                   // sound
         }
-        else if (gameObject.name.Equals("PolarBearPrefab(Clone)"))
+        else if (name.Equals("PolarBearPrefab(Clone)"))
         {
             enemy = enemyFactory.getEnemy("PolarBear", level);
             Sound = Source.loadPolarBearSounds(gameObject);                 // sound
         }
-        else if (gameObject.name.Equals("MeepMeepPrefab(Clone)"))
+        else if (name.Equals("MeepMeepPrefab(Clone)"))
         {
             enemy = enemyFactory.getEnemy("MeepMeep", level);
             Sound = Source.loadMeepSounds(gameObject);                      // sound
         }
-        else if(gameObject.name.Equals("OilphantPrefab(Clone)"))
+        else if(name.Equals("OilphantPrefab(Clone)"))
         {
             enemy = enemyFactory.getEnemy("Oilphant", level);
             Sound = Source.loadOilfantSounds(gameObject);                   // sound
@@ -118,9 +121,9 @@ public class EnemyController : MonoBehaviour {
         healthBarClone.maxValue = health;
         descriptionClone = Instantiate(description);
         descriptionClone.text = "Lvl:" + enemy.getLevel() + " . " + enemy.getType().toString();
-        if (this.gameObject.name.Equals("PolarBearPrefab(Clone)"))
+        if (name.Equals("PolarBearPrefab(Clone)"))
         {
-            this.gameObject.GetComponent<Seeker>().toBase = false;
+            gameObject.GetComponent<Seeker>().toBase = false;
             shotByPlayer = true;
         }
     }
@@ -130,123 +133,68 @@ public class EnemyController : MonoBehaviour {
         {
             otherEnemies = Camera.main.GetComponent<EnemySpawner>().unbuffedEnemies;
         }
-        updatedSpeed = walkingSpeed * (1f + (0.6f * ((float)((float)Analytics.getHitCount()[0] / ((float)Analytics.getShotsFired() + 1f)) - 0.5f)));
-        healthBarClone.transform.position = Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, 20, 0);
-        descriptionClone.transform.position = Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, 25, 0);
-        healthBarClone.value = health;
-        if (!shotByPlayer && !this.gameObject.name.Equals("MeepMeepPrefab(Clone)") && !wandering)
-        {
-            this.gameObject.transform.LookAt(GameObject.FindGameObjectWithTag("BASE").transform.position);
-        }
-        else
-        {
-            if (!this.gameObject.name.Equals("MeepMeepPrefab(Clone)") && !wandering) { 
-                this.gameObject.GetComponent<Seeker>().toBase = false;
-                this.gameObject.GetComponent<Seeker>().StopAllCoroutines();
-            }
-            if (!this.gameObject.name.Equals("MeepMeepPrefab(Clone)") && !wandering)
-            {
-                this.gameObject.transform.LookAt(GameObject.Find("player").transform.position);
-            }
-            if (!isWithinRange && !this.gameObject.name.Equals("MeepMeepPrefab(Clone)") && !wandering)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, PlayerController.getPosition(), updatedSpeed * Time.deltaTime);
-            }
-        }
-		if (Time.time > nextAttack && !this.gameObject.name.Equals("MeepMeepPrefab(Clone)") && !wandering) {
-            if (isWithinRange)
-            {
+		updateSpeed ();
+		updateHealthBarAndDescription ();
+		if (!shotByPlayer && !wandering) {
+			walkToBase ();
+		} else {
+			walkToPlayer ();
+		}
+        
+		if (Time.time > nextAttack && !name.Equals("MeepMeepPrefab(Clone)") && !wandering) {
+            if (isWithinRange){
                 nextAttack = Time.time + attackRate;
                 attack();
             }
-            else if (baseWithinRange)
-            {
+            else if (baseWithinRange){
                 nextAttack = Time.time + attackRate;
                 attackBase();
             }
 		}
-        if(this.gameObject.name.Equals("OilphantPrefab(Clone)") && !hasShotOil && !dead && Vector3.Distance(this.gameObject.transform.position, GameObject.Find("player").transform.position) < 5)
-        {
+
+        if(name.Equals("OilphantPrefab(Clone)") && !hasShotOil && !dead && Vector3.Distance(this.gameObject.transform.position, GameObject.Find("player").transform.position) < 5){
             Instantiate(oilSpot, GameObject.Find("player").transform.position, Quaternion.identity);
             hasShotOil = true;
             StartCoroutine(attackAnimation("oliesquirt"));
         }
+
 		if (poisoned && Time.time > timeToGetPoisonDamage) {
 			timeToGetPoisonDamage = Time.time + intervalToGetPoisonDamage;
 			health -= (int)(maxHealth / 20);
 		}
+
 		if (stunned && Time.time > timeToUnStun) {
 			unStun ();
 		}
 
-		Vector3 EnemyPosition = this.gameObject.transform.position;
+		Vector3 EnemyPosition = gameObject.transform.position;
 		setPosition (EnemyPosition);
-        Quaternion EnemyRotation = this.gameObject.transform.rotation;
+        Quaternion EnemyRotation = gameObject.transform.rotation;
         setRotation(EnemyRotation);
 
-        if (this.gameObject.name.Equals("MeepMeepPrefab(Clone)") && otherEnemies.Count > 0 && !wandering)
+        if (name.Equals("MeepMeepPrefab(Clone)") && otherEnemies.Count > 0 && !wandering)
         {
-            if (SoundPeem == false)                             // sound
-            {
-                SoundPeem = true;
-                StartCoroutine(SoundPeemPeem());
-            }
-            for (int i = 0; i < otherEnemies.Count; i++)
-            {
-                for(int j = 0; j < otherEnemies.Count - 1; j++)
-                {
-                    if(Vector3.Distance(this.gameObject.transform.position, otherEnemies[j].gameObject.transform.position) > Vector3.Distance(this.gameObject.transform.position, otherEnemies[j + 1].gameObject.transform.position))
-                    {
-                        EnemyController temp = otherEnemies[j];
-                        otherEnemies[j] = otherEnemies[j + 1];
-                        otherEnemies[j + 1] = temp;
-                    }
-                }
-            }
-            this.gameObject.transform.LookAt(otherEnemies[0].gameObject.transform);
+			PeemPeemSound ();
+			sortOtherEnemiesToDistance ();
+            gameObject.transform.LookAt(otherEnemies[0].gameObject.transform);
             transform.position = Vector3.MoveTowards(transform.position, otherEnemies[0].gameObject.transform.position, updatedSpeed * Time.deltaTime);
         }
-        else if(this.gameObject.name.Equals("MeepMeepPrefab(Clone)") && otherEnemies.Count == 0)
+        else if(name.Equals("MeepMeepPrefab(Clone)") && otherEnemies.Count == 0)
         {
-            if (SoundPeem == false)                             // sound
-            {
-                SoundPeem = true;
-                StartCoroutine(SoundPeemPeem());
-            }
+			PeemPeemSound ();
             wandering = true;
             wanderingTime = 1f + Time.time;
         }
 
-        if(wanderingTime - Time.time > 0)
-        {
-            if(currentWanderingDirection == new Vector3(0f, 0f, 0f) || Time.time > timeToChangeDirection)
-            {
-                timeToChangeDirection += 1.0f;
-                float ran = Random.Range(0f, 2f * Mathf.PI);
-                currentWanderingDirection = this.gameObject.transform.position + new Vector3(10f * Mathf.Sin(ran), 0, 10f * Mathf.Cos(ran));
-            }
-            gameObject.transform.LookAt(currentWanderingDirection);
-            transform.position = Vector3.MoveTowards(transform.position, currentWanderingDirection, 1f * Time.deltaTime);
+        if(wanderingTime - Time.time > 0){
+			wanderAround ();
         }
-        else
-        {
+        else{
             wandering = false;
         }
-        if (this.gameObject.name.Equals("DesertEaglePrefab(Clone)") && Vector3.Distance(this.gameObject.transform.position, GameObject.Find("player").transform.position) < 12)
-        {
-            isWithinRange = true;
-            shotByPlayer = true;
-            wanderingTime = -1;
-        }
-        if (this.gameObject.name.Equals("DesertEaglePrefab(Clone)") && !wandering && Vector3.Distance(this.gameObject.transform.position, GameObject.Find("player").transform.position) > 20)
-        {
-            isWithinRange = false;
-        }
-        if ((!this.gameObject.name.Equals("DesertEaglePrefab(Clone)") || !this.gameObject.name.Equals("MeepMeepPrefab(Clone)")) && Vector3.Distance(this.gameObject.transform.position, GameObject.Find("player").transform.position) < 10)
-        {
-            shotByPlayer = true;
-            wanderingTime = -1;
-        }
+
+		setPlayerWithinRange ();
+        
     }
 
     // Getters and setters
@@ -259,10 +207,8 @@ public class EnemyController : MonoBehaviour {
 		return maxHealth;
 	}
 
-    public void setHealthFirstTime(int health)
-    {
+    public void setHealthFirstTime(int health){
         this.health = health;
-        wanderingTime = -1f;
     }
 
 	public void setHealth(int health) {
@@ -270,6 +216,10 @@ public class EnemyController : MonoBehaviour {
         wanderingTime = -1f;
         healthBarClone.transform.SetParent(Camera.main.GetComponent<EnemySpawner>().EnemyHealthBars.transform, false);
         descriptionClone.transform.SetParent(Camera.main.GetComponent<EnemySpawner>().EnemyHealthBars.transform, false);
+		if(!name.Equals("MeepMeepPrefab(Clone)")){
+			gameObject.GetComponent<Seeker>().toBase = false;
+			gameObject.GetComponent<Seeker>().StopAllCoroutines();
+		}
     }
 
 	public int getLevel(){
@@ -280,18 +230,15 @@ public class EnemyController : MonoBehaviour {
 		return walkingSpeed;
 	}
 
-    public void setAttackPower(int AP)
-    {
+    public void setAttackPower(int AP){
         this.attackPower = AP;
     }
 
-    public void setWalkingSpeed(float wp)
-    {
+    public void setWalkingSpeed(float wp){
         this.walkingSpeed = wp;
     }
 
-    public void setmaxhealth(int mh)
-    {
+    public void setmaxhealth(int mh){
         this.maxHealth = mh;
     }
 
@@ -307,8 +254,7 @@ public class EnemyController : MonoBehaviour {
 		return type;
 	}
 
-    public string getName()
-    {
+    public string getName(){
         return enemy.getName();
     }
 
@@ -326,25 +272,19 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
 
-    public bool getWithinRange()
-    {
+    public bool getWithinRange(){
         return isWithinRange;
     }
 
-    public IEnumerator attackAnimation(string animation)
-    {
+    public IEnumerator attackAnimation(string animation){
         anim.SetBool(animation, true);
         yield return new WaitForSeconds(1);
         anim.SetBool(animation, false);
     }
 
     public void attack(){
-        if (this.gameObject.name.Equals("OilphantPrefab(Clone)"))
-        {
-            //Debug.Log(nextAttack);
-        }
-        if (!dead && !this.gameObject.Equals("MeepMeepPrefab(Clone)")){
-            if (this.gameObject.name.Equals("DesertEaglePrefab(Clone)"))
+        if (!dead && !name.Equals("MeepMeepPrefab(Clone)")){
+            if (name.Equals("DesertEaglePrefab(Clone)"))
             {
                 GameObject bulletClone = GameObject.Instantiate(bullet, transform.position + (transform.forward), transform.rotation) as GameObject;
                 bulletClone.GetComponent<Bullet>().dmg = attackPower;
@@ -355,7 +295,7 @@ public class EnemyController : MonoBehaviour {
                 int nr = (Random.Range(0f, 1f) <= 0.5f) ? 1:3;      // sound
                 Sound[nr].Play();                                   // sound
             }
-            else if (this.gameObject.name.Equals("FireFoxPrefab(Clone)")){
+            else if (name.Equals("FireFoxPrefab(Clone)")){
                 PlayerAttributes.takeDamage(attackPower);
                 CameraShaker.shakeCamera();
                 StartCoroutine(die());
@@ -363,20 +303,21 @@ public class EnemyController : MonoBehaviour {
                 this.gameObject.GetComponent<Seeker>().StopAllCoroutines();
                 this.gameObject.GetComponent<Seeker>().destroyed = true;
                 MiniMapScript.enemies.Remove(this);
+
                 health = 0;
                 Sound[0].Play();                                    // sound
             }
-            else if (this.gameObject.name.Equals("PolarBearPrefab(Clone)")) { 
+            else if (name.Equals("PolarBearPrefab(Clone)")) { 
                 anim.SetBool("attack", true);
                 GameObject.Find("player").GetComponent<PlayerController>().bind(true);
                 walkingSpeed = 0f;
                 int nr = (Random.Range(0f, 1f) <= 0.5f) ? 1 : 3;    // sound
                 Sound[nr].Play();                                   // sound
             }
-            else {
+			else if(name.Equals("HammerHeadPrefab(Clone)") || name.Equals("OilphantPrefab(Clone)")){
+				PlayerAttributes.takeDamage(attackPower);
+				CameraShaker.shakeCamera();
                 StartCoroutine(attackAnimation("attack"));
-                PlayerAttributes.takeDamage(attackPower);
-                CameraShaker.shakeCamera();
                 Sound[0].Play();                                    // sound
             } 
         }
@@ -384,14 +325,11 @@ public class EnemyController : MonoBehaviour {
 
     public void attackBase()
     {
-        if (!dead && !this.gameObject.Equals("MeepMeepPrefab(Clone)"))
-        {
-            if (this.gameObject.name.Equals("HammerHeadPrefab(Clone)"))
-            {
+        if (!dead && !this.gameObject.Equals("MeepMeepPrefab(Clone)")){
+            if (this.gameObject.name.Equals("HammerHeadPrefab(Clone)")){
                 GameObject.Find("Gate").GetComponent<BaseController>().baseHealth -= attackPower * 2;
             }
-            if(this.gameObject.name.Equals("FireFoxPrefab(Clone)"))
-            {
+            if(this.gameObject.name.Equals("FireFoxPrefab(Clone)")){
                 GameObject.Find("Gate").GetComponent<BaseController>().baseHealth -= attackPower;
                 StartCoroutine(die());
                 EnemySpawner.enemiesDefeaten++;
@@ -464,37 +402,107 @@ public class EnemyController : MonoBehaviour {
         {
             GameObject.Find("player").GetComponent<PlayerController>().bind(false);
         }
+		Camera.main.GetComponent<EnemySpawner> ().unbuffedEnemies.Remove (this);
         destroyed = true;
         Destroy (this.gameObject);
 	}
 
-    public void OnTriggerEnter(Collider col)
-    {
-        if (col.gameObject.CompareTag("BASE"))
-        {
+    public void OnTriggerEnter(Collider col){
+        if (col.gameObject.CompareTag("BASE")){
             baseWithinRange = true;
         }
-        if (col.gameObject.CompareTag("Enemy") && this.gameObject.name.Equals("MeepMeepPrefab(Clone)"))
-        {
+		if (col.gameObject.CompareTag("Enemy") && this.gameObject.name.Equals("MeepMeepPrefab(Clone)") && !col.gameObject.name.Equals("MeepMeepPrefab(Clone)")){
             col.gameObject.GetComponent<EnemyController>().walkingSpeed *= 1.5f;
             otherEnemies.Remove(col.gameObject.GetComponent<EnemyController>());
             Camera.main.GetComponent<EnemySpawner>().unbuffedEnemies.Remove(col.gameObject.GetComponent<EnemyController>());
         }
     }
 
-    public void OnTriggerExit(Collider col)
-    {
-        if (col.gameObject.CompareTag("BASE"))
-        {
+    public void OnTriggerExit(Collider col){
+        if (col.gameObject.CompareTag("BASE")){
             baseWithinRange = false;
         }
     }
 
-    IEnumerator SoundPeemPeem()
-    {
+    IEnumerator SoundPeemPeem(){
         Sound[0].Play();
         yield return new WaitForSeconds(Random.Range(5f, 15f));
         SoundPeem = false;
         yield return null;
     }
+
+	public void updateSpeed(){
+		updatedSpeed = walkingSpeed * (1f + (0.6f * ((float)((float)Analytics.getHitCount () [0] / ((float)Analytics.getShotsFired () + 1f)) - 0.5f)));
+	}
+
+	public void updateHealthBarAndDescription(){
+		healthBarClone.transform.position = Camera.main.WorldToScreenPoint (gameObject.transform.position) + new Vector3 (0, 20, 0);
+		descriptionClone.transform.position = Camera.main.WorldToScreenPoint (gameObject.transform.position) + new Vector3 (0, 25, 0);
+		healthBarClone.value = health;
+	}
+
+	public void walkToBase(){
+		if (!this.gameObject.name.Equals ("MeepMeepPrefab(Clone)")) {
+			this.gameObject.transform.LookAt (GameObject.FindGameObjectWithTag ("BASE").transform.position);
+		}
+	}
+
+	public void walkToPlayer(){
+		if (!name.Equals ("MeepMeepPrefab(Clone)")) {
+			this.gameObject.transform.LookAt (GameObject.Find ("player").transform.position);
+			if (!isWithinRange) {
+				transform.position = Vector3.MoveTowards (transform.position, PlayerController.getPosition (), updatedSpeed * Time.deltaTime);
+			}
+		}
+	}
+
+	public void sortOtherEnemiesToDistance(){
+		for (int i = 0; i < otherEnemies.Count; i++) {
+			for (int j = 0; j < otherEnemies.Count - 1; j++) {
+				if (Vector3.Distance (this.gameObject.transform.position, otherEnemies [j].gameObject.transform.position) > Vector3.Distance (this.gameObject.transform.position, otherEnemies [j + 1].gameObject.transform.position)) {
+					EnemyController temp = otherEnemies [j];
+					otherEnemies [j] = otherEnemies [j + 1];
+					otherEnemies [j + 1] = temp;
+				}
+			}
+		}
+	}
+
+	public void PeemPeemSound(){
+		if (SoundPeem == false) {                             // sound
+			SoundPeem = true;
+			StartCoroutine (SoundPeemPeem ());
+		}
+	}
+
+	public void wanderAround(){
+		if (currentWanderingDirection == new Vector3 (0f, 0f, 0f) || Time.time > timeToChangeDirection) {
+			timeToChangeDirection += 1.0f;
+			float ran = Random.Range (0f, 2f * Mathf.PI);
+			currentWanderingDirection = this.gameObject.transform.position + new Vector3 (10f * Mathf.Sin (ran), 0, 10f * Mathf.Cos (ran));
+		}
+		gameObject.transform.LookAt (currentWanderingDirection);
+		transform.position = Vector3.MoveTowards (transform.position, currentWanderingDirection, 1f * Time.deltaTime);
+	}
+
+	public void setPlayerWithinRange(){
+		if (name.Equals("DesertEaglePrefab(Clone)") && Vector3.Distance(gameObject.transform.position, GameObject.Find("player").transform.position) < 12){
+			isWithinRange = true;
+			shotByPlayer = true;
+			wanderingTime = -1;
+			wandering = false;
+			gameObject.GetComponent<Seeker> ().toBase = false;
+			baseWithinRange = false;
+		}
+		if (name.Equals("DesertEaglePrefab(Clone)") && !wandering && Vector3.Distance(gameObject.transform.position, GameObject.Find("player").transform.position) > 20){
+			isWithinRange = false;
+		}
+		if (!name.Equals("DesertEaglePrefab(Clone)") && !name.Equals("MeepMeepPrefab(Clone)") && Vector3.Distance(this.gameObject.transform.position, GameObject.Find("player").transform.position) < 10){
+			shotByPlayer = true;
+			wandering = false;
+			wanderingTime = -1;
+			gameObject.GetComponent<Seeker> ().toBase = false;
+			baseWithinRange = false;
+		}
+	}
 }

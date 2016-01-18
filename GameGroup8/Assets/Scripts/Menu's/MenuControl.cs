@@ -7,18 +7,7 @@ using UnityEngine.SceneManagement;
    Main Menu and PauseMenu 
 */
 public class MenuControl : MonoBehaviour
-{
-    public Button Pause_SaveGameToCloud;
-
-    void Start()
-    {
-        if (SaveBase.loggedIn)
-        {
-            Pause_SaveGameToCloud.enabled = true;
-        }
-    }
-
-
+{ 
     public void StartGame()
     {
         StartCoroutine(startTutorial());
@@ -52,7 +41,7 @@ public class MenuControl : MonoBehaviour
     {
         
         if (Application.loadedLevel == 1)
-        { 
+        {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
             // Save player position

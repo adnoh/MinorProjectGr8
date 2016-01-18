@@ -88,12 +88,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 190298}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6baf844e3856ea347b1cee33b32091a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 100
   turn: {x: 0, y: 0, z: 1}
 --- !u!135 &13516048
 SphereCollider:
@@ -148,7 +148,11 @@ Prefab:
       objectReference: {fileID: 2100000, guid: e77e4c9c3bba6a842b14d878490572d0, type: 2}
     - target: {fileID: 0}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: speed
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

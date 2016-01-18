@@ -24,36 +24,30 @@ public class PSpawner : MonoBehaviour {
     /// </summary>
     /// <param name="place"></param>
 	public void placeUnit(Vector3 place){
-		GameObject unitClone = unit;
+		GameObject unitClone = Instantiate (unit, new Vector3(place.x, 1, place.z), Quaternion.identity) as GameObject;
 		unitClone.transform.Rotate (-90, 0, 0);
-		Instantiate (unitClone, new Vector3(place.x, 1, place.z), Quaternion.identity);
 	}
 
     public void nextWave()
     {
         for(int i = 0; i < 5; i++)
         {
-            GameObject unitClone = unit;
-            unitClone.transform.Rotate(-90, 0, 0);
-            Instantiate(unitClone, getRandomPosition(), Quaternion.identity);
+			GameObject unitClone = Instantiate (unit, getRandomPosition(), Quaternion.identity) as GameObject;
+			unitClone.transform.Rotate (-90, 0, 0);
         }
         for (int i = 0; i < 2; i++)
         {
-            GameObject healthUnitClone = healthUnit;
-            Instantiate(healthUnitClone, getRandomPosition(), Quaternion.identity);
-           // healthUnitClone.transform.Rotate(270, 0, 0);
+			GameObject healthUnitClone = Instantiate(healthUnit, getRandomPosition(), Quaternion.identity) as GameObject;
+            healthUnitClone.transform.Rotate(270, 0, 0);
 
-            GameObject energyUnitClone = energyUnit;
-            Instantiate(energyUnitClone, getRandomPosition(), Quaternion.identity);
-            //energyUnitClone.transform.Rotate(270, 0, 0);
+			GameObject energyUnitClone = Instantiate(energyUnit, getRandomPosition(), Quaternion.identity) as GameObject;
+            energyUnitClone.transform.Rotate(270, 0, 0);
 
-            GameObject fatiqueUnitClone = fatiqueUnit;
-            Instantiate(fatiqueUnitClone, getRandomPosition(), Quaternion.identity);
-            //fatiqueUnitClone.transform.Rotate(270, 0, 0);
+			GameObject fatiqueUnitClone = Instantiate (fatiqueUnit, getRandomPosition (), Quaternion.identity) as GameObject;
+            fatiqueUnitClone.transform.Rotate(270, 0, 0);
 
-            GameObject baseUnitClone = baseUnit;
-            Instantiate(baseUnitClone, getRandomPosition(), Quaternion.identity);
-            //fatiqueUnitClone.transform.Rotate(270, 0, 0);
+			GameObject baseUnitClone = Instantiate(baseUnit, getRandomPosition(), Quaternion.identity) as GameObject;
+            baseUnitClone.transform.Rotate(270, 0, 0);
 
         }
     }
@@ -77,7 +71,8 @@ public class PSpawner : MonoBehaviour {
 
 		for (int i = 0; i < amount; i++) {
 			Vector3 V = occupied[i];
-			Instantiate (unit, V, Quaternion.identity);
+			GameObject unitClone = Instantiate (unit, V, Quaternion.identity) as GameObject;
+			unitClone.transform.Rotate (-90, 0, 0);
 		}
 	}
 

@@ -94,7 +94,7 @@ public class EnemySpawner : MonoBehaviour {
         calculateChangeToSpawnDesertEagle();
         calculateChangeToSpawnPolarBear();
         calculateChangeToSpawnMeepMeep();
-        //calculateChangeToSpawnOilphant();
+        calculateChangeToSpawnOilphant();
         waveText.text = "Current wave: " + wave;
 		enemiesToDefeat = 0;
 		for(int i = 0; i < enemiesThisWave; i++){
@@ -311,10 +311,10 @@ public class EnemySpawner : MonoBehaviour {
         changeToSpawnMeepMeep = 0.0625f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead + changeToSpawnPolarBear + changeToSpawnOilphant);
     }
 
-    /*void calculateChangeToSpawnOilphant()
+    void calculateChangeToSpawnOilphant()
     {
         changeToSpawnOilphant = 0.125f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead + changeToSpawnPolarBear + changeToSpawnMeepMeep);
-    }*/
+    }
 
     void setEnemiesThisWave(){
         enemiesThisWave = Random.Range(3 + wave, 5 + wave);

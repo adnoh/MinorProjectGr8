@@ -12,6 +12,7 @@ GameObject:
   - 23: {fileID: 2319496}
   - 95: {fileID: 9594896}
   - 135: {fileID: 13505798}
+  - 114: {fileID: 11472344}
   m_Layer: 0
   m_Name: Base-Pick-Up
   m_TagString: Base-Pick-Up
@@ -81,6 +82,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11472344
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 116618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6baf844e3856ea347b1cee33b32091a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 100
+  turn: {x: 0, y: 0, z: 1}
 --- !u!135 &13505798
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -103,6 +117,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Base-Pick-Up
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: turn.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: speed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: turn.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
