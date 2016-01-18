@@ -8,20 +8,11 @@ using UnityEngine.SceneManagement;
 */
 public class MenuControl : MonoBehaviour
 {
-    public Button Pause_SaveGameToCloud;
-
-    void Start()
-    {
-        if (SaveBase.loggedIn)
-        {
-            Pause_SaveGameToCloud.enabled = true;
-        }
-    }
-
 
     public void StartGame()
     {
-        StartCoroutine(startTutorial());
+        GameStateController.newgame = true;
+        SceneManager.LoadScene(3);
     }
 
     public void LoadGame()
@@ -36,13 +27,6 @@ public class MenuControl : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    IEnumerator startTutorial()
-    {
-        yield return new WaitForSeconds(2);
-        GameStateController.newgame = true;
-        SceneManager.LoadScene(3);
-    }
-
     public void ExitGame()
     {
         Application.Quit();
@@ -51,27 +35,27 @@ public class MenuControl : MonoBehaviour
     void Update()
     {
         
-        if (Application.loadedLevel == 1)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         { 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
             // Save player position
-            MonsterCollection.playerSave("Assets/saves/Player.xml");
+            MonsterCollection.playerSave(Application.dataPath + "/saves/Player.xml");
 
             // Save enemies
-            MonsterCollection.MonsterSave("Assets/saves/monsters.xml");
+            MonsterCollection.MonsterSave(Application.dataPath + "/saves/monsters.xml");
 
             // Save outside variables + base
-            MonsterCollection.outsideSave("Assets/saves/outside.xml");
-            MonsterCollection.turretSave("Assets/saves/turrets.xml");
-            MonsterCollection.BaseSave("Assets/saves/base.xml");
+            MonsterCollection.outsideSave(Application.dataPath + "/saves/outside.xml");
+            MonsterCollection.turretSave(Application.dataPath + "/saves/turrets.xml");
+            MonsterCollection.BaseSave(Application.dataPath + "/saves/base.xml");
 
             // Moon and sun position
-            MonsterCollection.SunSave("Assets/saves/sun.xml");
-            MonsterCollection.MoonSave("Assets/saves/moon.xml");
+            MonsterCollection.SunSave(Application.dataPath + "/saves/sun.xml");
+            MonsterCollection.MoonSave(Application.dataPath + "/saves/moon.xml");
 
             // Save World (if you want to save the world, go ahead, be a hero)
-            MonsterCollection.MapSave("Assets/saves/world.xml");
+            MonsterCollection.MapSave(Application.dataPath + "/saves/world.xml");
 
             MiniMapScript.clearEnemies();
 
@@ -86,7 +70,6 @@ public class MenuControl : MonoBehaviour
     public void loadpause()
     {
         setNGame(false);
-        Time.timeScale = 0;
         SceneManager.LoadScene(2);
     }
 
@@ -95,7 +78,6 @@ public class MenuControl : MonoBehaviour
     /// </summary>
 	public void loadmenu()
     {
-     
         SceneManager.LoadScene(0);
     }
 

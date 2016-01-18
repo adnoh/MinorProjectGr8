@@ -298,41 +298,7 @@ public class MonsterCollection : MonoBehaviour
 	public static MonsterList monsterlist = new MonsterList();
 	public static TurretList turretList = new TurretList();
     public GameObject player;
-
-	//[XmlArray("monstersList"),XmlArrayItem("monstersList")]
-	//public Monster[] monstersList = new Monster[2];
-
-     /*
-	 void Update(){
-
-		if (Input.GetKeyDown (KeyCode.UpArrow)) {
-
-			playerSave ("Assets/saves/Player.xml");
-            MonsterSave("Assets/saves/monsters.xml");
-		}
-
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            // Load player position
-            playerLoad();
-
-            // Load enemies including enemies health
-            EnemySpawner enemySpawner = Camera.main.GetComponent<EnemySpawner>();
-            enemySpawner.savewave();
-
-            // 
-
-        }
-
-		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
-			GameObject.Find ("Gate").GetComponent<BaseController>().buildFromSave();
-			outsideLoad();
-		}
-
-    }
-    */
-    	
-
+    
     // Save & Load 
 	public static void MonsterSave(string path)
 	{
@@ -515,10 +481,10 @@ public class MonsterCollection : MonoBehaviour
 
     }
 
-    public static void playerLoad()
+    public static void playerLoad(string path)
     {
 
-        var player = playerpreLoad("Assets/saves/Player.xml");
+        var player = playerpreLoad(path);
 
         GameObject tempplayer = GameObject.FindWithTag("Player");
         Vector3 templocation;
