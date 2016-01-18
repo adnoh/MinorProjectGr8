@@ -5,8 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using MySql;
-
-
+using Ionic.Zip;
 
 public class SaveBase : MonoBehaviour
 {
@@ -44,21 +43,12 @@ public class SaveBase : MonoBehaviour
     string mySQLconnectionString = "Server=80.60.131.231;Database=savebase;UID=userw;Pwd=Minor#8;";
 
 	// savegame path
-	string path = Application.dataPath + "/saves/package.zip";
+	string path;
 
     // test code, currently on start but should move to a button
-    public void Start()
+    public void Awake()
     {
-
-        //CreateNamePassword ("test2222", "test1234");
-        //UploadSave ("test2222", path);
-        //Login();
-        //Debug.Log (1);
-        //Login("test", "test12345");
-        //Debug.Log (2);
-        // DownloadSave();
-
-
+        path = Application.dataPath + "/saves/Package.zip";
     }
 
     /// <summary>
@@ -169,7 +159,7 @@ public class SaveBase : MonoBehaviour
 	{
 
          // first compress current savegame
-        Zippingscript.Compress();
+        Compress();
         
 
 
@@ -495,7 +485,6 @@ public class SaveBase : MonoBehaviour
                 {
                     Debug.Log("no remote save found");
                 }
-
                 else
                 {
                     rawData = new byte[db_FileSize];
@@ -505,10 +494,9 @@ public class SaveBase : MonoBehaviour
                     fs = new FileStream(@path, FileMode.Create, FileAccess.Write);
                     fs.Write(rawData, 0, db_FileSize);
                     fs.Close();
-
                     myData.Close();
                     conn.Close();
-                    Zippingscript.Decompress();
+                    Decompress();
                 }
 
 
@@ -518,20 +506,41 @@ public class SaveBase : MonoBehaviour
 					MySqlException ex2 = (MySqlException)ex;
 					Debug.Log (ex2.Number);
 				}
-               
-
-
 				Debug.Log (ex.ToString ());
-
-
+                
 				throw ex;
 			} finally {
 				conn.Close ();
 			}
 		}
-
-
-
 	}
+
+    public void Decompress()
+    {
+        using (ZipFile zip = ZipFile.Read(path))
+        {
+            foreach (ZipEntry e in zip)
+            {
+                e.Extract(Application.dataPath, ExtractExistingFileAction.OverwriteSilently);
+            }
+        }
+    }
+
+    public void Compress()
+    {
+
+        using (ZipFile zip = new ZipFile())
+        {
+            zip.AddFile(Application.dataPath + "/saves/base.xml", "");
+            zip.AddFile(Application.dataPath + "/saves/monsters.xml", "");
+            zip.AddFile(Application.dataPath + "/saves/moon.xml", "");
+            zip.AddFile(Application.dataPath + "/saves/outside.xml", "");
+            zip.AddFile(Application.dataPath + "/saves/Player.xml", "");
+            zip.AddFile(Application.dataPath + "/saves/sun.xml", "");
+            zip.AddFile(Application.dataPath + "/saves/turrets.xml", "");
+            zip.AddFile(Application.dataPath + "/saves/world.xml", "");
+            zip.Save(Application.dataPath + "/saves/Package.zip");
+        }
+    }
 }
 
