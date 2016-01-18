@@ -72,8 +72,8 @@ public class Tutorialtext : MonoBehaviour {
         
 		if ( Input.GetKeyDown(KeyCode.Escape))
 		{
-				count = 31;
-		}
+            SceneManager.LoadScene(1);
+        }
 
 		if (IsKeyEnabled_W)
         {

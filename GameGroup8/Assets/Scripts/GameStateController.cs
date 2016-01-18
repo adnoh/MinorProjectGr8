@@ -17,81 +17,21 @@ public class GameStateController : MonoBehaviour
     {
         newgame = _newgame;
     }  
-
-
-    /*
-    void Update()
-    {
-
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            // Save player position
-            MonsterCollection.playerSave("Assets/saves/Player.xml");
-
-            // Save enemies
-            MonsterCollection.MonsterSave("Assets/saves/monsters.xml");
-
-            // Save outside variables + baseLocation + SunLocation
-            MonsterCollection.outsideSave("Assets/saves/outside.xml");
-            MonsterCollection.turretSave("Assets/saves/turrets.xml");
-            MonsterCollection.BaseSave("Assets/saves/base.xml");
-            MonsterCollection.SunSave("Assets/saves/sun.xml");
-            MonsterCollection.MoonSave("Assets/saves/moon.xml");
-
-            // Save World (if you want to save the world, go ahead, be a hero)
-            MonsterCollection.MapSave("Assets/saves/world.xml");
-        }
-
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            // Load player position
-            MonsterCollection.playerLoad();
-
-            // Load enemies including enemies health
-            EnemySpawner enemySpawner = Camera.main.GetComponent<EnemySpawner>();
-            enemySpawner.savewave();
-
-
-            // Base loading
-            MonsterCollection.BaseLoad("Assets/saves/base.xml");
-            GameObject.Find("Gate").GetComponent<BaseController>().buildFromSave();
-            MonsterCollection.outsideLoad("Assets/saves/outside.xml");
-            MonsterCollection.turretLoad("Assets/saves/turrets.xml");
-            MonsterCollection.SunLoad("Assets/saves/sun.xml");
-            MonsterCollection.MoonLoad("Assets/saves/moon.xml");
-
-            // Map loading
-            MonsterCollection.mapLoad("Assets/saves/world.xml");
-            worldBuilder.ReplaceAssets();
-            worldBuilder.BuildTexture();
-
-
-        }
-
-    }
-    */
-
-
+    
     void Awake()
     {
         grid = GetComponentInChildren<Grid>();
         worldBuilder = GameObject.FindGameObjectWithTag("Ground").GetComponent<WorldBuilderII>();
         enemyspawner = Camera.main.GetComponent<EnemySpawner>();
     }
-
-
-
-
-
-
+    
     /*  1. Generate map
     2. Load base
     3. Generate pathfinding grid (only after map is finished)        
     4. Load playerposition
     5. Load enemies    
  */
-
-
+ 
     void Start()
     {
 
@@ -118,13 +58,10 @@ public class GameStateController : MonoBehaviour
         else
         {
             // Map loading
-            MonsterCollection.mapLoad("Assets/saves/world.xml");
+            MonsterCollection.mapLoad(Application.dataPath + "/saves/world.xml");
 
             worldBuilder.SecondLoad();
         }
-
-
-
     }
 
     void initializePathfindingGrid()
@@ -140,12 +77,12 @@ public class GameStateController : MonoBehaviour
         }
         else
         {   // load base  + turrets
-            MonsterCollection.BaseLoad("Assets/saves/base.xml");
+            MonsterCollection.BaseLoad(Application.dataPath + "/saves/base.xml");
             GameObject.Find("Gate").GetComponent<BaseController>().buildFromSave();
-            MonsterCollection.outsideLoad("Assets/saves/outside.xml");
-            MonsterCollection.turretLoad("Assets/saves/turrets.xml");
-            MonsterCollection.SunLoad("Assets/saves/sun.xml");
-            MonsterCollection.MoonLoad("Assets/saves/moon.xml");
+            MonsterCollection.outsideLoad(Application.dataPath + "/saves/outside.xml");
+            MonsterCollection.turretLoad(Application.dataPath + "/saves/turrets.xml");
+            MonsterCollection.SunLoad(Application.dataPath + "/saves/sun.xml");
+            MonsterCollection.MoonLoad(Application.dataPath + "/saves/moon.xml");
 
             LoadBase_mMap();
         }
@@ -168,7 +105,7 @@ public class GameStateController : MonoBehaviour
         else
         {
             // Load player position
-            MonsterCollection.playerLoad();
+            MonsterCollection.playerLoad(Application.dataPath + "/saves/Player.xml");
         }
 
     }
@@ -184,7 +121,7 @@ public class GameStateController : MonoBehaviour
         else
         {
             // Load enemies
-            MonsterCollection.MonsterLoad("assets/saves/monsters.xml");
+            MonsterCollection.MonsterLoad(Application.dataPath + "/saves/monsters.xml");
             Camera.main.GetComponent<EnemySpawner>().savewave();
                
         }

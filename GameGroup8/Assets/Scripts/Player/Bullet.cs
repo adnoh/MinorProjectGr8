@@ -33,17 +33,6 @@ public class Bullet : MonoBehaviour {
 	}
 
     /// <summary>
-    /// If the bullet hits something else than an enemy, it gets distroyed
-    /// </summary>
-	void Update(){
-		if ((this.gameObject.name.Equals("newBullet(Clone)") || this.gameObject.name.Equals ("CatPrefab(Clone)") || this.gameObject.name.Equals("SnailPrefab(Clone)")) && this.gameObject.GetComponent<Rigidbody> ().velocity == new Vector3(0f, 0f, 0f)) {
-			GameObject.Destroy (gameObject);
-            if (shotByPlayer)
-                Analytics.setHitCount(false);
-		}
-	}
-
-    /// <summary>
     /// If the bullet hits an enemy (col) it does damage to it and destroys the bullet
     /// </summary>
     /// <param name="col"></param>
