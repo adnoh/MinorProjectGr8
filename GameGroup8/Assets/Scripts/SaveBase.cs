@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System.IO;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using MySql;
 using Ionic.Zip;
@@ -426,6 +427,10 @@ public class SaveBase : MonoBehaviour
         LoggedInPlayer.text = "Not logged in";
         savefromcloud.gameObject.SetActive(false);
         loadfromcloud.gameObject.SetActive(false);
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            SignInOut.gameObject.SetActive(false);
+        }
 
     }
 
@@ -435,6 +440,10 @@ public class SaveBase : MonoBehaviour
         {
             savefromcloud.gameObject.SetActive(true);
             loadfromcloud.gameObject.SetActive(true);
+            if (SceneManager.GetActiveScene().buildIndex == 0)
+            {
+                SignInOut.gameObject.SetActive(true);
+            }
 
         }
 
