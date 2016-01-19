@@ -9,7 +9,7 @@ public class GameStateController : MonoBehaviour
 
 
     public GameObject player;
-    public static bool newgame = true;
+    public static bool newgame;
     // public bool newgame2;
 
 
@@ -100,6 +100,7 @@ public class GameStateController : MonoBehaviour
         if (newgame)
         {
 			GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().FirstLoad();
+			GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttacker>().FirstLoad();
         }
 
         else

@@ -246,7 +246,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b77c9810746530439212dad67a86784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Pause_SaveGameToCloud: {fileID: 0}
 --- !u!114 &5347438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8921,6 +8920,14 @@ Prefab:
     - target: {fileID: 11405916, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
       propertyPath: brightness
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 13598080, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
+      propertyPath: m_Center.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 13598080, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
+      propertyPath: m_Center.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}

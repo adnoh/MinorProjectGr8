@@ -48,7 +48,6 @@ public class Bullet : MonoBehaviour {
 			if(stun){
 				enemyController.stun (true);
 			}
-			PlayerAttacker.lastAttackedEnemy = enemyController;
 			if(enemyController.getHealth () <= 0){
 				EnemySpawner.enemiesDefeaten++;
                 if (!enemyController.getName().Equals("MeepMeep"))
@@ -61,8 +60,7 @@ public class Bullet : MonoBehaviour {
                 if (!enemyController.dead){
                     PlayerAttributes.getExperience(enemyController.getLevel());
                 }
-                enemyController.StartCoroutine (enemyController.die());                
-                PlayerAttacker.lastAttackedEnemy = null;
+                enemyController.StartCoroutine (enemyController.die());
 				MiniMapScript.enemies.Remove(enemyController);
                 Analytics.setPlaceKill(col.gameObject.transform.position);
                 if (col.gameObject.name == "FireFoxPrefab(Clone)")

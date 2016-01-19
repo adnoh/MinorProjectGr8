@@ -8,7 +8,7 @@ public class CameraShaker : MonoBehaviour {
 
 	public Transform camTransform;
 	public static float shake = 0f;
-	public float shakeAmount = 0.1f;
+	public float shakeAmount = 0.7f;
 	public float decreaseFactor = 1.0f;
 	Vector3 originalPos;
 	private Vector3 offset;

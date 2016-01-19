@@ -189,7 +189,7 @@ public class PlayerAttributes : MonoBehaviour {
 	}
 
 	public static void replenish(){
-        energy += 10;
+        energy += 20;
 	}
 
 	public static void run(){
