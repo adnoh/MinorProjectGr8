@@ -40,6 +40,11 @@ public class SaveBase : MonoBehaviour
     public Canvas sign;
     public Canvas log;
 
+    public Canvas feedback;
+    public Text feedbackText;
+
+
+
     // ConnectionString
     string mySQLconnectionString = "Server=80.60.131.231;Database=savebase;UID=userw;Pwd=Minor#8;";
 
@@ -57,7 +62,7 @@ public class SaveBase : MonoBehaviour
     /// </summary>
     /// 
 
-    public void openConnection(){
+    public void openConnection(bool fb){
 		try
 		{
 			conn = new MySql.Data.MySqlClient.MySqlConnection(mySQLconnectionString);
@@ -73,7 +78,11 @@ public class SaveBase : MonoBehaviour
 				Debug.Log ("MySQL Error: " + ex2.Number);
                 logerrorthrow.text = "Couldn't connect to server";
                 signerrorthrow.text = "Couldn't connect to server";
-
+                if (SceneManager.GetActiveScene().buildIndex == 0 && fb == true)
+                {
+                    feedback.enabled = true;
+                    feedbackText.text = "Couldn't connect to server";
+                }
             }
 		}
 	}
@@ -103,7 +112,7 @@ public class SaveBase : MonoBehaviour
             else { 
                 {
                     // Open the Connection
-                    openConnection();
+                    openConnection(false);
 
                     try
                     {
@@ -171,7 +180,7 @@ public class SaveBase : MonoBehaviour
 		FileStream fs;
 
 		// Open the Connection
-		openConnection ();
+		openConnection (true);
 
 		try
 		{
@@ -193,11 +202,20 @@ public class SaveBase : MonoBehaviour
 			
 			// Execute
 			cmd.ExecuteNonQuery();
-			conn.Close();
+            if (SceneManager.GetActiveScene().buildIndex == 0)
+            {
+                feedback.enabled = true;
+                feedbackText.text = "Savegame succesfully uploaded";
+            }
+
+            conn.Close();
 		}
 
 		catch (Exception ex) {
-			Debug.Log (ex.Message.ToString ());
+            feedback.enabled = true;
+            feedbackText.text = ex.Message.ToString();
+
+            Debug.Log (ex.Message.ToString ());
 			if (ex is MySqlException) {				
 				MySqlException ex2 = (MySqlException)ex;
 				Debug.Log (ex2.Number);
@@ -230,7 +248,7 @@ public class SaveBase : MonoBehaviour
         string db_name;
         string db_password;
 
-        openConnection();
+        openConnection(false);
 
         try
         {
@@ -331,7 +349,7 @@ public class SaveBase : MonoBehaviour
 		string db_name;
 		string db_password;
 
-		openConnection ();
+		openConnection (false);
 
 		try 
 		{ 	
@@ -342,8 +360,9 @@ public class SaveBase : MonoBehaviour
 			cmd.CommandText = sql;
 			cmd.Parameters.AddWithValue("@username", username);
 
-
+            
 			myData = cmd.ExecuteReader();
+
 
 			while (myData.Read())
 			{
@@ -355,6 +374,7 @@ public class SaveBase : MonoBehaviour
 				//Debug.Log(db_id);
 				//Debug.Log(db_name);
 				//Debug.Log(db_password);
+
 
 
 				// verify if password matches username
@@ -381,6 +401,8 @@ public class SaveBase : MonoBehaviour
 				}		
 			
 			}
+
+
 			myData.Close();
 			conn.Close();
 
@@ -443,7 +465,9 @@ public class SaveBase : MonoBehaviour
             if (SceneManager.GetActiveScene().buildIndex == 0)
             {
                 SignInOut.gameObject.SetActive(true);
+                LoggedInPlayer.text = LoggedInUser;
             }
+            
 
         }
 
@@ -470,7 +494,7 @@ public class SaveBase : MonoBehaviour
 			string db_name;
 			string db_password;
 
-			openConnection ();
+			openConnection (true);
 
 			try { 	
 
@@ -506,6 +530,12 @@ public class SaveBase : MonoBehaviour
                     myData.Close();
                     conn.Close();
                     Decompress();
+
+                    if (SceneManager.GetActiveScene().buildIndex == 0)
+                    {
+                        feedback.enabled = true;
+                        feedbackText.text = "Savegame succesfully downloaded, press Load Game game now";
+                    }
                 }
 
 

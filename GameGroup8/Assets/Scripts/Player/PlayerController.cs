@@ -142,12 +142,14 @@ public class PlayerController : MonoBehaviour {
             die();
 		}
 
+        /*
 		if (death) {
 			Time.timeScale = 0;
 		}
 		if (!death) {
 			Time.timeScale = 1;
 		}
+        */
 	}
 
 
@@ -273,6 +275,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void PlayAgain(){
+        Time.timeScale = 1;
 		MiniMapScript.clearEnemies ();		
 		GameStateController.setNewgame (true);
 		// Application.LoadLevel (1);
@@ -280,20 +283,22 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void Quit(){
-		MiniMapScript.clearEnemies ();
+        Time.timeScale = 1;
+        MiniMapScript.clearEnemies ();        
 		SceneManager.LoadScene (0);
 	}
 
     public void die()
     {
+        Time.timeScale = 0;
         playerAnimator.SetBool("dieing", true);
         death = true;
         PlayerSounds.PlayDead();                                // Sound
         PlayerAttributes.setHealth(1);
         deathScreen.SetActive(true);
         amountOfDeaths++;
-        textOnDeathScreen.text = "You've died " + amountOfDeaths + "time(s) so far /n Do you want to play again?";
-        scoreOnDeathScreen.text = "You scored: " + Score.score + "/n" + "Do you want to submit your score?";
+        textOnDeathScreen.text = "Do you want to play again?";
+        scoreOnDeathScreen.text = "You scored: " + Score.score + "\n" + "Do you want to submit your score?";
     }
 		
 }
