@@ -265,11 +265,6 @@ public class EnemyController : MonoBehaviour {
 	public void setWithinRange() {
 		isWithinRange = !isWithinRange;
 		nextAttack = 1.0f;
-		if (isWithinRange) {
-			PlayerAttacker.lastAttackedEnemy = this; 
-		} else {
-			PlayerAttacker.lastAttackedEnemy = null;
-		}
 	}
 
     public bool getWithinRange(){
@@ -504,7 +499,7 @@ public class EnemyController : MonoBehaviour {
 			gameObject.GetComponent<Seeker> ().toBase = false;
 			baseWithinRange = false;
 		}
-		if (name.Equals("PolarBearPrefab(Clone)") && Vector3.Distance(this.gameObject.transform.position, GameObject.Find("player").transform.position) > 10){
+		if (name.Equals("PolarBearPrefab(Clone)") && Vector3.Distance(gameObject.transform.position, GameObject.Find("player").transform.position) > 10){
 			anim.SetBool("attack", false);
 			GameObject.Find("player").GetComponent<PlayerController>().bind(false);
 			walkingSpeed = enemy.getWalkingSpeed();

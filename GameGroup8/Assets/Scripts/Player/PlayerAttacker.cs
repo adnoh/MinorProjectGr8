@@ -13,8 +13,6 @@ public class PlayerAttacker : MonoBehaviour {
 
 	private float nextAttack = 0.0f;
 	
-	public static EnemyController lastAttackedEnemy;
-	
 	public GameObject weaponPanel;
 
     public Image[] weaponImages = new Image[8];
@@ -206,63 +204,68 @@ public class PlayerAttacker : MonoBehaviour {
                 WeaponsSounds.playWeaponSound(currentWeaponInt - 1);                            //Sound
             }
 			if (Input.GetMouseButtonDown(0) && Time.time > nextAttack && currentWeapon.getIfMelee()){
-				Debug.Log (true);
 				playerAnimator.SetBool ("attack", true);
 				nextAttack = Time.time + currentWeapon.getAttackSpeed();
-                WeaponsSounds.playWeaponSound(currentWeaponInt - 1);                            //Sound
-                if (lastAttackedEnemy != null){
-					int damage = (int)(Random.Range (currentWeapon.getWeaponDamage(), currentWeapon.getWeaponDamage() + 10) * currentWeapon.getType ().damageMultiplierToType(lastAttackedEnemy.getType()) * PlayerAttributes.getAttackMultiplier());
-					lastAttackedEnemy.setHealth(lastAttackedEnemy.getHealth () - damage);
-					//lastAttackedEnemy.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3((this.gameObject.transform.position.x - lastAttackedEnemy.gameObject.transform.position.x) * currentWeapon.getKnockBack(), 0, (this.gameObject.transform.position.z - lastAttackedEnemy.gameObject.transform.position.z) * currentWeapon.getKnockBack())); 
-					if (lastAttackedEnemy.getHealth () <= 0) {
-						EnemySpawner.enemiesDefeaten++;
-						lastAttackedEnemy.GetComponent<Seeker> ().StopAllCoroutines ();
-						lastAttackedEnemy.GetComponent<Seeker> ().destroyed = true;
-						lastAttackedEnemy.destroyed = true;
-                        _score.addScoreEnemy(lastAttackedEnemy.getLevel());
-                        lastAttackedEnemy.StartCoroutine(lastAttackedEnemy.die ());
-						MiniMapScript.enemies.Remove (lastAttackedEnemy);
-                        if (!lastAttackedEnemy.dead){
-                            PlayerAttributes.getExperience(lastAttackedEnemy.getLevel());
-                        }
-						PlayerAttacker.lastAttackedEnemy = null;
+				WeaponsSounds.playWeaponSound(currentWeaponInt - 1);        					//Sound
+				Vector3 placeOfWeapon = GameObject.Find ("player").transform.position;
+				GameObject[] nearbyEnemies = GameObject.FindGameObjectsWithTag ("Enemy");
+				for (int i = 0; i < nearbyEnemies.Length; i++) {
+					if (Vector3.Distance (placeOfWeapon + transform.forward * 2, nearbyEnemies [i].transform.position) < 2) {
+						int damage = (int)(Random.Range (currentWeapon.getWeaponDamage (), currentWeapon.getWeaponDamage () + 10) * currentWeapon.getType ().damageMultiplierToType (nearbyEnemies [i].GetComponent<EnemyController> ().getType ()) * PlayerAttributes.getAttackMultiplier ());
+						nearbyEnemies [i].GetComponent<EnemyController> ().setHealth (nearbyEnemies [i].GetComponent<EnemyController> ().getHealth () - damage);
+						nearbyEnemies [i].GetComponent<Rigidbody>().AddForce(new Vector3((gameObject.transform.position.x - nearbyEnemies [i].gameObject.transform.position.x) * currentWeapon.getKnockBack(), 0, (gameObject.transform.position.z - nearbyEnemies [i].gameObject.transform.position.z) * currentWeapon.getKnockBack()));
+						if (nearbyEnemies [i].GetComponent<EnemyController> ().getHealth () <= 0) {
+							EnemySpawner.enemiesDefeaten++;
+							if (!nearbyEnemies [i].name.Equals ("MeepMeepPrefab(Clone)")) {
+								nearbyEnemies [i].GetComponent<Seeker> ().StopAllCoroutines ();
+								nearbyEnemies [i].GetComponent<Seeker> ().destroyed = true;
+							}
+							nearbyEnemies [i].GetComponent<EnemyController> ().destroyed = true;
+							_score.addScoreEnemy (nearbyEnemies [i].GetComponent<EnemyController> ().getLevel ());
+							nearbyEnemies [i].GetComponent<EnemyController> ().StartCoroutine (nearbyEnemies [i].GetComponent<EnemyController> ().die ());
+							MiniMapScript.enemies.Remove (nearbyEnemies [i].GetComponent<EnemyController> ());
+							if (!nearbyEnemies [i].GetComponent<EnemyController> ().dead) {
+								PlayerAttributes.getExperience (nearbyEnemies [i].GetComponent<EnemyController> ().getLevel ());
+							}
+						}
 					}
-				}
+				}            
 			}
+
             if ((currentWeaponInt == 3 || currentWeaponInt == 4) && Input.GetMouseButtonUp(0))
             {
                 WeaponsSounds.StopWeaponsound(currentWeaponInt - 1);
             }
 
-			if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1)) && unlocked[0]){
+			if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) || currentWeaponInt == 1) && unlocked[0]){
 				currentWeapon = weaponFactory.getPistol();
 				playerAnimator.SetInteger ("weapon", 1);
 				currentWeaponInt = 1;
 				setAllWeaponsUnactive ();
 				weapons [0].SetActive (true);
 			}
-			if ((Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2)) && unlocked[1]){
+			if ((Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2) || currentWeaponInt == 2) && unlocked[1]){
 				currentWeapon = weaponFactory.getShrimpPistol();
 				currentWeaponInt = 2;
 				playerAnimator.SetInteger ("weapon", 1);
 				setAllWeaponsUnactive ();
 				weapons [1].SetActive (true);
 			}
-			if ((Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3)) && unlocked[2]){
+			if ((Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3)  || currentWeaponInt == 3) && unlocked[2]){
 				currentWeapon = weaponFactory.getStingerGun();
 				currentWeaponInt = 3;
 				playerAnimator.SetInteger ("weapon", 1);
 				setAllWeaponsUnactive ();
 				weapons [2].SetActive (true);
 			}
-			if ((Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4)) && unlocked[3]){
+			if ((Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4)  || currentWeaponInt == 4) && unlocked[3]){
 				currentWeapon = weaponFactory.getWeaponizedEel();
 				currentWeaponInt = 4;
 				playerAnimator.SetInteger ("weapon", 3);
 				setAllWeaponsUnactive ();
 				weapons [3].SetActive (true);
 			}
-			if ((Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5)) && unlocked[4]){
+			if ((Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5)  || currentWeaponInt == 5) && unlocked[4]){
 				currentWeapon = weaponFactory.getWunderwuffen();
 				currentWeapon.setType(new Type(1));
 				currentWeaponInt = 5;
@@ -270,21 +273,21 @@ public class PlayerAttacker : MonoBehaviour {
 				setAllWeaponsUnactive ();
 				weapons [4].SetActive (true);
 			}
-			if ((Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6)) && unlocked[5]){
+			if ((Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6)  || currentWeaponInt == 6) && unlocked[5]){
 				currentWeapon = weaponFactory.getBatteringRam();
 				currentWeaponInt = 6;
 				playerAnimator.SetInteger ("weapon", 3);
 				setAllWeaponsUnactive ();
 				weapons [5].SetActive (true);
 			}
-			if ((Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Alpha7)) && unlocked[6]){
+			if ((Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Alpha7) || currentWeaponInt == 7) && unlocked[6]){
 				currentWeapon = weaponFactory.getSwordfish();
 				currentWeaponInt = 7;
 				playerAnimator.SetInteger ("weapon", 2);
 				setAllWeaponsUnactive ();
 				weapons [6].SetActive (true);
 			}
-			if ((Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Alpha8)) && unlocked[7]){
+			if ((Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Alpha8)  || currentWeaponInt == 8) && unlocked[7]){
 				currentWeapon = weaponFactory.getBaseballBat();
 				currentWeaponInt = 8;
 				playerAnimator.SetInteger ("weapon", 2);
@@ -301,14 +304,56 @@ public class PlayerAttacker : MonoBehaviour {
 					typeOfWunderWaffenText.text = currentWeapon.getType().toString();
 				}
 			}
+			if (Input.GetAxis ("Mouse ScrollWheel") != 0f) {
+				if (Input.GetAxis ("Mouse ScrollWheel") > 0f) {
+					int[] unlockedWeapons = new int[8];
+					int index = 0;
+					if (currentWeaponInt != 8) {
+						for (int i = currentWeaponInt; i < 8; i++) {
+							if (unlocked [i]) {
+								unlockedWeapons [index] = i + 1;
+								index++;
+							}
+						}
+					}
+					if (currentWeaponInt != 1) {
+						for (int i = 0; i < currentWeaponInt; i++) {
+							if (unlocked [i]) {
+								unlockedWeapons [index] = i + 1;
+								index++;
+							}
+						}
+					}
+					if (unlockedWeapons [0] != 0) {
+						currentWeaponInt = unlockedWeapons [0];
+					}
+				}
+				if (Input.GetAxis ("Mouse ScrollWheel") < 0f) {
+					int[] unlockedWeapons = new int[8];
+					int index = 0;
+					if (currentWeaponInt != 1) {
+						for (int i = currentWeaponInt - 2; i >= 0; i--) {
+							if (unlocked [i]) {
+								unlockedWeapons [index] = i + 1;
+								index++;
+							}
+						}
+					}
+					if (currentWeaponInt != 7) {
+						for (int i = 7; i >= currentWeaponInt; i--) {
+							if (unlocked [i]) {
+								unlockedWeapons [index] = i + 1;
+								index++;
+							}
+						}
+					}
+					if (unlockedWeapons [0] != 0) {
+						currentWeaponInt = unlockedWeapons [0];
+					}
+				}
+			}
 		}
 		
-	}
-
-	public void OnTriggerEnter(Collider col){
-		if (col.gameObject.CompareTag ("Enemy")) {
-			lastAttackedEnemy = col.gameObject.GetComponent<EnemyController>();
-		}
 	}
 
 	private void setActive(){
