@@ -13,11 +13,11 @@ public class Daynight : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.RotateAround (Vector3.zero, Vector3.right, 5f * Time.deltaTime);
+		transform.RotateAround (Vector3.zero, Vector3.right, 1f * Time.deltaTime);
 		transform.LookAt (Vector3.zero);
 		var myPosition = transform.position;
 		Height = myPosition.y;
-        GetComponent<Light>().intensity = (Height < 0f) ? 0f * intensity : 1f * intensity *(0.5f+(Height/500));
+        GetComponent<Light>().intensity = (Height < 0f) ? 0f * intensity : 1f * intensity * (0.5f + (Height / 500));
 	}
 
     /*

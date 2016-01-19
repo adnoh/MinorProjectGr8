@@ -27,15 +27,15 @@ public class WeaponFactory {
 	}
 
 	public Weapon getBatteringRam(){
-		return new Weapon (40, 2.0f, false, new Type (2), false, true, false, false, false, 2f);
+		return new Weapon (40, 2.0f, false, new Type (2), false, true, false, false, false, 4f);
 	}
 
 	public Weapon getSwordfish(){
-		return new Weapon (25, 0.5f, false, new Type (3), false, true, false, false, false, 1f);
+		return new Weapon (25, 0.5f, false, new Type (3), false, true, false, false, false, 2f);
 	}
 
 	public Weapon getBaseballBat(){
-		return new Weapon (20, 0.75f, false, new Type (1), false, true, false, false, false, 3f);
+		return new Weapon (20, 0.75f, false, new Type (1), false, true, false, false, false, 6f);
 	}
 
 }

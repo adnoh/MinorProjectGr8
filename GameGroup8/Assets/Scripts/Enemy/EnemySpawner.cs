@@ -303,17 +303,17 @@ public class EnemySpawner : MonoBehaviour {
 
     void calculateChangeToSpawnPolarBear()
     {
-        changeToSpawnPolarBear = 0.125f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead + changeToSpawnMeepMeep + changeToSpawnOilphant);
+        changeToSpawnPolarBear = 0.0625f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead + changeToSpawnMeepMeep + changeToSpawnOilphant);
     }
 
     void calculateChangeToSpawnMeepMeep()
     {
-        changeToSpawnMeepMeep = 0.0625f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead + changeToSpawnPolarBear + changeToSpawnOilphant);
+        changeToSpawnMeepMeep = 0.03125f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead + changeToSpawnPolarBear + changeToSpawnOilphant);
     }
 
     void calculateChangeToSpawnOilphant()
     {
-        changeToSpawnOilphant = 0.125f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead + changeToSpawnPolarBear + changeToSpawnMeepMeep);
+        changeToSpawnOilphant = 0.0625f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead + changeToSpawnPolarBear + changeToSpawnMeepMeep);
     }
 
     void setEnemiesThisWave(){
