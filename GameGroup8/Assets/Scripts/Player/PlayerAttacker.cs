@@ -289,7 +289,9 @@ public class PlayerAttacker : MonoBehaviour {
 					if (Vector3.Distance (placeOfWeapon + transform.forward * 2, nearbyEnemies [i].transform.position) < 2) {
 						int damage = (int)(Random.Range (currentWeapon.getWeaponDamage (), currentWeapon.getWeaponDamage () + 10) * currentWeapon.getType ().damageMultiplierToType (nearbyEnemies [i].GetComponent<EnemyController> ().getType ()) * PlayerAttributes.getAttackMultiplier ());
 						nearbyEnemies [i].GetComponent<EnemyController> ().setHealth (nearbyEnemies [i].GetComponent<EnemyController> ().getHealth () - damage);
-						nearbyEnemies [i].GetComponent<Rigidbody>().AddForce(new Vector3((gameObject.transform.position.x - nearbyEnemies [i].gameObject.transform.position.x) * currentWeapon.getKnockBack(), 0, (gameObject.transform.position.z - nearbyEnemies [i].gameObject.transform.position.z) * currentWeapon.getKnockBack()));
+						if (Vector3.Distance (GameObject.FindGameObjectWithTag ("BASE").transform.position, nearbyEnemies [i].transform.position + transform.forward * currentWeapon.getKnockBack ()) > 11) {
+							nearbyEnemies [i].transform.position = nearbyEnemies [i].transform.position + transform.forward * currentWeapon.getKnockBack ();
+						}
 						if (nearbyEnemies [i].GetComponent<EnemyController> ().getHealth () <= 0) {
 							EnemySpawner.enemiesDefeaten++;
 							if (!nearbyEnemies [i].name.Equals ("MeepMeepPrefab(Clone)")) {

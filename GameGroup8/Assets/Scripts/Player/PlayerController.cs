@@ -200,14 +200,7 @@ public class PlayerController : MonoBehaviour {
         if (collider.gameObject.CompareTag("Energy-Pick-Up") && this.gameObject.name.Equals("player"))
         {
             Destroy(collider.gameObject);
-            if ((PlayerAttributes.getMaxEnergy() - PlayerAttributes.getEnergy()) > 20)
-            {
-                PlayerAttributes.setEnergy(PlayerAttributes.getEnergy() + 20);
-            }
-            else
-            {
-                PlayerAttributes.setEnergy(PlayerAttributes.getMaxEnergy());
-            }
+            PlayerAttributes.setEnergy(PlayerAttributes.getMaxEnergy());
         }
         if (collider.gameObject.CompareTag("Fatique-Pick-Up") && this.gameObject.name.Equals("player"))
         {

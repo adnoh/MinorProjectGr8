@@ -264,7 +264,6 @@ public class EnemyController : MonoBehaviour {
 
 	public void setWithinRange() {
 		isWithinRange = !isWithinRange;
-		nextAttack = 1.0f;
 	}
 
     public bool getWithinRange(){
@@ -388,7 +387,7 @@ public class EnemyController : MonoBehaviour {
 		anim.SetBool ("dying", true);
         yield return new WaitForSeconds(1);
         PSpawner spawner = Camera.main.GetComponent<PSpawner>();
-        if (Random.Range(0f, 1f) > Analytics.get_timeCTBase() / Time.time) {
+        if (Random.Range(0f, 2f) > Analytics.get_timeCTBase() / Time.time + 1f) {
             spawner.placeUnit(this.gameObject.transform.position);
         }
         healthBarClone.transform.position = new Vector3(-1000, -1000, 0);
@@ -499,7 +498,7 @@ public class EnemyController : MonoBehaviour {
 			gameObject.GetComponent<Seeker> ().toBase = false;
 			baseWithinRange = false;
 		}
-		if (name.Equals("PolarBearPrefab(Clone)") && Vector3.Distance(gameObject.transform.position, GameObject.Find("player").transform.position) > 10){
+		if (name.Equals("PolarBearPrefab(Clone)") && Vector3.Distance(gameObject.transform.position, GameObject.Find("player").transform.position) > 20){
 			anim.SetBool("attack", false);
 			GameObject.Find("player").GetComponent<PlayerController>().bind(false);
 			walkingSpeed = enemy.getWalkingSpeed();
