@@ -521,7 +521,7 @@ public class SaveBase : MonoBehaviour
         {
             foreach (ZipEntry e in zip)
             {
-                e.Extract(Application.dataPath, ExtractExistingFileAction.OverwriteSilently);
+                e.Extract(Application.dataPath + "/saves/", ExtractExistingFileAction.OverwriteSilently);
             }
         }
     }

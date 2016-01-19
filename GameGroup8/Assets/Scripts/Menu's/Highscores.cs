@@ -4,6 +4,7 @@ using System.Collections;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class Highscores : MonoBehaviour
 {
@@ -22,11 +23,14 @@ public class Highscores : MonoBehaviour
 
     void Start()
     {
-        if (SaveBase.loggedIn)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            playername2.text = SaveBase.LoggedInUser;
-            playername2.textComponent.text = SaveBase.LoggedInUser;            
-        }        
+            if (SaveBase.loggedIn)
+            {
+                playername2.text = SaveBase.LoggedInUser;
+                playername2.textComponent.text = SaveBase.LoggedInUser;
+            }
+        }    
     }
 
         
