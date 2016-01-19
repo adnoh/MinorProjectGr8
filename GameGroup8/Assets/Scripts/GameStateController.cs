@@ -100,6 +100,7 @@ public class GameStateController : MonoBehaviour
         if (newgame)
         {
 			GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().FirstLoad();
+			GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttacker>().FirstLoad();
         }
 
         else

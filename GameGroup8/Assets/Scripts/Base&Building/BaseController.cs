@@ -494,7 +494,7 @@ public class BaseController : MonoBehaviour{
             Flashlight.SetActive(false);
         }
 
-		var Temp = MonsterCollection.turretLoad("Assets/saves/turrets.xml");
+		var Temp = MonsterCollection.turretLoad(Application.dataPath + "/saves/turrets.xml");
 		var TurretList = Temp.getTurretList();
 
 		for(int i = 0; i < TurretList.Length; i++){

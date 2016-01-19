@@ -486,7 +486,6 @@ public class MonsterCollection : MonoBehaviour
 
         var player = playerpreLoad(path);
 
-        GameObject tempplayer = GameObject.FindWithTag("Player");
         Vector3 templocation;
         templocation.x = player.getPosx();
         templocation.y = 0.0f;
@@ -497,9 +496,8 @@ public class MonsterCollection : MonoBehaviour
         temprotation.w = player.getRotw();
         temprotation.z = player.getRotz();
 
-
-        tempplayer.transform.position = templocation;
-        tempplayer.transform.rotation = temprotation;
+		GameObject.Find("player").transform.position = templocation;
+		GameObject.Find("player").transform.rotation = temprotation;
 
         PlayerAttributes.attackPoints = player.attackPoints;
         PlayerAttributes.speedPoints = player.speedPoints;
@@ -516,6 +514,7 @@ public class MonsterCollection : MonoBehaviour
 
         GameObject.Find("player").GetComponent<PlayerAttacker>().currentWeaponInt = player.currentWeapon;
         PlayerAttacker.unlocked = player.unlocked;
+		GameObject.Find ("player").GetComponent<PlayerAttacker> ().LoadFromSave ();
     }
 
     public static void turretSave(string path){
