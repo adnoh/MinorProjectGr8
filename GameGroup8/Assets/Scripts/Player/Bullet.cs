@@ -12,6 +12,9 @@ public class Bullet : MonoBehaviour {
 
     Score score_;
 
+    private float Volume;
+    private AudioSource Sound;
+
     void Start(){
 
         if(this.gameObject.name.Equals("CatPrefab(Clone)") && this.gameObject.name.Equals("SnailPrefab(Clone)"))
@@ -30,6 +33,10 @@ public class Bullet : MonoBehaviour {
 		} else {
 			type = new Type (3);
 		}
+
+        // sound
+        Volume = PlayerPrefs.GetFloat("sfx option");
+        Sound = gameObject.GetComponent<AudioSource>();
 	}
 
     /// <summary>
@@ -38,7 +45,8 @@ public class Bullet : MonoBehaviour {
     /// <param name="col"></param>
 	void OnTriggerEnter(Collider col){
 		if(col.gameObject.CompareTag ("Enemy") && !shotByEnemy && (this.gameObject.name.Equals("newBullet(Clone)") || this.gameObject.name.Equals ("CatPrefab(Clone)") || this.gameObject.name.Equals("SnailPrefab(Clone)"))){
-			EnemyController enemyController = col.gameObject.GetComponent<EnemyController>();
+            Sound.Play();                                   // sound
+            EnemyController enemyController = col.gameObject.GetComponent<EnemyController>();
             enemyController.shotByPlayer = true;
 			int damage = (int)(Random.Range (dmg, dmg + 10) * type.damageMultiplierToType(enemyController.getType()) * PlayerAttributes.getAttackMultiplier());
 			enemyController.setHealth(enemyController.getHealth () - damage);
@@ -80,6 +88,7 @@ public class Bullet : MonoBehaviour {
 		}
         if (col.gameObject.name.Equals("player") && shotByEnemy)
         {
+            Sound.Play();                                   // sound
             PlayerAttributes.takeDamage(dmg);
             GameObject.Destroy(this.gameObject);
             CameraShaker.shakeCamera();

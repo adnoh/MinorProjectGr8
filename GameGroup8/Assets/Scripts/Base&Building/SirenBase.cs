@@ -43,7 +43,6 @@ public class SirenBase : MonoBehaviour {
             Enemies.Add(col.gameObject);
             if (play == false)
             {
-                //Debug.Log("siren");
                 play = true;
                 Sound.Play();
             }

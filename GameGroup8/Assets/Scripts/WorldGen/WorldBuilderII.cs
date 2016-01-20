@@ -293,7 +293,8 @@ public class WorldBuilderII : MonoBehaviour {
 
         foreach (Vector3 Pos in WallsPos)
         {
-            placeWalls(Pos);
+            Vector3 position = new Vector3(Pos.x, 0, Pos.z);
+            placeWalls(position);
         }
         
     }

@@ -290,10 +290,10 @@ public class PlayerController : MonoBehaviour {
 
     public void die()
     {
+        PlayerSounds.PlayDead();                                // Sound
         Time.timeScale = 0;
         playerAnimator.SetBool("dieing", true);
         death = true;
-        PlayerSounds.PlayDead();                                // Sound
         PlayerAttributes.setHealth(1);
         deathScreen.SetActive(true);
         amountOfDeaths++;

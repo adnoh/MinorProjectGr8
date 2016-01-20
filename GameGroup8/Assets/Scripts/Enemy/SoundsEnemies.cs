@@ -26,6 +26,8 @@ public class SoundsEnemies : MonoBehaviour {
             sounds[i].clip = Sharky[i];
             sounds[i].volume = Volume;
             sounds[i].spatialBlend = 1;
+            sounds[i].rolloffMode = AudioRolloffMode.Linear;
+            sounds[i].maxDistance = 100;
         }
 
         return sounds;
@@ -41,6 +43,8 @@ public class SoundsEnemies : MonoBehaviour {
             sounds[i].clip = Firefox[i];
             sounds[i].volume = Volume;
             sounds[i].spatialBlend = 1;
+            sounds[i].rolloffMode = AudioRolloffMode.Linear;
+            sounds[i].maxDistance = 100;
         }
 
         return sounds;
@@ -56,6 +60,8 @@ public class SoundsEnemies : MonoBehaviour {
             sounds[i].clip = DesertEagle[i];
             sounds[i].volume = Volume;
             sounds[i].spatialBlend = 1;
+            sounds[i].rolloffMode = AudioRolloffMode.Linear;
+            sounds[i].maxDistance = 100;
         }
 
         return sounds;
@@ -71,6 +77,8 @@ public class SoundsEnemies : MonoBehaviour {
             sounds[i].clip = PolarBear[i];
             sounds[i].volume = Volume;
             sounds[i].spatialBlend = 1;
+            sounds[i].rolloffMode = AudioRolloffMode.Linear;
+            sounds[i].maxDistance = 100;
         }
 
         return sounds;
@@ -86,6 +94,8 @@ public class SoundsEnemies : MonoBehaviour {
             sounds[i].clip = Oilfant[i];
             sounds[i].volume = Volume;
             sounds[i].spatialBlend = 1;
+            sounds[i].rolloffMode = AudioRolloffMode.Linear;
+            sounds[i].maxDistance = 100;
         }
 
         return sounds;
@@ -101,6 +111,8 @@ public class SoundsEnemies : MonoBehaviour {
             sounds[i].clip = Meep[i];
             sounds[i].volume = Volume;
             sounds[i].spatialBlend = 1;
+            sounds[i].rolloffMode = AudioRolloffMode.Linear;
+            sounds[i].maxDistance = 100;
         }
 
         return sounds;

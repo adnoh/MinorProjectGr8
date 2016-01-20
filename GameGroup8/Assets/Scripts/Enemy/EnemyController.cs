@@ -418,13 +418,6 @@ public class EnemyController : MonoBehaviour {
         }
     }
 
-    IEnumerator SoundPeemPeem(){
-        Sound[0].Play();
-        yield return new WaitForSeconds(Random.Range(5f, 15f));
-        SoundPeem = false;
-        yield return null;
-    }
-
 	public void updateSpeed(){
 		updatedSpeed = walkingSpeed * (1f + (0.6f * ((float)((float)Analytics.getHitCount () [0] / ((float)Analytics.getShotsFired () + 1f)) - 0.5f)));
 	}
@@ -469,7 +462,15 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
 
-	public void wanderAround(){
+    IEnumerator SoundPeemPeem()
+    {
+        Sound[0].Play();
+        yield return new WaitForSeconds(Random.Range(5f, 10f));
+        SoundPeem = false;
+        yield return null;
+    }
+
+    public void wanderAround(){
 		if (currentWanderingDirection == new Vector3 (0f, 0f, 0f) || Time.time > timeToChangeDirection) {
 			timeToChangeDirection += 1.0f;
 			float ran = Random.Range (0f, 2f * Mathf.PI);
