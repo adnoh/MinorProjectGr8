@@ -281,9 +281,6 @@ public class WorldBuilderII : MonoBehaviour {
 
             GameObject huisje = (GameObject)Instantiate(House, Pos, Quaternion.identity);
             huisje.transform.Rotate(Rot);
-
-            if (HouseInfo[i].Length != 2 && HouseInfo[i][2] == new Vector3 (1,1,1))
-                placeWalls(Pos);
         }
 
         foreach (Vector3 Pos in TreePos)

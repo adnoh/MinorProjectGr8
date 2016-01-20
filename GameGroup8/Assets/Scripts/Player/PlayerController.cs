@@ -212,7 +212,7 @@ public class PlayerController : MonoBehaviour {
         if (collider.gameObject.CompareTag("Base-Pick-Up") && this.gameObject.name.Equals("player"))
         {
             Destroy(collider.gameObject);
-            GameObject.Find("Gate").GetComponent<BaseController>().RepareWalls();
+            GameObject.Find("Gate").GetComponent<BaseController>().RepairWalls();
         }
         if (collider.gameObject.CompareTag ("Enemy")) {
 			collider.gameObject.GetComponent<EnemyController> ().setWithinRange();

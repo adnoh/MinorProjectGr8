@@ -42,15 +42,18 @@ public class BaseController : MonoBehaviour{
 	public Text upgradeBuild1;
 	public Text upgradeBuild2;
 	public Text upgradeBuild3;
+    public GameObject upgradeBtn1;
+    public GameObject upgradeBtn2;
+    public GameObject upgradeBtn3;
 
     public GameObject TechMenu;
-    public Text LightUpgrade;
-    public Text LightUpgradeBtn;
-    public Text BaseLightUpgrade;
-    public Text BaseLightUpgradeBtn;
+    public Text LightCost;
+    public GameObject LightUpgradeBtn;
+    public Text BaseLightCost;
+    public GameObject BaseLightUpgradeBtn;
     public Text WallsUpgrade;
     public Text WallsCost;
-    public Text WallsUpgradeBtn;
+    public GameObject WallsUpgradeBtn;
 
 	private Vector3 playerPos;
     
@@ -106,7 +109,7 @@ public class BaseController : MonoBehaviour{
                 BaseSpot.SetActive(true);
                 BaseMenu.SetActive(true);
                 Analytics.set_timeBase();
-                //PlayerController.setCount_2(1000);        // hack for units when entered base
+                PlayerController.setCount_2(1000);        // hack for units when entered base
 			} 
 			else {
                 GameObject.Find("player").transform.position = playerPos;
@@ -143,7 +146,7 @@ public class BaseController : MonoBehaviour{
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 		
-			if (Physics.Raycast (ray, out hit, 1000, 512) /*&& !hit.collider.gameObject.CompareTag ("occupiedPlane")*/ && pause) {
+			if (Physics.Raycast (ray, out hit, 1000, 512) && pause) {
 				if (lastHitObject) {
 					lastHitObject.GetComponent<Renderer> ().material = originalMat;
 				}
@@ -385,7 +388,12 @@ public class BaseController : MonoBehaviour{
     /// Also this method is used to open/close the tech and weapons menu
     /// </summary>
 	void setBuildMenu(){
-		if (lastHitObject.CompareTag ("emptyPlane")) {
+
+        upgradeBtn1.SetActive(true);
+        upgradeBtn2.SetActive(true);
+        upgradeBtn3.SetActive(true);
+
+        if (lastHitObject.CompareTag ("emptyPlane")) {
 			title.text = "Empty spot";
 			buildingText1.text = "Rock-Paper-Scissor turret";
 			buildingText2.text = "Gearshack";
@@ -423,7 +431,7 @@ public class BaseController : MonoBehaviour{
 			unitCost3.text = "";
 			upgradeBuild1.text = "Upgrade(1)";
 			upgradeBuild2.text = "Upgrade(2)";
-			upgradeBuild3.text = "";
+            upgradeBtn3.SetActive(false);
 			buildMenu.SetActive (true);
 		}
 		if (lastHitObject.CompareTag ("GearShackPlane")) {
@@ -434,9 +442,9 @@ public class BaseController : MonoBehaviour{
 			unitCost1.text = "Cost: " + Fourth_Building;
 			unitCost2.text = "Cost: " + Fourth_Building;
             unitCost3.text = "Cost: " + Fourth_Building;
-            upgradeBuild1.text = "Upgrade";
-			upgradeBuild2.text = "Upgrade";
-			upgradeBuild3.text = "Upgrade";
+            upgradeBuild1.text = "Upgrade(1)";
+			upgradeBuild2.text = "Upgrade(2)";
+			upgradeBuild3.text = "Upgrade(3)";
 			buildMenu.SetActive (true);
 		}
         if (lastHitObject.CompareTag("occupiedPlane"))
@@ -448,9 +456,9 @@ public class BaseController : MonoBehaviour{
             unitCost1.text = "";
             unitCost2.text = "";
             unitCost3.text = "";
-            upgradeBuild1.text = "";
-            upgradeBuild2.text = "";
-            upgradeBuild3.text = "";
+            upgradeBtn1.SetActive(false);
+            upgradeBtn2.SetActive(false);
+            upgradeBtn3.SetActive(false);
             buildMenu.SetActive(true);
         }
         if (lastHitObject.CompareTag("Gunsmith"))
@@ -487,11 +495,15 @@ public class BaseController : MonoBehaviour{
         if (boughtLights == true)
         {
             Searchlights.SetActive(true);
+            BaseLightCost.text = "bought";
+            BaseLightUpgradeBtn.SetActive(false);
         }
         if (boughtFlashlight)
         {
             Arealight.SetActive(true);
             Flashlight.SetActive(false);
+            LightUpgradeBtn.SetActive(false);
+            LightCost.text = "bought";
         }
 
 		var Temp = MonsterCollection.turretLoad(Application.dataPath + "/saves/turrets.xml");
@@ -647,12 +659,17 @@ public class BaseController : MonoBehaviour{
                 Wall_1.SetActive(false);
                 Wall_2.SetActive(true);
                 Wall_3.SetActive(false);
+                WallsUpgrade.text = "Walls (level " + wall + ")";
+                WallsCost.text = "cost: 30";
                 break;
             case 2:
                 healthSlider.maxValue = 3000;
                 Wall_1.SetActive(false);
                 Wall_2.SetActive(false);
                 Wall_3.SetActive(true);
+                WallsUpgrade.text = "Walls (level " + wall + ")";
+                WallsCost.text = "max";
+                WallsUpgradeBtn.SetActive(false);
                 break;
         }
     }
@@ -663,33 +680,32 @@ public class BaseController : MonoBehaviour{
     /// </summary>
     public void UpgradeWalls()
     {
-        if (PlayerController.getCount() >= 20)
+        if (PlayerController.getCount() >= (20 + wall*10))
         {
+            PlayerController.setCount(20 + wall * 10);
+            countText.text = "Amount of units: " + PlayerController.getCount();
+
             wall++;
             baseHealth += 1000;
             matchWalls();
 
-            PlayerController.setCount(20);
-            countText.text = "Amount of units: " + PlayerController.getCount();
-
+            WallsCost.text = "cost: " + (20 + wall * 10);
             WallsUpgrade.text = "Walls (level " + wall + ")";
         }
         
         if(wall >= 2)
         {
-            WallsUpgradeBtn.gameObject.SetActive(false);
+            WallsCost.text = "max";
+            WallsUpgradeBtn.SetActive(false);
         }
     }
 
     /// <summary>
     /// Repairs the walls in exchange for units
     /// </summary>
-    public void RepareWalls()
+    public void RepairWalls()
     {
         baseHealth += 50;
-
-        PlayerController.setCount(5);
-        countText.text = "Amount of units: " + PlayerController.getCount();
     }
 
     /// <summary>
@@ -701,8 +717,9 @@ public class BaseController : MonoBehaviour{
         {
             boughtLights = true;
             Searchlights.SetActive(true);
-            BaseLightUpgradeBtn.text = "bought";
-            BaseLightUpgrade.text = "";
+
+            BaseLightCost.text = "bought";
+            BaseLightUpgradeBtn.SetActive(false);
         }
     }
 
@@ -717,8 +734,8 @@ public class BaseController : MonoBehaviour{
             Flashlight.SetActive(false);
             Arealight.SetActive(true);
 
-            LightUpgrade.text = "";
-            LightUpgradeBtn.text = "bought";
+            LightCost.text = "bought";
+            LightUpgradeBtn.SetActive(false);
         }
     }
 }
