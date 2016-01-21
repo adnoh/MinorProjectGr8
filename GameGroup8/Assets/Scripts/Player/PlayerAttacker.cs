@@ -31,7 +31,7 @@ public class PlayerAttacker : MonoBehaviour {
 
 	private Animator playerAnimator;
 
-    private int weaponCost = 5;
+    private int[] weaponCost = new int[] { 0, 0, 10, 15, 30, 10, 10, 10 };
     public Text unitCount;
 
 	public GameObject[] weapons = new GameObject[8];
@@ -53,7 +53,7 @@ public class PlayerAttacker : MonoBehaviour {
 		setActive ();
 		setTextOfLockUnlock ();
 		for (int i = 0; i < 8; i ++) {
-			unitCostWeaponTexts[i].text = weaponCost + " Units";
+			unitCostWeaponTexts[i].text = weaponCost[i] + " Units";
 		}
 		playerAnimator = gameObject.GetComponent<Animator> ();
         pSys1.enableEmission = false;
@@ -137,7 +137,7 @@ public class PlayerAttacker : MonoBehaviour {
 		setActive ();
 		setTextOfLockUnlock ();
 		for (int i = 0; i < 8; i ++) {
-			unitCostWeaponTexts[i].text = weaponCost + " Units";
+			unitCostWeaponTexts[i].text = weaponCost[i] + " Units";
 		}
 		playerAnimator = gameObject.GetComponent<Animator> ();
 		pSys1.enableEmission = false;
@@ -469,11 +469,11 @@ public class PlayerAttacker : MonoBehaviour {
 	}
 
 	public void unlockInt(int i){
-		if(PlayerController.getCount() >= weaponCost){
+		if(PlayerController.getCount() >= weaponCost[i - 1]){
 		    unlocked [i - 1] = true;
 		    setTextOfLockUnlock ();
 
-            PlayerController.setCount(weaponCost);
+            PlayerController.setCount(weaponCost[i - 1]);
             unitCount.text = "Amount of units:" + PlayerController.getCount();
 		}
 	}

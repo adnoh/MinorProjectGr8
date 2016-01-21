@@ -427,7 +427,7 @@ MonoBehaviour:
 
     Damage-type: Wind
 
-    Cost:10
+    Cost: 10
 
     Build from: weaponsmith'
 --- !u!222 &134296569
@@ -610,7 +610,7 @@ MonoBehaviour:
 
     Damage-type: Ground
 
-    Cost: 20
+    Cost: 10
 
     Build from: Weaponsmith'
 --- !u!222 &149154424
@@ -1185,7 +1185,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &207565735 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 400000, guid: 5fb2326a26cc4a2438d9ce679cbc5ad2, type: 3}
   m_PrefabInternal: {fileID: 207565734}
 --- !u!1 &208754115
 GameObject:
@@ -2161,7 +2161,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &331640032 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 400018, guid: 79f9c35e9c6c67040aa0f1b5c6b3ac66, type: 3}
   m_PrefabInternal: {fileID: 331640031}
 --- !u!1 &338720895
 GameObject:
@@ -3277,6 +3277,8 @@ MonoBehaviour:
   Main: {fileID: 0}
   sign: {fileID: 0}
   log: {fileID: 0}
+  feedback: {fileID: 0}
+  feedbackText: {fileID: 0}
 --- !u!114 &401732411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3499,7 +3501,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &417846170 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 400000, guid: e19628c58256ddc47b6e74b00b30e344, type: 3}
   m_PrefabInternal: {fileID: 417846169}
 --- !u!1 &424867905
 GameObject:
@@ -5419,7 +5421,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &633939551 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 400000, guid: 53367f5bfd3730e4395df6af93087839, type: 3}
   m_PrefabInternal: {fileID: 633939550}
 --- !u!1 &645329022
 GameObject:
@@ -7060,7 +7062,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &845329224 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 400004, guid: ca7ce21a39bebe54fa86c6de3be85e3a, type: 3}
   m_PrefabInternal: {fileID: 845329223}
 --- !u!1 &850920191
 GameObject:
@@ -7836,7 +7838,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &920995672 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 400022, guid: 261b9992953b673439cb1c35428867f5, type: 3}
   m_PrefabInternal: {fileID: 920995671}
 --- !u!1 &924934493
 GameObject:
@@ -8659,7 +8661,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &1003972806 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 400030, guid: b6583ca3725af32498f761eb7446b06b, type: 3}
   m_PrefabInternal: {fileID: 1003972805}
 --- !u!1 &1021423206 stripped
 GameObject:
@@ -10283,7 +10285,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &1117343175 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 400000, guid: 91e2c4e24812fdb4fa568b111e5a4266, type: 3}
   m_PrefabInternal: {fileID: 1117343174}
 --- !u!1 &1123124532
 GameObject:
@@ -18471,7 +18473,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &2064220999 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 400044, guid: 9dddc4be0e255454783e14556b4ba758, type: 3}
   m_PrefabInternal: {fileID: 2064220998}
 --- !u!1 &2068247433
 GameObject:
@@ -18963,7 +18965,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &2143090285 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 400000, guid: 9444e72efb4f1c846882fb66f8f47a61, type: 3}
   m_PrefabInternal: {fileID: 2143090284}
 --- !u!1 &2145801185
 GameObject:

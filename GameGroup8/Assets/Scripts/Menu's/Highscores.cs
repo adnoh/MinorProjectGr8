@@ -12,7 +12,7 @@ public class Highscores : MonoBehaviour
     public string addScoreURL = "http://80.60.131.231/groep8/Highscores/addscore.php?"; 
     public string highscoreURL = "http://80.60.131.231/groep8/Highscores/display_scores.php";
     public Text higscoretext;
-
+    
     // currently an input field for both playername and score. Score must be an integer.
     public InputField playername;  
     public InputField playername2;  
@@ -43,16 +43,16 @@ public class Highscores : MonoBehaviour
     {
 
         player_name = playername.text;
-		if (player_name != null) 
-		{
-			hi_score = Score.score;
-			StartCoroutine (PostScores (player_name, hi_score));
-		}
+        Debug.Log(player_name.Length);
+        if (player_name.Length == 0)
+        {
+            player_name = "Anonymous";
+        } 
+		hi_score = Score.score;
+		StartCoroutine (PostScores (player_name, hi_score));
+		
     }
-
-
-
-
+    
 
     // remember to use StartCoroutine when calling this function!
     IEnumerator PostScores(string name, int score)
