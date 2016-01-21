@@ -37,6 +37,8 @@ public class PlayerAttributes : MonoBehaviour {
 	public Text healthPointsText;
 	public Text energyPointsText;
 
+	public static int amountOfHealthBeds;
+
 	void Start() {
 		pointsToAssignText.text = "Points to assign " + pointsToUpgrade;
 		attackPointsText.text = "Attack Points: " + attackPoints;
@@ -113,7 +115,7 @@ public class PlayerAttributes : MonoBehaviour {
 	public void upgradeMaxHealth(){
 		if (pointsToUpgrade > 0 && maxHealthPoints < 25) {
 			maxHealthPoints++;
-			maxHealth = 100 + 5 * maxHealthPoints;
+			maxHealth = 100 + 5 * maxHealthPoints + 50 * amountOfHealthBeds;
 			healthPointsText.text = "Max Health Points: " + maxHealthPoints;
 			pointsToUpgrade --;
 			pointsToAssignText.text = "Points to assign " + pointsToUpgrade;

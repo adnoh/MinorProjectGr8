@@ -36,9 +36,9 @@ public class WorldBuilderII : MonoBehaviour {
 
         LoadMapTiles(map);
         BuildTexture();
-        Debug.Log("texture build");
+        //Debug.Log("texture build");
         ApplyAssets(map);
-        Debug.Log("assets placed");
+        //Debug.Log("assets placed");
     }
 
     /// <summary>
@@ -253,6 +253,7 @@ public class WorldBuilderII : MonoBehaviour {
 
             if (HousePossible(z, x, map, 15) && ObjPossible(TreePos, Pos, 10))
             {
+                Pos.y = 0;
                 placeWalls(Pos);
                 WallsPos.Add(Pos);
             }
@@ -489,16 +490,16 @@ public class WorldBuilderII : MonoBehaviour {
     /// <param name="place"></param>
     void placeWalls(Vector3 place)
     {
-        GameObject NorthWall = (GameObject)Instantiate(Wall, place + new Vector3(5, 0.5f, -1.5f), Quaternion.identity);
-        GameObject EastWall = (GameObject)Instantiate(Wall, place + new Vector3(-2.5f, 0.5f, 5), Quaternion.identity);
-        GameObject SouthWall = (GameObject)Instantiate(Wall, place + new Vector3(-10, 0.5f, -2.5f), Quaternion.identity);
-        GameObject WestWall = (GameObject)Instantiate(Wall, place + new Vector3(0, 0.5f, -10), Quaternion.identity);
+        GameObject NorthWall = (GameObject)Instantiate(Wall, place + new Vector3(5, 0.75f, -1.5f), Quaternion.identity);
+        GameObject EastWall = (GameObject)Instantiate(Wall, place + new Vector3(-2.5f, 0.75f, 5), Quaternion.identity);
+        GameObject SouthWall = (GameObject)Instantiate(Wall, place + new Vector3(-10, 0.75f, -2.5f), Quaternion.identity);
+        GameObject WestWall = (GameObject)Instantiate(Wall, place + new Vector3(0, 0.75f, -10), Quaternion.identity);
         NorthWall.transform.Rotate(new Vector3(0, 90, 0));
-        NorthWall.transform.localScale = new Vector3(13, 1, 0.5f);
+        NorthWall.transform.localScale = new Vector3(13, 1.5f, 0.5f);
         EastWall.transform.Rotate(new Vector3(0, 0, 0));
-        EastWall.transform.localScale = new Vector3(15, 1, 0.5f);
+        EastWall.transform.localScale = new Vector3(15, 1.5f, 0.5f);
         SouthWall.transform.Rotate(new Vector3(0, 90, 0));
-        SouthWall.transform.localScale = new Vector3(15, 1, 0.5f);
+        SouthWall.transform.localScale = new Vector3(15, 1.5f, 0.5f);
         WestWall.transform.Rotate(new Vector3(0, 0, 0));
     }
 
