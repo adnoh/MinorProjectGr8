@@ -27,7 +27,7 @@ public class BuildingController : MonoBehaviour {
 		
 
 		building = buildingFactory.getBuilding (this.gameObject.name);
-		if (building.getName ().Equals ("Harpgoon")) {
+		if (building.getName().Equals("Harpgoon") || building.getName().Equals("Cat-a-pult")) {
 			anim = GetComponent<Animator> ();
 		}
 
@@ -54,9 +54,9 @@ public class BuildingController : MonoBehaviour {
     void Update(){
         //bool pause = BaseController.getPause();
 
-		if (building != null && building.getName().Equals("Harpgoon") && Time.time > attackTime) {
-			anim.SetBool ("attack", false);
-		}
+		/*if (building != null && (building.getName().Equals("Harpgoon") || building.getName().Equals("Cat-a-pult")) && Time.time > attackTime) {
+			
+		}*/
 
 		for (int i = 0; i < enemys.Count; i++) {
 			if (enemys [i] == null) {
@@ -75,8 +75,9 @@ public class BuildingController : MonoBehaviour {
 			}
         }
 		if (enemys.Count > 0 && Time.time > attackTime && building.returnIfTurret()) {
-			if (building.getName ().Equals ("Harpgoon")) {
-				anim.SetBool ("attack", true);
+			Debug.Log (2);
+			if (building.getName().Equals("Harpgoon") || building.getName().Equals("Cat-a-pult")) {
+				StartCoroutine (animation ("attack"));
 			}
 			attackTime = Time.time + timeToNextAttack;
 			Type bulletType = building.getType();
@@ -160,5 +161,11 @@ public class BuildingController : MonoBehaviour {
 
 	public Building getBuilding(){
 		return building;
+	}
+
+	IEnumerator animation(string an){
+		anim.SetBool (an, true);
+		yield return new WaitForSeconds (0.5f);
+		anim.SetBool (an, false);
 	}
 }
