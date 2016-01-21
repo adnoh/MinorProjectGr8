@@ -11,8 +11,8 @@ public class BuildingController : MonoBehaviour {
 	private Building building;
 	private BuildingFactory buildingFactory = new BuildingFactory();
 
-	public float timeInterval = 30.0f;
-	private float time = 30.0f;
+	public float timeInterval = 10.0f;
+	private float time = 10.0f;
 
 	public float timeToNextAttack = 2.0f;
 	private float attackTime = 1.0f;
@@ -24,13 +24,10 @@ public class BuildingController : MonoBehaviour {
 	Animator anim;
 
 	void Start(){
-		
-
 		building = buildingFactory.getBuilding (this.gameObject.name);
 		if (building.getName().Equals("Harpgoon") || building.getName().Equals("Cat-a-pult")) {
 			anim = GetComponent<Animator> ();
 		}
-
 		if (building.getName ().Equals ("Bed")) {
 			PlayerController.amountOfBeds ++;
 			PlayerAttributes.maxFatique += 5000;
@@ -49,6 +46,9 @@ public class BuildingController : MonoBehaviour {
         {
             this.gameObject.transform.Rotate(0, -90, 0);
         }
+		/*if (building.getName ().Equals ("Cat-a-pult")) {
+			this.gameObject.transform.Rotate(0, 90, 0);
+		}*/
     }
     
     void Update(){
@@ -70,7 +70,7 @@ public class BuildingController : MonoBehaviour {
             enemyPosition = enemys[0].transform.position;
             enemyPosition.y = 0;
             transform.LookAt(enemyPosition);
-			if(building.getName().Equals ("Cat-a-pult") || building.getName ().Equals ("Snailgun")){
+			if(/*building.getName().Equals ("Cat-a-pult") ||*/ building.getName ().Equals ("Snailgun")){
             	transform.Rotate(new Vector3 (0, 1, 0), 90);
 			}
         }
