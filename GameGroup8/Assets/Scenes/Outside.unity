@@ -245,6 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b77c9810746530439212dad67a86784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LoadGameBtn: {fileID: 0}
 --- !u!114 &5347438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9160,7 +9161,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 181776, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19852220, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
       propertyPath: InitialModule.startLifetime.scalar

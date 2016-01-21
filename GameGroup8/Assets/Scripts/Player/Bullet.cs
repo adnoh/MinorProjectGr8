@@ -41,6 +41,7 @@ public class Bullet : MonoBehaviour {
         // sound
         Volume = PlayerPrefs.GetFloat("sfx option");
         Sound = gameObject.GetComponent<AudioSource>();
+		Sound.volume = Volume;
 	}
 
 	void Update(){
