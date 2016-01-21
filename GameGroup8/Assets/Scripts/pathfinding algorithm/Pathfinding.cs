@@ -10,8 +10,7 @@ using System;
 public class Pathfinding : MonoBehaviour
 {
 
-    //public Transform seeker;
-    // public Transform target;
+
 
     // reference to requestManager and grid
     PathRequestManager requestManager;
@@ -20,6 +19,7 @@ public class Pathfinding : MonoBehaviour
     // Script must be on the same gameobject to work 
     void Awake()
     {
+        // make reference
         requestManager = GetComponent<PathRequestManager>();
         grid = GetComponent<Grid>();
     }
@@ -29,6 +29,13 @@ public class Pathfinding : MonoBehaviour
         StartCoroutine(FindPath(startPos, targetPos));
     }
 
+
+    /// <summary>
+    /// Implementation of the a* - algorithm
+    /// </summary>
+    /// <param name="startPos">Startposition in real/world coordinates</param>
+    /// <param name="targetPos">Endposition in real/world coordinates</param>
+    /// <returns></returns>
     IEnumerator FindPath(Vector3 startPos, Vector3 targetPos)
     {
 
@@ -104,7 +111,14 @@ public class Pathfinding : MonoBehaviour
 
     }
 
-    // Traces the Path back using the assigned parent of the current node
+    /// <summary>
+    /// Backtraces path using the assigned parents of the current nodes
+    /// </summary>
+    /// <param name="startNode"></param>
+    /// <param name="endNode"></param>
+    /// <returns></returns>
+
+    
     Vector3[] BacktracePath(Node startNode, Node endNode)
     {
         List<Node> path = new List<Node>();
@@ -122,10 +136,14 @@ public class Pathfinding : MonoBehaviour
         Vector3[] waypoints = SimplifyPath(path);
         Array.Reverse(waypoints);
         return waypoints;
-
     }
 
-    // only add waypoint when direction changes
+
+    /// <summary>
+    /// Simplifies path, only add waypoint when direction changes.
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
     Vector3[] SimplifyPath(List<Node> path)
     {
         List<Vector3> waypoints = new List<Vector3>();
@@ -146,6 +164,13 @@ public class Pathfinding : MonoBehaviour
         return waypoints.ToArray();
     }
 
+
+    /// <summary>
+    /// Calculates Distance between two nodes in the grid
+    /// </summary>
+    /// <param name="nodeA"></param>
+    /// <param name="nodeB"></param>
+    /// <returns></returns>
     int GetDistance(Node nodeA, Node nodeB)
     {
         int dstX = Mathf.Abs(nodeA.gridX - nodeB.gridX);

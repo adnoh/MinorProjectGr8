@@ -3169,7 +3169,6 @@ GameObject:
   - 81: {fileID: 401732403}
   - 222: {fileID: 401732408}
   - 114: {fileID: 401732409}
-  - 114: {fileID: 401732411}
   - 114: {fileID: 401732410}
   - 82: {fileID: 401732412}
   m_Layer: 0
@@ -3263,6 +3262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b77c9810746530439212dad67a86784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LoadGameBtn: {fileID: 0}
 --- !u!114 &401732410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3289,17 +3289,6 @@ MonoBehaviour:
   log: {fileID: 0}
   feedback: {fileID: 0}
   feedbackText: {fileID: 0}
---- !u!114 &401732411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 401732402}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cc070abcd4fabc4ea5b1e48f16fb89e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &401732412
 AudioSource:
   m_ObjectHideFlags: 0

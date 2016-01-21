@@ -1288,7 +1288,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 186978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -64.07796, y: 8.4911e-18, z: -11.472154}
+  m_LocalPosition: {x: 4.198573, y: -5.9028783e-18, z: 7.97526}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 469922}
@@ -2631,7 +2631,7 @@ Animator:
   m_GameObject: {fileID: 100430}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 475761ac66009014497a0bdc7542f502, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1ca89140ef51f824fba6160f2178f1e4, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2820,7 +2820,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeInterval: 30
   timeToNextAttack: 2
-  bullet: {fileID: 113490, guid: d14f7c6495d71874da0a5d2177a81d98, type: 2}
+  bullet: {fileID: 180156, guid: 4ce3e7b4c42bcea4babfdf19a97c634d, type: 2}
   weaponUnlocker: 0
 --- !u!114 &11451334
 MonoBehaviour:
@@ -3015,7 +3015,7 @@ SkinnedMeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: ebfde2a381265d248b0dc6aad086c70b, type: 2}
+  - {fileID: 2100000, guid: f253be3b11cc1454ea229f68ca943b38, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -3061,7 +3061,7 @@ SkinnedMeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: d248ed743dcc22c4e9ba16c67243f4d2, type: 2}
+  - {fileID: 2100000, guid: 3b3a1f911545dcc45a30c9dc9cbebb26, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -3107,7 +3107,7 @@ SkinnedMeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 483a27a5d72bf1f48a4dfd4461ed330b, type: 2}
+  - {fileID: 2100000, guid: 0b7b765bbbc249747b744e2a54d60f6a, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -3157,7 +3157,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: bullet
       value: 
-      objectReference: {fileID: 113490, guid: d14f7c6495d71874da0a5d2177a81d98, type: 2}
+      objectReference: {fileID: 180156, guid: 4ce3e7b4c42bcea4babfdf19a97c634d, type: 2}
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
       value: 1
@@ -3198,6 +3198,10 @@ Prefab:
       propertyPath: m_LocalRotation.z
       value: 0.49991363
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 1ca89140ef51f824fba6160f2178f1e4, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 186978}

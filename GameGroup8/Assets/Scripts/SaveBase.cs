@@ -30,9 +30,12 @@ public class SaveBase : MonoBehaviour
 
     public static bool loggedIn = false;
 	public static string LoggedInUser;
-	static string LoggedInPwd;
-    static int LoggedInId;
+	
+    // Not used but might be useful for expansion of code
+    // static string LoggedInPwd;
+    // static int LoggedInId;
 
+    // output texts for errors
     public Text logerrorthrow;
     public Text signerrorthrow;
 
@@ -43,8 +46,6 @@ public class SaveBase : MonoBehaviour
     public Canvas feedback;
     public Text feedbackText;
 
-
-
     // ConnectionString
     string mySQLconnectionString = "Server=80.60.131.231;Database=savebase;UID=userw;Pwd=Minor#8;";
 
@@ -54,6 +55,8 @@ public class SaveBase : MonoBehaviour
     // test code, currently on start but should move to a button
     public void Awake()
     {
+        // Create saves directory if it doesn't exist
+        Directory.CreateDirectory(Application.dataPath + "/saves/");
         path = Application.dataPath + "/saves/Package.zip";
     }
 
@@ -238,14 +241,20 @@ public class SaveBase : MonoBehaviour
 		}		
 	}
 
+    /// <summary>
+    /// Login using the specified username and password in method.
+    /// </summary>
+    /// <param name="username">Username. the username</param>
+    /// <param name="password">Password. the password</param>
+
     public void Login(string un, string pwd)
     {
 
         string username = un;
         string password = pwd;
 
-        int db_id;
-        string db_name;
+        // int db_id;
+        // string db_name;
         string db_password;
 
         openConnection(false);
@@ -264,25 +273,18 @@ public class SaveBase : MonoBehaviour
 
             while (myData.Read())
             {
-                db_id = myData.GetInt32("id"); ;
-                db_name = myData.GetString("username");
+                // db_id = myData.GetInt32("id"); ;
+                // db_name = myData.GetString("username");
                 db_password = myData.GetString("password");
-
-
-                //Debug.Log(db_id);
-                //Debug.Log(db_name);
-                //Debug.Log(db_password);
-
 
                 // verify if password matches username
                 if (password == db_password)
                 {
                     loggedIn = true;
-                    Debug.Log("password match");
-                    Debug.Log("Succesfully Logged in");
+
                     LoggedInUser = username;
-                    LoggedInPwd = password;
-                    LoggedInId = db_id;
+                    //LoggedInPwd = password;
+                    //LoggedInId = db_id;
                     LoggedInPlayer.text = LoggedInUser;
                 }
 
@@ -333,20 +335,19 @@ public class SaveBase : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// Login using the specified username and password.
-    /// </summary>
-    /// <param name="username">Username. the username</param>
-    /// <param name="password">Password. the password</param>
+   
 
+    /// <summary>
+    /// Log is the user, using specified name from the UI.
+    /// </summary>
     public void Login()
 	{
 
         string username = login_username.text;
         string password = login_password.text;
 
-		int db_id;
-		string db_name;
+		// int db_id;
+		//string db_name;
 		string db_password;
 
 		openConnection (false);
@@ -366,25 +367,18 @@ public class SaveBase : MonoBehaviour
 
 			while (myData.Read())
 			{
-				db_id = myData.GetInt32("id");;
-				db_name = myData.GetString("username");
+				// db_id = myData.GetInt32("id");;
+				//db_name = myData.GetString("username");
 				db_password = myData.GetString("password");
-
-
-				//Debug.Log(db_id);
-				//Debug.Log(db_name);
-				//Debug.Log(db_password);
 
 
 
 				// verify if password matches username
 				if (password == db_password) {
 					loggedIn = true;
-					Debug.Log("password match");
-					Debug.Log("Succesfully Logged in");
 					LoggedInUser = username;
-					LoggedInPwd = password;
-                    LoggedInId = db_id;
+					//LoggedInPwd = password;
+                    //LoggedInId = db_id;
                     LoggedInPlayer.text = LoggedInUser;
                     log.enabled = false;
                     Main.enabled = true;
@@ -440,11 +434,14 @@ public class SaveBase : MonoBehaviour
 
 	}
 
+    /// <summary>
+    /// Signs the current user out
+    /// </summary>
     public void signout()
     {
         loggedIn = false;
         LoggedInUser = null;
-        LoggedInPwd = null;
+        //LoggedInPwd = null;
 
         LoggedInPlayer.text = "Not logged in";
         savefromcloud.gameObject.SetActive(false);
@@ -456,8 +453,10 @@ public class SaveBase : MonoBehaviour
 
     }
 
-    public void FixedUpdate()
+    public void Update()
     {
+
+        // Check if an user is logged, if yes, display load and save from cloud
         if(loggedIn)
         {
             savefromcloud.gameObject.SetActive(true);
@@ -479,7 +478,6 @@ public class SaveBase : MonoBehaviour
     /// </summary>
     /// <param name="lun">Lun. Logged in User</param>
     /// <param name="path">Path. path for saving the zip</param>
-
     public void DownloadSave()
 	{
 		if (loggedIn) {
@@ -490,9 +488,9 @@ public class SaveBase : MonoBehaviour
 			byte[] rawData;
 			FileStream fs;
 
-			int db_id;
-			string db_name;
-			string db_password;
+			//int db_id;
+			//string db_name;
+			//string db_password;
 
 			openConnection (true);
 
@@ -516,7 +514,8 @@ public class SaveBase : MonoBehaviour
 				db_FileSize = myData.GetInt32("filesize");
                 if (db_FileSize <= 0)
                 {
-                    Debug.Log("no remote save found");
+
+                    // Debug.Log("no remote save found");
                 }
                 else
                 {
@@ -554,6 +553,10 @@ public class SaveBase : MonoBehaviour
 		}
 	}
 
+
+    /// <summary>
+    /// Decompresses the downloaded savegame
+    /// </summary>
     public void Decompress()
     {
         using (ZipFile zip = ZipFile.Read(path))
@@ -564,7 +567,9 @@ public class SaveBase : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Compresses the savegame files
+    /// </summary>
     public void Compress()
     {
 

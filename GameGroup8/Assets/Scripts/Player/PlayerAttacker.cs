@@ -222,8 +222,10 @@ public class PlayerAttacker : MonoBehaviour {
 		
 		if (!Base){
 			if(currentWeapon.getIfElectric() && Input.GetMouseButton(0)){
-                pSys1.enableEmission = true;
-                pSys2.enableEmission = true;
+				if (!pSys1.enableEmission) {
+					pSys1.enableEmission = true;
+					pSys2.enableEmission = true;
+				}
                 WeaponsSounds.playWeaponSound(currentWeaponInt - 1);                            //Sound
                 GameObject[] nearbyEnemies = GameObject.FindGameObjectsWithTag("Enemy");
                 Vector3 placeOfLightning = pSys1.transform.position;
@@ -344,8 +346,12 @@ public class PlayerAttacker : MonoBehaviour {
 				weapons [3].SetActive (true);
 			}
 			if ((Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5)  || currentWeaponInt == 5) && unlocked[4]){
+				bool getIfWunderwaffen = currentWeapon.getIfChangeable ();
+				Type type = currentWeapon.getType ();
 				currentWeapon = weaponFactory.getWunderwuffen();
-				currentWeapon.setType(new Type(1));
+				if (getIfWunderwaffen) {
+					currentWeapon.setType (type);
+				}
 				currentWeaponInt = 5;
 				playerAnimator.SetInteger ("weapon", 1);
 				setAllWeaponsUnactive ();
