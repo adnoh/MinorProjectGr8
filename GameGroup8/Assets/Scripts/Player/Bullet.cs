@@ -60,7 +60,6 @@ public class Bullet : MonoBehaviour {
 	void OnTriggerEnter(Collider col){
 		if(col.gameObject.CompareTag ("Enemy") && !shotByEnemy && (this.gameObject.name.Equals("newBullet(Clone)") || this.gameObject.name.Equals ("CatPrefab(Clone)") || this.gameObject.name.Equals("SnailPrefab(Clone)") || this.gameObject.name.Equals("Harp(Clone)"))){
             Sound.Play();                                   // sound
-			Debug.Log(true);
             EnemyController enemyController = col.gameObject.GetComponent<EnemyController>();
             enemyController.shotByPlayer = true;
 			int damage = (int)(Random.Range (dmg, dmg + 10) * type.damageMultiplierToType(enemyController.getType()) * PlayerAttributes.getAttackMultiplier());
