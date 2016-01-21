@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Class that represents a node in a grid
+/// </summary>
 public class Node
 {
 
@@ -15,6 +18,14 @@ public class Node
     public int hCost; // cost to target
     public Node parent;
 
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="wlk"> Walkable?</param>
+    /// <param name="worldPos">WorldPosition</param>
+    /// <param name="X">X-Position in the grid</param>
+    /// <param name="Z">z-Position in the grid</param>
     public Node(bool wlk, Vector3 worldPos, int X, int Z)
     {
         walkable = wlk;

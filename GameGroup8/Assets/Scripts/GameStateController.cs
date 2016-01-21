@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+
+/// <summary>
+/// This class manages the GameState
+/// /// </summary>
 public class GameStateController : MonoBehaviour
 {
     Grid grid;
@@ -10,47 +15,43 @@ public class GameStateController : MonoBehaviour
 
     public GameObject player;
     public static bool newgame;
-    // public bool newgame2;
 
 
+    /// <summary>
+    /// Sets wether it's a new game or loaded game
+    /// </summary>
+    /// <param name="_newgame"></param>
     public static void setNewgame(bool _newgame)
     {
         newgame = _newgame;
     }  
     
+    /// <summary>
+    ///  Make needed references
+    /// </summary>
     void Awake()
     {
         grid = GetComponentInChildren<Grid>();
         worldBuilder = GameObject.FindGameObjectWithTag("Ground").GetComponent<WorldBuilderII>();
         enemyspawner = Camera.main.GetComponent<EnemySpawner>();
     }
-    
-    /*  1. Generate map
-    2. Load base
-    3. Generate pathfinding grid (only after map is finished)        
-    4. Load playerposition
-    5. Load enemies    
- */
- 
-    void Start()
-    {
 
-		Debug.Log("Newgame: " + newgame);
-        // setNewgame(newgame2);
-        GenerateMap();
+    // Manages the order of loading 
+    void Start()
+    {        
+		GenerateMap();
         LoadBase();        
         LoadPlayer();
         initializePathfindingGrid();
         LoadEnemies();
 		LoadUnits ();
-   }  
+    }  
 
 
-
+    // Generate or load Map
     void GenerateMap()
     {
-		Debug.Log("Generating Map");
-
+		
         if (newgame)
         {
             worldBuilder.FirstLoad();
@@ -65,11 +66,14 @@ public class GameStateController : MonoBehaviour
         }
     }
 
+    // initializes pathfinding grid
     void initializePathfindingGrid()
     {
         grid.CreateGrid();
     }
 
+
+    // Loads the base position, turrets and even the position of the sun and moon
     void LoadBase()
     {
         if (newgame)
@@ -112,6 +116,8 @@ public class GameStateController : MonoBehaviour
 
     }
 
+
+    // Load the enemies
     void LoadEnemies()
     { 
         if (newgame)
@@ -130,9 +136,13 @@ public class GameStateController : MonoBehaviour
 
     }
 
-	void LoadUnits(){
-		if (newgame) {
-			Camera.main.GetComponent<PSpawner> ().FirstLoad ();
+
+
+	void LoadUnits()
+    {
+		if (newgame)
+        {
+			Camera.main.GetComponent<PSpawner>().FirstLoad();
 		}
 	}
 }
