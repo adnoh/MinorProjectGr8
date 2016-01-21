@@ -42,6 +42,7 @@ public class GameStateController : MonoBehaviour
         LoadPlayer();
         initializePathfindingGrid();
         LoadEnemies();
+		LoadUnits ();
    }  
 
 
@@ -128,4 +129,10 @@ public class GameStateController : MonoBehaviour
         }
 
     }
+
+	void LoadUnits(){
+		if (newgame) {
+			Camera.main.GetComponent<PSpawner> ().FirstLoad ();
+		}
+	}
 }

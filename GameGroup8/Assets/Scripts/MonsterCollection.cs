@@ -189,6 +189,21 @@ public class Outsidesave{
 
     public int unitCount;
 
+	public int[] xCoordinatesOfUnits = new int[2000];
+	public int[] zCoordinatesOfUnits = new int[2000];
+
+	public int[] xCoordinatesOfBaseUnits = new int[50];
+	public int[] zCoordinatesOfBaseUnits = new int[50];
+
+	public int[] xCoordinatesOfHealthUnits = new int[50];
+	public int[] zCoordinatesOfHealthUnits = new int[50];
+
+	public int[] xCoordinatesOfFatiqueUnits = new int[50];
+	public int[] zCoordinatesOfFatiqueUnits = new int[50];
+
+	public int[] xCoordinatesOfEnergyUnits = new int[50];
+	public int[] zCoordinatesOfEnergyUnits = new int[50];
+
 	public Outsidesave(){
         this.wave = Camera.main.GetComponent<EnemySpawner>().wave;
 		// this.timeTillNextWave = Camera.main.GetComponent<EnemySpawner>().timeTillNextWave;
@@ -207,6 +222,31 @@ public class Outsidesave{
         tagOfMat8 = GameObject.Find("PlacementPlane (7)").tag;
         tagOfMat9 = GameObject.Find("PlacementPlane (8)").tag;
         unitCount = PlayerController.getCount();
+		GameObject[] units = GameObject.FindGameObjectsWithTag ("Pick-Up");
+		for (int i = 0; i < units.Length; i++) {
+			xCoordinatesOfUnits [i] = (int)units [i].transform.position.x;
+			zCoordinatesOfUnits [i] = (int)units [i].transform.position.z;
+		}
+		GameObject[] healthUnits = GameObject.FindGameObjectsWithTag ("Health-Pick-Up");
+		for (int i = 0; i < healthUnits.Length; i++) {
+			xCoordinatesOfHealthUnits [i] = (int)healthUnits [i].transform.position.x;
+			zCoordinatesOfHealthUnits [i] = (int)healthUnits [i].transform.position.z;
+		}
+		GameObject[] fatiqueUnits = GameObject.FindGameObjectsWithTag ("Fatique-Pick-Up");
+		for (int i = 0; i < fatiqueUnits.Length; i++) {
+			xCoordinatesOfFatiqueUnits [i] = (int)fatiqueUnits [i].transform.position.x;
+			zCoordinatesOfFatiqueUnits [i] = (int)fatiqueUnits [i].transform.position.z;
+		}
+		GameObject[] energyUnits = GameObject.FindGameObjectsWithTag ("Energy-Pick-Up");
+		for (int i = 0; i < energyUnits.Length; i++) {
+			xCoordinatesOfEnergyUnits [i] = (int)energyUnits [i].transform.position.x;
+			zCoordinatesOfEnergyUnits [i] = (int)energyUnits [i].transform.position.z;
+		}
+		GameObject[] baseUnits = GameObject.FindGameObjectsWithTag ("Base-Pick-Up");
+		for (int i = 0; i < baseUnits.Length; i++) {
+			xCoordinatesOfBaseUnits [i] = (int)baseUnits [i].transform.position.x;
+			zCoordinatesOfBaseUnits [i] = (int)baseUnits [i].transform.position.z;
+		}
 	}	
 }
 
@@ -576,6 +616,7 @@ public class MonsterCollection : MonoBehaviour
         GameObject.Find("PlacementPlane (7)").tag = outside.tagOfMat8;
         GameObject.Find("PlacementPlane (8)").tag = outside.tagOfMat9;
         PlayerController.setCount_2(outside.unitCount);
+		Camera.main.GetComponent<PSpawner> ().LoadFromSave (outside.xCoordinatesOfUnits, outside.zCoordinatesOfUnits, outside.xCoordinatesOfBaseUnits, outside.zCoordinatesOfBaseUnits, outside.xCoordinatesOfEnergyUnits, outside.zCoordinatesOfEnergyUnits, outside.xCoordinatesOfHealthUnits, outside.zCoordinatesOfHealthUnits, outside.xCoordinatesOfFatiqueUnits, outside.zCoordinatesOfFatiqueUnits);
 	}
 	
     public static void MapSave(string path)

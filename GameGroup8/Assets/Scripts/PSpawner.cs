@@ -15,7 +15,7 @@ public class PSpawner : MonoBehaviour {
 	public int minL, minR, maxL, maxR;
 	
 
-	void Start () {
+	public void FirstLoad () {
 		PlaceCubes ();
 	}
 
@@ -114,4 +114,37 @@ public class PSpawner : MonoBehaviour {
 
 
     }
+
+	public void LoadFromSave(int[] x, int[] z, int[] xBase, int[] zBase, int[] xEnergy, int[] zEnergy, int[] xHealth, int[] zHealth, int[] xFatique, int[] zFatique){
+		for (int i = 0; i < x.Length; i++) {
+			if (x [i] != 0) {
+				GameObject unitClone = Instantiate (unit, new Vector3 (x [i], 1, z [i]), Quaternion.identity) as GameObject;
+				unitClone.transform.Rotate (-90, 0, 0);
+			}
+		}
+		for (int i = 0; i < xBase.Length; i++) {
+			if (xBase [i] != 0) {
+				GameObject baseUnitClone = Instantiate (baseUnit, new Vector3 (xBase [i], 1, zBase [i]), Quaternion.identity) as GameObject;
+				baseUnitClone.transform.Rotate (-90, 0, 0);
+			}
+		}
+		for (int i = 0; i < xEnergy.Length; i++) {
+			if (xEnergy [i] != 0) {
+				GameObject energyUnitClone = Instantiate (energyUnit, new Vector3 (xEnergy [i], 1, zEnergy [i]), Quaternion.identity) as GameObject;
+				energyUnitClone.transform.Rotate (-90, 0, 0);
+			}
+		}
+		for (int i = 0; i < xHealth.Length; i++) {
+			if (xHealth [i] != 0) {
+				GameObject healthUnitClone = Instantiate (healthUnit, new Vector3 (xHealth [i], 1, zHealth [i]), Quaternion.identity) as GameObject;
+				healthUnitClone.transform.Rotate (-90, 0, 0);
+			}
+		}
+		for (int i = 0; i < xFatique.Length; i++) {
+			if (xFatique [i] != 0) {
+				GameObject fatiqueUnitClone = Instantiate (baseUnit, new Vector3 (xFatique [i], 1, zFatique [i]), Quaternion.identity) as GameObject;
+				fatiqueUnitClone.transform.Rotate (-90, 0, 0);
+			}
+		}
+	}
 }
