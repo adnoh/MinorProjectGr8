@@ -263,10 +263,7 @@ MonoBehaviour:
   fatiqueUnit: {fileID: 197028, guid: 094c07952463a014f852fa81ee5eac18, type: 2}
   baseUnit: {fileID: 116618, guid: ddd0d7830d19d5c4f821610b5bd6d250, type: 2}
   amount: 400
-  minL: -10
-  minR: 10
-  maxL: -120
-  maxR: 120
+  Base: {fileID: 323993196}
 --- !u!114 &5347439
 MonoBehaviour:
   m_ObjectHideFlags: 0
