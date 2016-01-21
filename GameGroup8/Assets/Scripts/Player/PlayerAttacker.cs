@@ -225,6 +225,9 @@ public class PlayerAttacker : MonoBehaviour {
 				if (!pSys1.enableEmission) {
 					pSys1.enableEmission = true;
 					pSys2.enableEmission = true;
+				} else {
+					pSys1.enableEmission = false;
+					pSys2.enableEmission = false;
 				}
                 WeaponsSounds.playWeaponSound(currentWeaponInt - 1);                            //Sound
                 GameObject[] nearbyEnemies = GameObject.FindGameObjectsWithTag("Enemy");

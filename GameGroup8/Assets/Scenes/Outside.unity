@@ -9020,6 +9020,14 @@ Prefab:
       propertyPath: scoreOnDeathScreen
       value: 
       objectReference: {fileID: 2137691363}
+    - target: {fileID: 11454794, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
+      propertyPath: healthText
+      value: 
+      objectReference: {fileID: 918246110}
+    - target: {fileID: 11454794, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
+      propertyPath: energyText
+      value: 
+      objectReference: {fileID: 1827383730}
     - target: {fileID: 11446434, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
       propertyPath: weaponPanel
       value: 
@@ -9132,54 +9140,6 @@ Prefab:
       propertyPath: unitCount
       value: 
       objectReference: {fileID: 239913995}
-    - target: {fileID: 11454794, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
-      propertyPath: healthText
-      value: 
-      objectReference: {fileID: 918246110}
-    - target: {fileID: 11454794, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
-      propertyPath: energyText
-      value: 
-      objectReference: {fileID: 1827383730}
-    - target: {fileID: 11478670, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
-      propertyPath: brightness
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 11405916, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
-      propertyPath: brightness
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 13598080, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
-      propertyPath: m_Center.y
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 13598080, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
-      propertyPath: m_Center.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 181776, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 19852220, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 19852220, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 19887208, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
-      propertyPath: lengthInSec
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 19852220, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
-      propertyPath: lengthInSec
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 19887208, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 0.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
   m_IsPrefabParent: 0
