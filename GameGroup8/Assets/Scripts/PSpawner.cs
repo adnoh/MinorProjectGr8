@@ -12,7 +12,7 @@ public class PSpawner : MonoBehaviour {
     public GameObject fatiqueUnit;
     public GameObject baseUnit;
     public int amount;
-	public int minL, minR, maxL, maxR;
+    public GameObject Base;
 	
 
 	public void FirstLoad () {
@@ -78,41 +78,23 @@ public class PSpawner : MonoBehaviour {
 
     public Vector3 getRandomPosition()
     {
-        int x, y, z;
-        x = 0;
-        y = 0;
-        z = 0;
-        int random1 = Random.Range(1, 5);
+        Vector3 tempPos = new Vector3(Random.Range(-130, 130), 0, Random.Range(-130, 130));
 
-        switch (random1)
+        int misses = 5;
+        while (misses > 0)
         {
-            case 1:
-                x = Random.Range(minL, maxL);
-                y = 1;
-                z = Random.Range(minL, maxL);
-                break;
-            case 2:
-                x = Random.Range(minL, maxL);
-                y = 1;
-                z = Random.Range(minR, maxR);
-                break;
-            case 3:
-                x = Random.Range(minR, maxR);
-                y = 1;
-                z = Random.Range(minL, maxL);
-                break;
-            case 4:
-                x = Random.Range(minR, maxR);
-                y = 1;
-                z = Random.Range(minR, maxR);
-                break;
-            default:
-                break;
+            if (Vector3.Distance(tempPos, Base.transform.position) > 25)
+            {
+                return tempPos;
+            }
+            else
+            {
+                misses--;
+                Debug.Log("miss");
+            }
         }
 
-        return new Vector3(x, y, z);
-
-
+        return new Vector3 (139,0,-139);
     }
 
 	public void LoadFromSave(int[] x, int[] z, int[] xBase, int[] zBase, int[] xEnergy, int[] zEnergy, int[] xHealth, int[] zHealth, int[] xFatique, int[] zFatique){
