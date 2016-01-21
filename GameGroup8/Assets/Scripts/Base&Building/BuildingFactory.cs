@@ -11,13 +11,13 @@ public class BuildingFactory {
 			return new Building (true, false, false, new Type (0), "Rock-paper-scissor turret", 5);
 		}
 		if (name.Equals ("Cat-a-pult(Clone)")) {
-			return new Building (true, false, false, new Type (2), "Cat-a-pult", 10);
+			return new Building (true, false, false, new Type (2), "Cat-a-pult", 15);
 		}
 		if (name.Equals ("Snailgun(Clone)")) {
-			return new Building (true, false, false, new Type (3), "Snailgun", 10);
+			return new Building (true, false, false, new Type (3), "Snailgun", 15);
 		}
 		if (name.Equals ("Harpgoon(Clone)")) {
-			return new Building (true, false, false, new Type (1), "Harpgoon", 10);
+			return new Building (true, false, false, new Type (1), "Harpgoon", 15);
 		}
 		if (name.Equals ("Bed(Clone)")) {
 			return new Building (false, true, false, new Type (0), "Bed", 10);

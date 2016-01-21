@@ -60,7 +60,7 @@ public class BaseController : MonoBehaviour{
     private int First_Building = 5;
     private int Second_Building = 10;
     private int Third_Buidling = 15;
-    private int Fourth_Building = 20;
+    private int Fourth_Building = 25;
 
     Score score_;
 
@@ -251,9 +251,9 @@ public class BaseController : MonoBehaviour{
     /// </summary>
     public void Build1st(){
         //Debug.Log("build 1");
-		string buildingToBuild = buildingText1.text;
+        string buildingToBuild = buildingText1.text;
 		BuildingFactory buildingFactory = new BuildingFactory ();
-		Building building = buildingFactory.getBuilding (buildingToBuild);
+		Building building = buildingFactory.getBuilding (buildingToBuild.Replace(" ", "") + "(Clone)");
 		if(PlayerController.getCount() >= building.getCost()){
 		    if (buildingToBuild.Equals ("Rock-Paper-Scissor turret")) {
 			    Vector3 place = lastHitObject.transform.position;
@@ -302,9 +302,9 @@ public class BaseController : MonoBehaviour{
         //Debug.Log("build 2");
         string buildingToBuild = buildingText2.text;
 		BuildingFactory buildingFactory = new BuildingFactory ();
-		Building building = buildingFactory.getBuilding (buildingToBuild);
+		Building building = buildingFactory.getBuilding (buildingToBuild.Replace(" ","") + "(Clone)");
 		if(PlayerController.getCount() >= building.getCost()){
-		    if (buildingToBuild.Equals ("Gearshack")) {
+		    if (buildingToBuild.Equals ("GearShack")) {
 			    Vector3 place = lastHitObject.transform.position;
 			    GameObject newObject = (GameObject)Instantiate(gearShack, place, Quaternion.identity);
 			    newObject.transform.Rotate(new Vector3(-90, (Random.Range(0, 360)), 0));
@@ -324,7 +324,7 @@ public class BaseController : MonoBehaviour{
 			    Delete();
 			    Vector3 place = lastHitObject.transform.position;
 			    GameObject newObject = (GameObject)Instantiate(healthBed, place, Quaternion.identity);
-			    newObject.transform.Rotate(new Vector3(0, (Random.Range(0, 360)), 0));
+			    newObject.transform.Rotate(new Vector3(-90, (Random.Range(0, 360)), 0));
 			    turrets.Add(newObject);
 			    lastHitObject.tag = "occupiedPlane";
 		    }
@@ -350,7 +350,7 @@ public class BaseController : MonoBehaviour{
         //Debug.Log("build 3");
         string buildingToBuild = buildingText3.text;
 		BuildingFactory buildingFactory = new BuildingFactory ();
-		Building building = buildingFactory.getBuilding (buildingToBuild);
+		Building building = buildingFactory.getBuilding (buildingToBuild.Replace(" ", "") + "(Clone)");
 		if(PlayerController.getCount() >= building.getCost()){
 		    if (buildingToBuild.Equals ("Bed")) {
 			    Vector3 place = lastHitObject.transform.position;
@@ -396,10 +396,10 @@ public class BaseController : MonoBehaviour{
         if (lastHitObject.CompareTag ("emptyPlane")) {
 			title.text = "Empty spot";
 			buildingText1.text = "Rock-Paper-Scissor turret";
-			buildingText2.text = "Gearshack";
+			buildingText2.text = "GearShack";
 			buildingText3.text = "Bed";
 			unitCost1.text = "Cost: " + First_Building;
-			unitCost2.text = "Cost: " + First_Building;
+			unitCost2.text = "Cost: " + Second_Building;
 			unitCost3.text = "Cost: " + Second_Building;
 			upgradeBuild1.text = "Build(1)";
 			upgradeBuild2.text = "Build(2)";
@@ -413,9 +413,9 @@ public class BaseController : MonoBehaviour{
 			buildingText1.text = "Cat-a-pult";
 			buildingText2.text = "Harpgoon";
 			buildingText3.text = "Snail Gun";
-			unitCost1.text = "Cost: " + Second_Building; 
-			unitCost2.text = "Cost: " + Second_Building;
-            unitCost3.text = "Cost: " + Second_Building;
+			unitCost1.text = "Cost: " + Third_Buidling; 
+			unitCost2.text = "Cost: " + Third_Buidling;
+            unitCost3.text = "Cost: " + Third_Buidling;
             upgradeBuild1.text = "Upgrade(1)";
 			upgradeBuild2.text = "Upgrade(2)";
 			upgradeBuild3.text = "Upgrade(3)";
@@ -568,7 +568,7 @@ public class BaseController : MonoBehaviour{
 					turrets.Add(healthBedClone);
 					break;
 				}
-				case "Gearshack":
+				case "GearShack":
 				{
 					GameObject gearshackClone = (GameObject)Instantiate(gearShack, new Vector3(TurretList[i].x, TurretList[i].y, TurretList[i].z), new Quaternion(TurretList[i].xRot, TurretList[i].yRot, TurretList[i].zRot, TurretList[i].wRot));
 					gearshackClone.GetComponent<BuildingController>().timeToNextAttack = TurretList[i].timeTillNextAttack;
@@ -715,11 +715,18 @@ public class BaseController : MonoBehaviour{
     {
         if (boughtLights == false)
         {
-            boughtLights = true;
-            Searchlights.SetActive(true);
+            if (PlayerController.getCount() >= 5)
+            {
+                boughtLights = true;
+                Searchlights.SetActive(true);
 
-            BaseLightCost.text = "bought";
-            BaseLightUpgradeBtn.SetActive(false);
+                BaseLightCost.text = "bought";
+                BaseLightUpgradeBtn.SetActive(false);
+
+                PlayerController.setCount(5);
+                countText.text = "Amount of units: " + PlayerController.getCount();
+
+            }
         }
     }
 
@@ -730,12 +737,18 @@ public class BaseController : MonoBehaviour{
     {
         if (boughtFlashlight == false)
         {
-            boughtFlashlight = true;
-            Flashlight.SetActive(false);
-            Arealight.SetActive(true);
+            if (PlayerController.getCount() >= 10)
+            {
+                boughtFlashlight = true;
+                Flashlight.SetActive(false);
+                Arealight.SetActive(true);
 
-            LightCost.text = "bought";
-            LightUpgradeBtn.SetActive(false);
+                LightCost.text = "bought";
+                LightUpgradeBtn.SetActive(false);
+
+                PlayerController.setCount(10);
+                countText.text = "Amount of units: " + PlayerController.getCount();
+            }
         }
     }
 }

@@ -2,12 +2,14 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 /* This class contains all menu function for both: 
    Main Menu and PauseMenu 
 */
 public class MenuControl : MonoBehaviour
 {
+    public Button LoadGameBtn;
 
     public void StartGame()
     {
@@ -34,6 +36,13 @@ public class MenuControl : MonoBehaviour
 
     void Update()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            if (File.Exists(Application.dataPath + "/saves/world.xml"))
+            {
+                LoadGameBtn.GetComponent<Button>().interactable = true;
+            }
+        }
         
         if (SceneManager.GetActiveScene().buildIndex == 1)
         { 

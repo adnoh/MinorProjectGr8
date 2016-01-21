@@ -15,7 +15,11 @@ public class Bullet : MonoBehaviour {
     private float Volume;
     private AudioSource Sound;
 
+	private float timeTillDestroy;
+
     void Start(){
+
+		timeTillDestroy = Time.time + 4.0f;
 
         if(this.gameObject.name.Equals("CatPrefab(Clone)") && this.gameObject.name.Equals("SnailPrefab(Clone)"))
         {
@@ -37,6 +41,15 @@ public class Bullet : MonoBehaviour {
         // sound
         Volume = PlayerPrefs.GetFloat("sfx option");
         Sound = gameObject.GetComponent<AudioSource>();
+	}
+
+	void Update(){
+		if (Time.time > timeTillDestroy) {
+			GameObject.Destroy (this.gameObject);
+			if (shotByPlayer) {
+				Analytics.setHitCount (false);
+			}
+		}
 	}
 
     /// <summary>
