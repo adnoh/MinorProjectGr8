@@ -21,15 +21,23 @@ public class BuildingController : MonoBehaviour {
 
 	public bool weaponUnlocker = false;
 
+	Animator anim;
+
 	void Start(){
+		
+
 		building = buildingFactory.getBuilding (this.gameObject.name);
+		if (building.getName ().Equals ("Harpgoon")) {
+			anim = GetComponent<Animator> ();
+		}
+
 		if (building.getName ().Equals ("Bed")) {
 			PlayerController.amountOfBeds ++;
 			PlayerAttributes.maxFatique += 5000;
 		}
 		if (building.getName ().Equals ("HealthBed")) {
 			PlayerController.amountOfBeds ++;
-			PlayerAttributes.setMaxHealth((int)(PlayerAttributes.getMaxHealth() * (3/2)));
+			PlayerAttributes.amountOfHealthBeds++;
 		}
 		if (building.getName ().Equals ("EnergyBed")) {
 			PlayerAttributes.setMaxEnergy(PlayerAttributes.getMaxEnergy() * 2);
@@ -45,6 +53,10 @@ public class BuildingController : MonoBehaviour {
     
     void Update(){
         //bool pause = BaseController.getPause();
+
+		if (building != null && building.getName().Equals("Harpgoon") && Time.time > attackTime) {
+			anim.SetBool ("attack", false);
+		}
 
 		for (int i = 0; i < enemys.Count; i++) {
 			if (enemys [i] == null) {
@@ -63,6 +75,9 @@ public class BuildingController : MonoBehaviour {
 			}
         }
 		if (enemys.Count > 0 && Time.time > attackTime && building.returnIfTurret()) {
+			if (building.getName ().Equals ("Harpgoon")) {
+				anim.SetBool ("attack", true);
+			}
 			attackTime = Time.time + timeToNextAttack;
 			Type bulletType = building.getType();
 			if(building.getType ().getType() == 0){
@@ -91,7 +106,7 @@ public class BuildingController : MonoBehaviour {
                 bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f);
             }
 		}
-		if (building.getName ().Equals ("Generator") && Time.time > time) {
+		if (building != null && building.getName ().Equals ("Generator") && Time.time > time) {
 			PlayerController.setCount(-1);
 			time = Time.time + timeInterval;
 		}
@@ -134,7 +149,7 @@ public class BuildingController : MonoBehaviour {
 		}
 		if (building.getName ().Equals ("HealthBed")) {
 			PlayerController.amountOfBeds -= 2;
-			PlayerAttributes.setMaxHealth((int)(-PlayerAttributes.getMaxHealth() * (3/2)));
+			PlayerAttributes.amountOfHealthBeds -= 1;
 			PlayerAttributes.maxFatique -= 5000;
 		}
 		if (building.getName ().Equals ("EnergyBed")) {

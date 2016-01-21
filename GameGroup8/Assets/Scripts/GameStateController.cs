@@ -107,13 +107,11 @@ public class GameStateController : MonoBehaviour
 			GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().FirstLoad();
 			GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttacker>().FirstLoad();
         }
-
         else
         {
             // Load player position
             MonsterCollection.playerLoad(Application.dataPath + "/saves/Player.xml");
         }
-
     }
 
 
@@ -124,16 +122,12 @@ public class GameStateController : MonoBehaviour
         {
             enemyspawner.FirstLoad();
         }
-
-
         else
         {
             // Load enemies
             MonsterCollection.MonsterLoad(Application.dataPath + "/saves/monsters.xml");
-            Camera.main.GetComponent<EnemySpawner>().savewave();
-               
+            Camera.main.GetComponent<EnemySpawner>().savewave(Application.dataPath + "/saves/monsters.xml");
         }
-
     }
 
 
