@@ -2820,7 +2820,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeInterval: 30
   timeToNextAttack: 2
-  bullet: {fileID: 113490, guid: d14f7c6495d71874da0a5d2177a81d98, type: 2}
+  bullet: {fileID: 180156, guid: 4ce3e7b4c42bcea4babfdf19a97c634d, type: 2}
   weaponUnlocker: 0
 --- !u!114 &11451334
 MonoBehaviour:
@@ -3157,7 +3157,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: bullet
       value: 
-      objectReference: {fileID: 113490, guid: d14f7c6495d71874da0a5d2177a81d98, type: 2}
+      objectReference: {fileID: 180156, guid: 4ce3e7b4c42bcea4babfdf19a97c634d, type: 2}
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
       value: 1
