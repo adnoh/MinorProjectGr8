@@ -5,6 +5,10 @@ public class Type {
 
 	private int type;
 
+	/// <summary>
+	/// Constructor for the type object. 1 is wind, 2 is earth and 3 is water. 0 is no type.
+	/// </summary>
+	/// <param name="i">The index.</param>
 	public Type(int i){
 		if (i >= 0 && i <= 3) {
 			this.type = i;
@@ -13,11 +17,14 @@ public class Type {
 		}
 	}
 
+	/// <summary>
+	/// Converts the type to string and returns it.
+	/// </summary>
+	/// <returns>The string.</returns>
 	public string toString(){
 		if (type == 0) {
 			return "No type";
-		}
-		else if (type == 1) {
+		}else if (type == 1) {
 			return "Wind";
 		} else if (type == 2) {
 			return "Earth";
@@ -28,10 +35,18 @@ public class Type {
 		}
 	}
 
+	/// <summary>
+	/// Gets the type.
+	/// </summary>
+	/// <returns>The type.</returns>
 	public int getType(){
 		return type;
 	}
 
+	/// <summary>
+	/// Sets the type.
+	/// </summary>
+	/// <param name="i">The index.</param>
 	public void setType(int i){
 		if (i >= 0 && i <= 3) {
 			this.type = i;
@@ -40,6 +55,11 @@ public class Type {
 		}
 	}
 
+	/// <summary>
+	/// Returns the damage multiplier to Type t.
+	/// </summary>
+	/// <returns>The multiplier to type.</returns>
+	/// <param name="t">T.</param>
 	public double damageMultiplierToType(Type t){
 		int i = t.getType ();
 		if (type == 1) {
@@ -61,19 +81,13 @@ public class Type {
 		} else if (type == 3) {
 			if (i == 1){
 				return 0.5;
-			}
-			else if(i == 2){
+			}else if(i == 2){
 				return 1.5;
 			} else{
 				return 1d;
 			}
-		}
-		else{
+		}else{
 			return 1d;
 		}
 	}
-
-
-
-
 }

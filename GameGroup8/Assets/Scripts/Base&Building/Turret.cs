@@ -14,9 +14,16 @@ public class Turret{
 	public float timeTillNextAttack;
 	public float timeTillNext;
 
+	/// <summary>
+	/// Constructor for the turret object. Used for saving buildings.
+	/// </summary>
 	public Turret(){
 	}
 
+	/// <summary>
+	/// Constructor for the turret object. Saves only the important fields of the BuildingConstructor script attached to the building.
+	/// </summary>
+	/// <param name="bc">Bc.</param>
 	public Turret(BuildingController bc){
 		name = bc.getBuilding().getName();
 		x = bc.gameObject.transform.position.x;

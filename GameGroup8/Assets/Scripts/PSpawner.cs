@@ -87,7 +87,6 @@ public class PSpawner : MonoBehaviour {
         while (misses > 0){
             if (Vector3.Distance(tempPos, Base.transform.position) > 25){
                 return tempPos;
-				break;
             }else{
                 misses--;
             }

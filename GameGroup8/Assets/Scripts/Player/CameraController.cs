@@ -12,14 +12,19 @@ public class CameraController : MonoBehaviour {
     private bool BaseEnter;
 
 	public static bool shaking;
-	
+
+	/// <summary>
+	/// the offset between the player and the camera.
+	/// </summary>
 	void Start (){
 		offset = transform.position - player.transform.position;
 	}
-	
+
+	/// <summary>
+	/// Translates the camera when the player moves.
+	/// </summary>
 	void LateUpdate (){
 		BaseEnter = BaseController.pause;
-
         if (!BaseEnter && !shaking){
             transform.position = player.transform.position + offset;
         } else if (BaseEnter){
