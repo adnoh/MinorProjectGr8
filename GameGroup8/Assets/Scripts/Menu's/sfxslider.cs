@@ -9,7 +9,10 @@ public class sfxslider : MonoBehaviour
     public Toggle mute;
 
     private Slider slider;
-
+	/// <summary>
+	/// sets the sound level to whatever is saved.
+	/// Gets the slider value from the playerprefs so that it presists through different sessions.
+	/// </summary>
     void Start()
     {
         slider = gameObject.GetComponent<Slider>();
@@ -18,8 +21,10 @@ public class sfxslider : MonoBehaviour
         mute.isOn = PlayerPrefs.GetInt("sfx mute") == 1 ? true : false;
 
     }
-
-    // Update is called once per frame
+	// Update is called once per frame
+	/// <summary>
+	/// Checks the current slider values and updates the volume accordingly.
+	/// </summary>
     void Update()
     {
 

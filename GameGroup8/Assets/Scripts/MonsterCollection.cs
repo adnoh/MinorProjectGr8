@@ -8,6 +8,10 @@ using System.Collections.Generic;
 
 
 [XmlRoot("MonsterCollection")]
+/// <summary>
+/// Monster list, is a list which contains all the neccesary information about all the current monsters. done in a seperate class
+/// because xml serialization doesnt work with monobehaviour.
+/// </summary>
 public class MonsterList
 {
 
@@ -20,7 +24,9 @@ public class MonsterList
 	}
 
 }
-
+/// <summary>
+/// Same as monsterlist but then for the turrets.
+/// </summary>
 public class TurretList{
 	
 	[XmlArray("list"),XmlArrayItem("list")]
@@ -30,7 +36,9 @@ public class TurretList{
 		return this.list;
 	}
 }
-
+/// <summary>
+/// This is the class that saves the base, its location and its certain upgrades.
+/// </summary>
 public class BaseSave
 {
     public float posx;
@@ -45,7 +53,9 @@ public class BaseSave
     public int health;
     public bool searchLights;
     public bool areaLight;
-            
+            /// <summary>
+            ///This method gets all the data from the relevant locations about the base and contains it in one place..
+            /// </summary>
     public BaseSave()
     {
         var position = GameObject.FindGameObjectWithTag("BASE").GetComponent<Transform>().position;
@@ -67,7 +77,9 @@ public class BaseSave
         areaLight = Base.boughtFlashlight;
     }
 }
-
+/// <summary>
+/// Saves the position and rotation of the moon
+/// </summary>
 public class MoonSave
 {
     public float posx;
@@ -77,7 +89,9 @@ public class MoonSave
     public float roty;
     public float rotz;
     public float rotw;
-
+	/// <summary>
+	/// method that saves the location of the moon
+	/// </summary>
     public MoonSave()
     {
         var position = GameObject.FindGameObjectWithTag("Moon").GetComponent<Transform>().position;
@@ -93,7 +107,9 @@ public class MoonSave
         rotw = rotation.w;
     }
 }
-
+/// <summary>
+/// same as the moon but then for the sun
+/// </summary>
 public class SunSave
 {
     public float posx;
@@ -119,7 +135,9 @@ public class SunSave
         rotw = rotation.w;
     }
 }
-
+/// <summary>
+/// saves all the analytics data, which influences ai behaviour
+/// </summary>
 public class AnalyticsSave
 {
     public int score;
@@ -166,7 +184,9 @@ public class AnalyticsSave
     }
 }
 
-
+/// <summary>
+/// saves all the other relevevant random data for the level to be reconstructed
+/// </summary>
 public class Outsidesave{
 	
 	public int wave;
@@ -250,7 +270,9 @@ public class Outsidesave{
 	}	
 }
 
-
+/// <summary>
+/// gets all the data for the player to be reconstructed.
+/// </summary>
 public class Player
 {
 	public float posx;
@@ -332,7 +354,10 @@ public class Player
 	}
 }
 
-
+/// <summary>
+/// monobehaviour class for interaction with unity. these methods extract the data from the previous classes and use the xml serializer to
+/// send the data to xml files.
+/// </summary>
 public class MonsterCollection : MonoBehaviour
 {
 	public static MonsterList monsterlist = new MonsterList();

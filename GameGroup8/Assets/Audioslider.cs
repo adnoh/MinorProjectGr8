@@ -9,6 +9,7 @@ public class Audioslider : MonoBehaviour {
 
     private Slider slider;
 	/// <summary>
+	/// /// sets the sound level to whatever is saved.
 	/// Gets the data from the playerprefs so that it presists through different sessions
 	/// </summary>
 	void Start() {
