@@ -8,7 +8,9 @@ public class Audioslider : MonoBehaviour {
     public Toggle mute;
 
     private Slider slider;
-
+	/// <summary>
+	/// Gets the data from the playerprefs so that it presists through different sessions
+	/// </summary>
 	void Start() {
         slider = gameObject.GetComponent<Slider> ();
 		var temp = PlayerPrefs.GetFloat ("sound option");
@@ -18,6 +20,9 @@ public class Audioslider : MonoBehaviour {
     }
 
 	// Update is called once per frame
+	/// <summary>
+	/// Checks the current slider values and updates the volume accordingly.
+	/// </summary>
 	void Update () {
 
         
