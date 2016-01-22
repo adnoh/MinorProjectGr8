@@ -10,14 +10,18 @@ public class SirenBase : MonoBehaviour {
     
     private AudioSource Sound;
     private float Volume;
+    private bool mute;
     private bool play = false;
     
     private List<GameObject> Enemies;
 
 	void Start () {
         Volume = PlayerPrefs.GetFloat("sfx option");
+        mute = PlayerPrefs.GetInt("sfx mute") == 1 ? true : false;
+
         Sound = gameObject.GetComponent<AudioSource>();
         Sound.volume = Volume;
+        Sound.mute = mute;
         Enemies = new List<GameObject>(0);
 	}
 
@@ -30,6 +34,7 @@ public class SirenBase : MonoBehaviour {
         if(Enemies.Count == 0)
         {
             Sound.Stop();
+            play = false;
         }
         else if (Enemies.Count != 0)
         {
