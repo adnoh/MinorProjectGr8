@@ -11,7 +11,7 @@ public class EnemySpawner : MonoBehaviour {
     public GameObject polarBear;
     public GameObject meepMeep;
     public GameObject oilPhant;
-	public int wave = 1;
+	public int wave = 0;
 
 	private int enemiesThisWave;
 	public static int totalEnemiesSpawned;
@@ -47,8 +47,8 @@ public class EnemySpawner : MonoBehaviour {
 
 
     public void FirstLoad () {
-		wave = 1;
-		waveText.text = "Current wave: 1";
+		wave = 0;
+		waveText.text = "Current wave: 0";
 		enemiesToDefeat = 0;
 		enemiesDefeaten = 0;
 		enemiesToDefeatText.text = "Enemies to defeat this wave: " + enemiesToDefeat;
@@ -88,6 +88,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	void nextWave(){
+		wave++;
         Camera.main.GetComponent<PSpawner>().nextWave();
         calculateChangeToSpawnFireFox();
         calculateChangeToSpawnHammerHead();
@@ -96,7 +97,6 @@ public class EnemySpawner : MonoBehaviour {
         calculateChangeToSpawnMeepMeep();
         calculateChangeToSpawnOilphant();
         waveText.text = "Current wave: " + wave;
-		enemiesToDefeat = 0;
 		for(int i = 0; i < enemiesThisWave; i++){
 			float random = Random.Range (0.0f, changeToSpawnHammerHead + changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnPolarBear + changeToSpawnMeepMeep + changeToSpawnOilphant);
 			if(random <= changeToSpawnHammerHead){
@@ -138,7 +138,6 @@ public class EnemySpawner : MonoBehaviour {
                 unbuffedEnemies.Add(earthEnemyClone.GetComponent<EnemyController>());
             }
 		}
-        wave++;
 	}
 
 

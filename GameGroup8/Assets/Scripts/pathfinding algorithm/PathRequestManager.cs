@@ -47,6 +47,10 @@ public class PathRequestManager : MonoBehaviour {
         instance.TryProcessNext();
     }
 
+
+    /// <summary>
+    /// Try to processNext requesti in the quee
+    /// </summary>
     void TryProcessNext()
     {
         // If not processing a path and que is not empty
@@ -58,7 +62,11 @@ public class PathRequestManager : MonoBehaviour {
         } 
     }
 
-    // 
+    /// <summary>
+    /// If finished, store the result and go to next
+    /// </summary>
+    /// <param name="path"></param>
+    /// <param name="success"></param>
     public void FinishedProcessingPath(Vector3[] path, bool success)
     {
         currentPathRequest.succesful(path, success);

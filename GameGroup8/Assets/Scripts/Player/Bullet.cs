@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour {
 
 		timeTillDestroy = Time.time + 4.0f;
 
-        if(this.gameObject.name.Equals("CatPrefab(Clone)") && this.gameObject.name.Equals("SnailPrefab(Clone)"))
+		if(this.gameObject.name.Equals("CatPrefab(Clone)") || this.gameObject.name.Equals("SnailPrefab(Clone)") || this.gameObject.name.Equals("Harp(Clone)"))
         {
             shotByPlayer = false;
         }
@@ -41,6 +41,7 @@ public class Bullet : MonoBehaviour {
         // sound
         Volume = PlayerPrefs.GetFloat("sfx option");
         Sound = gameObject.GetComponent<AudioSource>();
+		Sound.volume = Volume;
 	}
 
 	void Update(){
@@ -57,7 +58,7 @@ public class Bullet : MonoBehaviour {
     /// </summary>
     /// <param name="col"></param>
 	void OnTriggerEnter(Collider col){
-		if(col.gameObject.CompareTag ("Enemy") && !shotByEnemy && (this.gameObject.name.Equals("newBullet(Clone)") || this.gameObject.name.Equals ("CatPrefab(Clone)") || this.gameObject.name.Equals("SnailPrefab(Clone)"))){
+		if(col.gameObject.CompareTag ("Enemy") && !shotByEnemy && (this.gameObject.name.Equals("newBullet(Clone)") || this.gameObject.name.Equals ("CatPrefab(Clone)") || this.gameObject.name.Equals("SnailPrefab(Clone)") || this.gameObject.name.Equals("Harp(Clone)"))){
             Sound.Play();                                   // sound
             EnemyController enemyController = col.gameObject.GetComponent<EnemyController>();
             enemyController.shotByPlayer = true;

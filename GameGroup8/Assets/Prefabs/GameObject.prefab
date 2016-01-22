@@ -3002,7 +3002,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 143332}
-  m_LocalRotation: {x: -0, y: -1, z: 0, w: 0.0000025789718}
+  m_LocalRotation: {x: 0, y: 0.000002797529, z: 0, w: 1}
   m_LocalPosition: {x: -14.252806, y: 0, z: -0.82105064}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
@@ -3760,7 +3760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  health: 82
+  health: 100
   maxHealth: 100
   attackPower: 10
   walkingSpeed: 2

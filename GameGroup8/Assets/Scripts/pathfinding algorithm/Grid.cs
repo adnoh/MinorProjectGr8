@@ -2,11 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-/* Class that makes  wall detection possible
-
-    assumes the worldplane is in x, z plane.
-*/
-
+    /// <summary>
+    /// Class that makes wall detection possible
+    /// Assumes the worldplane is n x, z plane.
+    /// </summary>
 
 
 
@@ -25,17 +24,20 @@ public class Grid : MonoBehaviour
 
     void Awake()
     {
+
+        // NodeSize and GridSize
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
-        gridSizeZ = Mathf.RoundToInt(gridWorldSize.z / nodeDiameter);
-        // TODO: Get dynamically from worldsize
+        gridSizeZ = Mathf.RoundToInt(gridWorldSize.z / nodeDiameter);    
 
-        // CreateGrid(); Does create the grid -> call this AFTER worldbuilder!
-        // CreateGrid();
     }
 
+    /// <summary>
+    ///  Creates the grid used for pathfinding
+    /// </summary>
     public void CreateGrid()
     {
+        
         grid = new Node[gridSizeX, gridSizeZ];
         // get the position of bottomleft cornet: get center minus left edge  - upper edge
         Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.z / 2;
@@ -50,6 +52,12 @@ public class Grid : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// Find neighbor nodes of specific node in grid
+    /// </summary>
+    /// <param name="node"> Current Node</param>
+    /// <returns>List of neighbor nodes</returns>
 
     public List<Node> GetNeighbours(Node node)
     {
@@ -82,8 +90,14 @@ public class Grid : MonoBehaviour
 
         return neighbours;
     }
-    // Method that changes a real/world position into a node position
 
+
+    
+    /// <summary>
+    ///  Changes a real/world position into a node position
+    /// </summary>
+    /// <param name="worldPosition"> Position in the world</param>
+    /// <returns>Node</returns>
     public Node NodeFromWorldPoint(Vector3 worldPosition)
     {
         float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
@@ -96,8 +110,8 @@ public class Grid : MonoBehaviour
         return grid[x, z];
     }
 
+    /*
     // visual check for grid
-    public List<Node> path;
     void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.z));
@@ -114,4 +128,5 @@ public class Grid : MonoBehaviour
             }
         }
     }
+    */
 }

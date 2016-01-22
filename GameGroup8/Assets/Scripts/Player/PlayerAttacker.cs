@@ -225,6 +225,9 @@ public class PlayerAttacker : MonoBehaviour {
 				if (!pSys1.enableEmission) {
 					pSys1.enableEmission = true;
 					pSys2.enableEmission = true;
+				} else {
+					pSys1.enableEmission = false;
+					pSys2.enableEmission = false;
 				}
                 WeaponsSounds.playWeaponSound(currentWeaponInt - 1);                            //Sound
                 GameObject[] nearbyEnemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -346,9 +349,11 @@ public class PlayerAttacker : MonoBehaviour {
 				weapons [3].SetActive (true);
 			}
 			if ((Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5)  || currentWeaponInt == 5) && unlocked[4]){
+				bool getIfWunderwaffen = currentWeapon.getIfChangeable ();
+				Type type = currentWeapon.getType ();
 				currentWeapon = weaponFactory.getWunderwuffen();
-				if (currentWeapon.getType ().getType () == 0) {
-					currentWeapon.setType (currentWeapon.getType());
+				if (getIfWunderwaffen) {
+					currentWeapon.setType (type);
 				}
 				currentWeaponInt = 5;
 				playerAnimator.SetInteger ("weapon", 1);
@@ -378,7 +383,6 @@ public class PlayerAttacker : MonoBehaviour {
 			}
 			if(currentWeapon.getIfChangeable() && Input.GetMouseButtonDown(1)){
 				if(currentWeapon.getType().getType() < 3){
-					Debug.Log (currentWeapon.getType().getType());
 					currentWeapon.setType(new Type(currentWeapon.getType().getType() + 1));
 					typeOfWunderWaffenText.text = currentWeapon.getType().toString();
 				}
