@@ -11,12 +11,19 @@ public class MenuControl : MonoBehaviour
 {
     public Button LoadGameBtn;
 
+
+
+    
     public void StartGame()
     {
+        // Set newgame true.
         GameStateController.newgame = true;
+        // Load tutorial
         SceneManager.LoadScene(3);
     }
 
+
+    // Used for Loading games
     public void LoadGame()
     {
         StartCoroutine(LoadGame_());
@@ -24,11 +31,16 @@ public class MenuControl : MonoBehaviour
 
     IEnumerator LoadGame_()
     {
+        // delay used for playing animation
         yield return new WaitForSeconds(2);
         GameStateController.newgame = false;
         SceneManager.LoadScene(1);
     }
 
+
+    /// <summary>
+    /// Function for quitting the game
+    /// </summary>
     public void ExitGame()
     {
         Application.Quit();
@@ -36,14 +48,19 @@ public class MenuControl : MonoBehaviour
 
     void Update()
     {
+
+        // only at main-menu
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
+
+            // only makes loadbutton clickable if save exists locally
             if (File.Exists(Application.dataPath + "/saves/world.xml"))
             {
                 LoadGameBtn.GetComponent<Button>().interactable = true;
             }
         }
         
+        // only enable esc to pause in outside
         if (SceneManager.GetActiveScene().buildIndex == 1)
         { 
             if (Input.GetKeyDown(KeyCode.Escape))

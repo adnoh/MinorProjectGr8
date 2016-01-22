@@ -7,6 +7,23 @@ using System.Collections;
 using System.Collections.Generic;
 
 
+/* Teringgroot script dat alle klassen voor het opslaan en serializen van de savedata bevat. 
+   Basically this scripts holds dataclasses of the attributes of the scene.
+   In the save process there are basically these steps
+   // Saving
+   1. Creating a class that holds the data of the scene
+   2. Serialize the class and save it into xml
+   // Loading
+   3. loading data from xml into data-class
+   4. export from data-class to scene
+   
+
+*/
+
+/// <summary>
+///  Class that holds a list of enemies currently in the scene
+/// </summary>
+
 [XmlRoot("MonsterCollection")]
 public class MonsterList
 {
@@ -21,6 +38,9 @@ public class MonsterList
 
 }
 
+/// <summary>
+///  Class that holds a list of turrets currently placed
+/// </summary>
 public class TurretList{
 	
 	[XmlArray("list"),XmlArrayItem("list")]
@@ -31,8 +51,14 @@ public class TurretList{
 	}
 }
 
+
+/// <summary>
+/// Class that holds al data about the base
+/// </summary>
 public class BaseSave
 {
+
+    // positon
     public float posx;
     public float posy;
     public float posz;
@@ -41,10 +67,13 @@ public class BaseSave
     public float rotz;
     public float rotw;
 
+
+    // properties
     public int wall;
     public int health;
     public bool searchLights;
     public bool areaLight;
+    
             
     public BaseSave()
     {
@@ -68,8 +97,13 @@ public class BaseSave
     }
 }
 
+/// <summary>
+/// Class that holds the position of the moon
+/// </summary>
 public class MoonSave
 {
+
+    // position
     public float posx;
     public float posy;
     public float posz;
@@ -94,8 +128,12 @@ public class MoonSave
     }
 }
 
+/// <summary>
+/// Class that holds the position of the sun
+/// </summary>
 public class SunSave
 {
+    // position
     public float posx;
     public float posy;
     public float posz;
@@ -177,6 +215,7 @@ public class Outsidesave{
 	public int totalEnemiesSpawned;
     public float CountDownTimer_Value;
 
+   // tags of fields in the base
     public string tagOfMat1;
 	public string tagOfMat2;
 	public string tagOfMat3;
@@ -250,7 +289,9 @@ public class Outsidesave{
 	}	
 }
 
-
+/// <summary>
+/// Class that holds the player attributes, such as upgrades, health, experience 
+/// </summary>
 public class Player
 {
 	public float posx;
@@ -356,6 +397,12 @@ public class MonsterCollection : MonoBehaviour
 		}
 	}
 
+
+    /// <summary>
+    /// Serialize 
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
     public static MonsterList MonsterLoad(string path)
     {
         var serializer = new XmlSerializer(typeof(MonsterList));
@@ -395,6 +442,11 @@ public class MonsterCollection : MonoBehaviour
         tempSun.transform.rotation = temprotation;
     }
 
+
+    /// <summary>
+    /// Saves sun to xml
+    /// </summary>
+    /// <param name="path"></param>
     public static void SunSave(string path)
     {
         var sunsave = new SunSave();
@@ -405,8 +457,10 @@ public class MonsterCollection : MonoBehaviour
             serializer.Serialize(stream, sunsave);
         }
     }
-
-
+    /// <summary>
+    /// Saves moon to xml
+    /// </summary>
+    /// <param name="path"></param>
     public static MoonSave MoonPreLoad(string path)
     {
         var serializer = new XmlSerializer(typeof(MoonSave));
@@ -416,11 +470,15 @@ public class MonsterCollection : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    ///  Load moon from xml
+    /// </summary>
+    /// <param name="path"></param>
     public static void MoonLoad(string path)
     {
 
         var moon_ = MoonPreLoad(path);
-
         GameObject tempMoon = GameObject.FindWithTag("Moon");
         Vector3 templocation;
         templocation.x = moon_.posx;
@@ -432,11 +490,14 @@ public class MonsterCollection : MonoBehaviour
         temprotation.w = moon_.rotw;
         temprotation.z = moon_.rotz;
 
-
         tempMoon.transform.position = templocation;
         tempMoon.transform.rotation = temprotation;
     }
 
+    /// <summary>
+    /// Saves moon to xml
+    /// </summary>
+    /// <param name="path"></param>
     public static void MoonSave(string path)
     {
         var moonsave = new MoonSave();
@@ -448,7 +509,10 @@ public class MonsterCollection : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Saves base to xml
+    /// </summary>
+    /// <param name="path"></param>
 
     public static void BaseSave(string path)
     {
@@ -461,6 +525,13 @@ public class MonsterCollection : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// Loads base.xml into base dataclass
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns>Basesave dataclass</returns>
+
     public static BaseSave BasePreLoad(string path)
     {
         var serializer = new XmlSerializer(typeof(BaseSave));
@@ -470,6 +541,11 @@ public class MonsterCollection : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// Loads the data from the base-dataclass in the scene
+    /// </summary>
+    /// <param name="path"></param>
     public static void BaseLoad(string path)
     {
 
@@ -498,7 +574,10 @@ public class MonsterCollection : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// Saves the playerdata-class in a xml
+    /// </summary>
+    /// <param name="path"></param>
 
     public static void playerSave(string path)
 	{
@@ -511,6 +590,11 @@ public class MonsterCollection : MonoBehaviour
 		}
 	}
 
+    /// <summary>
+    /// Loads player xml into player dataclass
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
     public static Player playerpreLoad(string path)
     {
         var serializer = new XmlSerializer(typeof(Player));
@@ -520,6 +604,11 @@ public class MonsterCollection : MonoBehaviour
         }
 
     }
+
+    /// <summary>
+    /// sets player data in scene from player class
+    /// </summary>
+    /// <param name="path"></param>
 
     public static void playerLoad(string path)
     {
@@ -557,6 +646,12 @@ public class MonsterCollection : MonoBehaviour
 		GameObject.Find ("player").GetComponent<PlayerAttacker> ().LoadFromSave ();
     }
 
+
+    /// <summary>
+    ///  Saves the turrets in a xml
+    /// </summary>
+    /// <param name="path"></param>
+
     public static void turretSave(string path){
 		List<GameObject> Buildings = BaseController.turrets;
 		for (int i = 0; i < Buildings.Count; i++){
@@ -568,7 +663,10 @@ public class MonsterCollection : MonoBehaviour
 			serializer.Serialize(stream, turretList);
 		}
 	}
-
+    /// <summary>
+    /// Saves the data from outsidesavedata-class as xml
+    /// </summary>
+    /// <param name="path"></param>
 	public static void outsideSave(string path){
 
 		var outside = new Outsidesave();
@@ -580,7 +678,11 @@ public class MonsterCollection : MonoBehaviour
 	}
 	
 
-
+    /// <summary>
+    ///  Loads turrets into Turretlist-dataclass
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
 	public static TurretList turretLoad(string path){
 		var serializer = new XmlSerializer(typeof(TurretList));
 		using(var stream = new FileStream(path, FileMode.Open))
@@ -588,6 +690,12 @@ public class MonsterCollection : MonoBehaviour
 			return serializer.Deserialize(stream) as TurretList;
 		}
 	}
+    
+    /// <summary>
+    ///  loads data of outside into outsidesave-data-class
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
 
 	public static Outsidesave outsidepreLoad(string path){
 		var serializer = new XmlSerializer(typeof(Outsidesave));
@@ -596,6 +704,12 @@ public class MonsterCollection : MonoBehaviour
 			return serializer.Deserialize(stream) as Outsidesave;
 		}
 	}
+
+
+    /// <summary>
+    ///  Sets the outsidedata-class data in scene
+    /// </summary>
+    /// <param name="path"></param>
 
 	public static void outsideLoad(string path){
 		var outside = outsidepreLoad (path);
@@ -618,6 +732,11 @@ public class MonsterCollection : MonoBehaviour
         PlayerController.setCount_2(outside.unitCount);
 		Camera.main.GetComponent<PSpawner> ().LoadFromSave (outside.xCoordinatesOfUnits, outside.zCoordinatesOfUnits, outside.xCoordinatesOfBaseUnits, outside.zCoordinatesOfBaseUnits, outside.xCoordinatesOfEnergyUnits, outside.zCoordinatesOfEnergyUnits, outside.xCoordinatesOfHealthUnits, outside.zCoordinatesOfHealthUnits, outside.xCoordinatesOfFatiqueUnits, outside.zCoordinatesOfFatiqueUnits);
 	}
+
+    /// <summary>
+    ///  saves the map in xml
+    /// </summary>
+    /// <param name="path"></param>
 	
     public static void MapSave(string path)
     {
@@ -631,6 +750,12 @@ public class MonsterCollection : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// loads world.xml into mapsaver dataclass
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
+
     public static MapSaver mapPre_load(string path)
     {
         var serializer = new XmlSerializer(typeof(MapSaver));
@@ -640,6 +765,10 @@ public class MonsterCollection : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// sets the scene from world
+    /// </summary>
+    /// <param name="path"></param>
     public static void mapLoad(string path)
     {
         var map_load = mapPre_load(path);
@@ -647,6 +776,12 @@ public class MonsterCollection : MonoBehaviour
        
         map_load.MapLoader(world);
     }
+
+
+    /// <summary>
+    ///  saves the analytics-dataclass
+    /// </summary>
+    /// <param name="path"></param>
 
     public static void AnalyticsSave(string path)
     {
