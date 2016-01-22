@@ -5,6 +5,9 @@ public class menuscript2 : MonoBehaviour {
 
     public Animator backdrop;
 
+    /// <summary>
+    ///  plays the menu animations when new game game is pressed.
+    /// </summary>
     public void animationplay()
     {
         backdrop = GetComponent<Animator>();
