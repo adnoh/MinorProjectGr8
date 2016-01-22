@@ -10,16 +10,19 @@ public class SoundsPlayer : MonoBehaviour {
     private AudioSource[] Sounds;
     private bool playwalk = false;
     private float Volume;
+    private bool mute;
 
 	void Start () {
         Sounds = new AudioSource[4];
 
         Volume = PlayerPrefs.GetFloat("sfx option");
+        mute = PlayerPrefs.GetInt("sfx mute") == 1 ? true : false;
 
         for (int i = 0; i < 4; i++)
         {
             Sounds[i] = gameObject.AddComponent<AudioSource>();
             Sounds[i].volume = Volume;
+            Sounds[i].mute = mute;
         }
 
         Sounds[0].clip = walk;
