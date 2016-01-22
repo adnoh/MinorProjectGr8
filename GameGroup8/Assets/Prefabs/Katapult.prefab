@@ -72,8 +72,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 486782}
   - 95: {fileID: 9592462}
-  - 135: {fileID: 13591396}
   - 114: {fileID: 11453878}
+  - 135: {fileID: 13591396}
   m_Layer: 0
   m_Name: Katapult
   m_TagString: Turret
@@ -125,7 +125,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187552}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.960854, y: -0.005447924, z: 6.7832084}
+  m_LocalPosition: {x: 1.472023, y: -0, z: 2.6680202}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 473658}
@@ -177,7 +177,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 145588}
-  m_Mesh: {fileID: 4300002, guid: e8e3d5e40c59008419c7eab559bb2ad0, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 0f97f3f65c26dc74abfd3c3f14f9e5fb, type: 3}
 --- !u!95 &9592462
 Animator:
   serializedVersion: 3
@@ -186,7 +186,7 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187552}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: e8e3d5e40c59008419c7eab559bb2ad0, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 0f97f3f65c26dc74abfd3c3f14f9e5fb, type: 3}
   m_Controller: {fileID: 9100000, guid: 747b9abc507a534498abaed29efae469, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -206,9 +206,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9045defb704597f4abd9d082a5a73106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeInterval: 30
+  timeInterval: 10
   timeToNextAttack: 2
-  bullet: {fileID: 188064, guid: 17164f3a29853f547b0d518e1cd62a4c, type: 2}
+  bullet: {fileID: 0}
   weaponUnlocker: 0
 --- !u!135 &13591396
 SphereCollider:
@@ -217,7 +217,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187552}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 9
@@ -251,7 +251,7 @@ SkinnedMeshRenderer:
   serializedVersion: 2
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
-  m_Mesh: {fileID: 4300000, guid: e8e3d5e40c59008419c7eab559bb2ad0, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 0f97f3f65c26dc74abfd3c3f14f9e5fb, type: 3}
   m_Bones:
   - {fileID: 434194}
   m_BlendShapeWeights: []

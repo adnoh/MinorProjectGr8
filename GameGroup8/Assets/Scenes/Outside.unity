@@ -27443,7 +27443,7 @@ MonoBehaviour:
   Gate: {fileID: 1905394258}
   countText: {fileID: 239913995}
   basicTurret: {fileID: 157556, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
-  catapult: {fileID: 164642, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
+  catapult: {fileID: 180170, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
   harpgoon: {fileID: 100430, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
   snailGun: {fileID: 104832, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
   gearShack: {fileID: 187488, guid: d814c6db985acae4ba9fd541456ff36b, type: 2}
