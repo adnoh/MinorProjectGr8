@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Class to control the searchlights of the base
+/// </summary>
 public class SearchLight : MonoBehaviour {
 
     public GameObject Lamp;
@@ -19,6 +22,9 @@ public class SearchLight : MonoBehaviour {
 
     private GameObject Enemy;
 
+    /// <summary>
+    /// inititate the light and initialize the base values
+    /// </summary>
     void Start() {
         rotationStan = false;
         rotationLight = false;
@@ -31,7 +37,10 @@ public class SearchLight : MonoBehaviour {
         maxRotationLight = initialRotationLight + offsetLight * 4;
         minRotationLight = initialRotationLight - offsetLight;
     }
-	
+	/// <summary>
+    /// turn on when the sun is down and move the lights.
+    /// also follows the enemy if there is one
+    /// </summary>
 	void Update () {
         float height = GameObject.Find("SUn").GetComponent<Daynight>().getHeigth();
         if (height < 150)
@@ -79,6 +88,10 @@ public class SearchLight : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// detect enemy in range
+    /// </summary>
+    /// <param name="col"></param>
     void OnTriggerEnter(Collider col)
     {
         if (Enemy == null)
@@ -90,6 +103,10 @@ public class SearchLight : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// remove enemy in range
+    /// </summary>
+    /// <param name="col"></param>
     void onTriggerExit(Collider col)
     {
         if (col.CompareTag("Enemy"))

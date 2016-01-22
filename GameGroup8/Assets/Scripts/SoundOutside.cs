@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Class to change the volume of the sound to the player prefs
+/// </summary>
 public class SoundOutside : MonoBehaviour {
 
     private float Volume;

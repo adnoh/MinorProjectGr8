@@ -73,7 +73,6 @@ public class EnemySpawner : MonoBehaviour {
 	void Update () {
 		waveText.text = "Current wave: " + wave;
 		if(Time.timeSinceLevelLoad > timeTillNextWave){
-			setEnemiesThisWave();
 			timeTillNextWave = Time.timeSinceLevelLoad + Random.Range (minTimeBetweenWaves, maxTimeBetweenWaves);
 			totalEnemiesSpawned += enemiesThisWave;
 			enemiesToDefeatText.text = "Enemies to defeat: " + enemiesToDefeat;
@@ -104,6 +103,7 @@ public class EnemySpawner : MonoBehaviour {
 	/// </summary>
 	void nextWave(){
 		wave++;
+		setEnemiesThisWave();
         Camera.main.GetComponent<PSpawner>().nextWave();
         calculateChangeToSpawnFireFox();
         calculateChangeToSpawnHammerHead();
@@ -348,7 +348,8 @@ public class EnemySpawner : MonoBehaviour {
 	/// calculates the amount of enemies that have to be spawned the next wave. It gets higher if the wave is higher.
 	/// </summary>
     void setEnemiesThisWave(){
-		enemiesThisWave = (int)(25 * (2 / Mathf.PI) * Mathf.Atan (wave / 8));
+		enemiesThisWave = (int)Mathf.Ceil(25f * (2f / Mathf.PI) * Mathf.Atan ((float)wave / 8f));
+		Debug.Log (enemiesThisWave);
 	}
 
 	/// <summary>

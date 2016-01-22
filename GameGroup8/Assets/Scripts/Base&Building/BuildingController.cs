@@ -23,41 +23,32 @@ public class BuildingController : MonoBehaviour {
 
 	Animator anim;
 
+	/// <summary>
+	/// Implements the effects of a building.
+	/// </summary>
 	void Start(){
 		building = buildingFactory.getBuilding (this.gameObject.name);
 		if (building.getName().Equals("Harpgoon") || building.getName().Equals("Cat-a-pult")) {
 			anim = GetComponent<Animator> ();
-		}
-		if (building.getName ().Equals ("Bed")) {
+		}else if (building.getName ().Equals ("Bed")) {
 			PlayerController.amountOfBeds ++;
 			PlayerAttributes.maxFatique += 5000;
-		}
-		if (building.getName ().Equals ("HealthBed")) {
+		}else if (building.getName ().Equals ("HealthBed")) {
 			PlayerController.amountOfBeds ++;
 			PlayerAttributes.amountOfHealthBeds++;
-		}
-		if (building.getName ().Equals ("EnergyBed")) {
+		}else if (building.getName ().Equals ("EnergyBed")) {
 			PlayerAttributes.setMaxEnergy(PlayerAttributes.getMaxEnergy() * 2);
-		}
-		if (building.getName ().Equals ("GearShack")) {
+		}else if (building.getName ().Equals ("GearShack")) {
 			PlayerAttacker.unlock(2);
-		}
-        if (building.getName().Equals("Snailgun"))
-        {
+		}else if (building.getName().Equals("Snailgun")){
             this.gameObject.transform.Rotate(0, -90, 0);
         }
-		/*if (building.getName ().Equals ("Cat-a-pult")) {
-			this.gameObject.transform.Rotate(0, 90, 0);
-		}*/
     }
     
-    void Update(){
-        //bool pause = BaseController.getPause();
-
-		/*if (building != null && (building.getName().Equals("Harpgoon") || building.getName().Equals("Cat-a-pult")) && Time.time > attackTime) {
-			
-		}*/
-
+	/// <summary>
+	/// Is called every frame to attacks the first enemy in the list of enemies; or it generates a unit.
+	/// </summary>
+	void Update(){
 		for (int i = 0; i < enemys.Count; i++) {
 			if (enemys [i] == null) {
 				enemys.Remove (enemys[i]);
@@ -87,8 +78,7 @@ public class BuildingController : MonoBehaviour {
 			bulletClone.tag = bulletType.toString ();
 			if(this.gameObject.name.Equals ("Rock-paper-scissor turret(Clone)")){
 				bulletClone.GetComponent<Bullet>().dmg = 10;
-			}
-			else{
+			}else{
 				bulletClone.GetComponent<Bullet>().dmg = 15;
 			}
 			if(bulletClone.name.Equals ("newBullet(Clone)")){
@@ -100,9 +90,7 @@ public class BuildingController : MonoBehaviour {
             if (building.getName().Equals("Snailgun") || building.getName().Equals("Cat-a-pult"))
             {
                 bulletClone.GetComponent<Rigidbody>().AddForce(-transform.right * 1000f);
-            }
-            else
-            {
+            }else{
                 bulletClone.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f);
             }
 		}
@@ -110,58 +98,59 @@ public class BuildingController : MonoBehaviour {
 			PlayerController.setCount(-1);
 			time = Time.time + timeInterval;
 		}
-        /*
-		if(Input.GetKeyDown(KeyCode.T) && pause){
-			if (building.getName ().Equals ("GunSmith") && !weaponUnlocker) {
-				GameObject.Find ("player").GetComponent<PlayerAttacker> ().weaponUnlockScreen.SetActive (true);
-				GameObject.Find ("player").GetComponent<PlayerAttacker> ().setTextOfLockUnlock();
-				weaponUnlocker = true;
-			} else if (building.getName ().Equals ("GunSmith") && weaponUnlocker) {
-				GameObject.Find ("player").GetComponent<PlayerAttacker> ().weaponUnlockScreen.SetActive (false);
-				weaponUnlocker = false;
-			} 
-		}
-        else if (!pause)
-        {
-            GameObject.Find("player").GetComponent<PlayerAttacker>().weaponUnlockScreen.SetActive(false);
-            weaponUnlocker = false;
-        }*/
     }
 
+	/// <summary>
+	/// When an enemy enters the sphere collider it's added to the enemy list.
+	/// </summary>
+	/// <param name="other">Other.</param>
     void OnTriggerEnter(Collider other){
 		if (other.CompareTag("Enemy") && building.returnIfTurret() && this.gameObject.CompareTag("Turret")){
             enemys.Add (other.gameObject);
         }
     }
 
+	/// <summary>
+	/// When an enemy exits the sphere collider it's removed from the enemy list.
+	/// </summary>
+	/// <param name="other">Other.</param>
     void OnTriggerExit(Collider other){
 		if (other.CompareTag ("Enemy") && building.returnIfTurret() && this.gameObject.CompareTag("Turret")){
-            Vector3 LastPostition = other.transform.position;
-            enemyPosition = LastPostition;
+            Vector3 LastPosition = other.transform.position;
+            enemyPosition = LastPosition;
 			enemys.Remove(other.gameObject);
         }     
     }
 
+	/// <summary>
+	/// When a building is deleted from the base the effects will be lifted by this method.
+	/// </summary>
 	public void Delete(){
 		if (building.getName ().Equals ("Bed")) {
 			PlayerController.amountOfBeds --;
 			PlayerAttributes.maxFatique -= 5000;
-		}
-		if (building.getName ().Equals ("HealthBed")) {
+		}else if (building.getName ().Equals ("HealthBed")) {
 			PlayerController.amountOfBeds -= 2;
 			PlayerAttributes.amountOfHealthBeds -= 1;
 			PlayerAttributes.maxFatique -= 5000;
-		}
-		if (building.getName ().Equals ("EnergyBed")) {
+		}else if (building.getName ().Equals ("EnergyBed")) {
 			PlayerAttributes.setMaxEnergy((int)(PlayerAttributes.getMaxEnergy() / 2));
 			PlayerAttributes.maxFatique -= 5000;
 		}
 	}
 
+	/// <summary>
+	/// Gets the building.
+	/// </summary>
+	/// <returns>The building.</returns>
 	public Building getBuilding(){
 		return building;
 	}
 
+	/// <summary>
+	/// Plays the attack animation.
+	/// </summary>
+	/// <param name="an">An.</param>
 	IEnumerator animation(string an){
 		anim.SetBool (an, true);
 		yield return new WaitForSeconds (0.5f);
