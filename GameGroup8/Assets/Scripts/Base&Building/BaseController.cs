@@ -8,9 +8,10 @@ public class BaseController : MonoBehaviour{
     private GameObject lastHitObject;
     private GameObject buildObject;
     private Material originalMat;
-    private CameraController camera;
+    private CameraController cameraControl;
+    private BuildMenuControl menuControl;
     public static bool pause;
-	public static bool building;
+	public static bool buildingMenuOpen;
     public static List<GameObject> turrets;
 
     public Material hoverMat;
@@ -86,8 +87,9 @@ public class BaseController : MonoBehaviour{
         lastHitObject = null;
         pause = false;
         turrets = new List<GameObject>(4);
-		building = false;
-        camera = Camera.main.GetComponent<CameraController>();
+		buildingMenuOpen = false;
+        cameraControl = Camera.main.GetComponent<CameraController>();
+        menuControl = gameObject.GetComponent<BuildMenuControl>();
     }
 	
     void Update(){
@@ -103,7 +105,7 @@ public class BaseController : MonoBehaviour{
 			PlayerAttributes.resetFatique();
 			pause = !pause;
 			if (pause){
-                camera.MoveCamera(1);
+                cameraControl.MoveCamera(1);
 				playerPos = GameObject.Find("player").transform.position;
                 Vector3 TempPlayerPos = GameObject.FindGameObjectWithTag("BASE").transform.position - new Vector3(0,1f,7.81f);
 				GameObject.Find("player").transform.position = TempPlayerPos;
@@ -115,7 +117,7 @@ public class BaseController : MonoBehaviour{
                 //PlayerController.setCount_2(1000);        // hack for units when entered base
 			} 
 			else {
-                camera.MoveCamera(2);
+                cameraControl.MoveCamera(2);
                 GameObject.Find("player").transform.position = playerPos;
 				GameObject.Find ("player").GetComponent<PlayerAttacker>().weaponUnlockScreen.SetActive(false);
                 BaseMenu.SetActive(false);
@@ -140,13 +142,13 @@ public class BaseController : MonoBehaviour{
 			Time.timeScale = 1;
 		}
 
-		if (lastHitObject != null && Input.GetMouseButton(0)) {
+		if (lastHitObject != null && Input.GetMouseButton(0) && buildingMenuOpen == false) {
 			setBuildMenu();
-            building = true;
+            buildingMenuOpen = true;
 		} 
 
         // See selected plane when inside the base and not building
-		if (pause & !building) {
+		if (pause & !buildingMenuOpen) {
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 		
@@ -411,7 +413,8 @@ public class BaseController : MonoBehaviour{
 			buildMenu.SetActive (true);
             WeaponMenu.SetActive(false);
             TechMenu.SetActive(false);
-		}
+            menuControl.OpenMenu(buildMenu);
+        }
 		if (lastHitObject.CompareTag ("BasicTurretPlane")) {
 			title.text = "Rock-Paper-Scissor turret";
 			buildingText1.text = "Cat-a-pult";
@@ -424,7 +427,8 @@ public class BaseController : MonoBehaviour{
 			upgradeBuild2.text = "Upgrade(2)";
 			upgradeBuild3.text = "Upgrade(3)";
 			buildMenu.SetActive (true);
-		}
+            menuControl.OpenMenu(buildMenu);
+        }
 		if (lastHitObject.CompareTag ("BedPlane")) {
 			title.text = "Bed";
 			buildingText1.text = "Energy Boost Bed";
@@ -437,7 +441,8 @@ public class BaseController : MonoBehaviour{
 			upgradeBuild2.text = "Upgrade(2)";
             upgradeBtn3.SetActive(false);
 			buildMenu.SetActive (true);
-		}
+            menuControl.OpenMenu(buildMenu);
+        }
 		if (lastHitObject.CompareTag ("GearShackPlane")) {
 			title.text = "Gearshack";
 			buildingText1.text = "Generator";
@@ -450,7 +455,8 @@ public class BaseController : MonoBehaviour{
 			upgradeBuild2.text = "Upgrade(2)";
 			upgradeBuild3.text = "Upgrade(3)";
 			buildMenu.SetActive (true);
-		}
+            menuControl.OpenMenu(buildMenu);
+        }
         if (lastHitObject.CompareTag("occupiedPlane"))
         {
             title.text = "Maxed out";
@@ -464,16 +470,19 @@ public class BaseController : MonoBehaviour{
             upgradeBtn2.SetActive(false);
             upgradeBtn3.SetActive(false);
             buildMenu.SetActive(true);
+            menuControl.OpenMenu(buildMenu);
         }
         if (lastHitObject.CompareTag("Gunsmith"))
         {
             WeaponMenu.SetActive(true);
             buildMenu.SetActive(false);
+            menuControl.OpenMenu(WeaponMenu);
         }
         if (lastHitObject.CompareTag("Techsmith"))
         {
             TechMenu.SetActive(true);
             buildMenu.SetActive(false);
+            menuControl.OpenMenu(TechMenu);
         }
     }
 
@@ -623,8 +632,8 @@ public class BaseController : MonoBehaviour{
     /// </summary>
     public void closeBuildMenu()
     {
-        buildMenu.SetActive(false);
-        building = false;
+        menuControl.CloseMenu(buildMenu);
+        buildingMenuOpen = false;
     }
     
     /// <summary>
@@ -632,8 +641,8 @@ public class BaseController : MonoBehaviour{
     /// </summary>
     public void closeWeaponMenu()
     {
-        WeaponMenu.SetActive(false);
-        building = false;
+        menuControl.CloseMenu(WeaponMenu);
+        buildingMenuOpen = false;
     }
 
     /// <summary>
@@ -641,8 +650,8 @@ public class BaseController : MonoBehaviour{
     /// </summary>
     public void closeTechMenu()
     {
-        TechMenu.SetActive(false);
-        building = false;
+        menuControl.CloseMenu(TechMenu);
+        buildingMenuOpen = false;
     }
 
     /// <summary>
