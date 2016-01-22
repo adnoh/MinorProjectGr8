@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class sfxmenu : MonoBehaviour
 {
-
+    public Toggle mute;
     public AudioSource zoomaudio;
     public AudioSource fox;
     public AudioSource shark;
@@ -12,14 +12,18 @@ public class sfxmenu : MonoBehaviour
     public AudioSource peem;
     public AudioSource phant;
     public AudioSource eagle;
+    public AudioSource book;
+    public AudioSource buttonaudio;
+
+    private Slider slider;
 
 
     void Start()
     {
-        var slider = gameObject.GetComponent<Slider>();
+        slider = gameObject.GetComponent<Slider>();
         var temp = PlayerPrefs.GetFloat("sfx option");
         slider.value = temp;
-
+        mute.isOn = PlayerPrefs.GetInt("sfx mute") == 1 ? true : false;
 
     }
 
@@ -27,30 +31,50 @@ public class sfxmenu : MonoBehaviour
     void Update()
     {
 
-        var buttonaudio = Camera.main.GetComponent<AudioSource>();
-        var fox1 = fox.GetComponent<AudioSource>();
-        var shark1 = shark.GetComponent<AudioSource>();
-        var bear1 = bear.GetComponent<AudioSource>();
-        var peem1 = peem.GetComponent<AudioSource>();
-        var phant1 = phant.GetComponent<AudioSource>();
-        var eagle1 = eagle.GetComponent<AudioSource>();
-        var zoom = zoomaudio.GetComponent<AudioSource>();
+        if (mute.isOn == true)
+        {
+            PlayerPrefs.SetInt("sfx mute", 1);
+            slider.interactable = false;
+            buttonaudio.mute = true;
 
+            fox.mute = true;
+            shark.mute = true;
+            bear.mute = true;
+            peem.mute = true;
+            phant.mute = true;
+            eagle.mute = true;
+            zoomaudio.mute = true;
+            book.mute = true;
 
+        }
+        else if (mute.isOn == false)
+        {
+            PlayerPrefs.SetInt("sfx mute", 0);
+            slider.interactable = true;
+            buttonaudio.mute = false;
 
-        var slider = gameObject.GetComponent<Slider>();
+            fox.mute = false;
+            shark.mute = false;
+            bear.mute = false;
+            peem.mute = false;
+            phant.mute = false;
+            eagle.mute = false;
+            zoomaudio.mute = false;
+            book.mute = false;
+        }
 
 
         float temp = slider.value;
-        fox1.volume = temp;
-        shark1.volume = temp;
-        bear1.volume = temp;
-        peem1.volume = temp;
-        phant1.volume = temp;
-        eagle1.volume = temp;
-        zoom.volume = temp;
+        fox.volume = temp;
+        shark.volume = temp;
+        bear.volume = temp;
+        peem.volume = temp;
+        phant.volume = temp;
+        eagle.volume = temp;
+        zoomaudio.volume = temp;
 
         buttonaudio.volume = temp;
+        book.volume = temp;
 
 
         PlayerPrefs.SetFloat("sfx option", temp);

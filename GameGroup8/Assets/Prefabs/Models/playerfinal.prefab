@@ -593,23 +593,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b942a040a8566241bcd732f347c2790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyDescription: {fileID: 0}
-  showEnemyDescription: 0
-  enemyDescriptionText: {fileID: 0}
-  enemyHealthBar: {fileID: 0}
-  enemyWeaponDamageText: {fileID: 0}
-  enemyLevelText: {fileID: 0}
   bullet: {fileID: 0}
   bulletSpeed: 1000
   weaponPanel: {fileID: 0}
-  pistolImage: {fileID: 0}
-  shrimpImage: {fileID: 0}
-  stingerImage: {fileID: 0}
-  eelText: {fileID: 0}
-  wunderwuffenText: {fileID: 0}
-  batteringRamImage: {fileID: 0}
-  swordfishText: {fileID: 0}
-  baseBallBatImage: {fileID: 0}
+  weaponImages:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   lockedUnlockedTexts:
   - {fileID: 0}
   - {fileID: 0}
@@ -628,8 +623,21 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  currentWeaponInt: 1
   typeOfWunderWaffenText: {fileID: 0}
   weaponUnlockScreen: {fileID: 0}
+  pSys1: {fileID: 0}
+  pSys2: {fileID: 0}
+  unitCount: {fileID: 0}
+  weapons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &11469538
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -648,7 +656,6 @@ MonoBehaviour:
   levelText: {fileID: 0}
   fatiqueBar: {fileID: 0}
   regenerationTime: 20
-  regenerationTimeInBase: 20
   energyGainingTime: 2
   energyBar: {fileID: 0}
   flashingInterval: 0.5
@@ -657,6 +664,12 @@ MonoBehaviour:
   death: 0
   deathScreen: {fileID: 0}
   textOnDeathScreen: {fileID: 0}
+  scoreOnDeathScreen: {fileID: 0}
+  playerAnimator: {fileID: 0}
+  binded: 0
+  speedMultiplier: 1
+  healthText: {fileID: 0}
+  energyText: {fileID: 0}
 --- !u!135 &13556216
 SphereCollider:
   m_ObjectHideFlags: 1

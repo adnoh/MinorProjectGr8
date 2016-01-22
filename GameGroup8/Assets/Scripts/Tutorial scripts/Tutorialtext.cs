@@ -22,7 +22,9 @@ public class Tutorialtext : MonoBehaviour {
     SpriteRenderer nextslide;
     List<string> list = new List<string>();
 
-
+	/// <summary>
+	/// This makes a list which contains all the text elements to display in the tutorial.
+	/// </summary>
     void Start() {
         nextslide  = GetComponentInChildren<SpriteRenderer>();
         IsKeyEnabled_W = true;
@@ -67,6 +69,10 @@ public class Tutorialtext : MonoBehaviour {
 
 
     }
+	/// <summary>
+	/// chechks the count list for what picture to display
+	/// also disables the spacebar key when the enumerator is running
+	/// </summary>
     void Update()
     {
         
@@ -127,7 +133,11 @@ public class Tutorialtext : MonoBehaviour {
         }
       
     }
-
+	/// <summary>
+	/// Animates the text. to appear one for one.
+	/// </summary>
+	/// 
+	/// <param name="strComplete">String complete.</param>
 
     IEnumerator AnimateText(string strComplete)
     {

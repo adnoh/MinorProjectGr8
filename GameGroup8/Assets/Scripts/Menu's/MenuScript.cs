@@ -12,7 +12,9 @@ public class MenuScript : MonoBehaviour {
 	void Start(){
 		
 	}
-
+    /// <summary>
+    ///  plays the menu animations when the game starts.
+    /// </summary>
     public void animationplay()
     {
 

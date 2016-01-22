@@ -44,10 +44,16 @@ public class Monster {
     [XmlAttribute("isStunned?")]
     public bool isStunned;
 
+	/// <summary>
+	/// Constructor for the monster class. Used for saving enemys.
+	/// </summary>
 	public Monster(){
-
 	}
 
+	/// <summary>
+	/// Constructor for the monster object. Only saves the important fields of the EnemyController attached to an enemy.
+	/// </summary>
+	/// <param name="enemy">Enemy.</param>
 	public Monster(EnemyController enemy){
 		level = enemy.getLevel ();
 		health = enemy.getHealth ();
@@ -68,7 +74,5 @@ public class Monster {
                 
         isPoisoned = enemy.getPoisoned();
         isStunned = enemy.getStunned();
-
 	}
-
 }

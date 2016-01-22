@@ -45,7 +45,9 @@ public class EnemySpawner : MonoBehaviour {
     public Canvas canvas;
     public GameObject EnemyHealthBars;
 
-
+	/// <summary>
+	/// Called when a new game is started. Sets fields to default.
+	/// </summary>
     public void FirstLoad () {
 		wave = 0;
 		waveText.text = "Current wave: 0";
@@ -57,15 +59,20 @@ public class EnemySpawner : MonoBehaviour {
 		calculateLevelToSpawn ();
 	}
 
-    public void Awake()
-    {
+	/// <summary>
+	/// When awoken, gets the score;
+	/// </summary>
+    public void Awake(){
         score_ = Camera.main.GetComponent<Score>();
     }
 
+	/// <summary>
+	/// Updates a few fields and UI elements every frame. Like time till next wave, spawns enemies when next wave begins and updates
+	/// the current wave and enemies to defeat text.
+	/// </summary>
 	void Update () {
 		waveText.text = "Current wave: " + wave;
 		if(Time.timeSinceLevelLoad > timeTillNextWave){
-			setEnemiesThisWave();
 			timeTillNextWave = Time.timeSinceLevelLoad + Random.Range (minTimeBetweenWaves, maxTimeBetweenWaves);
 			totalEnemiesSpawned += enemiesThisWave;
 			enemiesToDefeatText.text = "Enemies to defeat: " + enemiesToDefeat;
@@ -83,12 +90,20 @@ public class EnemySpawner : MonoBehaviour {
 		enemiesToDefeatText.text = "Enemies to defeat: " + enemiesToDefeat;
 	}
 
+	/// <summary>
+	/// Gets a random position for a enemy to spawn in a square of 200 x 200 in the middle.
+	/// </summary>
+	/// <returns>The random position.</returns>
 	Vector3 getRandomPosition(){
         return new Vector3(Random.Range(-100, 100), 0, Random.Range(-100, 100)) ;
 	}
 
+	/// <summary>
+	/// First calculates the amount of enemies, the change to spawn each enemy and ech level and than spawns them accordingly.
+	/// </summary>
 	void nextWave(){
 		wave++;
+		setEnemiesThisWave();
         Camera.main.GetComponent<PSpawner>().nextWave();
         calculateChangeToSpawnFireFox();
         calculateChangeToSpawnHammerHead();
@@ -142,22 +157,21 @@ public class EnemySpawner : MonoBehaviour {
 
 
 
-    // starts wave from save
-    public void savewave(string path)
-    {
+    /// <summary>
+    /// Spawns enemies that were saved.
+    /// </summary>
+    /// <param name="path">Path.</param>
+    public void savewave(string path){
         var Temp = MonsterCollection.MonsterLoad(path);
         var MonsterList = Temp.getMonsterlist();
 
-
-        for (int i = 0; i < MonsterList.Length; i++)
-        {
+		for (int i = 0; i < MonsterList.Length; i++){
             Vector3 location = new Vector3(MonsterList[i].location_x, MonsterList[i].location_y, MonsterList[i].location_z);
             Quaternion rotation = new Quaternion(MonsterList[i].rotation_w, MonsterList[i].rotation_x, MonsterList[i].rotation_y, MonsterList[i].rotation_z);
        
-            switch (MonsterList[i].name)
-            {
+            switch (MonsterList[i].name){
                 case "FireFox":
-                    {
+				{
                         GameObject earthEnemyClone = fireFox;
                         var monster = earthEnemyClone.GetComponent<EnemyController>();
                         monster.setLevel(MonsterList[i].level);
@@ -172,7 +186,7 @@ public class EnemySpawner : MonoBehaviour {
                     }
 
                 case "DesertEagle":
-                    {
+				{
                         GameObject windEnemyClone = desertEagle;
                         var monster = windEnemyClone.GetComponent<EnemyController>();
                         monster.setLevel(MonsterList[i].level);
@@ -245,17 +259,18 @@ public class EnemySpawner : MonoBehaviour {
                         Instantiate(polarBearClone, location, rotation);
                         break;
                     }
-
-
             }
-
-        }
+ 	     }
     }
 
+	/// <summary>
+	/// Calculates the change to spawn a desert eagle. It gets higher if the current weapon is weak to the desert Eagle and
+	/// if a buildings that are weak to the desert Eagle are build.
+	/// </summary>
     void calculateChangeToSpawnDesertEagle(){
 		int tempType = PlayerAttacker.currentWeapon.getType().getType ();
         changeToSpawnDesertEagle = 0;
-        changeToSpawnDesertEagle += 1f / 2f * Analytics.getBuildings()[1];
+		changeToSpawnDesertEagle += (1f / 2f) * Analytics.getBuildings()[1];
         if (tempType == 1 || tempType == 0){
 			changeToSpawnDesertEagle += 1f/3f;
 		}
@@ -267,6 +282,10 @@ public class EnemySpawner : MonoBehaviour {
 		}
     }
 
+	/// <summary>
+	/// Calculates the change to spawn a hammerHead. It gets higher if the current weapon is weak to the hammerHead and
+	/// if a buildings that are weak to the hammerHead are build.
+	/// </summary>
 	void calculateChangeToSpawnHammerHead(){
 		int tempType = PlayerAttacker.currentWeapon.getType().getType ();
         changeToSpawnHammerHead = 0;
@@ -284,6 +303,10 @@ public class EnemySpawner : MonoBehaviour {
 		}
     }
 
+	/// <summary>
+	/// Calculates the change to spawn a fireFox. It gets higher if the current weapon is weak to the fireFox and
+	/// if a buildings that are weak to the fireFox are build.
+	/// </summary>
 	void calculateChangeToSpawnFireFox(){
 		int tempType = PlayerAttacker.currentWeapon.getType().getType ();
         changeToSpawnFireFox = 0;
@@ -300,35 +323,53 @@ public class EnemySpawner : MonoBehaviour {
 		}
 	}
 
-    void calculateChangeToSpawnPolarBear()
-    {
+	/// <summary>
+	/// calculate the change to spawn a polarBear. it's always 6.25%
+	/// </summary>
+    void calculateChangeToSpawnPolarBear(){
         changeToSpawnPolarBear = 0.0625f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead + changeToSpawnMeepMeep + changeToSpawnOilphant);
     }
 
-    void calculateChangeToSpawnMeepMeep()
-    {
+	/// <summary>
+	/// calculate the change to spawn a meepMeep. it's always 3.125%
+	/// </summary>
+    void calculateChangeToSpawnMeepMeep(){
         changeToSpawnMeepMeep = 0.03125f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead + changeToSpawnPolarBear + changeToSpawnOilphant);
     }
 
-    void calculateChangeToSpawnOilphant()
-    {
+	/// <summary>
+	/// calculate the change to spawn a oilPhant. it's always 6.25%
+	/// </summary>
+    void calculateChangeToSpawnOilphant(){
         changeToSpawnOilphant = 0.0625f * (changeToSpawnDesertEagle + changeToSpawnFireFox + changeToSpawnHammerHead + changeToSpawnPolarBear + changeToSpawnMeepMeep);
     }
 
+	/// <summary>
+	/// calculates the amount of enemies that have to be spawned the next wave. It gets higher if the wave is higher.
+	/// </summary>
     void setEnemiesThisWave(){
-        enemiesThisWave = Random.Range(3 + wave, 5 + wave);
+		enemiesThisWave = (int)Mathf.Ceil(25f * (2f / Mathf.PI) * Mathf.Atan ((float)wave / 8f));
+		Debug.Log (enemiesThisWave);
 	}
 
+	/// <summary>
+	/// Gives changes to spawn for every level according to the normal distribution. With every wave the maximum of 
+	/// the graph moves more to level 5.
+	/// </summary>
 	void calculateLevelToSpawn(){
 		for (int i = 0; i < 5; i++) {
 			changeToSpawnByLevel[i] = (1f / (sigma * Mathf.Sqrt (2f * Mathf.PI))) * Mathf.Exp(-0.5f * Mathf.Pow((((float)i - mu) / sigma), 2));
 		}
 	}
 
+	/// <summary>
+	/// Returns a level to give to an enemy according to the current normal distribution
+	/// </summary>
+	/// <returns>The level to spawn.</returns>
 	int getLevelToSpawn(){
 		float totalChange = 0;
-		for(int i = 0; i < 5; i ++){
-			totalChange += changeToSpawnByLevel[i];
+		for (int i = 0; i < 5; i++) {
+			totalChange += changeToSpawnByLevel [i];
 		}
 		float random = Random.Range (0f, totalChange);
 		if (random <= changeToSpawnByLevel [0]) {
@@ -343,5 +384,4 @@ public class EnemySpawner : MonoBehaviour {
 			return 5;
 		}
 	}
-
 }

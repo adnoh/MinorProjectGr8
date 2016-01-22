@@ -56,6 +56,9 @@ public class PlayerController : MonoBehaviour {
         running = false;
     }
 
+	/// <summary>
+	/// This method is used everytime a new game is started. Each field of this script is set to default.
+	/// </summary>
 	public void FirstLoad() {
         speedMultiplier = 1f;
         count = 0;
@@ -70,18 +73,18 @@ public class PlayerController : MonoBehaviour {
             PlayerAttacker.unlocked[i] = false;
         }
         PlayerAttacker.currentWeapon = new WeaponFactory().getPistol();
-        
     }
 
+	/// <summary>
+	/// A few fields are updated every frame: the playerbars, the rotation of the player, unit count on the screen and the animation and speed of
+	/// the player (running of walking).
+	/// </summary>
 	void Update(){
         healthText.text = PlayerAttributes.getHealth() + " / " + PlayerAttributes.getMaxHealth();
         energyText.text = PlayerAttributes.getEnergy() + " / " + PlayerAttributes.getMaxEnergy();
         Analytics.set_timeOutside();
         Analytics.setScore(Camera.main.GetComponent<Score>().getScore());
 
-		if (Input.GetKeyDown (KeyCode.Alpha0)) {
-			playerAnimator.SetInteger ("weapon", 2);
-		}
 		updateBars ();
 		countText.text = "Amount of units: " + count;
 		levelText.text = "Level: " + PlayerAttributes.getLevel();
@@ -126,7 +129,7 @@ public class PlayerController : MonoBehaviour {
 
 		if (PlayerAttributes.pointsToUpgrade > 0 && Time.time > timeToFlash) {
 			timeToFlash = Time.time + flashingInterval;
-			if(upgradeText.color == Color.white){
+			if(upgradeText.color == Color.white && !PlayerAttributes.capped){
 					upgradeText.color = Color.red;
 			}
 			else{
@@ -138,21 +141,14 @@ public class PlayerController : MonoBehaviour {
 		}
 		PlayerAttributes.getTired ();
 
-		if (PlayerAttributes.getHealth() <= 0) {
-            die();
+		if (PlayerAttributes.getHealth () <= 0) {
+			StartCoroutine(die ());
 		}
-
-        /*
-		if (death) {
-			Time.timeScale = 0;
-		}
-		if (!death) {
-			Time.timeScale = 1;
-		}
-        */
 	}
 
-
+	/// <summary>
+	/// Fixed update is used only for walking.
+	/// </summary>
 	void FixedUpdate (){
 		float moveHorizontal = Input.GetAxis("Horizontal") * Time.deltaTime;
 		float moveVertical = Input.GetAxis ("Vertical") * Time.deltaTime;
@@ -172,7 +168,6 @@ public class PlayerController : MonoBehaviour {
             PlayerSounds.StopWalk();                                // Sound
 		}
 			
-        
 		Vector3 playerPos = player.transform.position;
 		setPosition (playerPos);
 
@@ -181,6 +176,11 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
+	/// <summary>
+	/// This method is used for picking up units in the field, when a collider enters its destroyed if its a unit and a method is called.
+	/// And if an enemy enter the collider it is set within distance so it doesn't walk anymore.
+	/// </summary>
+	/// <param name="collider">Collider.</param>
 	void OnTriggerEnter(Collider collider){
 		if (collider.gameObject.CompareTag ("Pick-Up") && this.gameObject.name.Equals ("player")){
 			Destroy (collider.gameObject);
@@ -221,6 +221,10 @@ public class PlayerController : MonoBehaviour {
         
     }
 
+	/// <summary>
+	/// When an enemy leaves the collider it is set that it isn't within range of the player.
+	/// </summary>
+	/// <param name="collider">Collider.</param>
 	void OnTriggerExit(Collider collider){
         if (collider.gameObject.CompareTag("Enemy"))
         {
@@ -231,40 +235,66 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+	/// <summary>
+	/// this method is called every frame to update the player position. It's used for saving.
+	/// </summary>
+	/// <param name="here">Here.</param>
 	void setPosition(Vector3 here){
 		currentPosition = here;
 	}
 
+	/// <summary>
+	/// this method is called every frame to update the player rotation. It's used for saving.
+	/// </summary>
+	/// <param name="rot">Rot.</param>
 	void setRotation(Quaternion rot){
 		currentrotation = rot;
 	}
 
+	/// <summary>
+	/// This method is called by the script that saves the game.
+	/// </summary>
+	/// <returns>The position.</returns>
 	public static Vector3 getPosition(){
 		return currentPosition;
 	}
 
+	/// <summary>
+	/// This method is called by the script that saves the game.
+	/// </summary>
+	/// <returns>The rotation.</returns>
 	public static Quaternion getRotation(){
 		return currentrotation;
 	}
 
+	/// <summary>
+	/// Gets the count.
+	/// </summary>
+	/// <returns>The count.</returns>
     public static int getCount(){
         return count;
     }
 
+	/// <summary>
+	/// Sets the count when units are spend or units are picked up.
+	/// </summary>
+	/// <param name="change">Change.</param>
     public static void setCount(int change){
         count -= change;
     }
 
-    public static void setCount_2(int change)
-    {
-        count = change;
-    }
-
+	/// <summary>
+	/// This method is used by a Polar Bear enemy to bind the player.
+	/// </summary>
+	/// <param name="b">If set to <c>true</c> b.</param>
     public void bind(bool b)
     {
         binded = b;
     }
 
+	/// <summary>
+	/// Called every frame to update the player bars.
+	/// </summary>
     void updateBars(){
 		playerHealthBar.maxValue = PlayerAttributes.getMaxHealth ();
 		playerHealthBar.value = PlayerAttributes.getHealth();
@@ -274,26 +304,34 @@ public class PlayerController : MonoBehaviour {
 		fatiqueBar.value = PlayerAttributes.getFatique ();
 	}
 
+	/// <summary>
+	/// called when the player dies and playes again. The whole scene is loaded again.
+	/// </summary>
 	public void PlayAgain(){
         Time.timeScale = 1;
 		MiniMapScript.clearEnemies ();		
 		GameStateController.setNewgame (true);
-		// Application.LoadLevel (1);
 		SceneManager.LoadScene(1);
 	}
 
+	/// <summary>
+	/// called when te player dies and quits to main menu.
+	/// </summary>
 	public void Quit(){
         Time.timeScale = 1;
         MiniMapScript.clearEnemies ();        
 		SceneManager.LoadScene (0);
 	}
 
-    public void die()
-    {
+	/// <summary>
+	/// Plays an animation and opens the screen where you can submit your highscore.
+	/// </summary>
+    public IEnumerator die(){
         PlayerSounds.PlayDead();                                // Sound
-        Time.timeScale = 0;
+		death = true;
         playerAnimator.SetBool("dieing", true);
-        death = true;
+		yield return new WaitForSeconds (1);
+		Time.timeScale = 0;
         PlayerAttributes.setHealth(1);
         deathScreen.SetActive(true);
         amountOfDeaths++;
