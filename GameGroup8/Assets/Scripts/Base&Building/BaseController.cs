@@ -8,6 +8,7 @@ public class BaseController : MonoBehaviour{
     private GameObject lastHitObject;
     private GameObject buildObject;
     private Material originalMat;
+    private CameraController camera;
     public static bool pause;
 	public static bool building;
     public static List<GameObject> turrets;
@@ -86,6 +87,7 @@ public class BaseController : MonoBehaviour{
         pause = false;
         turrets = new List<GameObject>(4);
 		building = false;
+        camera = Camera.main.GetComponent<CameraController>();
     }
 	
     void Update(){
@@ -101,6 +103,7 @@ public class BaseController : MonoBehaviour{
 			PlayerAttributes.resetFatique();
 			pause = !pause;
 			if (pause){
+                camera.MoveCamera(1);
 				playerPos = GameObject.Find("player").transform.position;
                 Vector3 TempPlayerPos = GameObject.FindGameObjectWithTag("BASE").transform.position - new Vector3(0,1f,7.81f);
 				GameObject.Find("player").transform.position = TempPlayerPos;
@@ -112,6 +115,7 @@ public class BaseController : MonoBehaviour{
                 //PlayerController.setCount_2(1000);        // hack for units when entered base
 			} 
 			else {
+                camera.MoveCamera(2);
                 GameObject.Find("player").transform.position = playerPos;
 				GameObject.Find ("player").GetComponent<PlayerAttacker>().weaponUnlockScreen.SetActive(false);
                 BaseMenu.SetActive(false);
