@@ -25,10 +25,12 @@ public class SoundsWeapons : MonoBehaviour {
     private int soundNr;
     private AudioSource WeaponFire;
     private float Volume;
+    private bool mute;
 
     void Start()
     {
         Volume = PlayerPrefs.GetFloat("sfx option");
+        mute = PlayerPrefs.GetInt("sfx mute") == 1 ? true : false;
     }
 
     AudioSource[] loadBatSounds(GameObject weapon)
@@ -40,6 +42,7 @@ public class SoundsWeapons : MonoBehaviour {
             sounds[i] = weapon.AddComponent<AudioSource>();
             sounds[i].clip = soundsBaseBat[i];
             sounds[i].volume = Volume;
+            sounds[i].mute = mute;
         }
 
         return sounds;
@@ -54,6 +57,7 @@ public class SoundsWeapons : MonoBehaviour {
             sounds[i] = weapon.AddComponent<AudioSource>();
             sounds[i].clip = soundsPistol[i];
             sounds[i].volume = Volume;
+            sounds[i].mute = mute;
         }
 
         return sounds;
@@ -68,6 +72,7 @@ public class SoundsWeapons : MonoBehaviour {
             sounds[i] = weapon.AddComponent<AudioSource>();
             sounds[i].clip = soundsRam[i];
             sounds[i].volume = Volume;
+            sounds[i].mute = mute;
         }
 
         return sounds;
@@ -83,6 +88,7 @@ public class SoundsWeapons : MonoBehaviour {
             sounds[i].clip = soundsStinger[i];
             sounds[i].loop = true;
             sounds[i].volume = Volume;
+            sounds[i].mute = mute;
         }
 
         return sounds;
@@ -97,6 +103,7 @@ public class SoundsWeapons : MonoBehaviour {
             sounds[i] = weapon.AddComponent<AudioSource>();
             sounds[i].clip = soundsSwordFish[i];
             sounds[i].volume = Volume;
+            sounds[i].mute = mute;
         }
 
         return sounds;
@@ -111,6 +118,7 @@ public class SoundsWeapons : MonoBehaviour {
             sounds[i] = weapon.AddComponent<AudioSource>();
             sounds[i].clip = soundsEel[i];
             sounds[i].volume = Volume;
+            sounds[i].mute = mute;
         }
 
         sounds[1].loop = true;
@@ -127,6 +135,7 @@ public class SoundsWeapons : MonoBehaviour {
             sounds[i] = weapon.AddComponent<AudioSource>();
             sounds[i].clip = soundsWunderWaffen[i];
             sounds[i].volume = Volume;
+            sounds[i].mute = mute;
         }
 
         return sounds;

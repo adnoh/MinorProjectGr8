@@ -10,10 +10,12 @@ public class SoundsEnemies : MonoBehaviour {
     public AudioClip[] Meep = new AudioClip[1];
 
     private float Volume;
+    private bool mute;
 
     void Start()
     {
         Volume = PlayerPrefs.GetFloat("sfx option");
+        mute = PlayerPrefs.GetInt("sfx mute") == 1 ? true : false;
     }
 
     public AudioSource[] loadSharkSounds(GameObject enemy)
@@ -28,6 +30,7 @@ public class SoundsEnemies : MonoBehaviour {
             sounds[i].spatialBlend = 1;
             sounds[i].rolloffMode = AudioRolloffMode.Linear;
             sounds[i].maxDistance = 100;
+            sounds[i].mute = mute;
         }
 
         return sounds;
@@ -45,6 +48,7 @@ public class SoundsEnemies : MonoBehaviour {
             sounds[i].spatialBlend = 1;
             sounds[i].rolloffMode = AudioRolloffMode.Linear;
             sounds[i].maxDistance = 100;
+            sounds[i].mute = mute;
         }
 
         return sounds;
@@ -62,6 +66,7 @@ public class SoundsEnemies : MonoBehaviour {
             sounds[i].spatialBlend = 1;
             sounds[i].rolloffMode = AudioRolloffMode.Linear;
             sounds[i].maxDistance = 100;
+            sounds[i].mute = mute;
         }
 
         return sounds;
@@ -79,6 +84,7 @@ public class SoundsEnemies : MonoBehaviour {
             sounds[i].spatialBlend = 1;
             sounds[i].rolloffMode = AudioRolloffMode.Linear;
             sounds[i].maxDistance = 100;
+            sounds[i].mute = mute;
         }
 
         return sounds;
@@ -96,6 +102,7 @@ public class SoundsEnemies : MonoBehaviour {
             sounds[i].spatialBlend = 1;
             sounds[i].rolloffMode = AudioRolloffMode.Linear;
             sounds[i].maxDistance = 100;
+            sounds[i].mute = mute;
         }
 
         return sounds;
@@ -113,6 +120,7 @@ public class SoundsEnemies : MonoBehaviour {
             sounds[i].spatialBlend = 1;
             sounds[i].rolloffMode = AudioRolloffMode.Linear;
             sounds[i].maxDistance = 100;
+            sounds[i].mute = mute;
         }
 
         return sounds;
