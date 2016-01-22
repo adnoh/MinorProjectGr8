@@ -39,6 +39,8 @@ public class PlayerAttributes : MonoBehaviour {
 
 	public static int amountOfHealthBeds;
 
+	public static bool capped;
+
 	void Start() {
 		pointsToAssignText.text = "Points to assign " + pointsToUpgrade;
 		attackPointsText.text = "Attack Points: " + attackPoints;
@@ -47,6 +49,12 @@ public class PlayerAttributes : MonoBehaviour {
 		energyPointsText.text = "Max Energy Points: " + maxEnergyPoints;
 		upgradePanel.SetActive (false);
 		speed = walkingSpeed;
+	}
+
+	void Update(){
+		if (attackPoints == 25 && speedPoints == 25 && maxHealthPoints == 25 && maxEnergyPoints == 25) {
+			capped = true;
+		}
 	}
 
     public void firstLoad()
@@ -116,6 +124,7 @@ public class PlayerAttributes : MonoBehaviour {
 		if (pointsToUpgrade > 0 && maxHealthPoints < 25) {
 			maxHealthPoints++;
 			maxHealth = 100 + 5 * maxHealthPoints + 50 * amountOfHealthBeds;
+			health += 5;
 			healthPointsText.text = "Max Health Points: " + maxHealthPoints;
 			pointsToUpgrade --;
 			pointsToAssignText.text = "Points to assign " + pointsToUpgrade;

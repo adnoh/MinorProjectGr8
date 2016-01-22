@@ -615,7 +615,7 @@ public class MonsterCollection : MonoBehaviour
         GameObject.Find("PlacementPlane (6)").tag = outside.tagOfMat7;
         GameObject.Find("PlacementPlane (7)").tag = outside.tagOfMat8;
         GameObject.Find("PlacementPlane (8)").tag = outside.tagOfMat9;
-        PlayerController.setCount_2(outside.unitCount);
+        PlayerController.setCount(-outside.unitCount);
 		Camera.main.GetComponent<PSpawner> ().LoadFromSave (outside.xCoordinatesOfUnits, outside.zCoordinatesOfUnits, outside.xCoordinatesOfBaseUnits, outside.zCoordinatesOfBaseUnits, outside.xCoordinatesOfEnergyUnits, outside.zCoordinatesOfEnergyUnits, outside.xCoordinatesOfHealthUnits, outside.zCoordinatesOfHealthUnits, outside.xCoordinatesOfFatiqueUnits, outside.zCoordinatesOfFatiqueUnits);
 	}
 	

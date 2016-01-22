@@ -13,17 +13,11 @@ public class EnemyFactory {
 			return getDesertEagle(level);
 		} else if(name.Equals("FireFox")){
 			return getFireFox(level);
-		}
-        else if (name.Equals("PolarBear"))
-        {
+		}else if (name.Equals("PolarBear")){
             return getPolarBear(level);
-        }
-        else if (name.Equals("MeepMeep"))
-        {
+        }else if (name.Equals("MeepMeep")){
             return getMeepMeep(level);
-        }
-        else
-        {
+        }else{
             return getHammerhead(level);
         }
 	}
@@ -62,17 +56,17 @@ public class EnemyFactory {
 
 	private Enemy getFireFox(int level) {
 		if (level == 1) {
-			return new Enemy (1, 25, 30, 6f, new Type (2), "FireFox");
+			return new Enemy (1, 20, 30, 5f, new Type (2), "FireFox");
 		} else if (level == 2) {
-			return new Enemy (2, 45, 45, 6f, new Type (2), "FireFox");
+			return new Enemy (2, 40, 45, 5f, new Type (2), "FireFox");
 		} else if (level == 3) {
-			return new Enemy (3, 50, 60, 6f, new Type (2), "FireFox");
+			return new Enemy (3, 45, 60, 5f, new Type (2), "FireFox");
 		} else if (level == 4) {
-			return new Enemy (4, 65, 75, 6f, new Type (2), "FireFox");
+			return new Enemy (4, 60, 75, 5f, new Type (2), "FireFox");
 		} else if (level == 5) {
-			return new Enemy (5, 80, 85, 6f, new Type (2), "FireFox");
+			return new Enemy (5, 75, 85, 5f, new Type (2), "FireFox");
 		} else {
-			return new Enemy (1, 25, 30, 6f, new Type (2), "FireFox");
+			return new Enemy (1, 20, 30, 5f, new Type (2), "FireFox");
 		}
 	}
 

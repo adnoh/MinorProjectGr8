@@ -1970,23 +1970,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundsBaseBat:
-  - {fileID: 8300000, guid: e8771cea92bbc1548a8502b4f2446897, type: 3}
-  - {fileID: 8300000, guid: d2da19feea89a334b8bfb73e612f38fe, type: 3}
-  - {fileID: 8300000, guid: cca827834de47ba4993a8743c8823672, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   soundsPistol:
-  - {fileID: 8300000, guid: f3304c4a4dcd8ab4daddb3b48d256a91, type: 3}
+  - {fileID: 0}
   soundsRam:
-  - {fileID: 8300000, guid: 14c19bf61310b014a989b41298956f54, type: 3}
-  - {fileID: 8300000, guid: 2fa419f489138d3489a3833e3358e514, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
   soundsStinger:
   - {fileID: 8300000, guid: 8c4823160208aee4ab42a4c0c5a32718, type: 3}
   soundsSwordFish:
-  - {fileID: 8300000, guid: 4735527e9aa070e4fb8dda68dbce9044, type: 3}
-  - {fileID: 8300000, guid: b2657f3036c26744aabf574eb2583a66, type: 3}
-  - {fileID: 8300000, guid: e78d39766d5410b46b508311e962dbbe, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   soundsEel:
   - {fileID: 8300000, guid: 0af68f873180fb94d8c496db8860e44b, type: 3}
-  - {fileID: 8300000, guid: 5b1b592c937330f469ba46a34151e24d, type: 3}
+  - {fileID: 0}
   soundsWunderWaffen:
   - {fileID: 8300000, guid: 0af68f873180fb94d8c496db8860e44b, type: 3}
 --- !u!135 &13598080

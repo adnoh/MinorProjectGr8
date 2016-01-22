@@ -474,8 +474,11 @@ MonoBehaviour:
   maxHealth: 0
   attackPower: 0
   walkingSpeed: 0
+  updatedSpeed: 0
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 0}
+  isWithinRange: 0
+  baseWithinRange: 0
   attackRate: 2
   poisoned: 0
   timeToGetPoisonDamage: 5
@@ -483,6 +486,19 @@ MonoBehaviour:
   timeToUnStun: 0
   stunTimeInterval: 2
   destroyed: 0
+  dead: 0
+  shotByPlayer: 0
+  healthBar: {fileID: 0}
+  healthBarClone: {fileID: 0}
+  description: {fileID: 0}
+  descriptionClone: {fileID: 0}
+  bullet: {fileID: 0}
+  oilSpot: {fileID: 0}
+  hasShotOil: 0
+  wandering: 1
+  wanderingTime: 0
+  currentWanderingDirection: {x: 0, y: 0, z: 0}
+  timeToChangeDirection: 0
 --- !u!114 &11476892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -494,7 +510,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f27125e8aca444298722cc4b79fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  currentPos: {fileID: 0}
+  speed: 0
   destroyed: 0
+  toBase: 1
+  withinBaseRange: 0
 --- !u!137 &13702874
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

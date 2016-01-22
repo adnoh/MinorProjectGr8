@@ -40,7 +40,10 @@ public class PlayerAttacker : MonoBehaviour {
     private SoundsWeapons WeaponsSounds;
 
     Score _score;
-	
+
+	/// <summary>
+	/// Called when a new game is started. Sets all fields to default.
+	/// </summary>
 	public void FirstLoad () {
         _score = Camera.main.GetComponent<Score>();
         currentWeapon = weaponFactory.getPistol ();
@@ -130,6 +133,9 @@ public class PlayerAttacker : MonoBehaviour {
         }
     }
 
+	/// <summary>
+	/// Loads the fields according to the save file.
+	/// </summary>
 	public void LoadFromSave(){
 		weaponFactory = new WeaponFactory();
 		_score = Camera.main.GetComponent<Score>();
@@ -206,7 +212,11 @@ public class PlayerAttacker : MonoBehaviour {
 			weapons[7].SetActive(true);
 		}
 	}
-	
+
+	/// <summary>
+	/// Number of instances that are called every frame. Like: the particle system for the weaponized eel, attacking and switching weapons
+	/// and switching weapons.
+	/// </summary>
 	void Update () {
 
         pSys1.startRotation = (-gameObject.transform.rotation.eulerAngles.y + 90) * Mathf.Deg2Rad;
@@ -219,6 +229,7 @@ public class PlayerAttacker : MonoBehaviour {
 		bool Base = BaseController.pause;
 		setUnActive ();
 		setActive ();
+		setTextOfLockUnlock ();
 		
 		if (!Base){
 			if(currentWeapon.getIfElectric() && Input.GetMouseButton(0)){
@@ -443,11 +454,17 @@ public class PlayerAttacker : MonoBehaviour {
 		
 	}
 
+	/// <summary>
+	/// Makes the image of the current weapon on the weapon panel red.
+	/// </summary>
 	private void setActive(){
         weaponImages[currentWeaponInt - 1].color = Color.red;
         Analytics.setWeapons(currentWeaponInt - 1);
 	}
 
+	/// <summary>
+	/// Makes all weapon images black if unlocked or gray if locked.
+	/// </summary>
 	private void setUnActive(){
         for(int i = 0; i < 8; i++)
         {
@@ -468,10 +485,18 @@ public class PlayerAttacker : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// sets weapon number i unlocked. Called only when a gearshack is build.
+	/// </summary>
+	/// <param name="i">The index.</param>
 	public static void unlock(int i){
 		unlocked [i - 1] = true;
 	}
 
+	/// <summary>
+	/// sets weapon number i unlocked. Called when a weapon is unlocked in the weapon smith.
+	/// </summary>
+	/// <param name="i">The index.</param>
 	public void unlockInt(int i){
 		if(PlayerController.getCount() >= weaponCost[i - 1]){
 		    unlocked [i - 1] = true;
@@ -482,6 +507,9 @@ public class PlayerAttacker : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Changed the text in the weapon unlock panel when a new weapon is unlocked.
+	/// </summary>
 	public void setTextOfLockUnlock(){
 		for (int i = 0; i < 8; i ++) {
 			if (unlocked [i]) {
@@ -492,6 +520,9 @@ public class PlayerAttacker : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Sets all gameObjects of weapons unactive. Called when a weapon is switched.
+	/// </summary>
 	public void setAllWeaponsUnactive(){
 		for (int i = 0; i < 8; i++) {
 			weapons [i].SetActive (false);

@@ -599,6 +599,8 @@ MonoBehaviour:
   updatedSpeed: 0
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 0}
+  isWithinRange: 0
+  baseWithinRange: 0
   attackRate: 2
   poisoned: 0
   timeToGetPoisonDamage: 5

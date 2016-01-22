@@ -262,7 +262,7 @@ MonoBehaviour:
   energyUnit: {fileID: 181334, guid: f1ab31756389da94eb0a07df43e82f72, type: 2}
   fatiqueUnit: {fileID: 197028, guid: 094c07952463a014f852fa81ee5eac18, type: 2}
   baseUnit: {fileID: 116618, guid: ddd0d7830d19d5c4f821610b5bd6d250, type: 2}
-  amount: 400
+  amount: 200
   Base: {fileID: 323993196}
 --- !u!114 &5347439
 MonoBehaviour:
