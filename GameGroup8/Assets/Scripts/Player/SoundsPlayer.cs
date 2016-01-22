@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Class to load and play all the sounds of the player.
+/// Located on the player object and called in player controller
+/// </summary>
 public class SoundsPlayer : MonoBehaviour {
 
     public AudioClip walk;

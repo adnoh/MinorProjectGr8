@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Class to load and play all the sounds of the weapons of the player.
+/// Located on the player object and called in the player attacker.
+/// </summary>
 public class SoundsWeapons : MonoBehaviour {
 
     public AudioClip[] soundsBaseBat = new AudioClip[3];

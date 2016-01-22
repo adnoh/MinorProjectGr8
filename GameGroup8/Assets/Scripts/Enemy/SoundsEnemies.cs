@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Class to load the enemy sounds.
+/// The script is located on the main camera and used in the enemy controller.
+/// </summary>
 public class SoundsEnemies : MonoBehaviour {
 
     public AudioClip[] Sharky = new AudioClip[1];

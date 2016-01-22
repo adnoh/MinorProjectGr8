@@ -265,6 +265,7 @@ MonoBehaviour:
   baseUnit: {fileID: 116618, guid: ddd0d7830d19d5c4f821610b5bd6d250, type: 2}
   amount: 200
   Base: {fileID: 323993196}
+  amountOfUnitsSpawned: 0
 --- !u!114 &5347439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4186,7 +4187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.006896496, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -9189,6 +9190,46 @@ Prefab:
       propertyPath: m_BounceIntensity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11485002, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
+      propertyPath: soundsBaseBat.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 7a6d01f22857da74fab9fd2c545a8897, type: 3}
+    - target: {fileID: 11485002, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
+      propertyPath: soundsBaseBat.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: f7c33bf960c0be34abb049ea1db63ad8, type: 3}
+    - target: {fileID: 11485002, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
+      propertyPath: soundsBaseBat.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 57805de59a12dac438673137d4121e07, type: 3}
+    - target: {fileID: 11485002, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
+      propertyPath: soundsPistol.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: fd81eeabc746fbc44b48d5d4a617a1f0, type: 3}
+    - target: {fileID: 11485002, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
+      propertyPath: soundsRam.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 6dbf8073285fbde4eae698104d226b1c, type: 3}
+    - target: {fileID: 11485002, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
+      propertyPath: soundsRam.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 9d4fefc75a4c6bf4e905b8bb7187e573, type: 3}
+    - target: {fileID: 11485002, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
+      propertyPath: soundsSwordFish.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1ce7f5aa43a3457458a7c68fd822e7e3, type: 3}
+    - target: {fileID: 11485002, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
+      propertyPath: soundsSwordFish.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 843caf23aac0b4245b3252c5e1821f31, type: 3}
+    - target: {fileID: 11485002, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
+      propertyPath: soundsSwordFish.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: a8b6039b26895e84f8b06651ad08bba6, type: 3}
+    - target: {fileID: 11485002, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
+      propertyPath: soundsEel.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: f440d99a65c0c3d438c4b1d2bd6cd9b8, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4d24c3f8081099b43ace89676dff13f0, type: 2}
   m_IsPrefabParent: 0
@@ -13333,7 +13374,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.39215687}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.959}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -15044,7 +15085,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.39215687}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.959}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -18509,7 +18550,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.39215687}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.959}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -27253,6 +27294,7 @@ GameObject:
   - 65: {fileID: 1905394261}
   - 23: {fileID: 1905394260}
   - 114: {fileID: 1905394263}
+  - 114: {fileID: 1905394264}
   m_Layer: 0
   m_Name: Gate
   m_TagString: Untagged
@@ -27378,6 +27420,17 @@ MonoBehaviour:
   Searchlights: {fileID: 1535564179}
   boughtLights: 0
   boughtFlashlight: 0
+--- !u!114 &1905394264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1905394258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c65d45a6a6eff15468c56a8042bc9e7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1908640213
 GameObject:
   m_ObjectHideFlags: 0
