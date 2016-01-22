@@ -348,7 +348,7 @@ public class EnemySpawner : MonoBehaviour {
 	/// calculates the amount of enemies that have to be spawned the next wave. It gets higher if the wave is higher.
 	/// </summary>
     void setEnemiesThisWave(){
-		enemiesThisWave = (int)(25 * (2 / Mathf.PI) * Mathf.Atan (wave / 8));
+		enemiesThisWave = (int)(25f * (2f / Mathf.PI) * Mathf.Atan ((float)wave / 8f));
 	}
 
 	/// <summary>
