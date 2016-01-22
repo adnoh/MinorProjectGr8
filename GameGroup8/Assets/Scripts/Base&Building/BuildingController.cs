@@ -70,12 +70,11 @@ public class BuildingController : MonoBehaviour {
             enemyPosition = enemys[0].transform.position;
             enemyPosition.y = 0;
             transform.LookAt(enemyPosition);
-			if(/*building.getName().Equals ("Cat-a-pult") ||*/ building.getName ().Equals ("Snailgun")){
+			if(building.getName().Equals ("Cat-a-pult") || building.getName ().Equals ("Snailgun")){
             	transform.Rotate(new Vector3 (0, 1, 0), 90);
 			}
         }
 		if (enemys.Count > 0 && Time.time > attackTime && building.returnIfTurret()) {
-			Debug.Log (2);
 			if (building.getName().Equals("Harpgoon") || building.getName().Equals("Cat-a-pult")) {
 				StartCoroutine (animation ("attack"));
 			}
