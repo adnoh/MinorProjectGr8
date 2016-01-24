@@ -23,8 +23,8 @@ public class EnemySpawner : MonoBehaviour {
 
 	public float timeTillNextWave = 10f;
     public float CountDownTimerValue;
-	private float minTimeBetweenWaves = 45f;
-	private float maxTimeBetweenWaves = 90f;
+	private float minTimeBetweenWaves = 75f;
+	private float maxTimeBetweenWaves = 120f;
 
 	public Text timeTillNextWaveText;
 
@@ -348,7 +348,7 @@ public class EnemySpawner : MonoBehaviour {
 	/// calculates the amount of enemies that have to be spawned the next wave. It gets higher if the wave is higher.
 	/// </summary>
     void setEnemiesThisWave(){
-		enemiesThisWave = (int)Mathf.Ceil(25f * (2f / Mathf.PI) * Mathf.Atan ((float)wave / 8f));
+		enemiesThisWave = (int)Mathf.Ceil(25f * (2f / Mathf.PI) * Mathf.Atan ((float)wave / 12f));
 		Debug.Log (enemiesThisWave);
 	}
 
