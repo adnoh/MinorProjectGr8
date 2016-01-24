@@ -7,7 +7,7 @@
 
 using UnityAnalyticsHeatmap;
 using UnityEngine;
-
+/*
 public class BotDeathTracker : MonoBehaviour, IAnalyticsDispatcher
 {
 
@@ -35,4 +35,4 @@ public class BotDeathTracker : MonoBehaviour, IAnalyticsDispatcher
     {
         analyticsEnabled = true;
     }
-}
+}*/

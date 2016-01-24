@@ -7,7 +7,7 @@
 /// and Heatmapper expect to receive.
 /// 
 /// The script is designed to work in Unity 4.6 > 5.x
-
+/*
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -151,3 +151,4 @@ namespace UnityAnalyticsHeatmap
         }
     }
 }
+*/

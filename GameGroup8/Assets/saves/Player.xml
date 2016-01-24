@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <Player xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <posx>-3.63534117</posx>
+  <posx>0.3851538</posx>
   <posy>0</posy>
-  <posz>-32.5814133</posz>
-  <rotx>1.0257625E-08</rotx>
-  <roty>-0.5208661</roty>
-  <rotz>6.26781471E-09</rotz>
-  <rotw>0.8536384</rotw>
+  <posz>5.00011</posz>
+  <rotx>7.05255854E-09</rotx>
+  <roty>0.4681261</roty>
+  <rotz>-3.922611E-09</rotz>
+  <rotw>0.883661747</rotw>
 </Player>

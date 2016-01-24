@@ -28,7 +28,7 @@ public class PositionTracker : MonoBehaviour, IAnalyticsDispatcher
         yield return new WaitForSeconds(trackIntervalInSeconds);
         if (analyticsEnabled)
         {
-            HeatmapEvent.Send("PlayerPosition", transform.position, Time.timeSinceLevelLoad);
+           // HeatmapEvent.Send("PlayerPosition", transform.position, Time.timeSinceLevelLoad);
             StartCoroutine(TrackingTick());
         }
     }
