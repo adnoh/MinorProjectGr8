@@ -2,7 +2,9 @@
 using System.Collections;
 using UnityEngine.UI;
 
-
+/// <summary>
+/// Now obselete but used to regulate the graphics settings in the game, now removed because it created alot of artifacts.
+/// </summary>
 public class Graphicsslider : MonoBehaviour {
 
 	void Start() {

@@ -9,56 +9,50 @@ public class Seeker : MonoBehaviour
 {
 
     // public / dynamic properties
-    private Transform target;
-    private Transform currentPos;
-    private float speed;
-
+    public Transform target;
+    public Transform currentPos;
+    public float speed;
 	public bool destroyed = false;
+
+    public bool toBase = true;
+    public bool withinBaseRange = false;
 
 
     Vector3[] path;
     int targetIndex; // current index in the path array 
+    bool pathIsFound = false;
 
     // get target
     void Awake()
     {
-        target = GameObject.Find("player").GetComponent<Transform>();
-		currentPos = this.gameObject.GetComponent<Transform> ();
+        target = GameObject.FindGameObjectWithTag("Wall").GetComponent<Transform>();
     }
 
     // Request path
 
     void Start()
     {
-		if (this.gameObject != null) {
-			StartCoroutine (UpdatePath ());
-		}
+	  	PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
 		speed = this.gameObject.GetComponent<EnemyController> ().walkingSpeed;
-    }
-
-	void Update(){
-		speed = this.gameObject.GetComponent<EnemyController> ().walkingSpeed;
-	}
-
-    IEnumerator UpdatePath()
-    {
-        // wait for x seconds before 
-        float refreshRate = 0.5f;
-
-        while (target != null && !destroyed)
-        {
-            if (target != currentPos)
-            {
-                PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
-            }
-            // request new path and follow this path till new path found.
-            yield return new WaitForSeconds(refreshRate);
+        if (this.gameObject.name.Equals("PolarBearPrefab(Clone)")){
+            toBase = false;
         }
     }
 
+	void Update(){
+		speed = this.gameObject.GetComponent<EnemyController> ().updatedSpeed;
+        currentPos = this.gameObject.transform;
+        if (!this.gameObject.GetComponent<EnemyController>().wandering && !pathIsFound)
+        {
+            PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+            pathIsFound = true;
+        }
+	}
+
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
     {
-        if (pathSuccessful && !destroyed){
+        if (pathSuccessful && !destroyed && toBase && !withinBaseRange && !this.gameObject.GetComponent<EnemyController>().wandering)
+        {
             path = newPath;
             // Stop the Coroutine before starting.
             StopCoroutine("FollowPath");
@@ -72,18 +66,20 @@ public class Seeker : MonoBehaviour
               
             Vector3 currentWaypoint = path[0];
 
-		while (true && !destroyed){
-			if (transform.position == currentWaypoint && !destroyed){
+		while (!destroyed && toBase && !withinBaseRange && !this.gameObject.GetComponent<EnemyController>().wandering)
+        {
+            if (transform.position == currentWaypoint && !destroyed && toBase && !withinBaseRange && !this.gameObject.GetComponent<EnemyController>().wandering)
+            {
                     targetIndex++;
                     if (targetIndex >= path.Length){
                         // reset targetindex counter + path
                         targetIndex = 0;
                         path = new Vector3[0];
-
                         yield break;
                     }
                     currentWaypoint = path[targetIndex];
                 }
+            
                 transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
                 yield return null;
             }
@@ -111,6 +107,23 @@ public class Seeker : MonoBehaviour
                     Gizmos.DrawLine(path[i - 1], path[i]);
                 }
             }
+        }
+    }
+
+    public void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.CompareTag("BASE"))
+        {
+            withinBaseRange = true;
+            StopCoroutine("FollowPath");
+        }
+    }
+
+    public void OnTriggerExit(Collider col)
+    {
+        if (col.gameObject.CompareTag("BASE"))
+        {
+            withinBaseRange = false;
         }
     }
 }

@@ -24,6 +24,9 @@ public class Monster {
 	[XmlAttribute("type")]	
     public string type { get; private set; }
 
+    [XmlAttribute("name")]
+    public string name;
+
     [XmlAttribute("location")]
 	public float location_x;
     public float location_y;
@@ -41,10 +44,16 @@ public class Monster {
     [XmlAttribute("isStunned?")]
     public bool isStunned;
 
+	/// <summary>
+	/// Constructor for the monster class. Used for saving enemys.
+	/// </summary>
 	public Monster(){
-
 	}
 
+	/// <summary>
+	/// Constructor for the monster object. Only saves the important fields of the EnemyController attached to an enemy.
+	/// </summary>
+	/// <param name="enemy">Enemy.</param>
 	public Monster(EnemyController enemy){
 		level = enemy.getLevel ();
 		health = enemy.getHealth ();
@@ -52,6 +61,7 @@ public class Monster {
 		attackPower = enemy.getAttackPower ();
 		walkingSpeed = enemy.getWalkingSpeed ();
 		type = enemy.getType().toString();
+        name = enemy.getName();
 
 		location_x = enemy.getPosition().x;
         location_y = enemy.getPosition().y;
@@ -64,7 +74,5 @@ public class Monster {
                 
         isPoisoned = enemy.getPoisoned();
         isStunned = enemy.getStunned();
-
 	}
-
 }

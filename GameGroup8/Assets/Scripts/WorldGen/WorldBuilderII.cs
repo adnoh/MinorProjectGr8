@@ -11,6 +11,7 @@ public class WorldBuilderII : MonoBehaviour {
     private int[][] TileMap;
 
     public GameObject Tree;
+    public GameObject PineTree;
     public int nrTrees;
     public GameObject C_Building;
     public GameObject House;
@@ -20,29 +21,39 @@ public class WorldBuilderII : MonoBehaviour {
     private List<Vector3> TreePos = new List<Vector3>();
     private List<Vector3[]> HouseInfo = new List<Vector3[]>();
     private List<Vector3> HousePos = new List<Vector3>(2);
+    private List<Vector3> WallsPos = new List<Vector3>();
     private Vector3 BasePos;
     private float offset = 0.5f;
 
     private int nrHotels;
 
-    // Initialization on play
+    /// <summary>
+    /// Creates a new map with textures and objects
+    /// </summary>
     public void FirstLoad()
     {
         TDMapII map = new TDMapII(map_x, map_z);
 
         LoadMapTiles(map);
         BuildTexture();
-        Debug.Log("texture build");
+        //Debug.Log("texture build");
         ApplyAssets(map);
-        Debug.Log("assets placed");
+        //Debug.Log("assets placed");
     }
 
+    /// <summary>
+    /// Creates a map from saved data. Only works if this class has data
+    /// </summary>
     public void SecondLoad()
     {
         BuildTexture();
         ReplaceAssets();
     }
 
+    /// <summary>
+    /// Reads the given public texture and turns it into tiles. These tiles are colours stored at an given index
+    /// </summary>
+    /// <returns></returns>
     Color[][] LoadTexture()
     {
         int nrTiles_row = 6;
@@ -61,6 +72,9 @@ public class WorldBuilderII : MonoBehaviour {
         return tiles;
     }
 
+    /// <summary>
+    /// Creates the texture for the map, only works if a tilemap is imported
+    /// </summary>
     public void BuildTexture()
     {
         int texWidth = tileRes * map_x;
@@ -86,6 +100,11 @@ public class WorldBuilderII : MonoBehaviour {
         mesh_renderer.sharedMaterials[0].mainTexture = texture;
     }
 
+    /// <summary>
+    /// Places assets, such as houses and trees, in the world. 
+    /// It does not let objects collide with eachother during the build
+    /// </summary>
+    /// <param name="map"></param>
     public void ApplyAssets(TDMapII map)
     {
         int[] base_map = map.getBasePosition();
@@ -173,7 +192,16 @@ public class WorldBuilderII : MonoBehaviour {
 
                 if (CheckIfPlacableTile(z, x, map) && ObjPossible(TreePos, Pos, 2) && ObjPossible(HousePos, Pos, 6))
                 {
-                    Instantiate(Tree, Pos, Quaternion.identity);
+                    float nr = Random.Range(0f, 1f);
+                    if(nr >= .4)
+                    {
+                        Instantiate(Tree, Pos, Quaternion.identity);
+                    } else if (nr < .4)
+                    {
+                        Pos.y = 0.8f;
+                        Instantiate(PineTree, Pos, new Quaternion(-0.7071f, 0, 0, 0.7071f)); //PineTree
+                    }
+                    
                     TreePos.Add(Pos);
                 }
                 else
@@ -183,7 +211,7 @@ public class WorldBuilderII : MonoBehaviour {
             }
         }
 
-        misses = 15;
+        misses = 25;
         while (TreePos.Count <= nrTrees)
         {
             if (misses <= 0)
@@ -196,7 +224,17 @@ public class WorldBuilderII : MonoBehaviour {
 
             if (CheckIfPlacableTile(z, x, map) && ObjPossible(TreePos, Pos, 2) && ObjPossible(HousePos, Pos, 6))
             {
-                Instantiate(Tree, Pos, Quaternion.identity);
+                float nr = Random.Range(0f, 1f);
+                if (nr >= .4)
+                {
+                    Instantiate(Tree, Pos, Quaternion.identity);
+                }
+                else if (nr < .4)
+                {
+                    Pos.y = 0.8f;
+                    Instantiate(PineTree, Pos, new Quaternion(-0.7071f, 0, 0, 0.7071f)); //PineTree
+                }
+
                 TreePos.Add(Pos);
             }
             else
@@ -205,7 +243,7 @@ public class WorldBuilderII : MonoBehaviour {
             }
         }
 
-
+        
         for (int i = nrHotels; i < HousePos.Count; i++)
         {
             Vector3 Pos = HousePos[i];
@@ -214,10 +252,18 @@ public class WorldBuilderII : MonoBehaviour {
             int z = (int)(150 - Pos.x - offset);
 
             if (HousePossible(z, x, map, 15) && ObjPossible(TreePos, Pos, 10))
+            {
+                Pos.y = 0;
                 placeWalls(Pos);
+                WallsPos.Add(Pos);
+            }
         }
     }
 
+    /// <summary>
+    /// Places the assets in a world that already excisted.
+    /// It does not generate new locations, olny replaces the assets
+    /// </summary>
     public void ReplaceAssets()
     {
         for (int i = 0; i < nrHotels; i++)
@@ -240,16 +286,36 @@ public class WorldBuilderII : MonoBehaviour {
 
         foreach (Vector3 Pos in TreePos)
         {
-            Instantiate(Tree, Pos, Quaternion.identity);
+            if (Pos.y == 0)
+                Instantiate(Tree, Pos, Quaternion.identity);
+            else if (Pos.y != 0)
+                Instantiate(PineTree, Pos, new Quaternion(-0.7071f, 0, 0, 0.7071f)); //PineTree
         }
+
+        foreach (Vector3 Pos in WallsPos)
+        {
+            Vector3 position = new Vector3(Pos.x, 0, Pos.z);
+            placeWalls(position);
+        }
+        
     }
 
+    /// <summary>
+    /// Places the base during the build of the map. Only used for a new map
+    /// </summary>
     private void PlaceBase()
     {
         GameObject Base = GameObject.FindGameObjectWithTag("BASE");
         Base.transform.position = BasePos;
     }
 
+    /// <summary>
+    /// Checks if a generated location is an land tile, so objects do not spawn on roads
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="z"></param>
+    /// <param name="map"></param>
+    /// <returns></returns>
     bool CheckIfPlacableTile(int x, int z, TDMapII map)
     {
         if (map.getTile(x, z) == 1 || map.getTile(x, z) == 2 || map.getTile(x, z) == 3)
@@ -258,6 +324,14 @@ public class WorldBuilderII : MonoBehaviour {
             return false;
     }
 
+    /// <summary>
+    /// Checks if a generated point is a given distance to the road or any other tile than grass
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="z"></param>
+    /// <param name="map"></param>
+    /// <param name="dist"></param>
+    /// <returns></returns>
     bool HousePossible(int x, int z, TDMapII map, int dist)
     {
         for (int i = 0; i < dist; i++)
@@ -286,6 +360,13 @@ public class WorldBuilderII : MonoBehaviour {
         return true;
     }
 
+    /// <summary>
+    /// Checks if a generated object is not overlapping any other object in the given list with the given distance
+    /// </summary>
+    /// <param name="T"></param>
+    /// <param name="place"></param>
+    /// <param name="dist"></param>
+    /// <returns></returns>
     bool ObjPossible(List<Vector3> T, Vector3 place, int dist)
     {
         if (!T.Contains(place))
@@ -309,6 +390,10 @@ public class WorldBuilderII : MonoBehaviour {
         return false;
     }
 
+    /// <summary>
+    /// Loads a TDMap into a tilemap used in this class
+    /// </summary>
+    /// <param name="Tiles"></param>
     public void LoadMapTiles(TDMapII Tiles)
     {
         TileMap = new int[300][];
@@ -327,58 +412,112 @@ public class WorldBuilderII : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Returns the list of locations of all the trees
+    /// </summary>
+    /// <returns></returns>
     public List<Vector3> getTrees()
     {
         return TreePos;
     }
 
+    /// <summary>
+    /// Sets the list of locations of the trees
+    /// </summary>
+    /// <param name="TreeList"></param>
     public void setTrees(List<Vector3> TreeList)
     {
         TreePos = TreeList;
     }
 
+    /// <summary>
+    /// Returns the list with all the info of the houses and city
+    /// </summary>
+    /// <returns></returns>
     public List<Vector3[]> getHouses()
     {
         return HouseInfo;
     }
 
+    /// <summary>
+    /// Set all the info of houses into this class
+    /// </summary>
+    /// <param name="HouseInfo"></param>
     public void setHouses(List<Vector3[]> HouseInfo)
     {
         this.HouseInfo = HouseInfo;
     }
 
+    /// <summary>
+    /// Returns the number of houses in the city, hotels
+    /// </summary>
+    /// <returns></returns>
     public int get_nrHotels()
     {
         return nrHotels;
     }
 
+    /// <summary>
+    /// Sets the number of houses in the city
+    /// </summary>
+    /// <param name="nr"></param>
     public void set_nrHotels(int nr)
     {
         nrHotels = nr;
     }
 
+    /// <summary>
+    /// Return the loaded Tilemap from this class, usefull so after loading the map does not has to be converted again
+    /// </summary>
+    /// <returns></returns>
     public int[][] getMap()
     {
         return TileMap;
     }
 
+    /// <summary>
+    /// Sets the Tilemap for this class, this is usefull after a load so the map does hot has to be converted again
+    /// </summary>
+    /// <param name="map"></param>
     public void setMap(int[][] map)
     {
         TileMap = map;
     }
     
+    /// <summary>
+    /// Places a cool set of walls around houses that are far away from other houses, trees and roads
+    /// </summary>
+    /// <param name="place"></param>
     void placeWalls(Vector3 place)
     {
-        GameObject NorthWall = (GameObject)Instantiate(Wall, place + new Vector3(5, 0.5f, -1.5f), Quaternion.identity);
-        GameObject EastWall = (GameObject)Instantiate(Wall, place + new Vector3(-2.5f, 0.5f, 5), Quaternion.identity);
-        GameObject SouthWall = (GameObject)Instantiate(Wall, place + new Vector3(-10, 0.5f, -2.5f), Quaternion.identity);
-        GameObject WestWall = (GameObject)Instantiate(Wall, place + new Vector3(0, 0.5f, -10), Quaternion.identity);
+        GameObject NorthWall = (GameObject)Instantiate(Wall, place + new Vector3(5, 0.75f, -1.5f), Quaternion.identity);
+        GameObject EastWall = (GameObject)Instantiate(Wall, place + new Vector3(-2.5f, 0.75f, 5), Quaternion.identity);
+        GameObject SouthWall = (GameObject)Instantiate(Wall, place + new Vector3(-10, 0.75f, -2.5f), Quaternion.identity);
+        GameObject WestWall = (GameObject)Instantiate(Wall, place + new Vector3(0, 0.75f, -10), Quaternion.identity);
         NorthWall.transform.Rotate(new Vector3(0, 90, 0));
-        NorthWall.transform.localScale = new Vector3(13, 1, 0.5f);
+        NorthWall.transform.localScale = new Vector3(13, 1.5f, 0.5f);
         EastWall.transform.Rotate(new Vector3(0, 0, 0));
-        EastWall.transform.localScale = new Vector3(15, 1, 0.5f);
+        EastWall.transform.localScale = new Vector3(15, 1.5f, 0.5f);
         SouthWall.transform.Rotate(new Vector3(0, 90, 0));
-        SouthWall.transform.localScale = new Vector3(15, 1, 0.5f);
+        SouthWall.transform.localScale = new Vector3(15, 1.5f, 0.5f);
         WestWall.transform.Rotate(new Vector3(0, 0, 0));
+    }
+
+    /// <summary>
+    /// Returns the positions of the 'object' which contains the walls
+    /// </summary>
+    /// <returns></returns>
+    public List<Vector3> getWalls()
+    {
+        return WallsPos;
+    }
+
+    /// <summary>
+    /// Sets the positions of walls
+    /// </summary>
+    /// <param name="WallsPos"></param>
+    public void setWalls(List<Vector3> WallsPos)
+    {
+        this.WallsPos = WallsPos;
     }
 }

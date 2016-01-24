@@ -15,6 +15,9 @@ public class MiniMapScript : MonoBehaviour {
 
 	public static EnemyController enemy;
 
+	/// <summary>
+	/// Called every frame to move the dots of the enemies and the player.
+	/// </summary>
 	void Update(){
 		float xPlayer = 0.5f * (PlayerController.getPosition ().x);
 		float yPlayer = 0.5f * (PlayerController.getPosition ().z);
@@ -30,7 +33,6 @@ public class MiniMapScript : MonoBehaviour {
 			enemiesDotList.RemoveAt(enemiesDotList.Count - 1);
 		}
 
-
 		if (enemies.Count > 0) {
 			for(int i = 0; i < enemies.Count; i++){
 				enemiesDotList[i].enabled = true;
@@ -39,24 +41,25 @@ public class MiniMapScript : MonoBehaviour {
 				enemiesDotList[i].GetComponent<RectTransform> ().anchoredPosition = new Vector3 (xEnemy, yEnemy, 0f);
 			}
 		}
-
-
-
 	}
 
-    public static void clearEnemies()
-    {
+	/// <summary>
+	/// removes all the enemies from the class. Is used when the main menu or pause menu is opened.
+	/// </summary>
+    public static void clearEnemies(){
         enemies.Clear();
     }
 
-    public void ShowBase_Mmap()
-    {
+	/// <summary>
+	/// Shows the base on the mini map.
+	/// </summary>
+    public void ShowBase_Mmap(){
         Vector3 basePos = GameObject.FindGameObjectWithTag("BASE").transform.position;
         float xBase = 0.5f * basePos.x;
         float yBase = 0.5f * basePos.z;
+
         Vector3 baseDot_pos = new Vector3(xBase, yBase, 0f);
         
         baseDot.GetComponent<RectTransform>().anchoredPosition = baseDot_pos;
     }
-        
 }

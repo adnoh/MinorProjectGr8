@@ -7,6 +7,23 @@ using System.Collections;
 using System.Collections.Generic;
 
 
+/* Teringgroot script dat alle klassen voor het opslaan en serializen van de savedata bevat. 
+   Basically this scripts holds dataclasses of the attributes of the scene.
+   In the save process there are basically these steps
+   // Saving
+   1. Creating a class that holds the data of the scene
+   2. Serialize the class and save it into xml
+   // Loading
+   3. loading data from xml into data-class
+   4. export from data-class to scene
+   
+
+*/
+
+/// <summary>
+///  Class that holds a list of enemies currently in the scene
+/// </summary>
+
 [XmlRoot("MonsterCollection")]
 public class MonsterList
 {
@@ -21,6 +38,9 @@ public class MonsterList
 
 }
 
+/// <summary>
+///  Class that holds a list of turrets currently placed
+/// </summary>
 public class TurretList{
 	
 	[XmlArray("list"),XmlArrayItem("list")]
@@ -31,8 +51,14 @@ public class TurretList{
 	}
 }
 
+
+/// <summary>
+/// Class that holds al data about the base
+/// </summary>
 public class BaseSave
 {
+
+    // positon
     public float posx;
     public float posy;
     public float posz;
@@ -40,6 +66,14 @@ public class BaseSave
     public float roty;
     public float rotz;
     public float rotw;
+
+
+    // properties
+    public int wall;
+    public int health;
+    public bool searchLights;
+    public bool areaLight;
+    
             
     public BaseSave()
     {
@@ -54,11 +88,22 @@ public class BaseSave
         roty = rotation.y;
         rotz = rotation.z;
         rotw = rotation.w;
+        
+        BaseController Base = GameObject.Find("Gate").GetComponent<BaseController>();
+        wall = Base.wall;
+        health = Base.baseHealth;
+        searchLights = Base.boughtLights;
+        areaLight = Base.boughtFlashlight;
     }
 }
 
+/// <summary>
+/// Class that holds the position of the moon
+/// </summary>
 public class MoonSave
 {
+
+    // position
     public float posx;
     public float posy;
     public float posz;
@@ -83,8 +128,12 @@ public class MoonSave
     }
 }
 
+/// <summary>
+/// Class that holds the position of the sun
+/// </summary>
 public class SunSave
 {
+    // position
     public float posx;
     public float posy;
     public float posz;
@@ -109,7 +158,51 @@ public class SunSave
     }
 }
 
+public class AnalyticsSave
+{
+    public int score;
+    public int playerLevel;
+    public int timesDied;
+    
+    public float timeOutside;
+    public float timeCloseToBase;
+    public float timeBase;
 
+    [XmlArray("list"), XmlArrayItem("list")]
+    public int[] weapon;
+    [XmlArray("list"), XmlArrayItem("list")]
+    public int[] shots_hit;
+    [XmlArray("list"), XmlArrayItem("list")]
+    public int[] hit_enemyType;
+    [XmlArray("list"), XmlArrayItem("list")]
+    public int[] playerUpgrades;
+    [XmlArray("list"), XmlArrayItem("list")]
+    public int[] building;
+
+    [XmlArray("list"), XmlArrayItem("list")]
+    public float[][] placeRIP;
+    [XmlArray("list"), XmlArrayItem("list")]
+    public float[][] placeKill;
+
+    public AnalyticsSave()
+    {
+        score = Analytics.getScore();
+        playerLevel = Analytics.getPlayerLevel();
+        timesDied = Analytics.get_timesDied();
+        timeOutside = Analytics.get_timeOutside();
+        timeCloseToBase = Analytics.get_timeCTBase();
+        timeBase = Analytics.get_timeBase();
+
+        weapon = Analytics.getWeapons();
+        shots_hit = Analytics.getHitCount();
+        hit_enemyType = Analytics.getHitByEnemy();
+        playerUpgrades = Analytics.getPlayerUpgrades();
+        building = Analytics.getBuildings();
+
+        placeKill = Analytics.getPlaceKill();
+        placeRIP = Analytics.getPlaceDied();
+    }
+}
 
 
 public class Outsidesave{
@@ -122,18 +215,39 @@ public class Outsidesave{
 	public int totalEnemiesSpawned;
     public float CountDownTimer_Value;
 
+   // tags of fields in the base
     public string tagOfMat1;
 	public string tagOfMat2;
 	public string tagOfMat3;
 	public string tagOfMat4;
-	
-	public int unitCount;
+    public string tagOfMat5;
+    public string tagOfMat6;
+    public string tagOfMat7;
+    public string tagOfMat8;
+    public string tagOfMat9;
+
+    public int unitCount;
+
+	public int[] xCoordinatesOfUnits = new int[2000];
+	public int[] zCoordinatesOfUnits = new int[2000];
+
+	public int[] xCoordinatesOfBaseUnits = new int[50];
+	public int[] zCoordinatesOfBaseUnits = new int[50];
+
+	public int[] xCoordinatesOfHealthUnits = new int[50];
+	public int[] zCoordinatesOfHealthUnits = new int[50];
+
+	public int[] xCoordinatesOfFatiqueUnits = new int[50];
+	public int[] zCoordinatesOfFatiqueUnits = new int[50];
+
+	public int[] xCoordinatesOfEnergyUnits = new int[50];
+	public int[] zCoordinatesOfEnergyUnits = new int[50];
 
 	public Outsidesave(){
         this.wave = Camera.main.GetComponent<EnemySpawner>().wave;
 		// this.timeTillNextWave = Camera.main.GetComponent<EnemySpawner>().timeTillNextWave;
         this.CountDownTimer_Value = Camera.main.GetComponent<EnemySpawner>().CountDownTimerValue;
-        Debug.Log(timeTillNextWave.ToString());
+        //Debug.Log(timeTillNextWave.ToString());
 		this.enemiesDefeaten = EnemySpawner.enemiesDefeaten;
 		this.totalEnemiesSpawned = EnemySpawner.totalEnemiesSpawned;
 		enemiesToDefeat = Camera.main.GetComponent<EnemySpawner> ().enemiesToDefeat;
@@ -141,11 +255,43 @@ public class Outsidesave{
 		tagOfMat2 = GameObject.Find ("PlacementPlane (1)").tag;
 		tagOfMat3 = GameObject.Find ("PlacementPlane (2)").tag;
 		tagOfMat4 = GameObject.Find ("PlacementPlane (3)").tag;
-		unitCount = PlayerController.getCount();
+        tagOfMat5 = GameObject.Find("PlacementPlane (4)").tag;
+        tagOfMat6 = GameObject.Find("PlacementPlane (5)").tag;
+        tagOfMat7 = GameObject.Find("PlacementPlane (6)").tag;
+        tagOfMat8 = GameObject.Find("PlacementPlane (7)").tag;
+        tagOfMat9 = GameObject.Find("PlacementPlane (8)").tag;
+        unitCount = PlayerController.getCount();
+		GameObject[] units = GameObject.FindGameObjectsWithTag ("Pick-Up");
+		for (int i = 0; i < units.Length; i++) {
+			xCoordinatesOfUnits [i] = (int)units [i].transform.position.x;
+			zCoordinatesOfUnits [i] = (int)units [i].transform.position.z;
+		}
+		GameObject[] healthUnits = GameObject.FindGameObjectsWithTag ("Health-Pick-Up");
+		for (int i = 0; i < healthUnits.Length; i++) {
+			xCoordinatesOfHealthUnits [i] = (int)healthUnits [i].transform.position.x;
+			zCoordinatesOfHealthUnits [i] = (int)healthUnits [i].transform.position.z;
+		}
+		GameObject[] fatiqueUnits = GameObject.FindGameObjectsWithTag ("Fatique-Pick-Up");
+		for (int i = 0; i < fatiqueUnits.Length; i++) {
+			xCoordinatesOfFatiqueUnits [i] = (int)fatiqueUnits [i].transform.position.x;
+			zCoordinatesOfFatiqueUnits [i] = (int)fatiqueUnits [i].transform.position.z;
+		}
+		GameObject[] energyUnits = GameObject.FindGameObjectsWithTag ("Energy-Pick-Up");
+		for (int i = 0; i < energyUnits.Length; i++) {
+			xCoordinatesOfEnergyUnits [i] = (int)energyUnits [i].transform.position.x;
+			zCoordinatesOfEnergyUnits [i] = (int)energyUnits [i].transform.position.z;
+		}
+		GameObject[] baseUnits = GameObject.FindGameObjectsWithTag ("Base-Pick-Up");
+		for (int i = 0; i < baseUnits.Length; i++) {
+			xCoordinatesOfBaseUnits [i] = (int)baseUnits [i].transform.position.x;
+			zCoordinatesOfBaseUnits [i] = (int)baseUnits [i].transform.position.z;
+		}
 	}	
 }
 
-
+/// <summary>
+/// Class that holds the player attributes, such as upgrades, health, experience 
+/// </summary>
 public class Player
 {
 	public float posx;
@@ -156,6 +302,22 @@ public class Player
 	public float roty;
 	public float rotz;
 	public float rotw;
+
+    public int attackPoints;
+    public int speedPoints;
+    public int healthPoints;
+    public int energyPoints;
+
+    public int level;
+    public int experience;
+    public int pointsToUpgrade;
+
+    public int health;
+    public int fatique;
+    public int energy;
+
+    public int currentWeapon;
+    public bool[] unlocked;
 	
 	public Player(){
 		var position = PlayerController.getPosition();
@@ -169,9 +331,25 @@ public class Player
 		roty = rotation.y;
 		rotz = rotation.z;
 		rotw = rotation.w;
-		
-		
-	}
+
+        attackPoints = PlayerAttributes.attackPoints;
+        speedPoints = PlayerAttributes.speedPoints;
+        healthPoints = PlayerAttributes.maxHealthPoints;
+        energyPoints = PlayerAttributes.maxEnergyPoints;
+
+        level = PlayerAttributes.level;
+        experience = PlayerAttributes.experience;
+        pointsToUpgrade = PlayerAttributes.pointsToUpgrade;
+
+        health = PlayerAttributes.getHealth();
+        energy = PlayerAttributes.getEnergy();
+        fatique = PlayerAttributes.getFatique();
+
+        currentWeapon = GameObject.Find("player").GetComponent<PlayerAttacker>().currentWeaponInt;
+        unlocked = PlayerAttacker.unlocked;
+
+
+    }
 	public  float getRotx(){
 		return rotx;
 	}
@@ -201,41 +379,7 @@ public class MonsterCollection : MonoBehaviour
 	public static MonsterList monsterlist = new MonsterList();
 	public static TurretList turretList = new TurretList();
     public GameObject player;
-
-	//[XmlArray("monstersList"),XmlArrayItem("monstersList")]
-	//public Monster[] monstersList = new Monster[2];
-
-     /*
-	 void Update(){
-
-		if (Input.GetKeyDown (KeyCode.UpArrow)) {
-
-			playerSave ("Assets/saves/Player.xml");
-            MonsterSave("Assets/saves/monsters.xml");
-		}
-
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            // Load player position
-            playerLoad();
-
-            // Load enemies including enemies health
-            EnemySpawner enemySpawner = Camera.main.GetComponent<EnemySpawner>();
-            enemySpawner.savewave();
-
-            // 
-
-        }
-
-		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
-			GameObject.Find ("Gate").GetComponent<BaseController>().buildFromSave();
-			outsideLoad();
-		}
-
-    }
-    */
-    	
-
+    
     // Save & Load 
 	public static void MonsterSave(string path)
 	{
@@ -253,6 +397,12 @@ public class MonsterCollection : MonoBehaviour
 		}
 	}
 
+
+    /// <summary>
+    /// Serialize 
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
     public static MonsterList MonsterLoad(string path)
     {
         var serializer = new XmlSerializer(typeof(MonsterList));
@@ -292,6 +442,11 @@ public class MonsterCollection : MonoBehaviour
         tempSun.transform.rotation = temprotation;
     }
 
+
+    /// <summary>
+    /// Saves sun to xml
+    /// </summary>
+    /// <param name="path"></param>
     public static void SunSave(string path)
     {
         var sunsave = new SunSave();
@@ -302,8 +457,10 @@ public class MonsterCollection : MonoBehaviour
             serializer.Serialize(stream, sunsave);
         }
     }
-
-
+    /// <summary>
+    /// Saves moon to xml
+    /// </summary>
+    /// <param name="path"></param>
     public static MoonSave MoonPreLoad(string path)
     {
         var serializer = new XmlSerializer(typeof(MoonSave));
@@ -313,11 +470,15 @@ public class MonsterCollection : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    ///  Load moon from xml
+    /// </summary>
+    /// <param name="path"></param>
     public static void MoonLoad(string path)
     {
 
         var moon_ = MoonPreLoad(path);
-
         GameObject tempMoon = GameObject.FindWithTag("Moon");
         Vector3 templocation;
         templocation.x = moon_.posx;
@@ -329,11 +490,14 @@ public class MonsterCollection : MonoBehaviour
         temprotation.w = moon_.rotw;
         temprotation.z = moon_.rotz;
 
-
         tempMoon.transform.position = templocation;
         tempMoon.transform.rotation = temprotation;
     }
 
+    /// <summary>
+    /// Saves moon to xml
+    /// </summary>
+    /// <param name="path"></param>
     public static void MoonSave(string path)
     {
         var moonsave = new MoonSave();
@@ -345,7 +509,10 @@ public class MonsterCollection : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Saves base to xml
+    /// </summary>
+    /// <param name="path"></param>
 
     public static void BaseSave(string path)
     {
@@ -358,6 +525,13 @@ public class MonsterCollection : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// Loads base.xml into base dataclass
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns>Basesave dataclass</returns>
+
     public static BaseSave BasePreLoad(string path)
     {
         var serializer = new XmlSerializer(typeof(BaseSave));
@@ -367,6 +541,11 @@ public class MonsterCollection : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// Loads the data from the base-dataclass in the scene
+    /// </summary>
+    /// <param name="path"></param>
     public static void BaseLoad(string path)
     {
 
@@ -386,10 +565,19 @@ public class MonsterCollection : MonoBehaviour
 
         tempBase.transform.position = templocation;
         tempBase.transform.rotation = temprotation;
+
+        BaseController Base = GameObject.Find("Gate").GetComponent<BaseController>();
+        Base.wall = base_.wall;
+        Base.baseHealth = base_.health;
+        Base.boughtFlashlight = base_.areaLight;
+        Base.boughtLights = base_.searchLights;
     }
 
 
-
+    /// <summary>
+    /// Saves the playerdata-class in a xml
+    /// </summary>
+    /// <param name="path"></param>
 
     public static void playerSave(string path)
 	{
@@ -402,6 +590,11 @@ public class MonsterCollection : MonoBehaviour
 		}
 	}
 
+    /// <summary>
+    /// Loads player xml into player dataclass
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
     public static Player playerpreLoad(string path)
     {
         var serializer = new XmlSerializer(typeof(Player));
@@ -412,12 +605,16 @@ public class MonsterCollection : MonoBehaviour
 
     }
 
-    public static void playerLoad()
+    /// <summary>
+    /// sets player data in scene from player class
+    /// </summary>
+    /// <param name="path"></param>
+
+    public static void playerLoad(string path)
     {
 
-        var player = playerpreLoad("Assets/saves/Player.xml");
+        var player = playerpreLoad(path);
 
-        GameObject tempplayer = GameObject.FindWithTag("Player");
         Vector3 templocation;
         templocation.x = player.getPosx();
         templocation.y = 0.0f;
@@ -428,10 +625,32 @@ public class MonsterCollection : MonoBehaviour
         temprotation.w = player.getRotw();
         temprotation.z = player.getRotz();
 
+		GameObject.Find("player").transform.position = templocation;
+		GameObject.Find("player").transform.rotation = temprotation;
 
-        tempplayer.transform.position = templocation;
-        tempplayer.transform.rotation = temprotation;
+        PlayerAttributes.attackPoints = player.attackPoints;
+        PlayerAttributes.speedPoints = player.speedPoints;
+        PlayerAttributes.maxHealthPoints = player.healthPoints;
+        PlayerAttributes.maxEnergyPoints = player.energyPoints;
+
+        PlayerAttributes.level = player.level;
+        PlayerAttributes.experience = player.experience;
+        PlayerAttributes.pointsToUpgrade = player.pointsToUpgrade;
+
+        PlayerAttributes.setHealth(player.health);
+        PlayerAttributes.setEnergy(player.energy);
+        PlayerAttributes.setFatique(player.fatique);
+
+        GameObject.Find("player").GetComponent<PlayerAttacker>().currentWeaponInt = player.currentWeapon;
+        PlayerAttacker.unlocked = player.unlocked;
+		GameObject.Find ("player").GetComponent<PlayerAttacker> ().LoadFromSave ();
     }
+
+
+    /// <summary>
+    ///  Saves the turrets in a xml
+    /// </summary>
+    /// <param name="path"></param>
 
     public static void turretSave(string path){
 		List<GameObject> Buildings = BaseController.turrets;
@@ -444,7 +663,10 @@ public class MonsterCollection : MonoBehaviour
 			serializer.Serialize(stream, turretList);
 		}
 	}
-
+    /// <summary>
+    /// Saves the data from outsidesavedata-class as xml
+    /// </summary>
+    /// <param name="path"></param>
 	public static void outsideSave(string path){
 
 		var outside = new Outsidesave();
@@ -456,7 +678,11 @@ public class MonsterCollection : MonoBehaviour
 	}
 	
 
-
+    /// <summary>
+    ///  Loads turrets into Turretlist-dataclass
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
 	public static TurretList turretLoad(string path){
 		var serializer = new XmlSerializer(typeof(TurretList));
 		using(var stream = new FileStream(path, FileMode.Open))
@@ -464,6 +690,12 @@ public class MonsterCollection : MonoBehaviour
 			return serializer.Deserialize(stream) as TurretList;
 		}
 	}
+    
+    /// <summary>
+    ///  loads data of outside into outsidesave-data-class
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
 
 	public static Outsidesave outsidepreLoad(string path){
 		var serializer = new XmlSerializer(typeof(Outsidesave));
@@ -472,6 +704,12 @@ public class MonsterCollection : MonoBehaviour
 			return serializer.Deserialize(stream) as Outsidesave;
 		}
 	}
+
+
+    /// <summary>
+    ///  Sets the outsidedata-class data in scene
+    /// </summary>
+    /// <param name="path"></param>
 
 	public static void outsideLoad(string path){
 		var outside = outsidepreLoad (path);
@@ -486,8 +724,19 @@ public class MonsterCollection : MonoBehaviour
 		GameObject.Find ("PlacementPlane (1)").tag = outside.tagOfMat2;
 		GameObject.Find ("PlacementPlane (2)").tag = outside.tagOfMat3;
 		GameObject.Find ("PlacementPlane (3)").tag = outside.tagOfMat4;
-		PlayerController.setCount_2(outside.unitCount);
+        GameObject.Find("PlacementPlane (4)").tag = outside.tagOfMat5;
+        GameObject.Find("PlacementPlane (5)").tag = outside.tagOfMat6;
+        GameObject.Find("PlacementPlane (6)").tag = outside.tagOfMat7;
+        GameObject.Find("PlacementPlane (7)").tag = outside.tagOfMat8;
+        GameObject.Find("PlacementPlane (8)").tag = outside.tagOfMat9;
+        PlayerController.setCount(-outside.unitCount);
+		Camera.main.GetComponent<PSpawner> ().LoadFromSave (outside.xCoordinatesOfUnits, outside.zCoordinatesOfUnits, outside.xCoordinatesOfBaseUnits, outside.zCoordinatesOfBaseUnits, outside.xCoordinatesOfEnergyUnits, outside.zCoordinatesOfEnergyUnits, outside.xCoordinatesOfHealthUnits, outside.zCoordinatesOfHealthUnits, outside.xCoordinatesOfFatiqueUnits, outside.zCoordinatesOfFatiqueUnits);
 	}
+
+    /// <summary>
+    ///  saves the map in xml
+    /// </summary>
+    /// <param name="path"></param>
 	
     public static void MapSave(string path)
     {
@@ -501,6 +750,12 @@ public class MonsterCollection : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// loads world.xml into mapsaver dataclass
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
+
     public static MapSaver mapPre_load(string path)
     {
         var serializer = new XmlSerializer(typeof(MapSaver));
@@ -510,11 +765,32 @@ public class MonsterCollection : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// sets the scene from world
+    /// </summary>
+    /// <param name="path"></param>
     public static void mapLoad(string path)
     {
         var map_load = mapPre_load(path);
         WorldBuilderII world = GameObject.FindGameObjectWithTag("Ground").GetComponent<WorldBuilderII>();
        
         map_load.MapLoader(world);
+    }
+
+
+    /// <summary>
+    ///  saves the analytics-dataclass
+    /// </summary>
+    /// <param name="path"></param>
+
+    public static void AnalyticsSave(string path)
+    {
+        var analyticsSave = new AnalyticsSave();
+
+        var serializer = new XmlSerializer(typeof(AnalyticsSave));
+        using (var stream = new FileStream(path, FileMode.Create))
+        {
+            serializer.Serialize(stream, analyticsSave);
+        }
     }
 }

@@ -41,15 +41,16 @@ public class PathRequestManager : MonoBehaviour {
 
     // Action -> stores the method
     public static void RequestPath(Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> succesful){
-        // if ie al op positie is, ga niet nog een x daarheen. 
-        if (pathStart != pathEnd)
-        {
-            PathRequest newRequest = new PathRequest(pathStart, pathEnd, succesful);
-            instance.pathRequestQueue.Enqueue(newRequest);
-        }
+        
+        PathRequest newRequest = new PathRequest(pathStart, pathEnd, succesful);
+        instance.pathRequestQueue.Enqueue(newRequest);        
         instance.TryProcessNext();
     }
 
+
+    /// <summary>
+    /// Try to processNext requesti in the quee
+    /// </summary>
     void TryProcessNext()
     {
         // If not processing a path and que is not empty
@@ -61,7 +62,11 @@ public class PathRequestManager : MonoBehaviour {
         } 
     }
 
-    // 
+    /// <summary>
+    /// If finished, store the result and go to next
+    /// </summary>
+    /// <param name="path"></param>
+    /// <param name="success"></param>
     public void FinishedProcessingPath(Vector3[] path, bool success)
     {
         currentPathRequest.succesful(path, success);

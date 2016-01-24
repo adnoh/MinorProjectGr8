@@ -11,9 +11,14 @@ public class TDMapII {
     int size_x;
     int size_y;
 
-    int baseSize = 12;
+    int baseSize = 16;
     int nrForr = 10;
 
+    /// <summary>
+    /// Create a new map texture with dimensions (height x width) and a given tile size
+    /// </summary>
+    /// <param name="height"></param>
+    /// <param name="width"></param>
     public TDMapII(int height, int width)
     {
         this.size_y = height;
@@ -35,40 +40,65 @@ public class TDMapII {
 
         List<Vector2> connections = ConnectCityGrid(villages[0], villages[1]);
         ConnectRoadGrid(villages[0], villages[1], connections[0], connections[1]);
-
-        BroadenRoads(7);
-
+        
         for (int i = 0; i < nrForr; i++)
         {
             MakeForrests(i, villages);
         }
     }
-
+    
+    /// <summary>
+    /// Returns the value of an tile (the data of the tile) on (x,y)
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
     public int getTile(int x, int y)
     {
         return tiles[y][x];
     }
 
+    /// <summary>
+    /// Sets the value of an tile on (x,y)
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="value"></param>
     public void setTile(int x, int y, int value)
     {
         tiles[y][x] = value;
     }
 
+    /// <summary>
+    /// Returns all the info for building a forrest in an array [x, y, max to left, max to right]
+    /// </summary>
+    /// <returns></returns>
     public int[][] getForrests()
     {
         return forrests;
     }
 
+    /// <summary>
+    /// Returns all the info for the city [x, y, max to left, max to right]
+    /// </summary>
+    /// <returns></returns>
     public int[] getVillages()
     {
         return villages;
     }
 
+    /// <summary>
+    /// Returns the position of the base [x, y]
+    /// </summary>
+    /// <returns></returns>
     public int[] getBasePosition()
     {
         return BasePos;
     }
 
+    /// <summary>
+    /// Creates a green land texture with 3 different grass tiles
+    /// </summary>
     void MakeLand()
     {
         for (int y = 0; y < size_y; y++)
@@ -92,6 +122,10 @@ public class TDMapII {
         }
     }
 
+    /// <summary>
+    /// Generates the location of the base, accross the map to the city
+    /// </summary>
+    /// <returns></returns>
     int[] PlaceBase()
     {
         int x_pos = Random.Range(30, size_x-30);
@@ -101,13 +135,16 @@ public class TDMapII {
         {
             for (int x = 0; x < baseSize; x++)
             {
-                tiles[y + y_pos - 6][x + x_pos - 6] = 6;
+                tiles[y + y_pos - baseSize/2][x + x_pos - baseSize/2] = 6;
             }
         }
 
         return new int[2] { x_pos, y_pos };
     }
 
+    /// <summary>
+    /// Generates the water at the edges of the map, including the beach
+    /// </summary>
     void MakeWater()
     {
         int bottom_offset = 2;
@@ -183,6 +220,12 @@ public class TDMapII {
         }
     }
 
+    /// <summary>
+    /// Generates places and sizes of the forrests.
+    /// It uses the index i to change the info on the forrest in the forrests list, and the position of the base to make shure they don't overlap
+    /// </summary>
+    /// <param name="i"></param>
+    /// <param name="BasePos"></param>
     void MakeForrests(int i, int[] BasePos)
     {
         int x_pos = 0;
@@ -225,6 +268,11 @@ public class TDMapII {
         */
     }
 
+    /// <summary>
+    /// Generates the place of the city
+    /// </summary>
+    /// <param name="BasePos"></param>
+    /// <returns></returns>
     int[] PlaceVillage(int [] BasePos)
     {
         int x_pos = 75;
@@ -242,6 +290,15 @@ public class TDMapII {
        return new int[4] { x_pos, y_pos, min, max };
     }
 
+    /// <summary>
+    /// This makes the road grid across the map, only the points to where the roads lead to.
+    /// The input is to connect the roads to the city grid and to make shure the roads lead away from the city. 
+    /// </summary>
+    /// <param name="xV"></param>
+    /// <param name="yV"></param>
+    /// <param name="con_1"></param>
+    /// <param name="con_2"></param>
+    /// <returns></returns>
     List<Vector2>[] MakeRoadGrid(int xV, int yV, Vector2 con_1, Vector2 con_2)
     {
         List<Vector2> path1 = new List<Vector2>();
@@ -322,6 +379,12 @@ public class TDMapII {
         return paths;
     }
 
+    /// <summary>
+    /// Generates the road grit to connect the city to the other roads, and generates the square city road grid in points
+    /// </summary>
+    /// <param name="xB"></param>
+    /// <param name="yB"></param>
+    /// <returns></returns>
     List<Vector2> MakeCityGrid(int xB, int yB)
     {
         List<Vector2> junctions = new List<Vector2>();
@@ -357,6 +420,14 @@ public class TDMapII {
         return junctions;
     }
 
+    /// <summary>
+    /// Checkes if the generated point for the road has a proper distance to the other points, only in x AND y direction.
+    /// The input is the new point, the list as to where to compare the point with and the distance
+    /// </summary>
+    /// <param name="point"></param>
+    /// <param name="junctions"></param>
+    /// <param name="dist"></param>
+    /// <returns></returns>
     bool checkOffset(Vector2 point, List<Vector2> junctions, int dist)
     {
         if (junctions.Count != 0)
@@ -373,6 +444,13 @@ public class TDMapII {
         return true;
     }
 
+    /// <summary>
+    /// Checks if the generated point is not close to an other point
+    /// </summary>
+    /// <param name="point"></param>
+    /// <param name="point2"></param>
+    /// <param name="dist"></param>
+    /// <returns></returns>
     bool checkOffset(Vector2 point, Vector2 point2, int dist)
     {
                 if (Mathf.Abs(point2.x - point.x) < dist || Mathf.Abs(point2.y - point.y) < dist)
@@ -383,6 +461,13 @@ public class TDMapII {
         return true;
     }
 
+    /// <summary>
+    /// Checks if the generated point is further away than the given distance
+    /// </summary>
+    /// <param name="point"></param>
+    /// <param name="junctions"></param>
+    /// <param name="dist"></param>
+    /// <returns></returns>
     bool checkDistance(Vector2 point, List<Vector2> junctions, int dist)
     {
         if (junctions.Count != 0)
@@ -399,6 +484,14 @@ public class TDMapII {
         return true;
     }
 
+    /// <summary>
+    /// Connects the main roads grid with roads, the road is only one point wide.
+    /// This method is build to make the roads not straight, but let them meander slightly 
+    /// </summary>
+    /// <param name="x1"></param>
+    /// <param name="y1"></param>
+    /// <param name="x2"></param>
+    /// <param name="y2"></param>
     void makePrimaryRoads(int x1, int y1, int x2, int y2)
     {
         int rand = 0;
@@ -455,6 +548,13 @@ public class TDMapII {
         }
     }
 
+    /// <summary>
+    /// Connects the points of the city grid with straight roads, it also looks to the offset of the grid points
+    /// </summary>
+    /// <param name="x1"></param>
+    /// <param name="y1"></param>
+    /// <param name="x2"></param>
+    /// <param name="y2"></param>
     void makeVillageRoads(int x1, int y1, int x2, int y2)
     {
         while(x1 != x2 || y1 != y2)
@@ -479,6 +579,13 @@ public class TDMapII {
         }
     }
 
+    /// <summary>
+    /// Creates the roads for the map. It uses the grid, connect and broaden methods
+    /// </summary>
+    /// <param name="xB"></param>
+    /// <param name="yB"></param>
+    /// <param name="con_1"></param>
+    /// <param name="con_2"></param>
     void ConnectRoadGrid(int xB, int yB, Vector2 con_1, Vector2 con_2)
     {
         List<Vector2>[] con_Points = MakeRoadGrid(xB, yB, con_1, con_2);
@@ -504,8 +611,17 @@ public class TDMapII {
         point3 = con_Points2[1];
         point4 = con_Points2[con_Points2.Count - 1];
         makePrimaryRoads((int)point3.x, (int)point3.y, (int)point4.x, (int)point4.y);
+
+        BroadenRoads(7);
     }
 
+    /// <summary>
+    /// Creates the roads for the city. It uses the grid, connect and broaden methods.
+    /// The return of this method are the connection points for the main roads
+    /// </summary>
+    /// <param name="xB"></param>
+    /// <param name="yB"></param>
+    /// <returns></returns>
     List<Vector2> ConnectCityGrid(int xB, int yB)
     {
         List<Vector2> con_Points = MakeCityGrid(xB, yB);
@@ -529,9 +645,16 @@ public class TDMapII {
             }
         }
 
+        BroadenRoads(7);
+
         return new List<Vector2> { con_Points[0], con_Points[2] };
     }
 
+    /// <summary>
+    /// Broaden the roads created with the connect methods from 1 to 3 tiles.
+    /// The input is a texture similar to the roadtexture, but with a different index as to not make all the map into roads
+    /// </summary>
+    /// <param name="tileTex"></param>
     void BroadenRoads(int tileTex)
     {
         for (int i = 0; i < size_x; i++)
@@ -546,6 +669,14 @@ public class TDMapII {
         }
     }
 
+    /// <summary>
+    /// Method used in the BroadenRoads method. 
+    /// This method checks for the tile with given coordnates (i,j) if this tile has an roadtile connected to it
+    /// </summary>
+    /// <param name="i"></param>
+    /// <param name="j"></param>
+    /// <param name="tileTex"></param>
+    /// <returns></returns>
     private bool HasFloorConnect(int i, int j, int tileTex)
     {
         if (j < size_y - 1 && tiles[j + 1][i] == tileTex)

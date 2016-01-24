@@ -23,6 +23,13 @@ TagManager:
   - BASE
   - Sun
   - Moon
+  - EnemyHealthBars
+  - Gunsmith
+  - Techsmith
+  - Health-Pick-Up
+  - Energy-Pick-Up
+  - Fatique-Pick-Up
+  - Base-Pick-Up
   layers:
   - Default
   - TransparentFX
@@ -59,4 +66,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: ui
+    uniqueID: 2469989985
     locked: 0

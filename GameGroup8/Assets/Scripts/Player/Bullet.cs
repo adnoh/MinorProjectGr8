@@ -7,11 +7,24 @@ public class Bullet : MonoBehaviour {
 	public int dmg;
 	public bool stun;
 	public bool poisonous;
+    public bool shotByPlayer;
+    public bool shotByEnemy;
 
     Score score_;
 
+    private float Volume;
+    private AudioSource Sound;
+
+	private float timeTillDestroy;
 
     void Start(){
+
+		timeTillDestroy = Time.time + 4.0f;
+
+		if(this.gameObject.name.Equals("CatPrefab(Clone)") || this.gameObject.name.Equals("SnailPrefab(Clone)") || this.gameObject.name.Equals("Harp(Clone)"))
+        {
+            shotByPlayer = false;
+        }
 
         score_ = Camera.main.GetComponent<Score>();
 
@@ -24,17 +37,31 @@ public class Bullet : MonoBehaviour {
 		} else {
 			type = new Type (3);
 		}
+
+        // sound
+        Volume = PlayerPrefs.GetFloat("sfx option");
+        Sound = gameObject.GetComponent<AudioSource>();
+		Sound.volume = Volume;
 	}
 
 	void Update(){
-		if ((this.gameObject.name.Equals("newBullet(Clone)") || this.gameObject.name.Equals ("CatPrefab(Clone)") || this.gameObject.name.Equals("SnailPrefab(Clone)")) && this.gameObject.GetComponent<Rigidbody> ().velocity == new Vector3(0f, 0f, 0f)) {
-			GameObject.Destroy (gameObject);
+		if (Time.time > timeTillDestroy) {
+			GameObject.Destroy (this.gameObject);
+			if (shotByPlayer) {
+				Analytics.setHitCount (false);
+			}
 		}
 	}
 
+    /// <summary>
+    /// If the bullet hits an enemy (col) it does damage to it and destroys the bullet
+    /// </summary>
+    /// <param name="col"></param>
 	void OnTriggerEnter(Collider col){
-		if(col.gameObject.CompareTag ("Enemy") && (this.gameObject.name.Equals("newBullet(Clone)") || this.gameObject.name.Equals ("CatPrefab(Clone)") || this.gameObject.name.Equals("SnailPrefab(Clone)"))){
-			EnemyController enemyController = col.gameObject.GetComponent<EnemyController>();
+		if(col.gameObject.CompareTag ("Enemy") && !shotByEnemy && (this.gameObject.name.Equals("newBullet(Clone)") || this.gameObject.name.Equals ("CatPrefab(Clone)") || this.gameObject.name.Equals("SnailPrefab(Clone)") || this.gameObject.name.Equals("Harp(Clone)"))){
+            Sound.Play();                                   // sound
+            EnemyController enemyController = col.gameObject.GetComponent<EnemyController>();
+            enemyController.shotByPlayer = true;
 			int damage = (int)(Random.Range (dmg, dmg + 10) * type.damageMultiplierToType(enemyController.getType()) * PlayerAttributes.getAttackMultiplier());
 			enemyController.setHealth(enemyController.getHealth () - damage);
 			if(poisonous){
@@ -43,28 +70,44 @@ public class Bullet : MonoBehaviour {
 			if(stun){
 				enemyController.stun (true);
 			}
-			PlayerAttacker.lastAttackedEnemy = enemyController;
 			if(enemyController.getHealth () <= 0){
-				PSpawner spawner = Camera.main.GetComponent<PSpawner>();
-				spawner.placeUnit(enemyController.gameObject.transform.position);
 				EnemySpawner.enemiesDefeaten++;
-				col.gameObject.GetComponent<Seeker>().StopAllCoroutines();
-				col.gameObject.GetComponent<Seeker>().destroyed = true;
+                if (!enemyController.getName().Equals("MeepMeep"))
+                {
+                    col.gameObject.GetComponent<Seeker>().StopAllCoroutines();
+                    col.gameObject.GetComponent<Seeker>().destroyed = true;
+                }
                 score_.addScoreEnemy(enemyController.getLevel());
                 enemyController.destroyed = true;
-				enemyController.StartCoroutine (enemyController.die());                
-                PlayerAttacker.lastAttackedEnemy = null;
+                if (!enemyController.dead){
+                    PlayerAttributes.getExperience(enemyController.getLevel());
+                }
+                enemyController.StartCoroutine (enemyController.die());
 				MiniMapScript.enemies.Remove(enemyController);
-				PlayerAttributes.getExperience(enemyController.getLevel());
-			}
+                Analytics.setPlaceKill(col.gameObject.transform.position);
+                if (col.gameObject.name == "FireFoxPrefab(Clone)")
+                    Analytics.setHitByEnemy(0);
+                if (col.gameObject.name == "HammerHeadPrefab(Clone)")
+                    Analytics.setHitByEnemy(1);
+                if (col.gameObject.name == "DesertEaglePrefab(Clone)")
+                    Analytics.setHitByEnemy(2);
+            }
+
+            if (shotByPlayer)
+            {
+                Analytics.setHitCount(true);
+            }
+
 			GameObject.Destroy (gameObject);
 		}
+        if (col.gameObject.name.Equals("player") && shotByEnemy)
+        {
+            Sound.Play();                                   // sound
+            PlayerAttributes.takeDamage(dmg);
+            GameObject.Destroy(this.gameObject);
+            CameraShaker.shakeCamera();
+        }
 
 	}
-
-	/*void OnCollisionEnter(Collision col){
-		if ((col.gameObject.CompareTag ("Wall") || col.gameObject.name.Equals ("House(Clone)") || col.gameObject.name.Equals("Gate")) && this.gameObject.name.Equals ("newBullet(Clone)")) {
-			GameObject.Destroy (gameObject);
-		}
-	}*/
+ 
 }
