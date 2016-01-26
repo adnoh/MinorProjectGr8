@@ -183,7 +183,7 @@ public class AnalyticsSave
     public float[][] placeRIP;
     [XmlArray("list"), XmlArrayItem("list")]
     public float[][] placeKill;
-
+    
     public AnalyticsSave()
     {
         score = Analytics.getScore();
@@ -318,6 +318,8 @@ public class Player
 
     public int currentWeapon;
     public bool[] unlocked;
+
+    public int score;
 	
 	public Player(){
 		var position = PlayerController.getPosition();
@@ -347,6 +349,7 @@ public class Player
 
         currentWeapon = GameObject.Find("player").GetComponent<PlayerAttacker>().currentWeaponInt;
         unlocked = PlayerAttacker.unlocked;
+        score = Score.score;
 
 
     }
@@ -624,6 +627,12 @@ public class MonsterCollection : MonoBehaviour
         temprotation.y = player.getRoty();
         temprotation.w = player.getRotw();
         temprotation.z = player.getRotz();
+
+
+        int score = player.score;
+        Score.score = score;
+        
+
 
 		GameObject.Find("player").transform.position = templocation;
 		GameObject.Find("player").transform.rotation = temprotation;
