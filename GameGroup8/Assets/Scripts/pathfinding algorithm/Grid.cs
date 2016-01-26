@@ -110,7 +110,7 @@ public class Grid : MonoBehaviour
         return grid[x, z];
     }
 
-    /*
+    
     // visual check for grid
     void OnDrawGizmos()
     {
@@ -128,5 +128,5 @@ public class Grid : MonoBehaviour
             }
         }
     }
-    */
+    
 }

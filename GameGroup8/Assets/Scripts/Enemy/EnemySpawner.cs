@@ -349,7 +349,7 @@ public class EnemySpawner : MonoBehaviour {
 	/// </summary>
     void setEnemiesThisWave(){
 		enemiesThisWave = (int)Mathf.Ceil(25f * (2f / Mathf.PI) * Mathf.Atan ((float)wave / 12f));
-		Debug.Log (enemiesThisWave);
+		// Debug.Log (enemiesThisWave);
 	}
 
 	/// <summary>
