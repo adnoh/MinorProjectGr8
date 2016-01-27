@@ -337,6 +337,7 @@ public class PlayerController : MonoBehaviour {
         amountOfDeaths++;
         textOnDeathScreen.text = "Do you want to play again?";
         scoreOnDeathScreen.text = "You scored: " + Score.score + "\n" + "Do you want to submit your score?";
+        MonsterCollection.AnalyticsSave(Application.dataPath + "/saves/" + System.DateTime.Now.ToString("yyyy-dd-MM_-_HH_mm_ss") + ".xml");
     }
 		
 }

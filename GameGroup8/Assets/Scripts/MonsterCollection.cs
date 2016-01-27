@@ -168,20 +168,20 @@ public class AnalyticsSave
     public float timeCloseToBase;
     public float timeBase;
 
-    [XmlArray("list"), XmlArrayItem("list")]
+    [XmlArray("weapon"), XmlArrayItem("weapon")]
     public int[] weapon;
-    [XmlArray("list"), XmlArrayItem("list")]
+    [XmlArray("Shots_hit"), XmlArrayItem("shots_hit")]
     public int[] shots_hit;
-    [XmlArray("list"), XmlArrayItem("list")]
+    [XmlArray("hits_enemytype"), XmlArrayItem("hits_enemytype")]
     public int[] hit_enemyType;
-    [XmlArray("list"), XmlArrayItem("list")]
+    [XmlArray("PlayerUpgrades"), XmlArrayItem("playerupgrades")]
     public int[] playerUpgrades;
-    [XmlArray("list"), XmlArrayItem("list")]
+    [XmlArray("building"), XmlArrayItem("building")]
     public int[] building;
 
-    [XmlArray("list"), XmlArrayItem("list")]
+    [XmlArray("RIP_place"), XmlArrayItem("placeRIP")]
     public float[][] placeRIP;
-    [XmlArray("list"), XmlArrayItem("list")]
+    [XmlArray("Kill_place"), XmlArrayItem("placekill")]
     public float[][] placeKill;
     
     public AnalyticsSave()
@@ -791,7 +791,6 @@ public class MonsterCollection : MonoBehaviour
     ///  saves the analytics-dataclass
     /// </summary>
     /// <param name="path"></param>
-
     public static void AnalyticsSave(string path)
     {
         var analyticsSave = new AnalyticsSave();

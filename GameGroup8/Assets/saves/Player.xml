@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <Player xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <posx>0.3851538</posx>
+  <posx>0</posx>
   <posy>0</posy>
-  <posz>5.00011</posz>
-  <rotx>7.05255854E-09</rotx>
-  <roty>0.4681261</roty>
-  <rotz>-3.922611E-09</rotz>
-  <rotw>0.883661747</rotw>
+  <posz>0</posz>
+  <rotx>0</rotx>
+  <roty>0</roty>
+  <rotz>0</rotz>
+  <rotw>0</rotw>
+  <attackPoints>0</attackPoints>
+  <speedPoints>0</speedPoints>
+  <healthPoints>0</healthPoints>
+  <energyPoints>0</energyPoints>
+  <level>1</level>
+  <experience>0</experience>
+  <pointsToUpgrade>0</pointsToUpgrade>
+  <health>100</health>
+  <fatique>9999</fatique>
+  <energy>500</energy>
+  <currentWeapon>1</currentWeapon>
+  <unlocked>
+    <boolean>true</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+  </unlocked>
+  <score>0</score>
 </Player>
